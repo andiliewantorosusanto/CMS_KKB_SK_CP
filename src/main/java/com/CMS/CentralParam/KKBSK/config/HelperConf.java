@@ -5,11 +5,11 @@ import java.util.Arrays;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 public class HelperConf {
-  public static HttpEntity<String> getHeader(UsernamePasswordAuthenticationToken ok) {
-    String token = getToken(ok);
+  public static HttpEntity<String> getHeader() {
+    String token = getToken();
     
     HttpHeaders headers = new HttpHeaders();
     headers.set("Content-Type", "application/json");
@@ -21,8 +21,23 @@ public class HelperConf {
     return entity;
   }
 
-  static String getToken(UsernamePasswordAuthenticationToken ok) {
-    Object[] strObjects = ok.getAuthorities().toArray();
+  public static HttpEntity<String> getHeader(String body) {
+    String token = getToken();
+    
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("Content-Type", "application/json");
+    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    headers.add("Authorization", token);
+    HttpEntity<String> entity = new HttpEntity<String>(body,headers);
+
+    return entity;
+  }
+
+
+  static String getToken() {
+
+    Object[] strObjects = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray();
     StringBuffer sb = new StringBuffer();
     for (int i = 1; i < strObjects.length; i++) {
       sb.append(strObjects[i]);

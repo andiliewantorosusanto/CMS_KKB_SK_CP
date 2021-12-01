@@ -2,24 +2,19 @@ package com.CMS.CentralParam.KKBSK.controller;
 
 import java.security.Principal;
 import java.text.ParseException;
-import java.util.Arrays;
-
-import javax.servlet.http.HttpSession;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.model.modelTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.model.RESPON.DataTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTipeKonsumen;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,20 +34,29 @@ public class TipeKonsumenController {
 	private String apiBaseUrl;
 
 	@RequestMapping(value = "/TipeKonsumen/InputData", method = RequestMethod.GET)
-	public String TipeKonsumenInputData(Model model,String firstName,
-	Principal principal, String role, Authentication authentication, HttpSession session,
-	UsernamePasswordAuthenticationToken ok, HelperConf help) {
-		return "/pages/MasterParameter/TipeKonsumen/InputData";
+	public String TipeKonsumenInputData(Model model) {
+		try {
+			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
+			DataTipeKonsumen dataTipeKonsumen = new DataTipeKonsumen();
+			model.addAttribute("dataTipeKonsumen", dataTipeKonsumen);
+			
+			return "/pages/MasterParameter/TipeKonsumen/InputData";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
 	}
 
 	@PostMapping(value = "/TipeKonsumen/ActionInputData")
-	public String TipeKonsumenActionInputData(String firstName, Model model, Principal principal, String role,
-			Authentication authentication, HttpSession session, UsernamePasswordAuthenticationToken ok, HelperConf help,
-			String nama_skema, Integer wilayah, Integer jenisPembiayaan, Integer jenisKendaraan, Integer tipeAsuransi,
-			Integer startOTR, Integer endOTR, Integer endyear, Integer startyear, String tenor1, String tenor2,
-			String tenor3, String tenor4, String tenor5, String tenor6, String tenor7, String tenor8, String tenor9,
-			String tenor10, String startBerlaku, String endBerlaku) throws JsonProcessingException, ParseException {
+	public String TipeKonsumenActionInputData(Model model,DataTipeKonsumen dataTipeKonsumen) throws JsonProcessingException, ParseException {
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			restTemplate.exchange(apiBaseUrl+"/api/rateasuransi/input", HttpMethod.POST, HelperConf.getHeader(objectMapper.writeValueAsString(dataTipeKonsumen)), String.class);
 
+			return "redirect:/TipeKonsumen/data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
 		return "/pages/expired/token";
 	}
 
@@ -62,23 +66,18 @@ public class TipeKonsumenController {
 	}
 
 	@GetMapping(value = { "/TipeKonsumen/Data" })
-	public String getListTipeKonsumen(String firstName, Model model, modelTipeKonsumen modelTipeKonsumen,
-			Principal principal, String role, Authentication authentication, HttpSession session,
-			UsernamePasswordAuthenticationToken ok) {
-
+	public String getListTipeKonsumen(Model model) {
 		try {
 			ResponseEntity<ResponTipeKonsumen> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(ok),
+					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponTipeKonsumen.class);
 
-			model.addAttribute("loginas", principal.getName());
 			model.addAttribute("listDataTipeKonsumen", respon.getBody().getDataTipeKonsumen());
 			return "/pages/MasterParameter/TipeKonsumen/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
-
 	}
 
 	@GetMapping(value = { "/TipeKonsumen/approvaldata" })
