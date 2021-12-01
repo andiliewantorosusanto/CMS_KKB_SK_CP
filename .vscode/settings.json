@@ -1,0 +1,4 @@
+{
+    "java.configuration.updateBuildConfiguration": "disabled",
+    "spring-boot.ls.checkJVM": false
+}

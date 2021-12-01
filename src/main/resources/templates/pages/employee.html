@@ -1,0 +1,17 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:with="http://www.thymeleaf.org/extras/with" layout:decorate="~{layout}" with:title="'B210'">
+<th:block layout:fragment="content">
+
+    <h2>List Of Employees</h2>
+    <table>
+        <tbody>
+            <tr th:each="emp : ${employees}">
+                <td th:text="${emp.empId}"></td>
+                <td th:text="${emp.empName}"></td>
+                <td class="text-center" th:text="${emp.joinDate}"></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+</th:block>

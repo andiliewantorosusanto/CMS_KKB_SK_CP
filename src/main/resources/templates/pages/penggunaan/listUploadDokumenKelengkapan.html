@@ -1,0 +1,78 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:with="http://www.thymeleaf.org/extras/with" layout:decorate="~{layout}" with:title="'B210'">
+<th:block layout:fragment="content">
+    <div class="bottom">
+
+        <div class="col">
+            <div class="container">
+                <br>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">List Approved SHF</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date Request</th>
+                                    <th>Showroom Name</th>
+                                    <th>No Plat</th>
+                                    <th>Status Pengajuan</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="penggunaan :${listPenggunaan}">
+                                    <!-- <td bgcolor="#90EE90" th:text="${penggunaan.createdAt}"></td> -->
+                                 
+                                        <td bgcolor="#90EE90" th:if="${penggunaan.status == 'Final-Approved'}" th:text="${penggunaan.createdAt}"></td>
+                                        <td bgcolor="#ff8080" th:unless="${penggunaan.status == 'Final-Approved'}" th:text="${penggunaan.createdAt}"></td>
+                          
+                                    <td th:text="${penggunaan.namaShowroom}"></td>
+                                    <td th:text="${penggunaan.noPlat}"></td>
+                                   
+                                    <td class="project-actions text-center">
+                                        <a th:if="${penggunaan.status == 'Final-Approved'}" class="btn btn-success btn-sm" href="#">
+                                            <i class="fa fa-check">
+                                            </i>
+                                           Approved
+                                        </a>
+                                            <a th:unless="${penggunaan.status == 'Final-Approved'}" class="btn btn-danger btn-sm" href="#">
+                                                <i class="fa fa-ban">
+                                                </i>
+                                                Rejected
+                                            </a>
+                                        </td>
+
+                                <td class="project-actions text-center">
+                                    <a class="btn btn-primary btn-sm" th:href="@{/penggunaan/detailApproved/(idPenggunaan=${penggunaan.idPenggunaan})}">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        Detail
+                                    </a>
+                                   
+                                   
+                                   
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                  
+
+
+                </div>
+               
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal-body">
+        <!-- Content will be loaded here...  -->
+    </div>
+
+</th:block>
+
+</html>

@@ -1,0 +1,55 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:with="http://www.thymeleaf.org/extras/with" layout:decorate="~{layout}" with:title="'B210'">
+<th:block layout:fragment="content">
+    <div class="bottom">
+
+        <div class="col">
+            <div class="container">
+                <br>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">List Data</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date Request</th>
+                                    <th>No Pol</th>
+                                    <th>Showroom Name</th>
+                                    <th>Showroom Region</th>
+                                    <th>Nominal Request(Rp.)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="penggunaan :${listPenggunaan}">
+                                    <td>
+                                        <a th:href="@{/penggunaan/detailMaker/(idPenggunaan=${penggunaan.idPenggunaan},idShf=${penggunaan.idShf},idShowroom=${penggunaan.idShowroom})}" th:text="${penggunaan.createdAt}" />
+                                    </td>
+                                    <td th:text="${penggunaan.noPol}"></td>
+                                    <td th:text="${penggunaan.namaShowroom}"></td>
+                                    <td th:text="${penggunaan.wilayahShowroom}"></td>
+                                    <td><span class="badge badge-success" th:text="Rp. +${#numbers.formatDecimal(penggunaan.plafondRekomendasiDVH, 6, 'POINT', 0, 'COMMA')}"></span></td>    
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                  
+
+
+                </div>
+               
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal-body">
+        <!-- Content will be loaded here...  -->
+    </div>
+
+</th:block>
+
+</html>

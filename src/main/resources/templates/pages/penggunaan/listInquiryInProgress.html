@@ -1,0 +1,76 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:with="http://www.thymeleaf.org/extras/with" layout:decorate="~{layout}" with:title="'B210'">
+<th:block layout:fragment="content">
+    <div class="bottom">
+
+        <div class="col">
+            <div class="container">
+                <br>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">List Approved SHF</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date Request</th>
+                                    <th>Dealer ID</th>
+                                    <th>Showroom Name</th>
+                                    <th>No Plat</th>
+                                    <th>Status Pengajuan Terakhir</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="penggunaan :${listPenggunaan}">
+                                    <!-- <td bgcolor="#90EE90" th:text="${penggunaan.createdAt}"></td> -->
+                                 
+                                        <td  bgcolor="#D0D0D0" th:text="${penggunaan.createdAt}"></td>
+                                 
+                                        <td th:text="${penggunaan.dealerID}"></td>
+                                    <td th:text="${penggunaan.namaShowroom}"></td>
+                                    <td th:text="${penggunaan.noPlat}"></td>
+                                   
+                                   
+                                    <div th:switch="${penggunaan.status}"> 
+                                        <td th:case="Progress">PIC</td>
+                                        <td th:case="Progress-Komite">BM</td>
+                                        <td th:case="Progress-Komite-RM">RM</td>
+                                        <td th:case="Progress-Komite-DVH">DVH</td>
+                                        <td th:case="Progress-Opr">Checker</td>
+                                        <td th:case="Progress-Opr-2">Checker</td>
+                                        <td th:case="Approved">APP</td>
+                                      </div>
+                                <td class="project-actions text-center">
+                                    <a class="btn btn-primary btn-sm" th:href="@{/penggunaan/detailInquiryProgress/(idPenggunaan=${penggunaan.idPenggunaan})}">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        Detail
+                                    </a>
+                                   
+                                   
+                                   
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                  
+
+
+                </div>
+               
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal-body">
+        <!-- Content will be loaded here...  -->
+    </div>
+
+</th:block>
+
+</html>

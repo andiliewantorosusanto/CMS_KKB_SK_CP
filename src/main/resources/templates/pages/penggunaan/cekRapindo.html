@@ -1,0 +1,286 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:with="http://www.thymeleaf.org/extras/with" layout:decorate="~{layout}" with:title="'B210'">
+<th:block layout:fragment="content">
+
+    <br>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="callout callout-info">
+                <h5><i class="fas fa-info"></i> Note:</h5>
+                Masukkan Nomor Rangka Kendaraan.
+                <div class="row mt-4">
+                    <nav class="w-100">
+                        <div class="nav nav-tabs" id="product-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="product-b-tab" data-toggle="tab" href="#product-b"
+                                role="tab" aria-controls="product-b" aria-selected="true">Rapindo</a>
+                           
+
+                            
+
+
+
+                        </div>
+                    </nav>
+                 
+
+                        <div class="tab-pane fade show active" id="product-b" role="tabpanel" aria-labelledby="product-b-tab">
+
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            
+
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Cek Rapindo</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <form th:action="@{/penggunaan/sendRapindo}" name="myForm"
+                                    onsubmit="return (validateForm() && confirm('Apakah Anda Yakin Simpan Data Ini ? '))" method="GET">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <!-- text input -->
+<!-- 
+                                            <div class="form-group">
+                                                <label>No Rangka</label>
+                                                <input type="text" name="noka" id="noka" class="form-control" autofocus
+                                                >
+                                            </div> -->
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="noka" id="noka" class="form-control" placeholder="ex : DEMO01RAPINDO123321" required>
+                                                <span class="input-group-append">
+                                                  <button type="submit" class="btn btn-info btn-flat">Search !</button>
+                                                </span>
+                                              </div>
+                                            
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.card-body -->
+                     
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/.col (right) -->
+<!-- 
+            <div class="callout callout-info">
+                <h5><i class="fas fa-inbox"></i> Action:</h5>
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-primary" value="Cek Rapindo" />
+                </div>
+            </div> -->
+            </form>
+
+        </div><!-- /.container-fluid -->
+    </section>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+
+
+        function goBack() {
+  window.history.back();
+}
+
+        $(".card-body").keyup(function () {
+
+            $("#otr, #DP").on("keydown keyup", perx);
+
+            function perx() {
+                var totalamountx = (
+                    Number($("#otr").val()) * (Number($("#DP").val() * 0.01))
+                );
+                $("#PH").val(totalamountx);
+            }
+
+        });
+
+
+
+        //KTP Pengaju
+        var modal = document.getElementById('myModal');
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var img = document.getElementById('myImg');
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+       
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+
+        //KTP Pasangan
+        var modal = document.getElementById('myModal2');
+        var img = document.getElementById('myImg2');
+        var modalImg = document.getElementById("img02");
+        var captionText = document.getElementById("caption");
+       
+        var span = document.getElementsByClassName("close2")[0];
+
+
+        //KTP KK
+        var modal = document.getElementById('myModal3');
+        var img = document.getElementById('myImg3');
+        var modalImg = document.getElementById("img03");
+        var captionText = document.getElementById("caption");
+        
+        var span = document.getElementsByClassName("close3")[0];
+
+
+        function validateForm() {
+            var namaKonsumen = document.forms["myForm"]["namaKonsumen"].value;
+            var alamat = document.forms["myForm"]["alamat"].value;
+            if (namaKonsumen == "") {
+                window.alert("Nama Konsumen Harus Diisi!");
+                return false;
+            }
+
+
+        }
+
+        function FillBilling(f) {
+            if (f.billingtoo.checked == true) {
+                f.alamat.value = f.alamatPasangan.value;
+            }
+        }
+        
+    </script>
+    <style>
+        #myImg,
+        #myImg2,
+        #myImg3,
+        #myImg5,
+        #myImg5 {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #myImg:hover,
+        #myImg2:hover,
+        #myImg3:hover,
+        #myImg4:hover,
+        #myImg5:hover {
+            opacity: 0.7;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.9);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content (image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation */
+        .modal-content,
+        #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @-webkit-keyframes zoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0.1)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* The Close Button */
+        .close,
+        .close2,
+        .close3,
+        .close4,
+        .close5 {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close2:hover,
+        .close3:hover,
+        .close4:hover,
+        .close5:hover {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 100% Image Width on Smaller Screens */
+        @media only screen and (max-width: 700px) {
+            .modal-content {
+                width: 100%;
+            }
+        }
+    </style>
+    </head>
+
+    <body>

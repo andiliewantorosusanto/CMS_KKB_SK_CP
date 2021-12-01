@@ -1,0 +1,1061 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:with="http://www.thymeleaf.org/extras/with" layout:decorate="~{layout}" with:title="'B210'">
+<th:block layout:fragment="content">
+
+    <br>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="callout callout-info">
+                <h5><i class="fas fa-info"></i> Note:</h5>
+                Pastikan keseluruhan dokumen valid dan dapat dipertanggung jawabkan.
+                <div class="row mt-4">
+                    <nav class="w-100">
+                        <div class="nav nav-tabs" id="product-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab"
+                                href="#product-desc" role="tab" aria-controls="product-desc"
+                                aria-selected="true">Customer Data</a>
+                            <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab"
+                                href="#product-comments" role="tab" aria-controls="product-comments"
+                                aria-selected="false">Showroom Data</a>
+                            <a class="nav-item nav-link" id="product-marketing-tab" data-toggle="tab"
+                                href="#product-marketing" role="tab" aria-controls="product-marketing"
+                                aria-selected="false">Marketing Data</a>
+                            <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab"
+                                href="#product-rating" role="tab" aria-controls="product-rating"
+                                aria-selected="false">Vehicle Data</a>
+                            <a class="nav-item nav-link" id="product-a-tab" data-toggle="tab" href="#product-a"
+                                role="tab" aria-controls="product-a" aria-selected="false">Loan Data</a>
+                            <a class="nav-item nav-link" id="product-r-tab" data-toggle="tab" href="#product-r"
+                                role="tab" aria-controls="product-r" aria-selected="false">Approva</a>
+                            <a class="nav-item nav-link" id="product-slot-tab" data-toggle="tab" href="#product-slot"
+                                role="tab" aria-controls="product-slot" aria-selected="false">Slot Cek Absah</a>
+                            <!-- <a class="nav-item nav-link" id="product-p-tab" data-toggle="tab" href="#product-p"
+                                role="tab" aria-controls="product-p" aria-selected="false">Pending</a> -->
+
+                        </div>
+                    </nav>
+                    <div class="tab-content p-3" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="product-desc" role="tabpanel"
+                            aria-labelledby="product-desc-tab">
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <!-- general form elements disabled -->
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Data Pemohon</h3>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+
+
+                                            <form th:action="@{/penggunaan/doneMatching}" name="myForm" method="post"
+                                                enctype="multipart/form-data"
+                                                onsubmit="return confirm('Apakah Anda Yakin Permohonan Pencairan SHF Ini Sudah Matching ? ');">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <!-- text input -->
+                                                        <div class="form-group">
+                                                            <label>Customer ID</label>
+                                                            <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                                th:value="${dataPenggunaan?.customerID}"
+                                                                class="form-control" readonly>
+                                                            <input type="text" id="idAPP" name="idAPP" th:value="${nip}"
+                                                                class="form-control" readonly hidden>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Nama</label>
+                                                            <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                                th:value="${dataPenggunaan?.customerName}"
+                                                                class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>NIK</label>
+                                                            <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                                th:value="${dataPenggunaan?.idCardNumber}"
+                                                                class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Tanggal Lahir</label>
+                                                            <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                                th:value="${dataPenggunaan?.birthDate}"
+                                                                class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>No.HP</label>
+                                                            <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                                th:value="081322668285" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+
+                                </div>
+                                <!--/.col (right) -->
+                            </div>
+
+
+                        </div>
+                        <div class="tab-pane fade" id="product-comments" role="tabpanel"
+                            aria-labelledby="product-comments-tab">
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <!-- general form elements disabled -->
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Showroom Data</h3>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>Cabang BCAF</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            th:value="${dataPenggunaan?.wilayahShowroom}"
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Dealer ID</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            th:value="${dataPenggunaan?.dealerID}" class="form-control"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Nama Dealer</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            th:value="${dataPenggunaan?.namaShowroom}"
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <input type="text" id="idShowroom" name="idShowroom"
+                                                    class="form-control" th:value="${dataPenggunaan.idShowroom}" hidden>
+                                                <input type="text" id="idPenggunaan" name="idPenggunaan"
+                                                    class="form-control" th:value="${dataPenggunaan.idPenggunaan}"
+                                                    readonly hidden>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Alamat</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            th:value="${dataPenggunaan?.alamat}" class="form-control"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+
+                                                
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Sisa Plafond</label>
+                                                        <input type="text" name="apalah" id="apalah" th:value="${#numbers.formatDecimal(dataPenggunaan?.plafond, 6, 'POINT', 0, 'COMMA')}" 
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Tanggal Expired Plafond</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            th:value="${dataPenggunaan?.masaBerlaku}" class="form-control"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+
+                                </div>
+                                <!--/.col (right) -->
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <!-- general form elements disabled -->
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Branch Data</h3>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Branch ID</label>
+                                                        <input type="text" id="branchID" name="branchID"
+                                                            th:value="${dataPenggunaan?.branchID}"
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Branch Name</label>
+                                                        <input type="text" id="branchName" name="branchName"
+                                                            th:value="${dataPenggunaan?.branchName}" class="form-control"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div></div></div></div>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="product-marketing" role="tabpanel"
+                            aria-labelledby="product-marketing-tab">
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <!-- general form elements disabled -->
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Marketing Data</h3>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label>NIP</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                        th:value="${dataPenggunaan?.nip}"
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Nama</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                        th:value="${dataPenggunaan?.nama}" class="form-control"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+
+                                </div>
+                                <!--/.col (right) -->
+                            </div>
+
+
+                        </div>
+
+                        <style>
+                            div.gallery {
+                                border: 1px solid #ccc;
+                            }
+
+                            div.gallery:hover {
+                                border: 1px solid #777;
+                            }
+
+                            div.gallery img {
+                                width: 100%;
+                                height: auto;
+                            }
+
+                            div.desc {
+                                padding: 15px;
+                                text-align: center;
+                            }
+
+                            * {
+                                box-sizing: border-box;
+                            }
+
+                            .responsive {
+                                padding: 0 6px;
+                                float: left;
+                                width: 44.99999%;
+                            }
+
+                            @media only screen and (max-width: 1000px) {
+                                .responsive {
+                                    width: 90.99999%;
+                                    margin: 6px 0;
+                                }
+                            }
+
+                            @media only screen and (max-width: 1000px) {
+                                .responsive {
+                                    width: 100%;
+                                }
+                            }
+
+                            .clearfix:after {
+                                content: "";
+                                display: table;
+                                clear: both;
+                            }
+                        </style>
+                        <div class="tab-pane fade" id="product-rating" role="tabpanel"
+                            aria-labelledby="product-rating-tab">
+
+
+
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-6">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Vehicle Document</h3>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <!-- form start -->
+
+                                        <div class="card-body">
+
+                                            <div class="responsive">
+                                                <div class="gallery">
+                                                    <a target="_blank"
+                                                        th:href="@{'../../Rapindo' + ${dataPenggunaan?.idPenggunaan}}+.jpg">
+                                                        <img th:src="@{'../../Rapindo' + ${dataPenggunaan?.idPenggunaan}}+.jpg"
+                                                            alt="Cinque Terre" width="900" height="400">
+                                                    </a>
+                                                    <div class="desc">Hasil Cek Rapindo</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="responsive">
+                                                <div class="gallery">
+                                                    <a target="_blank"
+                                                        th:href="@{'../../STNK' + ${dataPenggunaan?.idShf}}+.jpg">
+                                                        <img th:src="@{'../../STNK' + ${dataPenggunaan?.idShf}}+.jpg"
+                                                            alt="Cinque Terre" width="900" height="400">
+                                                    </a>
+                                                    <div class="desc">Gambar STNK</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="responsive">
+                                                <div class="gallery">
+                                                    <a target="_blank"
+                                                        th:href="@{'../../BPKB'+ ${dataPenggunaan?.idShf}}+.jpg">
+                                                        <img th:src="@{'../../BPKB'+ ${dataPenggunaan?.idShf}}+.jpg"
+                                                            alt="Cinque Terre" width="900" height="400">
+                                                    </a>
+                                                    <div class="desc">Gambar BPKB</div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="responsive">
+                                                <div class="gallery">
+                                                    <a target="_blank"
+                                                        th:href="@{'../../FAKTUR' + ${dataPenggunaan?.idShf}}+.jpg">
+                                                        <img th:src="@{'../../FAKTUR' + ${dataPenggunaan?.idShf}}+.jpg"
+                                                            alt="Cinque Terre" width="900" height="400">
+                                                    </a>
+                                                    <div class="desc">Gambar FAKTUR</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="responsive">
+                                                <div class="gallery">
+                                                    <a target="_blank"
+                                                        th:href="@{'../../FOKEN_D' + ${dataPenggunaan?.idShf}}+.jpg">
+                                                        <img th:src="@{'../../FOKEN_D' + ${dataPenggunaan?.idShf}}+.jpg"
+                                                            alt="Cinque Terre" width="900" height="400">
+                                                    </a>
+                                                    <div class="desc">Gambar Foto Kendaraan Tampak Depan</div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="responsive">
+                                                <div class="gallery">
+                                                    <a target="_blank"
+                                                        th:href="@{'../../FOKEN_KI' + ${dataPenggunaan?.idShf}}+.jpeg">
+                                                        <img th:src="@{'../../FOKEN_KI' + ${dataPenggunaan?.idShf}}+.jpeg"
+                                                            alt="Cinque Terre" width="900" height="400">
+                                                    </a>
+                                                    <div class="desc">Gambar Foto Kendaraan Tampak Samping</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="responsive">
+                                                <div class="gallery">
+                                                    <a target="_blank"
+                                                        th:href="@{'../../FOKEN_KA' + ${dataPenggunaan?.idShf}}+.jpeg">
+                                                        <img th:src="@{'../../FOKEN_KA' + ${dataPenggunaan?.idShf}}+.jpeg"
+                                                            alt="Cinque Terre" width="900" height="400">
+                                                    </a>
+                                                    <div class="desc">Gambar Foto Kendaraan Tampak Samping</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="responsive">
+                                                <div class="gallery">
+                                                    <a target="_blank"
+                                                        th:href="@{'../../FOKEN_B' + ${dataPenggunaan?.idShf}}+.jpeg">
+                                                        <img th:src="@{'../../FOKEN_B' + ${dataPenggunaan?.idShf}}+.jpeg"
+                                                            alt="Cinque Terre" width="900" height="400">
+                                                    </a>
+                                                    <div class="desc">Gambar Foto Kendaraan Tampak Belakang</div>
+                                                </div>
+                                            </div> -->
+
+
+
+
+                                        </div>
+                                        <!-- /.card-body -->
+
+
+
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+
+
+
+                                <!--/.col (left) -->
+                                <!-- right column -->
+                                <div class="col-md-6">
+                                    <!-- general form elements disabled -->
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Vehicle Data</h3>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <!-- text input -->
+
+
+                                                    <div class="form-group">
+                                                        <label>Merk</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            class="form-control" th:value="${dataPenggunaan?.merk}"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Model</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            class="form-control" th:value="${dataPenggunaan?.model}"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Tipe</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            class="form-control" th:value="${dataPenggunaan?.type}"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Tahun</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            class="form-control"
+                                                            th:value="${dataPenggunaan?.tahunMobil}" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>No.Polisi</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            class="form-control" th:value="${dataPenggunaan?.noPol}"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>No.Rangka</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            class="form-control" th:value="${dataPenggunaan?.noKa}"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>No.Mesin</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            class="form-control" th:value="${dataPenggunaan?.noSin}"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Warna</label>
+                                                        <input type="text" id="namaKonsumen" name="namaKonsumen"
+                                                            class="form-control"
+                                                            th:value="${dataPenggunaan?.warnaMobil}" readonly>
+                                                    </div>
+
+                                                    <!-- Percobaan -->
+
+                                                </div>
+
+                                            </div>
+                                            <!-- /.card-body -->
+                                        </div>
+
+                                    </div>
+                                    <!--/.col (right) -->
+
+                                </div>
+                                <!-- /.row -->
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+                        <div class="tab-pane fade" id="product-r" role="tabpanel" aria-labelledby="product-r-tab">
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp;
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+
+                            <!-- general form elements disabled -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Approva Data</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Cek Absah</label>
+                                                <input type="text" name="statusCekAbsah" id="statusCekAbsah"
+                                                    th:value="${dataPenggunaan.statusCekAbsah}" class="form-control"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>APP ID</label>
+                                                <input type="text" name="appid" id="appid"
+                                                    th:value="${dataPenggunaan.appid}" class="form-control"
+                                                    oninvalid="alert('Mohon isi field APP ID pada Tab Approva');"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>OTR</label>
+                                                <input type="text" name="otr" id="otr" th:value="${#numbers.formatDecimal(dataPenggunaan?.plafondRekomendasiDVH, 6, 'POINT', 0, 'COMMA')}"  class="form-control" oninvalid="alert('Mohon isi field OTR pada Tab Approva');" required readonly>
+                                            </div>
+                                        </div>
+                                     
+                            </div>
+        
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+        
+                </div>
+        
+                <!--/.col (right) -->
+
+
+
+
+
+
+
+
+
+
+                <div class="tab-pane fade" id="product-slot" role="tabpanel" aria-labelledby="product-slot-tab">
+                    &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                    &emsp; &emsp; &emsp; &emsp;
+                    &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                    &emsp; &emsp; &emsp; &emsp;
+                    &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                    &emsp; &emsp; &emsp; &emsp;
+                    &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+
+                    <!-- general form elements disabled -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Data Slot Cek Absah</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Sisa Slot Cek Absah</label>
+                                        <input type="text" name="slotAbsah" id="slotAbsah" th:value="${dataPenggunaan.slotAbsah}" 
+                                            class="form-control" readonly>
+                                    </div>
+                                </div>
+                                
+                             
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+            </div>
+
+        </div>
+
+        <!--/.col (right) -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="tab-pane fade" id="product-a" role="tabpanel" aria-labelledby="product-a-tab">
+
+            <!-- general form elements disabled -->
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Loan Data</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- text input -->
+
+                            <div class="form-group">
+                                <label>Jumlah Pengajuan SHF</label>
+                                <input type="text" name="jumlahPenggunaan" id="jumlahPenggunaan" th:value="${#numbers.formatDecimal(dataPenggunaan?.plafondRekomendasiDVH, 6, 'POINT', 0, 'COMMA')}" 
+                                    class="form-control" readonly>
+                                    <input type="text" name="jumlahPenggunaannya" id="jumlahPenggunaannya" th:value="${dataPenggunaan?.plafondRekomendasiDVH}" 
+                                    class="form-control" readonly hidden>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>DP(%)</label>
+                                <input type="text" name="DP" id="DP" class="form-control"
+                                    value="40%" readonly>
+                                    <input type="text" name="DPnya" id="DPnya" class="form-control"
+                                    value="0.4" readonly hidden>
+                            </div>
+                        </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>PH</label>
+                                    <input type="text" name="phvnya" id="phvnya" th:value="${dataPenggunaan?.totalPH}" 
+                                    class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Estimasi Tenor (Bulan)</label>
+                                    <input type="text" name="Tenor" id="Tenor" class="form-control" th:value="${Tenor}"
+                                        readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Bunga ef</label>
+                                    <input type="text" name="Bungaef" id="Bungaef" class="form-control" value="9%"
+                                        readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Angsuran</label>
+                                    <input type="text" name="Angsuranv" th:value="${dataPenggunaan?.angsuran}" id="Angsuranv" value=""
+                                        class="form-control" readonly>
+                                </div>
+
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Total Hutang</label>
+                            <input type="text" name="tohutv" id="tohutv" th:value="${dataPenggunaan?.totalHutang}"  class="form-control" value=""
+                                readonly>
+                        </div>
+                    </div>
+                 
+
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Nilai Pencairan Showroom</label>
+                            <input type="text" name="cairv" id="cairv" th:value="${dataPenggunaan?.nilaiPencairan}" class="form-control" value=""
+                                readonly>
+                        </div>
+                    </div>
+
+
+                    <!-- <input type="button" class="btn btn-primary" onClick="multiplyBy()" Value="Simulasi" style="float: right;"/> -->
+                </div>
+
+            </div>
+            <!-- /.card-body -->
+        </div>
+
+    </div>
+    <!--/.col (right) -->
+
+</div>
+</div>
+</div>
+<!--/.col (right) -->
+
+
+
+
+                <div class="callout callout-info">
+                    <h5><i class="fas fa-inbox"></i> Action:</h5>
+                    <div class="card-footer">
+                        <a button class="btn btn-default" data-dismiss="modal" href="javascript:history.back()">Back</a></button>
+                           
+
+                        <input type="submit" class="btn btn-primary" value="Proceed" />
+                    </div>
+                </div>
+                </form>
+
+            </div><!-- /.container-fluid -->
+    </section>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        function multiplyBy() {
+            num1 = document.getElementById("DPnya").value;
+            tenornya = document.getElementById("Tenor").value;
+            num31 = document.getElementById("jumlahPenggunaannya").value;
+            num3 = document.getElementById("jumlahPenggunaannya").value * 0.4;
+            num2 = num31 - num3;
+            document.getElementById("Angsuranv").value = (((num2 * 0.09) * tenornya / 12) / tenornya);
+            document.getElementById("phvnya").value =  num3;
+            document.getElementById("tohutv").value = ((num2) + ((num2) * 0.09) * tenornya / 12)
+            //((Number($("#ph").val())) + ((Number($("#ph").val()) * 0.09) * 3 / 12))
+            document.getElementById("cairv").value = num2;
+            //(Number($("#otr").val()) -  (Number($("#otr").val()) * (Number($("#DP").val() * 0.01))))
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        $(".card-body").keyup(function () {
+
+            $("#otr, #DP").on("keydown keyup", perx);
+
+            function perx() {
+                var totalamountx = (
+                    Number($("#otr").val()) * (Number($("#DP").val() * 0.01))
+                );
+                $("#PH").val(totalamountx);
+            }
+
+        });
+
+
+
+        //KTP Pengaju
+        var modal = document.getElementById('myModal');
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var img = document.getElementById('myImg');
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        img.onclick = function () {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+
+        //KTP Pasangan
+        var modal = document.getElementById('myModal2');
+        var img = document.getElementById('myImg2');
+        var modalImg = document.getElementById("img02");
+        var captionText = document.getElementById("caption");
+        img.onclick = function () {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
+        var span = document.getElementsByClassName("close2")[0];
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        //KTP KK
+        var modal = document.getElementById('myModal3');
+        var img = document.getElementById('myImg3');
+        var modalImg = document.getElementById("img03");
+        var captionText = document.getElementById("caption");
+        img.onclick = function () {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
+        var span = document.getElementsByClassName("close3")[0];
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        //  //KTP NPWP
+        //  var modal = document.getElementById('myModal4');
+        // var img = document.getElementById('myImg4');
+        // var modalImg = document.getElementById("img04");
+        // var captionText = document.getElementById("caption");
+        // img.onclick = function(){
+        // modal.style.display = "block";
+        // modalImg.src = this.src;
+        // captionText.innerHTML = this.alt;
+        // }
+        // var span = document.getElementsByClassName("close4")[0];
+        // span.onclick = function() {
+        // modal.style.display = "none";
+        // }
+
+        //  //KTP CBT
+        //  var modal = document.getElementById('myModal5');
+        // var img = document.getElementById('myImg5');
+        // var modalImg = document.getElementById("img05");
+        // var captionText = document.getElementById("caption");
+        // img.onclick = function(){
+        // modal.style.display = "block";
+        // modalImg.src = this.src;
+        // captionText.innerHTML = this.alt;
+        // }
+        // var span = document.getElementsByClassName("close5")[0];
+        // span.onclick = function() {
+        // modal.style.display = "none";
+        // }
+
+        function validateForm() {
+            var namaKonsumen = document.forms["myForm"]["namaKonsumen"].value;
+            var alamat = document.forms["myForm"]["alamat"].value;
+            if (namaKonsumen == "") {
+                window.alert("Nama Konsumen Harus Diisi!");
+                return false;
+            }
+
+
+        }
+
+        function FillBilling(f) {
+            if (f.billingtoo.checked == true) {
+                f.alamat.value = f.alamatPasangan.value;
+            }
+        }
+    </script>
+    <style>
+        #myImg,
+        #myImg2,
+        #myImg3,
+        #myImg5,
+        #myImg5 {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #myImg:hover,
+        #myImg2:hover,
+        #myImg3:hover,
+        #myImg4:hover,
+        #myImg5:hover {
+            opacity: 0.7;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.9);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content (image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation */
+        .modal-content,
+        #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @-webkit-keyframes zoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0.1)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* The Close Button */
+        .close,
+        .close2,
+        .close3,
+        .close4,
+        .close5 {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close2:hover,
+        .close3:hover,
+        .close4:hover,
+        .close5:hover {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 100% Image Width on Smaller Screens */
+        @media only screen and (max-width: 700px) {
+            .modal-content {
+                width: 100%;
+            }
+        }
+    </style>
+    </head>
+
+    <body>

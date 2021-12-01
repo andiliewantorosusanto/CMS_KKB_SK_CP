@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+    <head th:replace="fragments/common :: head"></head>
+    <body class="c-app">
+        <div th:replace="fragments/common :: sidebar"></div>
+        <div class="c-wrapper">
+            <div th:replace="fragments/common :: header"></div>
+            <div class="c-body">
+                <main class="c-main">
+                    <div class="container-fluid">
+                        <div class="fade-in">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header"> Form Input - Rate Bunga
+                                            <div class="card-header-actions"></div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <form id="signupForm" novalidate="novalidate">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="firstname">Nama</label>
+                                                            <input class="form-control" id="nama" type="text" name="nama"
+                                                                placeholder="nama">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="firstname">Produk</label>
+                                                            <input class="form-control" id="produk" type="text" name="produk"
+                                                                placeholder="produk">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="firstname">Deskripsi</label>
+                                                            <input class="form-control" id="deskripsi" type="text" name="deskripsi"
+                                                                placeholder="deskripsi">
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="password">Masa Berlaku
+                                                                    Start</label>
+                                                                <input class="form-control" id="otrstart" type="date"
+                                                                    name="otrstart" placeholder="Rp.">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="confirm_password">Masa Berlaku
+                                                                    End</label>
+                                                                <input class="form-control" id="otrend" type="date"
+                                                                    name="otrend" placeholder="Rp.">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <button class="btn btn-primary" type="submit" name="signup"
+                                                                value="Sign up">Save</button>
+                                                                <button class="btn btn-danger" type="submit" name="signup"
+                                                                value="Sign up">Cancel</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </main>
+            </div>
+            <div th:replace="fragments/common :: footer"></div>
+        </div>
+        <div th:replace="fragments/common :: scripts"></div>
+    </body>
+</html>

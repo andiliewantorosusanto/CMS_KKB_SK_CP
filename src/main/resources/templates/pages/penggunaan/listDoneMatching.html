@@ -1,0 +1,65 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:with="http://www.thymeleaf.org/extras/with" layout:decorate="~{layout}" with:title="'B210'">
+<th:block layout:fragment="content">
+    <div class="bottom">
+
+        <div class="col">
+            <div class="container">
+                <br>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">List Pencairan SHF</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date Request</th>
+                                    <th>APP ID</th>
+                                    <th>Dealer ID</th>
+                                    <th>No Plat</th>
+                                    <th>Nama Showroom</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="penggunaan :${listPenggunaan}">
+                                    <td bgcolor="#90EE90" th:text="${penggunaan.createdAt}"></td>
+                                    <td th:text="${penggunaan.appid}"></td>
+                                    <td th:text="${penggunaan.dealerID}"></td>
+                                    <td th:text="${penggunaan.noPlat}"></td>
+                                    <td th:text="${penggunaan.namaShowroom}"></td>
+
+                                <td class="project-actions text-right">
+                                    <a class="btn btn-primary btn-sm" th:href="@{/penggunaan/detailDoneMatching/(idPenggunaan=${penggunaan.idPenggunaan},idShf=${penggunaan.idShf},idShowroom=${penggunaan.idShowroom})}">
+
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        Detail
+                                    </a>
+                                   
+                                   
+                                   
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                  
+
+
+                </div>
+               
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal-body">
+        <!-- Content will be loaded here...  -->
+    </div>
+
+</th:block>
+
+</html>

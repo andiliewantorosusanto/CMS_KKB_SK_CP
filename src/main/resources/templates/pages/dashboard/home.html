@@ -1,0 +1,276 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:with="http://www.thymeleaf.org/extras/with" layout:decorate="~{layout}" with:title="'B210'">
+<th:block layout:fragment="content">
+<div class="bottom">
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<!-- 
+<script type="text/javascript">
+$(function() {
+  $('button[type=submit]').click(function(e) {
+    e.preventDefault();
+    //Disable submit button
+    $(this).prop('disabled',true);
+    
+    var form = document.forms[0];
+    var formData = new FormData(form);
+    	
+    // Ajax call for file uploaling
+    var ajaxReq = $.ajax({
+      url : '/import/import',
+      type : 'post',
+      data : formData,
+      cache : false,
+      contentType : false,
+      processData : false,
+      xhr: function(){
+        //Get XmlHttpRequest object
+         var xhr = $.ajaxSettings.xhr() ;
+        
+        //Set onprogress event handler 
+         xhr.upload.onprogress = function(event){
+          	var perc = Math.round((event.loaded / event.total) * 100);
+          	$('#progressBar').text(perc + '%');
+          	$('#progressBar').css('width',perc + '%');
+         };
+         return xhr ;
+    	},
+    	beforeSend: function( xhr ) {
+    		//Reset alert message and progress bar
+    		$('#alertMsg').text('');
+    		$('#progressBar').text('');
+    		$('#progressBar').css('width','0%');
+              }
+    });
+  
+    // Called on success of file upload
+    ajaxReq.done(function(msg) {
+      $('#alertMsg').text("Success");
+      $('input[type=file]').val('');
+      $('button[type=submit]').prop('disabled',false);
+    });
+    
+    // Called on failure of file upload
+    ajaxReq.fail(function(jqXHR) {
+      $('#alertMsgs').text("Please Select the File Before");
+      $('button[type=submit]').prop('disabled',false);
+    });
+  });
+});
+</script> -->
+<br>
+        <!-- Main content -->
+       <section class="content">
+         <div class="container-fluid">
+           <!-- Small boxes (Stat box) -->
+           <div class="row">
+             <!--batas-->
+             <div class="col-lg-3 col-6" th:if="${rolenya == 'Operation' || rolenya == 'PIC-Operation'|| rolenya == 'OPERATION-DOCSUP'}">
+               <!-- small box -->
+               <div class="small-box bg-info">
+                 <div class="inner">
+                        <h3 th:text="${countProgressOpr}"></h3>
+     
+                   <p>Waiting for Checking</p>
+                 </div>
+                 <div class="icon">
+                   <i class="ion ion-bag"></i>
+                 </div>
+                 <a th:href="@{/penggunaan/listDetailMaker/(firstName=${#authentication.name})}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+             </div>
+             <!--batas-->
+
+             <div class="col-lg-3 col-6" th:if="${rolenya == 'OPERATION-CHECKER'}">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                       <h3 th:text="${countProgressOpr2}"></h3>
+    
+                  <p>Waiting for Checking</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a th:href="@{/penggunaan/listDetailMaker2/(firstName=${#authentication.name})}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!--batas-->
+
+             <!--batas-->
+             <div class="col-lg-3 col-6" th:if="${rolenya == 'SHOWROOM FINANCING STAFF'}">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                       <h3 th:text="${countProgress}"></h3>
+    
+                  <p>Waiting for Approval</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a th:href="@{/penggunaan/(firstName=${#authentication.name})}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!--batas-->
+
+
+
+             <!--batas-->
+             <div class="col-lg-3 col-6" th:if="${rolenya == 'OPERATION-APP'}">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                       <h3 th:text="${countProgressAPP}"></h3>
+    
+                  <p>Waiting for Checking</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a th:href="@{/penggunaan/listDoneMatching/(firstName=${#authentication.name})}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+            </div>
+            <!--batas-->
+
+             <!-- ./col -->
+             <div class="col-lg-3 col-6" th:if="${rolenya == 'SHOWROOM FINANCING STAFF' || rolenya == 'Operation' || rolenya == 'PIC-Operation'}">
+               <!-- small box -->
+               <div class="small-box bg-warning">
+                 <div class="inner">
+                        <h3 th:text="${countPending}"></h3>
+                      
+                   <p>Pending</p>
+                 </div>
+                 <div class="icon">
+                   <i class="ion ion-stats-bars"></i>
+                 </div>
+                 <a th:href="@{/penggunaan/pending/(firstName=${#authentication.name})}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+             </div>
+             <!-- ./col -->
+             <div class="col-lg-3 col-6" th:if="${rolenya == 'SHOWROOM FINANCING STAFF'}">
+               <!-- small box -->
+               <div class="small-box bg-success">
+                 <div class="inner">
+                        <h3 th:text="${countApproved}"></h3>
+     
+                   <p>Approved</p>
+                 </div>
+                 <div class="icon">
+                   <i class="ion ion-person-add"></i>
+                 </div>
+                 <a th:href="@{/penggunaan/listUploadDokumenKelengkapan/(firstName=${#authentication.name})}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+             </div>
+             <!-- ./col -->
+             <div class="col-lg-3 col-6" th:if="${rolenya == 'SHOWROOM FINANCING STAFF'}">
+               <!-- small box -->
+               <div class="small-box bg-danger">
+                 <div class="inner">
+                
+                   <h3 th:text="${countRejected}"></h3>
+                   <p>Rejected/Canceled</p>
+                 </div>
+                 <div class="icon">
+                   <i class="ion ion-pie-graph"></i>
+                 </div>
+                 <a th:href="@{/penggunaan/listUploadDokumenKelengkapan/(firstName=${#authentication.name})}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+             </div>
+
+
+
+
+          <!-- /.card -->
+             <!-- ./col -->
+             <!-- <div class="col-lg- col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-info"><i class="fa fa-car"></i></span>
+
+            <div class="info-box-content">
+              <form th:action="@{/home}" method="post" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <button class="btn btn-primary" type="submit">Upload File</button>
+            </form> -->
+
+         
+
+
+             <!-- Bootstrap Progress bar -->
+    <!-- <div class="progress" style="background-color:lightblue">
+      <div id="progressBar" class="progress-bar progress-bar-success" role="progressbar"
+        aria-valuenow="0" aria-valuemin="0"  aria-valuemax="100" style="width: 0%">0%</div>
+    </div> -->
+
+    <!-- Alert -->
+    <!-- <div id="alertMsg" style="color: rgb(22, 190, 0);font-size: 18px;"></div>
+    <div id="alertMsgs" style="color: red;font-size: 18px;"></div>
+  </div>
+            </div> -->
+            <!-- /.info-box-content -->
+          <!-- </div> -->
+          <!-- /.info-box -->
+          
+
+
+            
+   
+             
+           </div>
+           </div>
+     
+        </div>
+     
+<!-- OPTIONAL SCRIPTS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="dist/js/pages/dashboard3.js"></script>
+         <!-- /.col-md-6 -->
+         <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="d-flex justify-content-between">
+                <h3 class="card-title">Sales</h3>
+                <a href="javascript:void(0);">View Report</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="d-flex">
+                <p class="d-flex flex-column">
+                  <span class="text-bold text-lg">$18,230.00</span>
+                  <span>Sales Over Time</span>
+                </p>
+                <p class="ml-auto d-flex flex-column text-right">
+                  <span class="text-success">
+                    <i class="fas fa-arrow-up"></i> 33.1%
+                  </span>
+                  <span class="text-muted">Since last month</span>
+                </p>
+              </div>
+              <!-- /.d-flex -->
+
+              <div class="position-relative mb-4">
+                <canvas id="sales-chart" height="200"></canvas>
+              </div>
+
+              <div class="d-flex flex-row justify-content-end">
+                <span class="mr-2">
+                  <i class="fas fa-square text-primary"></i> This year
+                </span>
+
+                <span>
+                  <i class="fas fa-square text-gray"></i> Last year
+                </span>
+              </div>
+       
+          </div></section>
+     </div></div>
+          
+       <!-- Content Wrapper. Contains page content -->
+      
+
+</th:block>
+</html>

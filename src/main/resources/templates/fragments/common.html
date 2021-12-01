@@ -1,0 +1,482 @@
+<head th:fragment="head">
+	<title>CMS Sentral Param KKB SK</title>
+	<link th:href="@{../bootstrap.min.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{../css/style.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{../../vendors/@coreui/chartjs/css/coreui-chartjs.css}" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+	<link th:href="@{../css/style.css}" rel="stylesheet" type="text/css">
+</head>
+
+<header th:fragment="header" class="c-header c-header-light c-header-fixed">
+	<div class="c-subheader justify-content-between px-3">
+		<!-- Breadcrumb-->
+		<ol class="breadcrumb border-0 m-0 px-0 px-md-3">
+			<li class="breadcrumb-item">Selamat Datang</li>
+			<li class="breadcrumb-item"><a href="#" >Person</a></li>
+			<!-- Breadcrumb Menu-->
+		</ol>
+		<div class="c-subheader-nav d-md-down-none mfe-2">
+			<a class="c-subheader-nav-link" th:href="@{../logout}">
+				<svg class="c-icon">
+					<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
+				</svg> &nbsp;Logout</a></div>
+	</div>
+</header>
+
+<footer th:fragment="footer" class="c-footer">
+	<div><a href="https://coreui.io">CoreUI</a> © 2020 creativeLabs.</div>
+	<div class="mfs-auto">Powered by&nbsp;<a href="https://coreui.io/pro/">CoreUI Pro</a></div>
+</footer>
+
+<div th:fragment="scripts">
+	<script th:src="@{../vendors/@coreui/coreui-pro/js/coreui.bundle.min.js}"></script>
+	<script th:src="@{../vendors/@coreui/icons/js/svgxuse.min.js}"></script>
+	<script th:src="@{../vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js}"></script>
+	<script th:src="@{../vendors/@coreui/utils/js/coreui-utils.js}"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function (event) {
+			setTimeout(function () {
+				document.body.classList.remove('c-no-layout-transition')
+			}, 2000);
+		});
+	</script>
+</div>
+
+<div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar" th:fragment="sidebar">
+	<div class="c-sidebar-brand d-md-down-none">
+		<b> Central Param KKB SK </b>
+	</div>
+	<ul class="c-sidebar-nav">
+		<li class="c-sidebar-nav-item">
+			<a class="c-sidebar-nav-link" href="/index">
+				<svg class="c-sidebar-nav-icon">
+					<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
+				</svg>
+				Home
+			</a>
+		</li>
+		<li class="c-sidebar-nav-title">
+			Master Menu
+		</li>
+		<li class="c-sidebar-nav-dropdown">
+			<a class="c-sidebar-nav-dropdown-toggle">
+				<svg class="c-sidebar-nav-icon">
+					<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-sitemap"></use>
+				</svg> 
+				Parameter KKB SK 
+			</a>
+			<ul class="c-sidebar-nav-dropdown-items">
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-signal-cellular-4"></use>
+						</svg> 
+						Rate Asuransi
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/RateAsuransi/Data">
+								Input Rate Asuransi
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/RateAsuransi/ApprovalData">
+								Approval Rate Asuransi
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-room"></use>
+						</svg> 
+						Rate Perluasan Asuransi
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/RatePerluasanAsuransi/Data">
+								Input Perluasan Asuransi
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/RatePerluasanAsuransi/ApprovalData">
+								Approval Perluasan Asuransi
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-room"></use>
+						</svg> 
+						Rate CP
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/RateCP/Data">
+								Input Rate CP
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/RateCP/ApprovalData">
+								Approval Rate CP
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+						</svg> 
+						Rate Bunga
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/RateBunga/Data">
+								Input Rate Bunga
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/RateBunga/ApprovalData">
+								Approval Rate Bunga
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-leaf"></use>
+						</svg> 
+						Biaya Admin
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/BiayaAdmin/Data">
+								Input Biaya Admin
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/BiayaAdmin/ApprovalData">
+								Approval Biaya Admin
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-building"></use>
+						</svg> 
+						Biaya Provisi
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/BiayaProvisi/Data">
+								Input Biaya Provisi
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/BiayaProvisi/ApprovalData">
+								Approval Biaya Provisi
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-library"></use>
+						</svg> 
+						Minimal DP
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/MinimalDP/Data">
+								Input Minimal DP
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/MinimalDP/ApprovalData">
+								Approval Minimal DP
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-grain"></use>
+						</svg> 
+						Biaya Fidusia
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/BiayaFidusia/Data">
+								Input Biaya Fidusia
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/BiayaFidusia/ApprovalData">
+								Approval Biaya Fidusia
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-folder"></use>
+						</svg> 
+						Komponen PH
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/KomponenPH/Data">
+								Input Komponen PH
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/KomponenPH/ApprovalData">
+								Approval Komponen PH
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-folder"></use>
+						</svg> 
+						Program
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/Program/Data">
+								Input Program
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/Program/ApprovalData">
+								Approval Program
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li class="c-sidebar-nav-dropdown">
+			<a class="c-sidebar-nav-dropdown-toggle">
+				<svg class="c-sidebar-nav-icon">
+					<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-applications"></use>
+				</svg> 
+				Master Menu 
+			</a>
+			<ul class="c-sidebar-nav-dropdown-items">
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+						</svg> 
+						Tipe Konsumen
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/TipeKonsumen/Data">
+								Input Tipe Konsumen
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/TipeKonsumen/ApprovalData">
+								Approval Tipe Konsumen
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="c-sidebar-nav-dropdown-items">
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+						</svg> 
+						Cluster
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/Cluster/Data">
+								Input Cluster
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/Cluster/ApprovalData">
+								Approval Cluster
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="c-sidebar-nav-dropdown-items">
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+						</svg> 
+						Jenis Kendaraan
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/JenisKendaraan/Data">
+								Input Jenis Kendaraan
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/JenisKendaraan/ApprovalData">
+								Approval Jenis Kendaraan
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="c-sidebar-nav-dropdown-items">
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+						</svg> 
+						Jenis Pembiayaan
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/JenisPembiayaan/Data">
+								Input Jenis Pembiayaan
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/JenisPembiayaan/ApprovalData">
+								Approval Jenis Pembiayaan
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="c-sidebar-nav-dropdown-items">
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+						</svg> 
+						Tujuan Penggunaan
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/TujuanPenggunaan/Data">
+								Input Tujuan Penggunaan
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/TujuanPenggunaan/ApprovalData">
+								Approval Tujuan Penggunaan
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="c-sidebar-nav-dropdown-items">
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+						</svg> 
+						Tipe Asuransi
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/TipeAsuransi/Data">
+								Input Tipe Asuransi
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/TipeAsuransi/ApprovalData">
+								Approval Tipe Asuransi
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="c-sidebar-nav-dropdown-items">
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+						</svg> 
+						Wilayah
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/Wilayah/Data">
+								Input Wilayah
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/Wilayah/ApprovalData">
+								Approval Wilayah
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="c-sidebar-nav-dropdown-items">
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+						</svg> 
+						Jenis Perluasan
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/JenisPerluasan/Data">
+								Input Jenis Perluasan
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/JenisPerluasan/ApprovalData">
+								Approval Jenis Perluasan
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="c-sidebar-nav-dropdown-items">
+				<li class="c-sidebar-nav-dropdown">
+					<a class="c-sidebar-nav-dropdown-toggle">
+						<svg class="c-sidebar-nav-icon">
+							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+						</svg> 
+						Produk
+					</a>
+					<ul class="c-sidebar-nav-dropdown-items">
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/Produk/Data">
+								Input Produk
+							</a>
+						</li>
+						<li class="c-sidebar-nav-item">
+							<a class="c-sidebar-nav-link" href="/Produk/ApprovalData">
+								Approval Produk
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>

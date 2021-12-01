@@ -1,0 +1,66 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:with="http://www.thymeleaf.org/extras/with" layout:decorate="~{layout}" with:title="'B210'">
+<th:block layout:fragment="content">
+    <div class="bottom">
+
+        <div class="col">
+            <div class="container">
+                <br>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">List Pengajuan SHF</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date Pending</th>
+                                    <th>Showroom Name</th>
+                                    <th>Showroom Region</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  th:each="penggunaan :${listPenggunaan}">
+                                    <td bgcolor="orange" th:text="${penggunaan.datePending}"></td>
+                                    <td th:text="${penggunaan.namaShowroom}"></td>
+                                    <td th:text="${penggunaan.wilayahShowroom}"></td>
+
+                                <td class="project-actions text-right">
+                                    <a class="btn btn-primary btn-sm" th:href="@{/penggunaan/uploadHasilOrderAsuransi/(action='FR#$#%RET$#%$#TE@#%@#',idPenggunaan=${penggunaan.idPenggunaan},actions='321321FR#$#%RET$#%$#T#@$!WDFWE@#%@#',)}">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        Detail Pending
+                                    </a>
+
+                                    <a class="btn btn-primary btn-sm" th:href="@{/penggunaan/detailApproved/(idPenggunaan=${penggunaan.idPenggunaan})}">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        Detail Penggunaan
+                                    </a>
+                                   
+                                   
+                                   
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                  
+
+
+                </div>
+               
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal-body">
+        <!-- Content will be loaded here...  -->
+    </div>
+
+</th:block>
+
+</html>

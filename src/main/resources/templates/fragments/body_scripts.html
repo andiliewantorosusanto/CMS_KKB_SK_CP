@@ -1,0 +1,117 @@
+<th:block xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:fragment="end">
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <script th:src="@{/admin-lte/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/admin-lte/js/daterangepicker.js}"></script>
+    <!-- <script th:src="@{/admin-lte/js/jquery-ui.min.js}"></script> -->
+    <script th:src="@{/admin-lte/js/adminlte.js}"></script>
+    <script th:src="@{/admin-lte/js/jquery-3.3.1.min.js}"></script>
+    <!-- <script th:src="@{/admin-lte/js/jquery.min.js}"></script> -->
+    <!-- <script th:src="@{/admin-lte/js/jquery.dataTables.min.js}"></script> -->
+    <!-- <script th:src="@{/admin-lte/js/jquery-ui.js}"></script> -->
+    <script th:src="@{/admin-lte/js/jquery.overlayScrollbars.min.js}"></script>
+    <script th:src="@{/admin-lte/js/pages/dashboard.js}"></script>
+    <!-- <script th:src="@{/admin-lte/js/jquery.dataTabless.min.css}"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"> -->
+    <script th:src="@{/admin-lte/datatables-bs4/js/dataTables.bootstrap4.js}"></script>
+    <script th:src="@{/admin-lte/datatables/jquery.dataTables.js}"></script>
+    <script th:src="@{/admin-lte/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/admin-lte/js/Chart.min.js}"></script>
+    <script>
+
+      
+            $(function () {
+              $("#example1").DataTable();
+              $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+              });
+            });
+
+            
+        $(".card-body").keyup(function () {
+
+$("#otr, #DP").on("keydown keyup", perx);
+
+function perx() {
+    var totalamountx = (
+      (Number($("#otr").val()) -  (Number($("#otr").val()) * (Number($("#DP").val() * 0.01))))
+    );
+    var	totph = totalamountx.toString(),
+	sisa4 	= totph.length % 3,
+	rupiah4 	= totph.substr(0, sisa4),
+	ribuan4 	= totph.substr(sisa4).match(/\d{3}/g);
+		
+if (ribuan4) {
+	separator4 = sisa4 ? '.' : '';
+	rupiah4 += separator4 + ribuan4.join('.');
+}
+    $("#phv").val(rupiah4);
+    $("#ph").val(totalamountx);
+    
+
+    var totalamountxx = (
+       (((Number($("#ph").val()) * 0.09) * (Number($("#Tenor").val())) / 12)/(Number($("#Tenor").val()))
+    ));
+    var	angsuranrp = totalamountxx.toString(),
+	sisa3 	= angsuranrp.length % 3,
+	rupiah3 	= angsuranrp.substr(0, sisa3),
+	ribuan3 	= angsuranrp.substr(sisa3).match(/\d{3}/g);
+		
+if (ribuan3) {
+	separator3 = sisa3 ? '.' : '';
+	rupiah3 += separator3 + ribuan3.join('.');
+}
+    $("#Angsuranv").val(rupiah3);
+    $("#Angsuran").val(totalamountxx);
+
+    var totalhutang = (
+       ((Number($("#ph").val())) + ((Number($("#ph").val()) * 0.09) * (Number($("#Tenor").val())) / 12))
+    );
+    var	tothut = totalhutang.toString(),
+	sisa 	= tothut.length % 3,
+	rupiah 	= tothut.substr(0, sisa),
+	ribuan 	= tothut.substr(sisa).match(/\d{3}/g);
+		
+if (ribuan) {
+	separator = sisa ? '.' : '';
+	rupiah += separator + ribuan.join('.');
+}
+    $("#tohutv").val(rupiah);
+    $("#tohut").val(totalhutang);
+
+
+    var pencairan = (
+      (Number($("#otr").val()) -  (Number($("#otr").val()) * (Number($("#DP").val() * 0.01))))
+    );
+    var	pencairannya = pencairan.toString(),
+	sisa1 	= pencairannya.length % 3,
+	rupiah1 	= pencairannya.substr(0, sisa1),
+	ribuan1 	= pencairannya.substr(sisa1).match(/\d{3}/g);
+		
+if (ribuan1) {
+	separator1 = sisa1 ? '.' : '';
+	rupiah1 += separator1 + ribuan1.join('.');
+}
+    $("#cairv").val(rupiah1);
+    $("#cair").val(pencairan);
+
+
+}
+
+});
+
+
+          </script>
+
+
+    <!-- <script src="https://raw.githubusercontent.com/makeusabrew/bootbox/gh-pages/bootbox.js"></script> -->
+    <th:block layout:fragment="user-script"></th:block>
+
+</th:block>

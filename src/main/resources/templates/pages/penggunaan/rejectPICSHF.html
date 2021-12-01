@@ -1,0 +1,105 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:with="http://www.thymeleaf.org/extras/with" layout:decorate="~{layout}" with:title="'B210'">
+<th:block layout:fragment="content">
+
+    <br>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="callout callout-info">
+                <h5><i class="fas fa-info"></i> Note:</h5>
+                Pastikan keseluruhan dokumen valid dan dapat dipertanggung jawabkan.
+                <div class="row mt-4">
+                    <nav class="w-100">
+                        <div class="nav nav-tabs" id="product-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="product-p-tab" data-toggle="tab" href="#product-p"
+                                role="tab" aria-controls="product-p" aria-selected="true">Reject</a>
+
+                        </div>
+                    </nav>
+                    <div class="tab-content p-3" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="product-p" role="tabpanel" aria-labelledby="product-p-tab">
+                    &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                    &emsp; &emsp; &emsp; &emsp;
+                    &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                    &emsp; &emsp; &emsp; &emsp;
+                    &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                    &emsp; &emsp; &emsp; &emsp;
+                    &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+
+                    <!-- general form elements disabled -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Detail Reject</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <form th:action="@{/penggunaan/rejectPICSHF}" name="myForm"
+                             method="post" onsubmit="return confirm('Apakah Anda Yakin Akan Reject Permohonan Pencairan SHF Ini ? ');">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <!-- text input -->
+                                    <input type="text" id="idPenggunaan" name="idPenggunaan"
+                                    class="form-control" th:value="${dataPenggunaan.idPenggunaan}"
+                                    readonly hidden>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Keterangan Reject</label><br>
+                                            <textarea id="keteranganReject" name="keteranganReject" rows="4" cols="50" placeholder="Keterangan Reject"></textarea>
+                                        </div>
+                                    </div>
+                                    <input type="text" id="idPICSHF" name="idPICSHF"
+                                    th:value="${nip}"
+                                    class="form-control" readonly hidden>
+                             
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+            </div></div></div></div></div>
+            </div>
+
+
+                <div class="callout callout-info">
+                    <h5><i class="fas fa-inbox"></i> Action:</h5>
+                    <div class="card-footer">
+                        <a button class="btn btn-default" data-dismiss="modal" href="javascript:history.back()">Back</a></button>
+
+                        <input type="submit" class="btn btn-primary" value="Reject" />
+                    </div>
+                </div>
+                </form>
+
+            </div><!-- /.container-fluid -->
+    </section>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+             function confirmDialog()  {
+ 
+ var result = confirm("Do you want to continue?");
+
+ if(result)  {
+     alert("OK Next lesson!");
+ } else {
+     alert("Bye!");
+ }
+}
+
+function validate(form) {
+
+// validation code here ...
+
+
+if(!valid) {
+    alert('Please correct the errors in the form!');
+    return false;
+}
+else {
+    return confirm('Do you really want to submit the form?');
+}
+}
+    </script>
+
+    </head>
+
+    <body>
