@@ -1,14 +1,15 @@
 <head th:fragment="head">
 	<title>CMS Sentral Param KKB SK</title>
-	<link th:href="@{../bootstrap.min.css}" rel="stylesheet" type="text/css">
-	<link th:href="@{../css/style.css}" rel="stylesheet" type="text/css">
-	<link th:href="@{../../vendors/@coreui/chartjs/css/coreui-chartjs.css}" rel="stylesheet">
-
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
-	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-	<link th:href="@{../css/style.css}" rel="stylesheet" type="text/css">
+	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap.min.css" />
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	
+	
+	
+	<link th:href="@{../../vendors/@coreui/chartjs/css/coreui-chartjs.css}" rel="stylesheet"> -->
+	<!-- <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
+	 -->
+	 <link th:href="@{../vendors/datatables.net-bs4/css/dataTables.bootstrap4.css}" rel="stylesheet">
+	 <link th:href="@{../css/style.css}" rel="stylesheet" type="text/css">
 </head>
 
 <header th:fragment="header" class="c-header c-header-light c-header-fixed">
@@ -37,6 +38,10 @@
 	<script th:src="@{../vendors/@coreui/icons/js/svgxuse.min.js}"></script>
 	<script th:src="@{../vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js}"></script>
 	<script th:src="@{../vendors/@coreui/utils/js/coreui-utils.js}"></script>
+	<script th:src="@{../vendors/jquery/js/jquery.slim.min.js}"></script>
+    <script th:src="@{../vendors/datatables.net/js/jquery.dataTables.js}"></script>
+    <script th:src="@{../vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{../js/datatables.js}"></script>
 	<script>
 		document.addEventListener("DOMContentLoaded", function (event) {
 			setTimeout(function () {

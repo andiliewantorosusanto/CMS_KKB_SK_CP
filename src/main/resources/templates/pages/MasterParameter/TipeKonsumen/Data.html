@@ -11,7 +11,7 @@
           <main class="c-main">
             <div class="container-fluid">
               <div class="fade-in">
-                <div class="row">
+                <div class="row"> 
                   <div class="col-12">
                     <div class="card">
                       <div class="card-header"> Data - Tujuan Penggunaan
@@ -20,42 +20,40 @@
                         <a href="/TipeKonsumen/ImportData"><button class="btn btn-sm btn-ghost-success" type="button">Import Data</button></a>
                       </div>
                       <div class="card-body">
-                        <table id="tabel-data" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                        <table class="table table-striped table-bordered datatable">
                           <thead>
                             <tr role="row">
-                              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                              colspan="1" style="width: 258.917px;"
-                              aria-label="Actions: activate to sort column ascending">Actions</th>
-                              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                colspan="1" style="width: 369.75px;"
-                                aria-label="Date registered: activate to sort column ascending">Nama</th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                colspan="1" style="width: 369.75px;"
-                                aria-label="Date registered: activate to sort column ascending">Produk</th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                colspan="1" style="width: 369.75px;"
-                                aria-label="Date registered: activate to sort column ascending">deskripsi</th>
-                              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                colspan="1" style="width: 340.4px;"
-                                aria-label="Status: activate to sort column ascending">Start Date</th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                colspan="1" style="width: 340.4px;"
-                                aria-label="Status: activate to sort column ascending">End Date</th>
+                              <th>Actions</th>
+                              <th>Nama</th>
+                              <th>Produk</th>
+                              <th>Deskripsi</th>
+                              <th>Start Date</th>
+                              <th>End Date</th>
+                              <th>Status</th>
+                              <th>Remarks</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="modelTipeKonsumen :${listDataTipeKonsumen}">
-                              <td><a class="btn btn-success" href="/TipeKonsumen/EditData">
+                            <tr th:each="tipeKonsumen :${listDataTipeKonsumen}">
+                              <td>
+                                <a class="btn btn-success" href="/TipeKonsumen/EditData">
                                 <svg class="c-icon">
-                                  <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-magnifying-glass">
+                                  <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
                                 </svg></a>
                                 </td>
-                                <td th:text="${modelTipeKonsumen.nama}"></td>
-                                <td th:text="${modelTipeKonsumen.produk}"></td>
-                                <td th:text="${modelTipeKonsumen.deskripsi}"></td>
-                                <td th:text="${modelTipeKonsumen.start_date}"></td>
-                                <td th:text="${modelTipeKonsumen.end_date}"></td>
+                                <td th:text="${tipeKonsumen.nama}"></td>
+                                <td th:text="${tipeKonsumen.produk}"></td>
+                                <td th:text="${tipeKonsumen.deskripsi}"></td>
+                                <td th:text="${tipeKonsumen.start_date}"></td>
+                                <td th:text="${tipeKonsumen.end_date}"></td>
+                                <td>
+                                  <span th:if="${tipeKonsumen.is_approved == null and tipeKonsumen.is_rejected == null}" class="badge badge-primary">Draft</span>
+                                  <span th:if="${tipeKonsumen.is_approved == 0 and tipeKonsumen.is_rejected == 0}" class="badge badge-warning">Submitted</span>
+                                  <span th:if="${tipeKonsumen.is_approved == 1}" class="badge badge-success">Approved</span>
+                                  <span th:if="${tipeKonsumen.is_rejected == 1}" class="badge badge-danger">Rejected</span>
+                                </td>
+                                <td th:text="${tipeKonsumen.remarks}"></td>
                             </tr>
                           </tbody>
                         </table>
@@ -70,11 +68,6 @@
         <div th:replace="fragments/common :: footer"></div>
     </div>
     <div th:replace="fragments/common :: scripts"></div>
-    <script>
-      $(document).ready(function(){
-        $('#tabel-data').DataTable();
-      });
-    </script>
 </body>
 </html>
 

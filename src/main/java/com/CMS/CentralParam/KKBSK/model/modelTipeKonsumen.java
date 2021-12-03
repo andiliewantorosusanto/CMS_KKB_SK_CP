@@ -178,6 +178,4 @@ public class modelTipeKonsumen  implements Serializable {
     public void setUpdateddate(Date updateddate) {
         this.updateddate = updateddate;
     }
-
-
 }

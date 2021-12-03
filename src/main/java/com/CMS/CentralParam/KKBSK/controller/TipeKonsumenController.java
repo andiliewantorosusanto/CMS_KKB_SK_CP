@@ -33,12 +33,12 @@ public class TipeKonsumenController {
 	@Value("${apiBaseUrl}")
 	private String apiBaseUrl;
 
+	ObjectMapper objectMapper = new ObjectMapper();
+
 	@RequestMapping(value = "/TipeKonsumen/InputData", method = RequestMethod.GET)
-	public String TipeKonsumenInputData(Model model) {
+	public String TipeKonsumenInputData(DataTipeKonsumen dataTipeKonsumen) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
-			DataTipeKonsumen dataTipeKonsumen = new DataTipeKonsumen();
-			model.addAttribute("dataTipeKonsumen", dataTipeKonsumen);
 			
 			return "/pages/MasterParameter/TipeKonsumen/InputData";
 		} catch (Exception e) {
@@ -48,12 +48,16 @@ public class TipeKonsumenController {
 	}
 
 	@PostMapping(value = "/TipeKonsumen/ActionInputData")
-	public String TipeKonsumenActionInputData(Model model,DataTipeKonsumen dataTipeKonsumen) throws JsonProcessingException, ParseException {
+	public String TipeKonsumenActionInputData(DataTipeKonsumen dataTipeKonsumen,String action) throws JsonProcessingException, ParseException {
 		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-			restTemplate.exchange(apiBaseUrl+"/api/rateasuransi/input", HttpMethod.POST, HelperConf.getHeader(objectMapper.writeValueAsString(dataTipeKonsumen)), String.class);
-
-			return "redirect:/TipeKonsumen/data";
+			restTemplate.exchange(
+				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(true,action), 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(dataTipeKonsumen)), 
+				String.class
+			);
+			
+			return "redirect:/TipeKonsumen/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}

@@ -22,7 +22,7 @@ public class DataTipeKonsumen {
     @JsonProperty("nama")
     private String nama;
     @JsonProperty("produk")
-    private String produk;
+    private Integer produk;
     @JsonProperty("deskripsi")
     private String deskripsi;
     @JsonProperty("start_date")
@@ -36,7 +36,7 @@ public class DataTipeKonsumen {
     @JsonProperty("remarks")
     private String remarks;
 
-    public DataTipeKonsumen(String nama, String produk, String deskripsi, String start_date, String end_date, Integer is_approved, Integer is_rejected, String remarks) {
+    public DataTipeKonsumen(String nama, Integer produk, String deskripsi, String start_date, String end_date, Integer is_approved, Integer is_rejected, String remarks) {
         this.nama = nama;
         this.produk = produk;
         this.deskripsi = deskripsi;
@@ -55,11 +55,11 @@ public class DataTipeKonsumen {
         this.nama = nama;
     }
 
-    public String getProduk() {
+    public Integer getProduk() {
         return this.produk;
     }
 
-    public void setProduk(String produk) {
+    public void setProduk(Integer produk) {
         this.produk = produk;
     }
 

@@ -34,6 +34,21 @@ public class HelperConf {
     return entity;
   }
 
+  public static String getAction(boolean isInput,String action) {
+    if(isInput){
+      if(action == "submit") {
+        return "inputAndSubmit";
+      } else {
+        return "input";
+      }
+    } else {
+      if(action == "submit") {
+        return "editAndSubmit";
+      } else {
+        return "edit";
+      }
+    }
+  }
 
   static String getToken() {
 
