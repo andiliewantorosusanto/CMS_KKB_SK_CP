@@ -36,6 +36,7 @@ public class HelperConf {
 
   public static String getAction(boolean isInput,String action) {
     if(isInput){
+      System.out.println(action);
       if(action == "submit") {
         return "inputAndSubmit";
       } else {

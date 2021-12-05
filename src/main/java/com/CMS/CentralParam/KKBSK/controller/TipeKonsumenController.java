@@ -50,6 +50,8 @@ public class TipeKonsumenController {
 	@PostMapping(value = "/TipeKonsumen/ActionInputData")
 	public String TipeKonsumenActionInputData(DataTipeKonsumen dataTipeKonsumen,String action) throws JsonProcessingException, ParseException {
 		try {
+			System.out.println(action);
+			System.out.println("Hit Api : "+HelperConf.getAction(true,action));
 			restTemplate.exchange(
 				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(true,action), 
 				HttpMethod.POST, 
