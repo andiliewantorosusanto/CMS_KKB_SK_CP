@@ -34,21 +34,14 @@ public class HelperConf {
     return entity;
   }
 
-  public static String getAction(boolean isInput,String action) {
-    if(isInput){
-      System.out.println(action);
-      if(action == "submit") {
-        return "inputAndSubmit";
-      } else {
-        return "input";
-      }
-    } else {
-      if(action == "submit") {
-        return "editAndSubmit";
-      } else {
-        return "edit";
-      }
+  public static String getAction(String action) {
+    String ret = "input";
+
+    if(action.equals("submit")){
+      ret += "AndSubmit";
     }
+
+    return ret;
   }
 
   static String getToken() {

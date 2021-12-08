@@ -1,9 +1,13 @@
 
 package com.CMS.CentralParam.KKBSK.model.RESPON;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -19,6 +23,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class DataTipeKonsumen {
 
+    @JsonProperty("id")
+    private Integer id;
     @JsonProperty("nama")
     private String nama;
     @JsonProperty("produk")
@@ -26,9 +32,11 @@ public class DataTipeKonsumen {
     @JsonProperty("deskripsi")
     private String deskripsi;
     @JsonProperty("start_date")
-    private String start_date;
+    @DateTimeFormat (pattern="yyyy-MM-dd")
+    private Date start_date;
     @JsonProperty("end_date")
-    private String end_date;
+    @DateTimeFormat (pattern="yyyy-MM-dd")
+    private Date end_date;
     @JsonProperty("is_approved")
     private Integer is_approved;
     @JsonProperty("is_rejected")
@@ -36,7 +44,12 @@ public class DataTipeKonsumen {
     @JsonProperty("remarks")
     private String remarks;
 
-    public DataTipeKonsumen(String nama, Integer produk, String deskripsi, String start_date, String end_date, Integer is_approved, Integer is_rejected, String remarks) {
+
+    public DataTipeKonsumen() {
+    }
+
+    public DataTipeKonsumen(Integer id, String nama, Integer produk, String deskripsi, Date start_date, Date end_date, Integer is_approved, Integer is_rejected, String remarks) {
+        this.id = id;
         this.nama = nama;
         this.produk = produk;
         this.deskripsi = deskripsi;
@@ -45,6 +58,14 @@ public class DataTipeKonsumen {
         this.is_approved = is_approved;
         this.is_rejected = is_rejected;
         this.remarks = remarks;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNama() {
@@ -71,19 +92,19 @@ public class DataTipeKonsumen {
         this.deskripsi = deskripsi;
     }
 
-    public String getStart_date() {
+    public Date getStart_date() {
         return this.start_date;
     }
 
-    public void setStart_date(String start_date) {
+    public void setStart_date(Date start_date) {
         this.start_date = start_date;
     }
 
-    public String getEnd_date() {
+    public Date getEnd_date() {
         return this.end_date;
     }
 
-    public void setEnd_date(String end_date) {
+    public void setEnd_date(Date end_date) {
         this.end_date = end_date;
     }
 
@@ -111,10 +132,56 @@ public class DataTipeKonsumen {
         this.remarks = remarks;
     }
 
+    public DataTipeKonsumen id(Integer id) {
+        setId(id);
+        return this;
+    }
+
+    public DataTipeKonsumen nama(String nama) {
+        setNama(nama);
+        return this;
+    }
+
+    public DataTipeKonsumen produk(Integer produk) {
+        setProduk(produk);
+        return this;
+    }
+
+    public DataTipeKonsumen deskripsi(String deskripsi) {
+        setDeskripsi(deskripsi);
+        return this;
+    }
+
+    public DataTipeKonsumen start_date(Date start_date) {
+        setStart_date(start_date);
+        return this;
+    }
+
+    public DataTipeKonsumen end_date(Date end_date) {
+        setEnd_date(end_date);
+        return this;
+    }
+
+    public DataTipeKonsumen is_approved(Integer is_approved) {
+        setIs_approved(is_approved);
+        return this;
+    }
+
+    public DataTipeKonsumen is_rejected(Integer is_rejected) {
+        setIs_rejected(is_rejected);
+        return this;
+    }
+
+    public DataTipeKonsumen remarks(String remarks) {
+        setRemarks(remarks);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "{" +
-            " nama='" + getNama() + "'" +
+            " id='" + getId() + "'" +
+            ", nama='" + getNama() + "'" +
             ", produk='" + getProduk() + "'" +
             ", deskripsi='" + getDeskripsi() + "'" +
             ", start_date='" + getStart_date() + "'" +
@@ -124,9 +191,6 @@ public class DataTipeKonsumen {
             ", remarks='" + getRemarks() + "'" +
             "}";
     }
-
-    public DataTipeKonsumen() {
-
-    }
+    
 
 }

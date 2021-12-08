@@ -1,47 +1,37 @@
 <head th:fragment="head">
 	<title>CMS Sentral Param KKB SK</title>
-	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap.min.css" />
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	
-	
-	
-	<link th:href="@{../../vendors/@coreui/chartjs/css/coreui-chartjs.css}" rel="stylesheet"> -->
-	<!-- <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
-	 -->
-	 <link th:href="@{../vendors/datatables.net-bs4/css/dataTables.bootstrap4.css}" rel="stylesheet">
-	 <link th:href="@{../css/style.css}" rel="stylesheet" type="text/css">
+	 <link th:href="@{~/vendors/datatables.net-bs4/css/dataTables.bootstrap4.css}" rel="stylesheet">
+	 <link th:href="@{~/css/style.css}" rel="stylesheet" type="text/css">
 </head>
 
 <header th:fragment="header" class="c-header c-header-light c-header-fixed">
 	<div class="c-subheader justify-content-between px-3">
-		<!-- Breadcrumb-->
 		<ol class="breadcrumb border-0 m-0 px-0 px-md-3">
 			<li class="breadcrumb-item">Selamat Datang</li>
 			<li class="breadcrumb-item"><a href="#" >Person</a></li>
-			<!-- Breadcrumb Menu-->
 		</ol>
 		<div class="c-subheader-nav d-md-down-none mfe-2">
-			<a class="c-subheader-nav-link" th:href="@{../logout}">
+			<a class="c-subheader-nav-link" th:href="@{~/logout}">
 				<svg class="c-icon">
-					<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
+					<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-settings}"></use>
 				</svg> &nbsp;Logout</a></div>
 	</div>
 </header>
 
 <footer th:fragment="footer" class="c-footer">
-	<div><a href="https://coreui.io">CoreUI</a> © 2020 creativeLabs.</div>
-	<div class="mfs-auto">Powered by&nbsp;<a href="https://coreui.io/pro/">CoreUI Pro</a></div>
+	<div><a href="https://bcafinance.co.id">Bca Finance</a> © 2021 BCA Finance IT.</div>
+	<div class="mfs-auto">Powered by&nbsp;<a href="https://bcafinance.co.id">BCA Finance IT</a></div>
 </footer>
 
 <div th:fragment="scripts">
-	<script th:src="@{../vendors/@coreui/coreui-pro/js/coreui.bundle.min.js}"></script>
-	<script th:src="@{../vendors/@coreui/icons/js/svgxuse.min.js}"></script>
-	<script th:src="@{../vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js}"></script>
-	<script th:src="@{../vendors/@coreui/utils/js/coreui-utils.js}"></script>
-	<script th:src="@{../vendors/jquery/js/jquery.slim.min.js}"></script>
-    <script th:src="@{../vendors/datatables.net/js/jquery.dataTables.js}"></script>
-    <script th:src="@{../vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js}"></script>
-    <script th:src="@{../js/datatables.js}"></script>
+	<script th:src="@{~/vendors/@coreui/coreui-pro/js/coreui.bundle.min.js}"></script>
+	<script th:src="@{~/vendors/@coreui/icons/js/svgxuse.min.js}"></script>
+	<script th:src="@{~/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js}"></script>
+	<script th:src="@{~/vendors/@coreui/utils/js/coreui-utils.js}"></script>
+	<script th:src="@{~/vendors/jquery/js/jquery.slim.min.js}"></script>
+    <script th:src="@{~/vendors/datatables.net/js/jquery.dataTables.js}"></script>
+    <script th:src="@{~/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{~/js/datatables.js}"></script>
 	<script>
 		document.addEventListener("DOMContentLoaded", function (event) {
 			setTimeout(function () {
@@ -59,7 +49,7 @@
 		<li class="c-sidebar-nav-item">
 			<a class="c-sidebar-nav-link" href="/index">
 				<svg class="c-sidebar-nav-icon">
-					<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
+					<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-speedometer}"></use>
 				</svg>
 				Home
 			</a>
@@ -70,7 +60,7 @@
 		<li class="c-sidebar-nav-dropdown">
 			<a class="c-sidebar-nav-dropdown-toggle">
 				<svg class="c-sidebar-nav-icon">
-					<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-sitemap"></use>
+					<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-sitemap}"></use>
 				</svg> 
 				Parameter KKB SK 
 			</a>
@@ -78,7 +68,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-signal-cellular-4"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-signal-cellular-4}"></use>
 						</svg> 
 						Rate Asuransi
 					</a>
@@ -98,7 +88,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-room"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-room}"></use>
 						</svg> 
 						Rate Perluasan Asuransi
 					</a>
@@ -118,7 +108,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-room"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-room}"></use>
 						</svg> 
 						Rate CP
 					</a>
@@ -138,7 +128,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-puzzle}"></use>
 						</svg> 
 						Rate Bunga
 					</a>
@@ -158,7 +148,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-leaf"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-leaf}"></use>
 						</svg> 
 						Biaya Admin
 					</a>
@@ -178,7 +168,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-building"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-building}"></use>
 						</svg> 
 						Biaya Provisi
 					</a>
@@ -198,7 +188,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-library"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-library}"></use>
 						</svg> 
 						Minimal DP
 					</a>
@@ -218,7 +208,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-grain"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-grain}"></use>
 						</svg> 
 						Biaya Fidusia
 					</a>
@@ -238,7 +228,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-folder"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-folder}"></use>
 						</svg> 
 						Komponen PH
 					</a>
@@ -258,7 +248,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-folder"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-folder}"></use>
 						</svg> 
 						Program
 					</a>
@@ -280,7 +270,7 @@
 		<li class="c-sidebar-nav-dropdown">
 			<a class="c-sidebar-nav-dropdown-toggle">
 				<svg class="c-sidebar-nav-icon">
-					<use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-applications"></use>
+					<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#cil-applications}"></use>
 				</svg> 
 				Master Menu 
 			</a>
@@ -288,7 +278,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#clipboard}"></use>
 						</svg> 
 						Tipe Konsumen
 					</a>
@@ -310,7 +300,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#clipboard}"></use>
 						</svg> 
 						Cluster
 					</a>
@@ -332,7 +322,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#clipboard}"></use>
 						</svg> 
 						Jenis Kendaraan
 					</a>
@@ -354,7 +344,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#clipboard}"></use>
 						</svg> 
 						Jenis Pembiayaan
 					</a>
@@ -376,7 +366,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#clipboard}"></use>
 						</svg> 
 						Tujuan Penggunaan
 					</a>
@@ -398,7 +388,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#clipboard}"></use>
 						</svg> 
 						Tipe Asuransi
 					</a>
@@ -420,7 +410,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#clipboard}"></use>
 						</svg> 
 						Wilayah
 					</a>
@@ -442,7 +432,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#clipboard}"></use>
 						</svg> 
 						Jenis Perluasan
 					</a>
@@ -464,7 +454,7 @@
 				<li class="c-sidebar-nav-dropdown">
 					<a class="c-sidebar-nav-dropdown-toggle">
 						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="../vendors/@coreui/icons/svg/free.svg#clipboard"></use>
+							<use th:attr="'xlink:href'=@{~/vendors/@coreui/icons/svg/free.svg#clipboard}"></use>
 						</svg> 
 						Produk
 					</a>

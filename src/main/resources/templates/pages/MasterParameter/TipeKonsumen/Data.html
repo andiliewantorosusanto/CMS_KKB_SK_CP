@@ -20,19 +20,21 @@
                         <a href="/TipeKonsumen/ImportData"><button class="btn btn-sm btn-ghost-success" type="button">Import Data</button></a>
                       </div>
                       <div class="card-body">
-                        <table id="example" class="table table-striped table-bordered datatables" style="width:100%;">
+                        <table id="table" class="table table-striped table-bordered datatables" style="width:100%;">
                           <thead>
                             <tr role="row">
+                              <th><input type="checkbox" id="check-all"></th>
                               <th></th>
                               <th id="fil-nama"></th>
+                              <th id="fil-produk"></th>
                               <th></th>
                               <th></th>
                               <th></th>
-                              <th></th>
-                              <th></th>
+                              <th id="fil-status"></th>
                               <th></th>
                             </tr>
                             <tr role="filter">
+                              <th data-value="checkbox"></th>
                               <th data-value="actions">Actions</th>
                               <th data-value="nama">Nama</th>
                               <th data-value="produk">Produk</th>
@@ -46,7 +48,12 @@
                           <tbody>
                             <tr th:each="tipeKonsumen :${listDataTipeKonsumen}">
                               <td>
-                                <a class="btn btn-success" href="/TipeKonsumen/EditData">
+                                <div class="form-check">
+                                  <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${tipeKonsumen.id}">
+                                </div>
+                              </td>
+                              <td>
+                                <a class="btn btn-success" th:href="@{/TipeKonsumen/EditData/{id}(id=${tipeKonsumen.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
@@ -56,8 +63,8 @@
                                 <td th:text="${tipeKonsumen.nama}" th:attr="data-filter=${tipeKonsumen.nama}"></td>
                                 <td th:text="${tipeKonsumen.produk}" th:attr="data-filter=${tipeKonsumen.produk}"></td>
                                 <td th:text="${tipeKonsumen.deskripsi}" th:attr="data-filter=${tipeKonsumen.deskripsi}"></td>
-                                <td th:text="${tipeKonsumen.start_date}" th:attr="data-filter=${tipeKonsumen.start_date}"></td>
-                                <td th:text="${tipeKonsumen.end_date}" th:attr="data-filter=${tipeKonsumen.end_date}"></td>
+                                <td th:text="${#dates.format(tipeKonsumen.start_date,'dd-MM-yyyy')}" th:attr="data-filter=${tipeKonsumen.start_date}"></td>
+                                <td th:text="${#dates.format(tipeKonsumen.end_date,'dd-MM-yyyy')}" th:attr="data-filter=${tipeKonsumen.end_date}"></td>
 
                                 <td th:if="${tipeKonsumen.is_approved == null and tipeKonsumen.is_rejected == null}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
@@ -76,6 +83,12 @@
                             </tr>
                           </tbody>
                         </table>
+                        <div class="row">
+                          <div class="col-auto">
+                            <button class="btn btn-sm btn-success" type="button" id="submit">Submit</button>
+                            <button class="btn btn-sm btn-danger" type="button" id="delete">Delete</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -89,15 +102,15 @@
     <div th:replace="fragments/common :: scripts"></div>
     <script>
       let _FILTER_COLUMN = ['nama','produk','status'];
-      
-      $('.datatables').DataTable( {
+      let selectedIds = [];
+      let table = $('#table').DataTable( {
           initComplete: function () {
               this.api().columns().every( function () {
                 if(_FILTER_COLUMN.includes($(this.header()).data('value'))) {
-
+                  var header = $(this.header()).data('value');
                   var column = this;
                   var select = $('<select><option value=""></option></select>')
-                      .appendTo( $(column.footer()).empty() )
+                      .appendTo( $("#"+"fil-"+header).empty() )
                       .on( 'change', function () {
                           var val = $.fn.dataTable.util.escapeRegex(
                               $(this).val()
@@ -122,6 +135,43 @@
               } );
           }
       } );
+
+      $(document).ready(function(){
+        $("#check-all").click(function(event) {
+          this.checked = false;
+          let check = ($('.checkbox').not(':checked').length > 0);
+          $('.checkbox').each(function() {
+            this.checked = check;
+            $(this).trigger('change');
+          });
+        });
+
+        $("#table").on('change','.checkbox',function(event) {
+          if(this.checked) {
+            selectedIds.push($(this).data('checkbox'));
+          } else {
+            let val = $(this).data('checkbox')
+            selectedIds = selectedIds.filter(item => item !== val);
+          }
+        });
+
+        $("#submit").click(function(event){
+            event.preventDefault();
+            var newForm = jQuery('<form>', {
+                'action': 'http://www.google.com/search',
+                'target': '_top'
+            }).append(jQuery('<input>', {
+                'name': 'q',
+                'value': selectedIds,
+                'type': 'hidden'
+            }));
+            newForm.submit();
+        });
+
+        $("#delete").click(function(event) {
+          console.log(selectedIds);
+        });
+      })
   </script>
 </body>
 </html>
