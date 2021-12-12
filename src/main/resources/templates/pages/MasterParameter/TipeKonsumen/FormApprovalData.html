@@ -1,82 +1,75 @@
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
-    <head th:replace="fragments/common :: head"></head>
-    <body class="c-app">
-        <div th:replace="fragments/common :: sidebar"></div>
-        <div class="c-wrapper">
-            <div th:replace="fragments/common :: header"></div>
-            <div class="c-body">
-                <main class="c-main">
-                    <div class="container-fluid">
-                        <div class="fade-in">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-header"> Form Input - Tipe Konsumen
-                                            <div class="card-header-actions"></div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <form id="signupForm" th:action="@{/TipeKonsumen/ActionApproveData}"  th:object="${dataTipeKonsumen}" method="post" novalidate="novalidate">
-                                                        <input type="hidden" th:field="*{id}" id="id" nama="id">
-                                                        <div class="form-group">
-                                                            <label class="col-form-label" for="firstname">Nama</label>
-                                                            <input class="form-control" id="nama" type="text" name="nama" th:field="*{nama}"
-                                                                placeholder="nama">
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+<head th:replace="fragments/common :: head"></head>
+<body class="c-app">
+    <div th:replace="fragments/common :: sidebar"></div>
+    <div class="c-wrapper">
+        <div th:replace="fragments/common :: header"></div>
+        <div class="c-body">
+            <main class="c-main">
+                <div class="container-fluid">
+                    <div class="fade-in">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header"> Form Input - Tipe Konsumen
+                                        <div class="card-header-actions"></div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form id="signupForm" th:action="@{/TipeKonsumen/ActionApprovalData}"  th:object="${dataTipeKonsumen}" method="post" novalidate="novalidate">
+                                                    <input type="hidden" th:field="*{id}" id="id" nama="id">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label" for="nama">Nama</label>
+                                                        <input class="form-control" id="nama" type="text" name="nama" th:field="*{nama}"
+                                                            placeholder="nama" readonly>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-form-label" for="firstname">Produk</label>
+                                                        <input class="form-control" id="produk" type="text" name="produk" th:field="*{produk}"
+                                                            placeholder="produk" readonly>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-form-label" for="firstname">Deskripsi</label>
+                                                        <input class="form-control" id="deskripsi" type="text" name="deskripsi" th:field="*{deskripsi}"
+                                                            placeholder="deskripsi" readonly>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label class="col-form-label" for="password">Masa Berlaku
+                                                                Start</label>
+                                                            <input class="form-control" id="start_date" type="date" th:field="*{start_date}"
+                                                                name="start_date" readonly>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label class="col-form-label" for="firstname">Produk</label>
-                                                            <input class="form-control" id="produk" type="text" name="produk" th:field="*{produk}"
-                                                                placeholder="produk">
+                                                        <div class="form-group col-md-6">
+                                                            <label class="col-form-label" for="confirm_password">Masa Berlaku
+                                                                End</label>
+                                                            <input class="form-control" id="end_date" type="date" th:field="*{end_date}"
+                                                                name="end_date" readonly>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label class="col-form-label" for="firstname">Deskripsi</label>
-                                                            <input class="form-control" id="deskripsi" type="text" name="deskripsi" th:field="*{deskripsi}"
-                                                                placeholder="deskripsi">
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Masa Berlaku
-                                                                    Start</label>
-                                                                <input class="form-control" id="otrstart" type="date" th:field="*{start_date}"
-                                                                    name="otrstart" placeholder="Rp.">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="confirm_password">Masa Berlaku
-                                                                    End</label>
-                                                                <input class="form-control" id="otrend" type="date" th:field="*{end_date}"
-                                                                    name="otrend" placeholder="Rp.">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="remarks">Remarks
-                                                                    Start</label>
-                                                                <input class="form-control" id="remarks" type="text" th:field="*{remarks}"
-                                                                    name="remarks" placeholder="Rp.">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <button class="btn btn-primary" type="submit" name="action"
-                                                                value="Approve">Approve</button>
-                                                            <button class="btn btn-danger" type="submit" name="action"
-                                                                value="Decline">Decline</button>
-                                                            <button class="btn btn-danger" onclick='javascript:window.history.back()'>Cancel</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button class="btn btn-primary" type="submit" name="action"
+                                                            value="approve">Approve</button>
+                                                        <button class="btn btn-danger" type="submit" name="action"
+                                                            value="decline">Decline</button>
+                                                        <a href="/TipeKonsumen/Data"><button class="btn btn-secondary" type="button">Cancel</button></a>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>                    
-                </main>
-            </div>
-            <div th:replace="fragments/common :: footer"></div>
+                    </div>
+                </div>                    
+            </main>
         </div>
-        <div th:replace="fragments/common :: scripts"></div>
-    </body>
+        <div th:replace="fragments/common :: footer"></div>
+    </div>
+    <div th:replace="fragments/common :: scripts"></div>
+</body>
 </html>

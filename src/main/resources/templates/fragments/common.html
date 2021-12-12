@@ -4,6 +4,24 @@
 	 <link th:href="@{~/css/style.css}" rel="stylesheet" type="text/css">
 </head>
 
+<div th:fragment="modal" class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="modal-title">Modal title</h5>
+			<button class="btn-close" type="button" data-coreui-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<p id="modal-desc">Placeholder text for this demonstration of a vertically centered modal dialog.</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-secondary" type="button" data-coreui-dismiss="modal" >Close</button>
+			<button class="btn btn-primary" type="button" id="btn-modal-save">Save changes</button>
+		</div>
+		</div>
+	</div>
+</div>
+
 <header th:fragment="header" class="c-header c-header-light c-header-fixed">
 	<div class="c-subheader justify-content-between px-3">
 		<ol class="breadcrumb border-0 m-0 px-0 px-md-3">
@@ -28,7 +46,7 @@
 	<script th:src="@{~/vendors/@coreui/icons/js/svgxuse.min.js}"></script>
 	<script th:src="@{~/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js}"></script>
 	<script th:src="@{~/vendors/@coreui/utils/js/coreui-utils.js}"></script>
-	<script th:src="@{~/vendors/jquery/js/jquery.slim.min.js}"></script>
+	<script th:src="@{~/vendors/jquery/js/jquery.min.js}"></script>
     <script th:src="@{~/vendors/datatables.net/js/jquery.dataTables.js}"></script>
     <script th:src="@{~/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js}"></script>
     <script th:src="@{~/js/datatables.js}"></script>
@@ -38,6 +56,12 @@
 				document.body.classList.remove('c-no-layout-transition')
 			}, 2000);
 		});
+		function showModal (title,description,callback) {
+			$('#modal-title').text(title);
+			$('#btn-modal-save').off().on('click',callback());
+			$('#modal-desc').text(description);
+			$('#modal').show();
+		}
 	</script>
 </div>
 

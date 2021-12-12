@@ -16,10 +16,10 @@
                     <div class="card">
                       <div class="card-header"> Data - Tujuan Penggunaan
                         <a href="/TipeKonsumen/InputData"><button class="btn btn-sm btn-ghost-success" type="button">Input Data</button></a>
-                        <a href="/TipeKonsumen/ExportData"><button class="btn btn-sm btn-ghost-success" type="button">Export Data</button></a>
+                        <a href="/TipeKonsumen/Export/Excel" target="_blank"><button class="btn btn-sm btn-ghost-success" type="button">Export Data</button></a>
                         <a href="/TipeKonsumen/ImportData"><button class="btn btn-sm btn-ghost-success" type="button">Import Data</button></a>
                       </div>
-                      <div class="card-body">
+                      <div class="card-body" id="body">
                         <table id="table" class="table table-striped table-bordered datatables" style="width:100%;">
                           <thead>
                             <tr role="row">
@@ -85,8 +85,12 @@
                         </table>
                         <div class="row">
                           <div class="col-auto">
-                            <button class="btn btn-sm btn-success" type="button" id="submit">Submit</button>
-                            <button class="btn btn-sm btn-danger" type="button" id="delete">Delete</button>
+                            <form id="mass-action-form" th:action="@{/TipeKonsumen/ActionData}"  method="post">
+                              <button class="btn btn-primary" name="action" id="btn-submit"
+                                value="submit">Submit</button>
+                              <button class="btn btn-danger" name="action" id="btn-delete"
+                                  value="delete">Delete</button>
+                            </form>
                           </div>
                         </div>
                       </div>
@@ -155,21 +159,12 @@
           }
         });
 
-        $("#submit").click(function(event){
-            event.preventDefault();
-            var newForm = jQuery('<form>', {
-                'action': 'http://www.google.com/search',
-                'target': '_top'
-            }).append(jQuery('<input>', {
-                'name': 'q',
-                'value': selectedIds,
-                'type': 'hidden'
-            }));
-            newForm.submit();
-        });
-
-        $("#delete").click(function(event) {
-          console.log(selectedIds);
+        $("#mass-action-form").submit( function(eventObj) {
+            $("<input />").attr("type", "hidden")
+                .attr("name", "ids")
+                .attr("value", selectedIds.join(","))
+                .appendTo("#mass-action-form");
+            return true;
         });
       })
   </script>
