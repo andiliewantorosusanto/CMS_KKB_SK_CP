@@ -3,6 +3,10 @@ package com.CMS.CentralParam.KKBSK.model.RESPON;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -26,15 +30,19 @@ public class DataTipeKonsumen {
     @JsonProperty("id")
     private Integer id;
     @JsonProperty("nama")
+    @NotEmpty(message = "Nama Tidak Boleh Kosong")
     private String nama;
     @JsonProperty("produk")
+    @NotNull(message = "Produk Tidak Boleh Kosong")
     private Integer produk;
     @JsonProperty("deskripsi")
     private String deskripsi;
     @JsonProperty("start_date")
+    @NotNull(message = "Start Date Tidak Boleh Kosong")
     @DateTimeFormat (pattern="yyyy-MM-dd")
     private Date start_date;
     @JsonProperty("end_date")
+    @NotNull(message = "End Date Tidak Boleh Kosong")
     @DateTimeFormat (pattern="yyyy-MM-dd")
     private Date end_date;
     @JsonProperty("is_approved")
