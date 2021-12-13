@@ -1,96 +1,56 @@
 package com.CMS.CentralParam.KKBSK.controller;
 
-import java.security.Principal;
-import java.text.ParseException;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
-import com.CMS.CentralParam.KKBSK.model.modelBiayaAdmin;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestInputRateBiayaAdmin;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponBiayaAdmin;
+import com.CMS.CentralParam.KKBSK.excel.BiayaAdminExcelExporter;
+import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.RESPON.DataBiayaAdmin;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCluster;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ListRadio.ResponListJenisKendaraan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ListRadio.ResponListJenisPembiayaan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ListRadio.ResponListTipeKonsumen;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponBiayaAdmin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class BiayaAdminController {
 
-	@Autowired
+    @Autowired
 	RestTemplate restTemplate;
+	
+	@Value("${apiBaseUrl}")
+	private String apiBaseUrl;
+
+	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/BiayaAdmin/InputData", method = RequestMethod.GET)
-	public String RateBungaInputData(Model model, String firstName, Principal principal, String role,
-			Authentication authentication, HttpSession session, UsernamePasswordAuthenticationToken ok,
-			HelperConf help) {
-		System.out.println("Diakses Oleh : " + principal.getName());
-		Object[] strObjects = ok.getAuthorities().toArray();
-		StringBuffer sb = new StringBuffer();
-		for (int i = 1; i < strObjects.length; i++) {
-			sb.append(strObjects[i]);
-		}
-		String token = sb.toString();
-		System.out.println("ini dia :" + token);
-
-		System.out.println("API GET DATA RATE ASURANSI HIT!");
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Content-Type", "application/json");
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.add("Authorization", token);
-		HttpEntity<String> entity = new HttpEntity<String>(headers);
+	public String BiayaAdminInputData(DataBiayaAdmin dataBiayaAdmin) {
 		try {
-
-			// NOTE LIST JENIS PEMBIAYAAN
-			ResponseEntity<ResponListJenisPembiayaan> respon = restTemplate.exchange(
-					"http://localhost:9098/api/jenispembiayaan/getalldata", HttpMethod.POST, entity,
-					ResponListJenisPembiayaan.class);
-			// NOTE LIST JENIS KENDARAAN
-			ResponseEntity<ResponListJenisKendaraan> responListKendaraan = restTemplate.exchange(
-					"http://localhost:9098/api/jeniskendaraan/getalldata", HttpMethod.POST, entity,
-					ResponListJenisKendaraan.class);
-			// NOTE LIST CLUSTER
-			ResponseEntity<ResponCluster> responListCluster = restTemplate.exchange(
-					"http://localhost:9098/api/cluster/getalldata", HttpMethod.POST, entity, ResponCluster.class);
-
-			// NOTE LIST CLUSTER
-			ResponseEntity<ResponListTipeKonsumen> responListTipeKonsumen = restTemplate.exchange(
-					"http://localhost:9098/api/tipekonsumen/getalldata", HttpMethod.POST, entity,
-					ResponListTipeKonsumen.class);
-
-			System.out.println("hasil respon : " + respon.getBody().getCode());
-			// return respon.getBody();
-			model.addAttribute("loginas", principal.getName());
-			model.addAttribute("listJenisPembiayaan", respon.getBody().getJenisPembiayaan());
-			model.addAttribute("listJenisKendaraan", responListKendaraan.getBody().getJenisKendaraan());
-			model.addAttribute("listCluster", responListCluster.getBody().getCluster());
-			model.addAttribute("listTipeKonsumen", responListTipeKonsumen.getBody().getTipeKonsumen());
+			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
+			
 			return "/pages/MasterParameter/BiayaAdmin/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -98,148 +58,166 @@ public class BiayaAdminController {
 		return "/pages/expired/token";
 	}
 
+	@GetMapping("/BiayaAdmin/Export/Excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+         
+		ResponseEntity<ResponBiayaAdmin> respon = restTemplate.exchange(
+			apiBaseUrl+"api/BiayaAdmin/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			ResponBiayaAdmin.class);
+
+        List<DataBiayaAdmin> listBiayaAdmin = respon.getBody().getDataBiayaAdmin();
+         
+        BiayaAdminExcelExporter excelExporter = new BiayaAdminExcelExporter(listBiayaAdmin);
+         
+        excelExporter.export(response);    
+    }  
+	
 	@PostMapping(value = "/BiayaAdmin/ActionInputData")
-	public String RateAsuransiActionInputData(String firstName, Model model, Principal principal, String role,
-			Authentication authentication, HttpSession session, UsernamePasswordAuthenticationToken ok, HelperConf help,
-			String skema, Integer wilayah,Integer tipeKonsumen, Integer jenisPembiayaan, Integer npwp, Integer cluster, Integer jenisKendaraan, Integer tipeAsuransi,
-			Integer startOTR, Integer endOTR, Integer endyear, Integer startyear, Integer tenor1, Integer tenor2,
-			Integer tenor3, Integer tenor4, Integer tenor5, Integer tenor6, Integer tenor7, Integer tenor8, Integer tenor9,
-			Integer tenor10, String startBerlaku, String endBerlaku) throws JsonProcessingException, ParseException {
-		System.out.println("Diakses Oleh : " + principal.getName());
-		Object[] strObjects = ok.getAuthorities().toArray();
-		StringBuffer sb = new StringBuffer();
-		for (int i = 1; i < strObjects.length; i++) {
-			sb.append(strObjects[i]);
-		}
-		System.out.println("DATE S " + startBerlaku + "END" + endBerlaku);
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
+	public String BiayaAdminActionInputData(@Valid DataBiayaAdmin dataBiayaAdmin, BindingResult result,String action) {
+		if (result.hasErrors()) {
+            return "/pages/MasterParameter/BiayaAdmin/InputData";
+        }
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(startBerlaku);
-		Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(endBerlaku);
-
-		String strDatestart = sdf.format(date1);
-		String strDateend = sdf.format(date2);
-
-		String token = sb.toString();
-		System.out.println("ini dia :" + token);
-		HttpHeaders headersInputRateAsuransi = new HttpHeaders();
-		headersInputRateAsuransi.setContentType(MediaType.APPLICATION_JSON);
-		headersInputRateAsuransi.add("Authorization", token);
-
-		RequestInputRateBiayaAdmin reqBiayaAdmin = new RequestInputRateBiayaAdmin(skema, tipeKonsumen,
-				jenisKendaraan, jenisPembiayaan, cluster, npwp, strDatestart, strDateend, tenor1, tenor2, tenor3,
-				tenor4, tenor5, tenor6, tenor7, tenor8, tenor9, tenor10);
-		ObjectMapper objectMapper = new ObjectMapper();
-		String reqNoRekeningString = objectMapper.writeValueAsString(reqBiayaAdmin);
-		HttpEntity<String> entityNoRek = new HttpEntity(reqNoRekeningString, headersInputRateAsuransi);
-		System.out.println("yang gue kirim : " + entityNoRek);
-		ResponseEntity<String> responInputRateAsuransi = restTemplate
-				.exchange("http://localhost:9098/api/ratebiayaadmin/input", HttpMethod.POST, entityNoRek, String.class);
-		System.out.println("hasil : " + responInputRateAsuransi);
-		System.out.println("API GET DATA Biaya Admin HIT!");
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Content-Type", "application/json");
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.add("Authorization", token);
-		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		try {
-			ResponseEntity<ResponBiayaAdmin> respon = restTemplate.exchange(
-					"http://localhost:9098/api/ratebiayaadmin/getalldata", HttpMethod.POST, entity,
-					ResponBiayaAdmin.class);
-			System.out.println("hasil respon : " + respon.getBody().getCode());
-			// return respon.getBody();
-			model.addAttribute("loginas", principal.getName());
-			model.addAttribute("listDataBiayaAdmin", respon.getBody().getDataratebiayaadmin());
-			return "/pages/MasterParameter/BiayaAdmin/Data";
+			restTemplate.exchange(
+				apiBaseUrl+"/api/BiayaAdmin/"+HelperConf.getAction(action), 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(dataBiayaAdmin)), 
+				String.class
+			);
+			
+			return "redirect:/BiayaAdmin/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@RequestMapping(value = "/BiayaAdmin/EditData", method = RequestMethod.GET)
-	public String BiayaAdminEditData() {
-		return "/pages/MasterParameter/BiayaAdmin/EditData";
-	}
+	@PostMapping(value = "/BiayaAdmin/ActionApprovalData")
+	public String BiayaAdminActionApprovalData(@Valid DataBiayaAdmin dataBiayaAdmin, BindingResult result,String action) {
+		if (result.hasErrors()) {
+            return "/pages/MasterParameter/BiayaAdmin/ApprovalData";
+        }
 
-	public void myMethod(UsernamePasswordAuthenticationToken ok) {
-		// NOTE CEK TOKEN
-		Object[] strObjects = ok.getAuthorities().toArray();
-		StringBuffer sb = new StringBuffer();
-		for (int i = 1; i < strObjects.length; i++) {
-			sb.append(strObjects[i]);
-		}
-		String token = sb.toString();
-		System.out.println("ini dia :" + token);
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Content-Type", "application/json");
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.add("Authorization", token);
-		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		try {
-			ResponseEntity<ResponCekToken> respon = restTemplate.exchange("http://localhost:9098/api/helper/cekToken",
-					HttpMethod.POST, entity, ResponCekToken.class);
-			System.out.println("Code Token EXP : " + respon.getBody().getCode());
+			restTemplate.exchange(
+				apiBaseUrl+"/api/BiayaAdmin/"+HelperConf.getAction(action)+"Data", 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(dataBiayaAdmin)), 
+				String.class
+			);
+			
+			return "redirect:/BiayaAdmin/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-
+		return "/pages/expired/token";
 	}
 
-	// NOTE LIST DATA RATE CP
+	@PostMapping(value = "/BiayaAdmin/ActionData")
+	public String BiayaAdminActionData(@RequestParam("ids") String ids,String action) {
+		try {			
+			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
+			restTemplate.exchange(
+				apiBaseUrl+"/api/BiayaAdmin/"+action, 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
+				String.class
+			);
+			return "redirect:/BiayaAdmin/Data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+	@PostMapping(value = "/BiayaAdmin/ActionApproval")
+	public String BiayaAdminActionApproval(@RequestParam("ids") String ids,String action) {
+		try {			
+			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
+			restTemplate.exchange(
+				apiBaseUrl+"/api/BiayaAdmin/"+action, 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
+				String.class
+			);
+			return "redirect:/BiayaAdmin/ApprovalData";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+	@RequestMapping(value = "/BiayaAdmin/EditData/{id}", method = RequestMethod.GET)
+	public String BiayaAdminEditData(@PathVariable @NotNull Integer id,Model model) {
+		try {
+			ResponseEntity<ResponBiayaAdmin> respon = restTemplate.exchange(
+				apiBaseUrl+"/api/BiayaAdmin/"+id, 
+				HttpMethod.GET,
+				HelperConf.getHeader(), 
+				ResponBiayaAdmin.class
+			);
+
+			model.addAttribute("dataBiayaAdmin",respon.getBody().getBiayaAdmin());
+			return "/pages/MasterParameter/BiayaAdmin/EditData";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
 	@GetMapping(value = { "/BiayaAdmin/Data" })
-	public String getListDonePencairanSHF(String firstName, Model model, modelBiayaAdmin modelBiayaAdmin,
-			Principal principal, String role, Authentication authentication, HttpSession session,
-			UsernamePasswordAuthenticationToken ok, HelperConf help) {
-		System.out.println("Diakses Oleh :" + principal.getName());
-		Object[] strObjects = ok.getAuthorities().toArray();
-		StringBuffer sb = new StringBuffer();
-		for (int i = 1; i < strObjects.length; i++) {
-			sb.append(strObjects[i]);
-		}
-		String token = sb.toString();
-		System.out.println("ini dia :" + token);
-		System.out.println("role  : " + authentication.getPrincipal());
-		System.out.println("role  : " + authentication.getAuthorities());
-		System.out.println("API GET DATA RATE CP HIT!");
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Content-Type", "application/json");
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.add("Authorization", token);
-		HttpEntity<String> entity = new HttpEntity<String>(headers);
+	public String getListBiayaAdmin(Model model) {
 		try {
 			ResponseEntity<ResponBiayaAdmin> respon = restTemplate.exchange(
-					"http://localhost:9098/api/ratebiayaadmin/getalldata", HttpMethod.POST, entity,
+					apiBaseUrl+"api/BiayaAdmin/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponBiayaAdmin.class);
-			System.out.println("hasil respon : " + respon.getBody().getCode());
-			// return respon.getBody();
-			model.addAttribute("loginas", principal.getName());
-			model.addAttribute("listDataBiayaAdmin", respon.getBody().getDataratebiayaadmin());
+
+			model.addAttribute("listDataBiayaAdmin", respon.getBody().getDataBiayaAdmin());
 			return "/pages/MasterParameter/BiayaAdmin/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
-
 	}
 
-	// NOTE LIST BUCKET APPROVAL RATE ASURANSI
-	@GetMapping(value = { "/BiayaAdmin/approvaldata" })
-	public String getListApprovalBiayaAdmin(String firstName, Model model, modelBiayaAdmin modelBiayaAdmin,
-			Principal principal) {
+	@GetMapping(value = { "/BiayaAdmin/ApprovalData" })
+	public String getListApprovalBiayaAdmin(Model model) {
+		try {
+			ResponseEntity<ResponBiayaAdmin> respon = restTemplate.exchange(
+					apiBaseUrl+"api/BiayaAdmin/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponBiayaAdmin.class);
 
-		return "/pages/MasterParameter/BiayaAdmin/ApprovalData";
+			model.addAttribute("listDataBiayaAdmin", respon.getBody().getDataBiayaAdmin());
+			return "/pages/MasterParameter/BiayaAdmin/ApprovalData";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
 	}
 
-	@RequestMapping(value = "/BiayaAdmin/FormApprovalData", method = RequestMethod.GET)
-	public String BiayaAdminFormApprovalData() {
-		return "/pages/MasterParameter/BiayaAdmin/FormApprovalData";
+	@RequestMapping(value = "/BiayaAdmin/FormApprovalData/{id}", method = RequestMethod.GET)
+	public String BiayaAdminFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
+		try {
+			ResponseEntity<ResponBiayaAdmin> respon = restTemplate.exchange(
+				apiBaseUrl+"/api/BiayaAdmin/"+id, 
+				HttpMethod.GET,
+				HelperConf.getHeader(), 
+				ResponBiayaAdmin.class
+			);
+
+			model.addAttribute("dataBiayaAdmin",respon.getBody().getBiayaAdmin());
+			return "/pages/MasterParameter/BiayaAdmin/FormApprovalData";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
 	}
 
+	
 }
