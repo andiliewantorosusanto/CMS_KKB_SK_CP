@@ -163,7 +163,7 @@ public class BiayaAdminController {
 				ResponBiayaAdmin.class
 			);
 
-			model.addAttribute("dataBiayaAdmin",respon.getBody().getBiayaAdmin());
+			model.addAttribute("dataBiayaAdmin",respon.getBody().getDataBiayaAdmin());
 			return "/pages/MasterParameter/BiayaAdmin/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -211,7 +211,7 @@ public class BiayaAdminController {
 				ResponBiayaAdmin.class
 			);
 
-			model.addAttribute("dataBiayaAdmin",respon.getBody().getBiayaAdmin());
+			model.addAttribute("dataBiayaAdmin",respon.getBody().getDataBiayaAdmin());
 			return "/pages/MasterParameter/BiayaAdmin/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

@@ -1,5 +1,5 @@
-package com.CMS.CentralParam.KKBSK.model.RESPON;
 
+package com.CMS.CentralParam.KKBSK.model.RESPON;
 
 import java.util.List;
 import javax.annotation.Generated;
@@ -9,14 +9,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "dataMinimalDP",
+    "dataJenisPerluasan",
     "code"
 })
 @Generated("jsonschema2pojo")
-public class ResponMinimalDP {
+public class ResponJenisPerluasan {
 
-    @JsonProperty("dataMinimalDP")
-    private List<DataMinimalDP> dataMinimalDP = null;
+    @JsonProperty("dataJenisPerluasan")
+    private List<DataJenisPerluasan> dataJenisPerluasan = null;
     @JsonProperty("code")
     private String code;
 
@@ -24,28 +24,28 @@ public class ResponMinimalDP {
      * No args constructor for use in serialization
      * 
      */
-    public ResponMinimalDP() {
+    public ResponJenisPerluasan() {
     }
 
     /**
      * 
-     * @param dataMinimalDP
+     * @param dataJenisPerluasan
      * @param code
      */
-    public ResponMinimalDP(List<DataMinimalDP> dataMinimalDP, String code) {
+    public ResponJenisPerluasan(List<DataJenisPerluasan> dataJenisPerluasan, String code) {
         super();
-        this.dataMinimalDP = dataMinimalDP;
+        this.dataJenisPerluasan = dataJenisPerluasan;
         this.code = code;
     }
 
-    @JsonProperty("dataMinimalDP")
-    public List<DataMinimalDP> getDataMinimalDP() {
-        return dataMinimalDP;
+    @JsonProperty("dataJenisPerluasan")
+    public List<DataJenisPerluasan> getDataJenisPerluasan() {
+        return dataJenisPerluasan;
     }
 
-    @JsonProperty("dataMinimalDP")
-    public void setDataMinimalDP(List<DataMinimalDP> dataMinimalDP) {
-        this.dataMinimalDP = dataMinimalDP;
+    @JsonProperty("dataJenisPerluasan")
+    public void setDataratebiayaadmin(List<DataJenisPerluasan> dataJenisPerluasan) {
+        this.dataJenisPerluasan = dataJenisPerluasan;
     }
 
     @JsonProperty("code")

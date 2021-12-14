@@ -9,14 +9,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "dataratebiayaadmin",
+    "dataBiayaAdmin",
     "code"
 })
 @Generated("jsonschema2pojo")
 public class ResponBiayaAdmin {
 
-    @JsonProperty("dataratebiayaadmin")
-    private List<Dataratebiayaadmin> dataratebiayaadmin = null;
+    @JsonProperty("dataBiayaAdmin")
+    private List<DataBiayaAdmin> dataBiayaAdmin = null;
     @JsonProperty("code")
     private String code;
 
@@ -29,23 +29,23 @@ public class ResponBiayaAdmin {
 
     /**
      * 
-     * @param dataratebiayaadmin
+     * @param dataBiayaAdmin
      * @param code
      */
-    public ResponBiayaAdmin(List<Dataratebiayaadmin> dataratebiayaadmin, String code) {
+    public ResponBiayaAdmin(List<DataBiayaAdmin> dataBiayaAdmin, String code) {
         super();
-        this.dataratebiayaadmin = dataratebiayaadmin;
+        this.dataBiayaAdmin = dataBiayaAdmin;
         this.code = code;
     }
 
-    @JsonProperty("dataratebiayaadmin")
-    public List<Dataratebiayaadmin> getDataratebiayaadmin() {
-        return dataratebiayaadmin;
+    @JsonProperty("dataBiayaAdmin")
+    public List<DataBiayaAdmin> getDataBiayaAdmin() {
+        return dataBiayaAdmin;
     }
 
-    @JsonProperty("dataratebiayaadmin")
-    public void setDataratebiayaadmin(List<Dataratebiayaadmin> dataratebiayaadmin) {
-        this.dataratebiayaadmin = dataratebiayaadmin;
+    @JsonProperty("dataBiayaAdmin")
+    public void setDataratebiayaadmin(List<DataBiayaAdmin> dataBiayaAdmin) {
+        this.dataBiayaAdmin = dataBiayaAdmin;
     }
 
     @JsonProperty("code")

@@ -11,11 +11,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
-import com.CMS.CentralParam.KKBSK.excel.TipeKonsumenExcelExporter;
+import com.CMS.CentralParam.KKBSK.excel.JenisPerluasanExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.model.RESPON.DataJenisPerluasan;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPerluasan;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
-public class TipeKonsumenController {
+public class JenisPerluasanController {
 
     @Autowired
 	RestTemplate restTemplate;
@@ -46,19 +46,19 @@ public class TipeKonsumenController {
 
 	ObjectMapper objectMapper = new ObjectMapper();
 
-	@RequestMapping(value = "/TipeKonsumen/InputData", method = RequestMethod.GET)
-	public String TipeKonsumenInputData(DataTipeKonsumen dataTipeKonsumen) {
+	@RequestMapping(value = "/JenisPerluasan/InputData", method = RequestMethod.GET)
+	public String JenisPerluasanInputData(DataJenisPerluasan dataJenisPerluasan) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
-			return "/pages/MasterParameter/TipeKonsumen/InputData";
+			return "/pages/MasterParameter/JenisPerluasan/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@GetMapping("/TipeKonsumen/Export/Excel")
+	@GetMapping("/JenisPerluasan/Export/Excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
@@ -68,61 +68,61 @@ public class TipeKonsumenController {
         String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
-		ResponseEntity<ResponTipeKonsumen> respon = restTemplate.exchange(
+		ResponseEntity<ResponJenisPerluasan> respon = restTemplate.exchange(
 			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
-			ResponTipeKonsumen.class);
+			ResponJenisPerluasan.class);
 
-        List<DataTipeKonsumen> listTipeKonsumen = respon.getBody().getDataTipeKonsumen();
+        List<DataJenisPerluasan> listJenisPerluasan = respon.getBody().getDataJenisPerluasan();
          
-        TipeKonsumenExcelExporter excelExporter = new TipeKonsumenExcelExporter(listTipeKonsumen);
+        JenisPerluasanExcelExporter excelExporter = new JenisPerluasanExcelExporter(listJenisPerluasan);
          
         excelExporter.export(response);    
     }  
 	
-	@PostMapping(value = "/TipeKonsumen/ActionInputData")
-	public String TipeKonsumenActionInputData(@Valid DataTipeKonsumen dataTipeKonsumen, BindingResult result,String action) {
+	@PostMapping(value = "/JenisPerluasan/ActionInputData")
+	public String JenisPerluasanActionInputData(@Valid DataJenisPerluasan dataJenisPerluasan, BindingResult result,String action) {
 		if (result.hasErrors()) {
-            return "/pages/MasterParameter/TipeKonsumen/InputData";
+            return "/pages/MasterParameter/JenisPerluasan/InputData";
         }
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataTipeKonsumen)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisPerluasan)), 
 				String.class
 			);
 			
-			return "redirect:/TipeKonsumen/Data";
+			return "redirect:/JenisPerluasan/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@PostMapping(value = "/TipeKonsumen/ActionApprovalData")
-	public String TipeKonsumenActionApprovalData(@Valid DataTipeKonsumen dataTipeKonsumen, BindingResult result,String action) {
+	@PostMapping(value = "/JenisPerluasan/ActionApprovalData")
+	public String JenisPerluasanActionApprovalData(@Valid DataJenisPerluasan dataJenisPerluasan, BindingResult result,String action) {
 		if (result.hasErrors()) {
-            return "/pages/MasterParameter/TipeKonsumen/ApprovalData";
+            return "/pages/MasterParameter/JenisPerluasan/ApprovalData";
         }
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataTipeKonsumen)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisPerluasan)), 
 				String.class
 			);
 			
-			return "redirect:/TipeKonsumen/Data";
+			return "redirect:/JenisPerluasan/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@PostMapping(value = "/TipeKonsumen/ActionData")
-	public String TipeKonsumenActionData(@RequestParam("ids") String ids,String action) {
+	@PostMapping(value = "/JenisPerluasan/ActionData")
+	public String JenisPerluasanActionData(@RequestParam("ids") String ids,String action) {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
@@ -131,14 +131,14 @@ public class TipeKonsumenController {
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
 			);
-			return "redirect:/TipeKonsumen/Data";
+			return "redirect:/JenisPerluasan/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
-	@PostMapping(value = "/TipeKonsumen/ActionApproval")
-	public String TipeKonsumenActionApproval(@RequestParam("ids") String ids,String action) {
+	@PostMapping(value = "/JenisPerluasan/ActionApproval")
+	public String JenisPerluasanActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
@@ -147,72 +147,72 @@ public class TipeKonsumenController {
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
 			);
-			return "redirect:/TipeKonsumen/ApprovalData";
+			return "redirect:/JenisPerluasan/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
-	@RequestMapping(value = "/TipeKonsumen/EditData/{id}", method = RequestMethod.GET)
-	public String TipeKonsumenEditData(@PathVariable @NotNull Integer id,Model model) {
+	@RequestMapping(value = "/JenisPerluasan/EditData/{id}", method = RequestMethod.GET)
+	public String JenisPerluasanEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
-			ResponseEntity<ResponTipeKonsumen> respon = restTemplate.exchange(
+			ResponseEntity<ResponJenisPerluasan> respon = restTemplate.exchange(
 				apiBaseUrl+"/api/tipekonsumen/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
-				ResponTipeKonsumen.class
+				ResponJenisPerluasan.class
 			);
 
-			model.addAttribute("dataTipeKonsumen",respon.getBody().getTipeKonsumen());
-			return "/pages/MasterParameter/TipeKonsumen/EditData";
+			model.addAttribute("dataJenisPerluasan",respon.getBody().getDataJenisPerluasan());
+			return "/pages/MasterParameter/JenisPerluasan/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@GetMapping(value = { "/TipeKonsumen/Data" })
-	public String getListTipeKonsumen(Model model) {
+	@GetMapping(value = { "/JenisPerluasan/Data" })
+	public String getListJenisPerluasan(Model model) {
 		try {
-			ResponseEntity<ResponTipeKonsumen> respon = restTemplate.exchange(
+			ResponseEntity<ResponJenisPerluasan> respon = restTemplate.exchange(
 					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
-					ResponTipeKonsumen.class);
+					ResponJenisPerluasan.class);
 
-			model.addAttribute("listDataTipeKonsumen", respon.getBody().getDataTipeKonsumen());
-			return "/pages/MasterParameter/TipeKonsumen/Data";
+			model.addAttribute("listDataJenisPerluasan", respon.getBody().getDataJenisPerluasan());
+			return "/pages/MasterParameter/JenisPerluasan/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@GetMapping(value = { "/TipeKonsumen/ApprovalData" })
-	public String getListApprovalTipeKonsumen(Model model) {
+	@GetMapping(value = { "/JenisPerluasan/ApprovalData" })
+	public String getListApprovalJenisPerluasan(Model model) {
 		try {
-			ResponseEntity<ResponTipeKonsumen> respon = restTemplate.exchange(
+			ResponseEntity<ResponJenisPerluasan> respon = restTemplate.exchange(
 					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
-					ResponTipeKonsumen.class);
+					ResponJenisPerluasan.class);
 
-			model.addAttribute("listDataTipeKonsumen", respon.getBody().getDataTipeKonsumen());
-			return "/pages/MasterParameter/TipeKonsumen/ApprovalData";
+			model.addAttribute("listDataJenisPerluasan", respon.getBody().getDataJenisPerluasan());
+			return "/pages/MasterParameter/JenisPerluasan/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@RequestMapping(value = "/TipeKonsumen/FormApprovalData/{id}", method = RequestMethod.GET)
-	public String TipeKonsumenFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
+	@RequestMapping(value = "/JenisPerluasan/FormApprovalData/{id}", method = RequestMethod.GET)
+	public String JenisPerluasanFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
-			ResponseEntity<ResponTipeKonsumen> respon = restTemplate.exchange(
+			ResponseEntity<ResponJenisPerluasan> respon = restTemplate.exchange(
 				apiBaseUrl+"/api/tipekonsumen/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
-				ResponTipeKonsumen.class
+				ResponJenisPerluasan.class
 			);
 
-			model.addAttribute("dataTipeKonsumen",respon.getBody().getTipeKonsumen());
-			return "/pages/MasterParameter/TipeKonsumen/FormApprovalData";
+			model.addAttribute("dataJenisPerluasan",respon.getBody().getDataJenisPerluasan());
+			return "/pages/MasterParameter/JenisPerluasan/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}

@@ -17,7 +17,7 @@ public class ResponKomponenPH {
     @JsonProperty("code")
     private String code;
     @JsonProperty("datarateKomponenPH")
-    private List<DatarateKomponenPH> datarateKomponenPH = null;
+    private List<DataKomponenPH> datarateKomponenPH = null;
 
     /**
      * No args constructor for use in serialization
@@ -31,7 +31,7 @@ public class ResponKomponenPH {
      * @param code
      * @param datarateKomponenPH
      */
-    public ResponKomponenPH(String code, List<DatarateKomponenPH> datarateKomponenPH) {
+    public ResponKomponenPH(String code, List<DataKomponenPH> datarateKomponenPH) {
         super();
         this.code = code;
         this.datarateKomponenPH = datarateKomponenPH;
@@ -48,12 +48,12 @@ public class ResponKomponenPH {
     }
 
     @JsonProperty("datarateKomponenPH")
-    public List<DatarateKomponenPH> getDatarateKomponenPH() {
+    public List<DataKomponenPH> getDatarateKomponenPH() {
         return datarateKomponenPH;
     }
 
     @JsonProperty("datarateKomponenPH")
-    public void setDatarateKomponenPH(List<DatarateKomponenPH> datarateKomponenPH) {
+    public void setDatarateKomponenPH(List<DataKomponenPH> datarateKomponenPH) {
         this.datarateKomponenPH = datarateKomponenPH;
     }
 

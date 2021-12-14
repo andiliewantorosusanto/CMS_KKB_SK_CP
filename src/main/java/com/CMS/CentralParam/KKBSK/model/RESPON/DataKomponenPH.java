@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "remarks"
 })
 @Generated("jsonschema2pojo")
-public class DatarateKomponenPH {
+public class DataKomponenPH {
 
     @JsonProperty("id")
     private Integer id;
@@ -76,7 +76,7 @@ public class DatarateKomponenPH {
      * No args constructor for use in serialization
      * 
      */
-    public DatarateKomponenPH() {
+    public DataKomponenPH() {
     }
 
     /**
@@ -102,7 +102,7 @@ public class DatarateKomponenPH {
      * @param remarks
      * @param status
      */
-    public DatarateKomponenPH(Integer id, Integer idKompPH, String jenis, Integer addm, Integer addb, String createdAt, Object startBerlaku, Object endBerlaku, Integer isRejected, String groupId, Object kondisiKendaraan, String produk, String status, Integer tipeKonsumen, Integer jenisPembiayaan, Integer jenisKendaraan, Integer program, Integer cluster, Integer isLogin, Object remarks) {
+    public DataKomponenPH(Integer id, Integer idKompPH, String jenis, Integer addm, Integer addb, String createdAt, Object startBerlaku, Object endBerlaku, Integer isRejected, String groupId, Object kondisiKendaraan, String produk, String status, Integer tipeKonsumen, Integer jenisPembiayaan, Integer jenisKendaraan, Integer program, Integer cluster, Integer isLogin, Object remarks) {
         super();
         this.id = id;
         this.idKompPH = idKompPH;

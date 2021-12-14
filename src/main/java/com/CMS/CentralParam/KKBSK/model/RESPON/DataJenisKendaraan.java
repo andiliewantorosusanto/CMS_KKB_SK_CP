@@ -1,5 +1,5 @@
-package com.CMS.CentralParam.KKBSK.model.RESPON;
 
+package com.CMS.CentralParam.KKBSK.model.RESPON;
 
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -8,11 +8,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id",
     "namaSkema",
-    "loanType",
-    "deskripsi",
-    "tujuan_penggunaan",
     "tipe_konsumen",
     "jeniskendaraanid",
     "jenis_kendaraan_id",
@@ -20,27 +16,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "jenis_pembiayaan_id",
     "cluster",
     "cluster_id",
-    "minimalDP",
-    "status",
+    "diskon_npwp",
+    "startBerlaku",
+    "endBerlaku",
+    "statusApproval",
     "remarks",
-    "nama",
-    "nama_konsumen"
+    "nama"
 })
 @Generated("jsonschema2pojo")
-public class DataRateMinimalDP {
+public class DataJenisKendaraan {
 
-    @JsonProperty("id")
-    private Integer id;
     @JsonProperty("namaSkema")
     private String namaSkema;
-    @JsonProperty("loanType")
-    private Integer loanType;
-    @JsonProperty("deskripsi")
-    private String deskripsi;
-    @JsonProperty("tujuan_penggunaan")
-    private Integer tujuanPenggunaan;
     @JsonProperty("tipe_konsumen")
-    private Object tipeKonsumen;
+    private Integer tipeKonsumen;
     @JsonProperty("jeniskendaraanid")
     private Integer jeniskendaraanid;
     @JsonProperty("jenis_kendaraan_id")
@@ -52,52 +41,47 @@ public class DataRateMinimalDP {
     @JsonProperty("cluster")
     private Integer cluster;
     @JsonProperty("cluster_id")
-    private Object clusterId;
-    @JsonProperty("minimalDP")
-    private Float minimalDP;
-    @JsonProperty("status")
-    private Object status;
+    private String clusterId;
+    @JsonProperty("diskon_npwp")
+    private Integer diskonNpwp;
+    @JsonProperty("startBerlaku")
+    private String startBerlaku;
+    @JsonProperty("endBerlaku")
+    private String endBerlaku;
+    @JsonProperty("statusApproval")
+    private String statusApproval;
     @JsonProperty("remarks")
-    private Object remarks;
+    private String remarks;
     @JsonProperty("nama")
     private String nama;
-    @JsonProperty("nama_konsumen")
-    private Object namaKonsumen;
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public DataRateMinimalDP() {
+    public DataJenisKendaraan() {
     }
 
     /**
      * 
      * @param cluster
-     * @param loanType
      * @param jenisKendaraanId
      * @param jenisPembiayaanId
      * @param jenisPembiayaan
+     * @param statusApproval
      * @param clusterId
-     * @param minimalDP
      * @param tipeKonsumen
-     * @param namaKonsumen
      * @param jeniskendaraanid
      * @param namaSkema
      * @param nama
-     * @param id
-     * @param deskripsi
-     * @param tujuanPenggunaan
+     * @param diskonNpwp
+     * @param endBerlaku
+     * @param startBerlaku
      * @param remarks
-     * @param status
      */
-    public DataRateMinimalDP(Integer id, String namaSkema, Integer loanType, String deskripsi, Integer tujuanPenggunaan, Object tipeKonsumen, Integer jeniskendaraanid, String jenisKendaraanId, Integer jenisPembiayaan, String jenisPembiayaanId, Integer cluster, Object clusterId, Float minimalDP, Object status, Object remarks, String nama, Object namaKonsumen) {
+    public DataJenisKendaraan(String namaSkema, Integer tipeKonsumen, Integer jeniskendaraanid, String jenisKendaraanId, Integer jenisPembiayaan, String jenisPembiayaanId, Integer cluster, String clusterId, Integer diskonNpwp, String startBerlaku, String endBerlaku, String statusApproval, String remarks, String nama) {
         super();
-        this.id = id;
         this.namaSkema = namaSkema;
-        this.loanType = loanType;
-        this.deskripsi = deskripsi;
-        this.tujuanPenggunaan = tujuanPenggunaan;
         this.tipeKonsumen = tipeKonsumen;
         this.jeniskendaraanid = jeniskendaraanid;
         this.jenisKendaraanId = jenisKendaraanId;
@@ -105,21 +89,12 @@ public class DataRateMinimalDP {
         this.jenisPembiayaanId = jenisPembiayaanId;
         this.cluster = cluster;
         this.clusterId = clusterId;
-        this.minimalDP = minimalDP;
-        this.status = status;
+        this.diskonNpwp = diskonNpwp;
+        this.startBerlaku = startBerlaku;
+        this.endBerlaku = endBerlaku;
+        this.statusApproval = statusApproval;
         this.remarks = remarks;
         this.nama = nama;
-        this.namaKonsumen = namaKonsumen;
-    }
-
-    @JsonProperty("id")
-    public Integer getId() {
-        return id;
-    }
-
-    @JsonProperty("id")
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @JsonProperty("namaSkema")
@@ -132,43 +107,13 @@ public class DataRateMinimalDP {
         this.namaSkema = namaSkema;
     }
 
-    @JsonProperty("loanType")
-    public Integer getLoanType() {
-        return loanType;
-    }
-
-    @JsonProperty("loanType")
-    public void setLoanType(Integer loanType) {
-        this.loanType = loanType;
-    }
-
-    @JsonProperty("deskripsi")
-    public String getDeskripsi() {
-        return deskripsi;
-    }
-
-    @JsonProperty("deskripsi")
-    public void setDeskripsi(String deskripsi) {
-        this.deskripsi = deskripsi;
-    }
-
-    @JsonProperty("tujuan_penggunaan")
-    public Integer getTujuanPenggunaan() {
-        return tujuanPenggunaan;
-    }
-
-    @JsonProperty("tujuan_penggunaan")
-    public void setTujuanPenggunaan(Integer tujuanPenggunaan) {
-        this.tujuanPenggunaan = tujuanPenggunaan;
-    }
-
     @JsonProperty("tipe_konsumen")
-    public Object getTipeKonsumen() {
+    public Integer getTipeKonsumen() {
         return tipeKonsumen;
     }
 
     @JsonProperty("tipe_konsumen")
-    public void setTipeKonsumen(Object tipeKonsumen) {
+    public void setTipeKonsumen(Integer tipeKonsumen) {
         this.tipeKonsumen = tipeKonsumen;
     }
 
@@ -223,42 +168,62 @@ public class DataRateMinimalDP {
     }
 
     @JsonProperty("cluster_id")
-    public Object getClusterId() {
+    public String getClusterId() {
         return clusterId;
     }
 
     @JsonProperty("cluster_id")
-    public void setClusterId(Object clusterId) {
+    public void setClusterId(String clusterId) {
         this.clusterId = clusterId;
     }
 
-    @JsonProperty("minimalDP")
-    public Float getMinimalDP() {
-        return minimalDP;
+    @JsonProperty("diskon_npwp")
+    public Integer getDiskonNpwp() {
+        return diskonNpwp;
     }
 
-    @JsonProperty("minimalDP")
-    public void setMinimalDP(Float minimalDP) {
-        this.minimalDP = minimalDP;
+    @JsonProperty("diskon_npwp")
+    public void setDiskonNpwp(Integer diskonNpwp) {
+        this.diskonNpwp = diskonNpwp;
     }
 
-    @JsonProperty("status")
-    public Object getStatus() {
-        return status;
+    @JsonProperty("startBerlaku")
+    public String getStartBerlaku() {
+        return startBerlaku;
     }
 
-    @JsonProperty("status")
-    public void setStatus(Object status) {
-        this.status = status;
+    @JsonProperty("startBerlaku")
+    public void setStartBerlaku(String startBerlaku) {
+        this.startBerlaku = startBerlaku;
+    }
+
+    @JsonProperty("endBerlaku")
+    public String getEndBerlaku() {
+        return endBerlaku;
+    }
+
+    @JsonProperty("endBerlaku")
+    public void setEndBerlaku(String endBerlaku) {
+        this.endBerlaku = endBerlaku;
+    }
+
+    @JsonProperty("statusApproval")
+    public String getStatusApproval() {
+        return statusApproval;
+    }
+
+    @JsonProperty("statusApproval")
+    public void setStatusApproval(String statusApproval) {
+        this.statusApproval = statusApproval;
     }
 
     @JsonProperty("remarks")
-    public Object getRemarks() {
+    public String getRemarks() {
         return remarks;
     }
 
     @JsonProperty("remarks")
-    public void setRemarks(Object remarks) {
+    public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
 
@@ -270,16 +235,6 @@ public class DataRateMinimalDP {
     @JsonProperty("nama")
     public void setNama(String nama) {
         this.nama = nama;
-    }
-
-    @JsonProperty("nama_konsumen")
-    public Object getNamaKonsumen() {
-        return namaKonsumen;
-    }
-
-    @JsonProperty("nama_konsumen")
-    public void setNamaKonsumen(Object namaKonsumen) {
-        this.namaKonsumen = namaKonsumen;
     }
 
 }

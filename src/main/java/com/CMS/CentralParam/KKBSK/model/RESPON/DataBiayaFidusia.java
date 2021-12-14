@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "is_login"
 })
 @Generated("jsonschema2pojo")
-public class DatarateBiayaFidusium {
+public class DataBiayaFidusia {
 
     @JsonProperty("id")
     private Integer id;
@@ -78,7 +78,7 @@ public class DatarateBiayaFidusium {
      * No args constructor for use in serialization
      * 
      */
-    public DatarateBiayaFidusium() {
+    public DataBiayaFidusia() {
     }
 
     /**
@@ -104,7 +104,7 @@ public class DatarateBiayaFidusium {
      * @param startBerlaku
      * @param remarks
      */
-    public DatarateBiayaFidusium(Integer id, String namaSkema, Integer startPH, Integer endPH, Integer biaya, String startBerlaku, String endBerlaku, Object createdAt, Object operatorAwal, Object operatorAkhir, Object isRejected, Object remarks, Object statusApproved, Integer program, Integer produk, Object createddate, Object createdby, Object updateddate, Object updatedby, Integer isLogin) {
+    public DataBiayaFidusia(Integer id, String namaSkema, Integer startPH, Integer endPH, Integer biaya, String startBerlaku, String endBerlaku, Object createdAt, Object operatorAwal, Object operatorAkhir, Object isRejected, Object remarks, Object statusApproved, Integer program, Integer produk, Object createddate, Object createdby, Object updateddate, Object updatedby, Integer isLogin) {
         super();
         this.id = id;
         this.namaSkema = namaSkema;
