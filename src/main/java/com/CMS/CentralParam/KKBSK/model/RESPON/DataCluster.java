@@ -3,10 +3,7 @@ package com.CMS.CentralParam.KKBSK.model.RESPON;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
+import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -16,33 +13,34 @@ import org.springframework.format.annotation.DateTimeFormat;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
-    "nama",
+    "cluster",
     "produk",
     "deskripsi",
     "start_date",
     "end_date",
     "is_approved",
     "is_rejected",
-    "remarks"
+    "remarks",
+    "createdby",
+    "createddate",
+    "updatedby",
+    "updateddate"
 })
+@Generated("jsonschema2pojo")
 public class DataCluster {
 
     @JsonProperty("id")
     private Integer id;
-    @JsonProperty("nama")
-    @NotEmpty(message = "Nama Tidak Boleh Kosong")
-    private String nama;
+    @JsonProperty("cluster")
+    private String cluster;
     @JsonProperty("produk")
-    @NotNull(message = "Produk Tidak Boleh Kosong")
     private Integer produk;
     @JsonProperty("deskripsi")
     private String deskripsi;
     @JsonProperty("start_date")
-    @NotNull(message = "Start Date Tidak Boleh Kosong")
     @DateTimeFormat (pattern="yyyy-MM-dd")
     private Date start_date;
     @JsonProperty("end_date")
-    @NotNull(message = "End Date Tidak Boleh Kosong")
     @DateTimeFormat (pattern="yyyy-MM-dd")
     private Date end_date;
     @JsonProperty("is_approved")
@@ -51,14 +49,24 @@ public class DataCluster {
     private Integer is_rejected;
     @JsonProperty("remarks")
     private String remarks;
+    @JsonProperty("createdby")
+    private Integer createdby;
+    @JsonProperty("createddate")
+    @DateTimeFormat (pattern="yyyy-MM-dd")
+    private Date createddate;
+    @JsonProperty("updatedby")
+    private Integer updatedby;
+    @JsonProperty("updateddate")
+    @DateTimeFormat (pattern="yyyy-MM-dd")
+    private Date updateddate;
 
 
     public DataCluster() {
     }
 
-    public DataCluster(Integer id, String nama, Integer produk, String deskripsi, Date start_date, Date end_date, Integer is_approved, Integer is_rejected, String remarks) {
+    public DataCluster(Integer id, String cluster, Integer produk, String deskripsi, Date start_date, Date end_date, Integer is_approved, Integer is_rejected, String remarks, Integer createdby, Date createddate, Integer updatedby, Date updateddate) {
         this.id = id;
-        this.nama = nama;
+        this.cluster = cluster;
         this.produk = produk;
         this.deskripsi = deskripsi;
         this.start_date = start_date;
@@ -66,6 +74,10 @@ public class DataCluster {
         this.is_approved = is_approved;
         this.is_rejected = is_rejected;
         this.remarks = remarks;
+        this.createdby = createdby;
+        this.createddate = createddate;
+        this.updatedby = updatedby;
+        this.updateddate = updateddate;
     }
 
     public Integer getId() {
@@ -76,12 +88,12 @@ public class DataCluster {
         this.id = id;
     }
 
-    public String getNama() {
-        return this.nama;
+    public String getCluster() {
+        return this.cluster;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setCluster(String cluster) {
+        this.cluster = cluster;
     }
 
     public Integer getProduk() {
@@ -140,13 +152,45 @@ public class DataCluster {
         this.remarks = remarks;
     }
 
+    public Integer getCreatedby() {
+        return this.createdby;
+    }
+
+    public void setCreatedby(Integer createdby) {
+        this.createdby = createdby;
+    }
+
+    public Date getCreateddate() {
+        return this.createddate;
+    }
+
+    public void setCreateddate(Date createddate) {
+        this.createddate = createddate;
+    }
+
+    public Integer getUpdatedby() {
+        return this.updatedby;
+    }
+
+    public void setUpdatedby(Integer updatedby) {
+        this.updatedby = updatedby;
+    }
+
+    public Date getUpdateddate() {
+        return this.updateddate;
+    }
+
+    public void setUpdateddate(Date updateddate) {
+        this.updateddate = updateddate;
+    }
+
     public DataCluster id(Integer id) {
         setId(id);
         return this;
     }
 
-    public DataCluster nama(String nama) {
-        setNama(nama);
+    public DataCluster cluster(String cluster) {
+        setCluster(cluster);
         return this;
     }
 
@@ -185,11 +229,31 @@ public class DataCluster {
         return this;
     }
 
+    public DataCluster createdby(Integer createdby) {
+        setCreatedby(createdby);
+        return this;
+    }
+
+    public DataCluster createddate(Date createddate) {
+        setCreateddate(createddate);
+        return this;
+    }
+
+    public DataCluster updatedby(Integer updatedby) {
+        setUpdatedby(updatedby);
+        return this;
+    }
+
+    public DataCluster updateddate(Date updateddate) {
+        setUpdateddate(updateddate);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
-            ", nama='" + getNama() + "'" +
+            ", cluster='" + getCluster() + "'" +
             ", produk='" + getProduk() + "'" +
             ", deskripsi='" + getDeskripsi() + "'" +
             ", start_date='" + getStart_date() + "'" +
@@ -197,8 +261,12 @@ public class DataCluster {
             ", is_approved='" + getIs_approved() + "'" +
             ", is_rejected='" + getIs_rejected() + "'" +
             ", remarks='" + getRemarks() + "'" +
+            ", createdby='" + getCreatedby() + "'" +
+            ", createddate='" + getCreateddate() + "'" +
+            ", updatedby='" + getUpdatedby() + "'" +
+            ", updateddate='" + getUpdateddate() + "'" +
             "}";
     }
-    
+
 
 }

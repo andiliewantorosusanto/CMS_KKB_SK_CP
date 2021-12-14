@@ -65,7 +65,7 @@ public class TipeKonsumenController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=TipeKonsumen_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponTipeKonsumen> respon = restTemplate.exchange(

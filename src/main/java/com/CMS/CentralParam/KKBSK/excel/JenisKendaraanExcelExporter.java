@@ -37,11 +37,10 @@ public class JenisKendaraanExcelExporter {
         font.setFontHeight(16);
         style.setFont(font);
          
-        createCell(row, 0, "User ID", style);      
-        createCell(row, 1, "E-mail", style);       
-        createCell(row, 2, "Full Name", style);    
-        createCell(row, 3, "Roles", style);
-        createCell(row, 4, "Enabled", style);
+        createCell(row, 0, "Jenis Kendaraan", style);      
+        createCell(row, 1, "Deskripsi", style);       
+        createCell(row, 2, "Start Berlaku", style);    
+        createCell(row, 3, "End Berlaku", style);
     }
      
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -69,11 +68,10 @@ public class JenisKendaraanExcelExporter {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            // createCell(row, columnCount++, Cluster.getId(), style);
-            // createCell(row, columnCount++, Cluster.getNama(), style);
-            // createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-            // createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
-            // createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
+            createCell(row, columnCount++, Cluster.getJenis_kendaraan(), style);
+            createCell(row, columnCount++, Cluster.getDeskripsi(), style);
+            createCell(row, columnCount++, Cluster.getStartBerlaku().toString(), style);
+            createCell(row, columnCount++, Cluster.getEndBerlaku().toString(), style);
              
         }
     }

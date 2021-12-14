@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "jenis_perluasan_id"
 })
 @Generated("jsonschema2pojo")
-public class Datarateperluasanasuransi {
+public class DataPerluasanAsuransi {
 
     @JsonProperty("wilayah")
     private Integer wilayah;
@@ -77,7 +77,7 @@ public class Datarateperluasanasuransi {
      * No args constructor for use in serialization
      * 
      */
-    public Datarateperluasanasuransi() {
+    public DataPerluasanAsuransi() {
     }
 
     /**
@@ -103,7 +103,7 @@ public class Datarateperluasanasuransi {
      * @param startBerlaku
      * @param remarks
      */
-    public Datarateperluasanasuransi(Integer wilayah, String namaWilayah, Integer startOTR, Integer endOTR, Integer startyear, Integer endyear, Integer tipeAsuransi, String startBerlaku, String endBerlaku, Integer loanType, Integer produk, Integer jenisKendaraan, String jenisKendaraanId, Integer jenisPembiayaan, Object jenisPembiayaanId, Object remarks, Object statusApproved, String namaSkema, Integer jenisPerluasan, String jenisPerluasanId) {
+    public DataPerluasanAsuransi(Integer wilayah, String namaWilayah, Integer startOTR, Integer endOTR, Integer startyear, Integer endyear, Integer tipeAsuransi, String startBerlaku, String endBerlaku, Integer loanType, Integer produk, Integer jenisKendaraan, String jenisKendaraanId, Integer jenisPembiayaan, Object jenisPembiayaanId, Object remarks, Object statusApproved, String namaSkema, Integer jenisPerluasan, String jenisPerluasanId) {
         super();
         this.wilayah = wilayah;
         this.namaWilayah = namaWilayah;

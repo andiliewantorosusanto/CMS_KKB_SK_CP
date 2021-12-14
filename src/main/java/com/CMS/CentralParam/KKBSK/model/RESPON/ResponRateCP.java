@@ -10,32 +10,32 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "code",
-    "dataRatecp"
+    "dataRateCP"
 })
 @Generated("jsonschema2pojo")
-public class ResponDataRateCP {
+public class ResponRateCP {
 
     @JsonProperty("code")
     private String code;
-    @JsonProperty("dataRatecp")
-    private List<DataRatecp> dataRatecp = null;
+    @JsonProperty("dataRateCP")
+    private List<DataRateCP> dataRateCP = null;
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public ResponDataRateCP() {
+    public ResponRateCP() {
     }
 
     /**
      * 
      * @param code
-     * @param dataRatecp
+     * @param dataRateCP
      */
-    public ResponDataRateCP(String code, List<DataRatecp> dataRatecp) {
+    public ResponRateCP(String code, List<DataRateCP> dataRateCP) {
         super();
         this.code = code;
-        this.dataRatecp = dataRatecp;
+        this.dataRateCP = dataRateCP;
     }
 
     @JsonProperty("code")
@@ -48,14 +48,14 @@ public class ResponDataRateCP {
         this.code = code;
     }
 
-    @JsonProperty("dataRatecp")
-    public List<DataRatecp> getDataRatecp() {
-        return dataRatecp;
+    @JsonProperty("dataRateCP")
+    public List<DataRateCP> getDataRateCP() {
+        return dataRateCP;
     }
 
-    @JsonProperty("dataRatecp")
-    public void setDataRatecp(List<DataRatecp> dataRatecp) {
-        this.dataRatecp = dataRatecp;
+    @JsonProperty("dataRateCP")
+    public void setDataRateCP(List<DataRateCP> dataRateCP) {
+        this.dataRateCP = dataRateCP;
     }
 
 }

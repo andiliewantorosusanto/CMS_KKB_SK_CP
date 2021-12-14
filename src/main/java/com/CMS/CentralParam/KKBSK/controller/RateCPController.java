@@ -163,7 +163,7 @@ public class RateCPController {
 				ResponRateCP.class
 			);
 
-			model.addAttribute("dataRateCP",respon.getBody().getRateCP());
+			model.addAttribute("dataRateCP",respon.getBody().getDataRateCP());
 			return "/pages/MasterParameter/RateCP/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -211,7 +211,7 @@ public class RateCPController {
 				ResponRateCP.class
 			);
 
-			model.addAttribute("dataRateCP",respon.getBody().getRateCP());
+			model.addAttribute("dataRateCP",respon.getBody().getDataRateCP());
 			return "/pages/MasterParameter/RateCP/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

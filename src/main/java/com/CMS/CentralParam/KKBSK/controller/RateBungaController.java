@@ -163,7 +163,7 @@ public class RateBungaController {
 				ResponRateBunga.class
 			);
 
-			model.addAttribute("dataRateBunga",respon.getBody().getRateBunga());
+			model.addAttribute("dataRateBunga",respon.getBody().getDataRateBunga());
 			return "/pages/MasterParameter/RateBunga/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -211,7 +211,7 @@ public class RateBungaController {
 				ResponRateBunga.class
 			);
 
-			model.addAttribute("dataRateBunga",respon.getBody().getRateBunga());
+			model.addAttribute("dataRateBunga",respon.getBody().getDataRateBunga());
 			return "/pages/MasterParameter/RateBunga/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

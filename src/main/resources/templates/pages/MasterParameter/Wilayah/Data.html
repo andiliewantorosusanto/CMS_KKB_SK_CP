@@ -1,213 +1,172 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+<head th:replace="fragments/common :: head">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
-
-<html lang="en">
-
-<div th:replace="fragments/common :: myheaderPage"></div>
-
-<div th:replace="fragments/common :: navbar"></div>
-
-<!--NOTE BATAS ATAS NAVBAR  -->
-
-<div class="c-wrapper">
-  <header class="c-header c-header-light c-header-fixed">
-
-
-    <div class="c-subheader justify-content-between px-3">
-      <!-- Breadcrumb-->
-      <ol class="breadcrumb border-0 m-0 px-0 px-md-3">
-        <li class="breadcrumb-item">Selamat Datang</li>
-        <li class="breadcrumb-item"><a href="#">20190325</a></li>
-        <!-- Breadcrumb Menu-->
-      </ol>
-      <div class="c-subheader-nav d-md-down-none mfe-2"><a class="c-subheader-nav-link" th:href="@{/logout}">
-          <svg class="c-icon">
-            <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-speech"></use>
-          </svg></a><a class="c-subheader-nav-link" th:href="@{../logout}">
-          <svg class="c-icon">
-            <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
-          </svg> &nbsp;Logout</a></div>
-    </div>
-  </header>
-
-
-
-
-
-  <!--NOTE TABLE DATA-->
-
-  <div class="c-body">
-    <main class="c-main">
-      <div class="container-fluid">
-        <div class="fade-in">
-          <div class="row">
-
-
-
-            <div class="card">
-              <div class="card-header"> Data - Wilayah
-                <a href="/Wilayah/InputData"><button class="btn btn-sm btn-ghost-success" type="button">Input Data</button></a>
-                <a href="/Wilayah/ExportData"><button class="btn btn-sm btn-ghost-success" type="button">Export Data</button></a>
-                <a href="/Wilayah/ImportData"><button class="btn btn-sm btn-ghost-success" type="button">Import Data</button></a>
-                
-              </div>
-              <!-- <div class="card-body">
-                <div class="row"> -->
-                  <!-- <div class="col-md-6">
-                    <h6>Filter Rate Bunga</h6>
-                    <form class="form-inline" action="" method="post">
-                      <div class="form-group">
-                        <label class="mr-1" for="exampleInputName2">Search</label>
-                        <input class="form-control" id="exampleInputName2" type="text" placeholder="Honda"
-                          autocomplete="name">
+</head>
+<body class="c-app">
+    <div th:replace="fragments/common :: sidebar"></div>
+    <div class="c-wrapper">
+        <div th:replace="fragments/common :: header"></div>
+        <div class="c-body">
+          <main class="c-main">
+            <div class="container-fluid">
+              <div class="fade-in">
+                <div class="row"> 
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header"> Data - Tipe Asuransi
+                        <a href="/Wilayah/InputData"><button class="btn btn-sm btn-ghost-success" type="button">Input Data</button></a>
+                        <a href="/Wilayah/Export/Excel" target="_blank"><button class="btn btn-sm btn-ghost-success" type="button">Export Data</button></a>
+                        <!-- <a href="/WilayahImportData"><button class="btn btn-sm btn-ghost-success" type="button">Import Data</button></a> -->
                       </div>
+                      <div class="card-body" id="body">
+                        <table id="table" class="table table-striped table-bordered datatables" style="width:100%;">
+                          <thead>
+                            <tr role="row">
+                              <th><input type="checkbox" id="check-all"></th>
+                              <th></th>
+                              <th id="fil-namaWilayah"></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th id="fil-status"></th>
+                              <th></th>
+                            </tr>
+                            <tr role="filter">
+                              <th data-value="checkbox"></th>
+                              <th data-value="actions">Actions</th>
+                              <th data-value="namaWilayah">Nama Wilayah</th>
+                              <th data-value="deskripsi">Deskripsi</th>
+                              <th data-value="start_date">Start Date</th>
+                              <th data-value="end_date">End Date</th>
+                              <th data-value="status">Status</th>
+                              <th data-value="remarks">Remarks</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr th:each="wilayah :${listDataWilayah}">
+                              <td>
+                                <div class="form-check">
+                                  <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${wilayah.id}">
+                                </div>
+                              </td>
+                              <td>
+                                <a class="btn btn-success" th:href="@{/WilayahEditData/{id}(id=${wilayah.id})}">
+                                <svg class="c-icon">
+                                  <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
+                                  </use>
+                                </svg></a>
+                                </td>
+                                
+                                <td th:text="${wilayah.namaWilayah}" th:attr="data-filter=${wilayah.namaWilayah}"></td>
+                                <td th:text="${wilayah.deskripsi}" th:attr="data-filter=${wilayah.deskripsi}"></td>
+                                <td th:text="${#dates.format(wilayah.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${wilayah.startBerlaku}"></td>
+                                <td th:text="${#dates.format(wilayah.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${wilayah.endBerlaku}"></td>
 
-                      
-                      <div class="form-group">
-                        <label class="mx-1" for="exampleInputEmail2">By</label>
-                        <select class="form-control" id="select1" name="select1">
-                          <option value="0">Please select</option>
-                          <option value="1">Skema</option>
-                          <option value="2">Wilayah</option>
-                          <option value="3">Jenis Pembiayaan</option>
-                          <option value="4">Jenis Kendaraan</option>
-                          <option value="5">Tipe Asuransi</option>
-                          <option value="6">Status</option>
-                        </select>
-                      </div> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <td th:if="${wilayah.is_approved == null and wilayah.is_rejected == null}" data-filter="Draft">
+                                  <span class="badge badge-primary">Draft</span>
+                                </td>
+                                <td th:if="${(wilayah.is_approved == null or wilayah.is_approved == 0) and (wilayah.is_rejected == null or wilayah.is_rejected == 0) }" data-filter="Submitted">
+                                  <span class="badge badge-warning">Submitted</span>
+                                </td>
+                                <td th:if="${wilayah.is_approved == 1}"  data-filter="Approved">
+                                  <span class="badge badge-success">Approved</span>
+                                </td>
+                                <td th:if="${wilayah.is_rejected == 1}" data-filter="Rejected">
+                                  <span class="badge badge-danger">Rejected</span>
+                                </td>
 
-                      <button class="btn btn-primary" type="submit" name="signup"
-                        value="Sign up">Search</button>&nbsp;&nbsp;&nbsp;
-                      <button class="btn btn-danger" type="submit" name="signup" value="Sign up">Clear</button>
-
-
-                    </form>
-                  </div>
-
-                  <hr> -->
-           
-
-                  <div class="card-body">
-                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                      <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                          <div class="dataTables_length" id="DataTables_Table_0_length">
+                                <td th:text="${wilayah.remarks}"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="row">
+                          <div class="col-auto">
+                            <form id="mass-action-form" th:action="@{/Wilayah/ActionData}"  method="post">
+                              <button class="btn btn-primary" name="action" id="btn-submit"
+                                value="submit">Submit</button>
+                              <button class="btn btn-danger" name="action" id="btn-delete"
+                                  value="delete">Delete</button>
+                            </form>
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-sm-12">
-                          <table id="tabel-data" class="table table-striped table-bordered" width="100%" cellspacing="0">
-                            <thead>
-                              <tr role="row">
-                               
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                colspan="1" style="width: 258.917px;"
-                                aria-label="Actions: activate to sort column ascending">Actions</th>
-
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                  colspan="1" style="width: 269.75px;"
-                                  aria-label="Date registered: activate to sort column ascending">Nama Wilayah</th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                  colspan="1" style="width: 120.35px;"
-                                  aria-label="Role: activate to sort column ascending">Deskripsi</th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                  colspan="1" style="width: 140.4px;"
-                                  aria-label="Status: activate to sort column ascending">Start Date</th>
-                                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                  colspan="1" style="width: 140.4px;"
-                                  aria-label="Status: activate to sort column ascending">End Date</th>
-                                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                  colspan="1" style="width: 140.4px;"
-                                  aria-label="Status: activate to sort column ascending">Status</th>
-                                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                  colspan="1" style="width: 140.4px;"
-                                  aria-label="Status: activate to sort column ascending">Remarks</th>
-                                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                  colspan="1" style="width: 140.4px;"
-                                  aria-label="Status: activate to sort column ascending">Is Rejected</th>
-                                  
-                              </tr>
-                            </thead>
-                            <tbody>
-
-                            
-                              <tr  th:each="modelWilayah :${listDataWilayah}">
-                                <td><a class="btn btn-success" href="/Wilayah/EditData">
-                                  <svg class="c-icon">
-                                    <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-magnifying-glass">
-                                    </use>
-                                  </svg></a>
-                                  </td>
-                                
-
-                                  <td th:text="${modelWilayah.namaWilayah}"></td>
-                                  <td th:text="${modelWilayah.deskripsi}"></td>
-                                  <td th:text="${modelWilayah.startBerlaku}"></td>
-                                  <td th:text="${modelWilayah.endBerlaku}"></td>
-                                  <td th:text="${modelWilayah.status}"></td>
-                                  <td th:text="${modelWilayah.remarks}"></td>
-                                  <td th:text="${modelWilayah.is_rejected}"></td>
-
-                                  
-                              </tr>
-
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                   
+                    </div>
                   </div>
                 </div>
-
               </div>
             </div>
-          <!-- </div>
+          </main>
+        </div>
+        <div th:replace="fragments/common :: footer"></div>
+    </div>
+    <div th:replace="fragments/common :: scripts"></div>
+    <script>
+      let _FILTER_COLUMN = ['status'];
+      let selectedIds = [];
+      let table = $('#table').DataTable( {
+          initComplete: function () {
+              this.api().columns().every( function () {
+                if(_FILTER_COLUMN.includes($(this.header()).data('value'))) {
+                  var header = $(this.header()).data('value');
+                  var column = this;
+                  var select = $('<select><option value=""></option></select>')
+                      .appendTo( $("#"+"fil-"+header).empty() )
+                      .on( 'change', function () {
+                          var val = $.fn.dataTable.util.escapeRegex(
+                              $(this).val()
+                          );
+  
+                          column
+                              .search( val ? '^'+val+'$' : '', true, false )
+                              .draw();
+                      } );
 
+                  let filters = [];
+                  $.map(column.nodes(), function (item) {
+                    filters.push($(item).data('filter'));
+                  })
+                  
+                  filters = [...new Set(filters)];
+                  
+                  filters.forEach(function (data) {
+                    select.append( '<option value="'+data+'">'+data+'</option>' )
+                  })
+                }
+              } );
+          }
+      } );
 
+      $(document).ready(function(){
+        $("#check-all").click(function(event) {
+          this.checked = false;
+          let check = ($('.checkbox').not(':checked').length > 0);
+          $('.checkbox').each(function() {
+            this.checked = check;
+            $(this).trigger('change');
+          });
+        });
 
+        $("#table").on('change','.checkbox',function(event) {
+          if(this.checked) {
+            selectedIds.push($(this).data('checkbox'));
+          } else {
+            let val = $(this).data('checkbox')
+            selectedIds = selectedIds.filter(item => item !== val);
+          }
+        });
 
-        </div> -->
-        <!-- /.row-->
-
-
-      </div>
-  </div>
-  </main>
-</div>
-
-
-
-<footer class="c-footer">
-  <div><a href="https://coreui.io">CoreUI</a> © 2020 creativeLabs.</div>
-  <div class="mfs-auto">Powered by&nbsp;<a href="https://coreui.io/pro/">CoreUI Pro</a></div>
-</footer>
-</div>
-<!-- CoreUI and necessary plugins-->
-<script th:src="@{../vendors/@coreui/coreui-pro/js/coreui.bundle.min.js}"></script>
-<!--[if IE]><!-->
-<script th:src="@{../vendors/@coreui/icons/js/svgxuse.min.js}"></script>
-<!--<![endif]-->
-<!-- Plugins and scripts required by this view-->
-<script th:src="@{../vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js}"></script>
-<script th:src="@{../vendors/@coreui/utils/js/coreui-utils.js}"></script>
-<script>
-  $(document).ready(function(){
-    $('#tabel-data').DataTable();
-});
+        $("#mass-action-form").submit( function(eventObj) {
+            $("<input />").attr("type", "hidden")
+                .attr("name", "ids")
+                .attr("value", selectedIds.join(","))
+                .appendTo("#mass-action-form");
+            return true;
+        });
+      })
   </script>
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", function (event) {
-    setTimeout(function () {
-      document.body.classList.remove('c-no-layout-transition')
-    }, 2000);
-  });
-</script>
-
 </body>
-
 </html>
+
+
+

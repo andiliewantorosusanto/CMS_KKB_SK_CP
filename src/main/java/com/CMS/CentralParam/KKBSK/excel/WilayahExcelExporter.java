@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataCluster;
+import com.CMS.CentralParam.KKBSK.model.RESPON.DataWilayah;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -15,12 +15,12 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ClusterExcelExporter {
+public class WilayahExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataCluster> listCluster;
+    private List<DataWilayah> listCluster;
      
-    public ClusterExcelExporter(List<DataCluster> listCluster) {
+    public WilayahExcelExporter(List<DataWilayah> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -37,11 +37,11 @@ public class ClusterExcelExporter {
         font.setFontHeight(16);
         style.setFont(font);
          
-        createCell(row, 0, "Cluster", style);      
-        createCell(row, 1, "Produk", style);       
-        createCell(row, 2, "Deskripsi", style);    
-        createCell(row, 3, "Start Date", style);
-        createCell(row, 4, "End Date", style);
+        createCell(row, 0, "User ID", style);      
+        createCell(row, 1, "E-mail", style);       
+        createCell(row, 2, "Full Name", style);    
+        createCell(row, 3, "Roles", style);
+        createCell(row, 4, "Enabled", style);
     }
      
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -65,15 +65,15 @@ public class ClusterExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataCluster Cluster : listCluster) {
+        for (DataWilayah Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            createCell(row, columnCount++, Cluster.getCluster(), style);
-            createCell(row, columnCount++, Cluster.getProduk(), style);
-            createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-            createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
-            createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
+            // createCell(row, columnCount++, Cluster.getId(), style);
+            // createCell(row, columnCount++, Cluster.getNama(), style);
+            // createCell(row, columnCount++, Cluster.getDeskripsi(), style);
+            // createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
+            // createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
              
         }
     }

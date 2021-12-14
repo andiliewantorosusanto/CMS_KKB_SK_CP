@@ -163,7 +163,7 @@ public class PerluasanAsuransiController {
 				ResponPerluasanAsuransi.class
 			);
 
-			model.addAttribute("dataPerluasanAsuransi",respon.getBody().getPerluasanAsuransi());
+			model.addAttribute("dataPerluasanAsuransi",respon.getBody().getDataPerluasanAsuransi());
 			return "/pages/MasterParameter/PerluasanAsuransi/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -211,7 +211,7 @@ public class PerluasanAsuransiController {
 				ResponPerluasanAsuransi.class
 			);
 
-			model.addAttribute("dataPerluasanAsuransi",respon.getBody().getPerluasanAsuransi());
+			model.addAttribute("dataPerluasanAsuransi",respon.getBody().getDataPerluasanAsuransi());
 			return "/pages/MasterParameter/PerluasanAsuransi/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

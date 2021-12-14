@@ -69,7 +69,7 @@ public class JenisPembiayaanController {
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponJenisPembiayaan> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponJenisPembiayaan.class);
 
         List<DataJenisPembiayaan> listJenisPembiayaan = respon.getBody().getDataJenisPembiayaan();
@@ -87,7 +87,7 @@ public class JenisPembiayaanController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/jenispembiayaan/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisPembiayaan)), 
 				String.class
@@ -108,7 +108,7 @@ public class JenisPembiayaanController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/jenispembiayaan/"+HelperConf.getAction(action)+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisPembiayaan)), 
 				String.class
@@ -126,7 +126,7 @@ public class JenisPembiayaanController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/jenispembiayaan/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -142,7 +142,7 @@ public class JenisPembiayaanController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/jenispembiayaan/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -157,13 +157,13 @@ public class JenisPembiayaanController {
 	public String JenisPembiayaanEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponJenisPembiayaan> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/jenispembiayaan/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponJenisPembiayaan.class
 			);
 
-			model.addAttribute("dataJenisPembiayaan",respon.getBody().getDataJenisPembiayaan());
+			model.addAttribute("dataJenisPembiayaan",respon.getBody().getJenisPembiayaan());
 			return "/pages/MasterParameter/JenisPembiayaan/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -175,7 +175,7 @@ public class JenisPembiayaanController {
 	public String getListJenisPembiayaan(Model model) {
 		try {
 			ResponseEntity<ResponJenisPembiayaan> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponJenisPembiayaan.class);
 
 			model.addAttribute("listDataJenisPembiayaan", respon.getBody().getDataJenisPembiayaan());
@@ -190,7 +190,7 @@ public class JenisPembiayaanController {
 	public String getListApprovalJenisPembiayaan(Model model) {
 		try {
 			ResponseEntity<ResponJenisPembiayaan> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponJenisPembiayaan.class);
 
 			model.addAttribute("listDataJenisPembiayaan", respon.getBody().getDataJenisPembiayaan());
@@ -205,13 +205,13 @@ public class JenisPembiayaanController {
 	public String JenisPembiayaanFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponJenisPembiayaan> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/jenispembiayaan/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponJenisPembiayaan.class
 			);
 
-			model.addAttribute("dataJenisPembiayaan",respon.getBody().getDataJenisPembiayaan());
+			model.addAttribute("dataJenisPembiayaan",respon.getBody().getJenisPembiayaan());
 			return "/pages/MasterParameter/JenisPembiayaan/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

@@ -65,11 +65,11 @@ public class JenisKendaraanController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=JenisKendaraan_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponJenisKendaraan> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponJenisKendaraan.class);
 
         List<DataJenisKendaraan> listJenisKendaraan = respon.getBody().getDataJenisKendaraan();
@@ -87,7 +87,7 @@ public class JenisKendaraanController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/jeniskendaraan/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisKendaraan)), 
 				String.class
@@ -108,7 +108,7 @@ public class JenisKendaraanController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/jeniskendaraan/"+HelperConf.getAction(action)+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisKendaraan)), 
 				String.class
@@ -126,7 +126,7 @@ public class JenisKendaraanController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/jeniskendaraan/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -142,7 +142,7 @@ public class JenisKendaraanController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/jeniskendaraan/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -157,7 +157,7 @@ public class JenisKendaraanController {
 	public String JenisKendaraanEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponJenisKendaraan> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/jeniskendaraan/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponJenisKendaraan.class
@@ -175,12 +175,14 @@ public class JenisKendaraanController {
 	public String getListJenisKendaraan(Model model) {
 		try {
 			ResponseEntity<ResponJenisKendaraan> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponJenisKendaraan.class);
 
 			model.addAttribute("listDataJenisKendaraan", respon.getBody().getDataJenisKendaraan());
+			System.out.println("data : "+respon.getBody().getDataJenisKendaraan().get(1).toString());
 			return "/pages/MasterParameter/JenisKendaraan/Data";
 		} catch (Exception e) {
+			System.out.println("hello :"+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -190,7 +192,7 @@ public class JenisKendaraanController {
 	public String getListApprovalJenisKendaraan(Model model) {
 		try {
 			ResponseEntity<ResponJenisKendaraan> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponJenisKendaraan.class);
 
 			model.addAttribute("listDataJenisKendaraan", respon.getBody().getDataJenisKendaraan());
@@ -205,7 +207,7 @@ public class JenisKendaraanController {
 	public String JenisKendaraanFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponJenisKendaraan> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/jeniskendaraan/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponJenisKendaraan.class

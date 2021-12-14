@@ -163,7 +163,7 @@ public class RateAsuransiController {
 				ResponRateAsuransi.class
 			);
 
-			model.addAttribute("dataRateAsuransi",respon.getBody().getRateAsuransi());
+			model.addAttribute("dataRateAsuransi",respon.getBody().getDataRateAsuransi());
 			return "/pages/MasterParameter/RateAsuransi/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -211,7 +211,7 @@ public class RateAsuransiController {
 				ResponRateAsuransi.class
 			);
 
-			model.addAttribute("dataRateAsuransi",respon.getBody().getRateAsuransi());
+			model.addAttribute("dataRateAsuransi",respon.getBody().getDataRateAsuransi());
 			return "/pages/MasterParameter/RateAsuransi/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

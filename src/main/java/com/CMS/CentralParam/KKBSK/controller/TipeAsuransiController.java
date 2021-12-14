@@ -69,7 +69,7 @@ public class TipeAsuransiController {
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponTipeAsuransi> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/tipeasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponTipeAsuransi.class);
 
         List<DataTipeAsuransi> listTipeAsuransi = respon.getBody().getDataTipeAsuransi();
@@ -87,7 +87,7 @@ public class TipeAsuransiController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/tipeasuransi/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataTipeAsuransi)), 
 				String.class
@@ -108,7 +108,7 @@ public class TipeAsuransiController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/tipeasuransi/"+HelperConf.getAction(action)+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataTipeAsuransi)), 
 				String.class
@@ -126,7 +126,7 @@ public class TipeAsuransiController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/tipeasuransi/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -142,7 +142,7 @@ public class TipeAsuransiController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/tipeasuransi/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -157,7 +157,7 @@ public class TipeAsuransiController {
 	public String TipeAsuransiEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponTipeAsuransi> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/tipeasuransi/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponTipeAsuransi.class
@@ -175,12 +175,15 @@ public class TipeAsuransiController {
 	public String getListTipeAsuransi(Model model) {
 		try {
 			ResponseEntity<ResponTipeAsuransi> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/tipeasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponTipeAsuransi.class);
 
 			model.addAttribute("listDataTipeAsuransi", respon.getBody().getDataTipeAsuransi());
+			System.out.println("data :"+respon.getBody().getDataTipeAsuransi().get(1).toString());
+
 			return "/pages/MasterParameter/TipeAsuransi/Data";
 		} catch (Exception e) {
+			System.out.println("error :"+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -190,7 +193,7 @@ public class TipeAsuransiController {
 	public String getListApprovalTipeAsuransi(Model model) {
 		try {
 			ResponseEntity<ResponTipeAsuransi> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/tipeasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponTipeAsuransi.class);
 
 			model.addAttribute("listDataTipeAsuransi", respon.getBody().getDataTipeAsuransi());
@@ -205,7 +208,7 @@ public class TipeAsuransiController {
 	public String TipeAsuransiFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponTipeAsuransi> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/tipeasuransi/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponTipeAsuransi.class

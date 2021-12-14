@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "nama"
 })
 @Generated("jsonschema2pojo")
-public class DataRatecp {
+public class DataRateCP {
 
     @JsonProperty("jenis_kendaraan")
     private Integer jenisKendaraan;
@@ -80,7 +80,7 @@ public class DataRatecp {
      * No args constructor for use in serialization
      * 
      */
-    public DataRatecp() {
+    public DataRateCP() {
     }
 
     /**
@@ -107,7 +107,7 @@ public class DataRatecp {
      * @param startBerlaku
      * @param remarks
      */
-    public DataRatecp(Integer jenisKendaraan, Object jenisKendaraanId, Integer produk, Object tenor1, Object tenor2, Object tenor3, Object tenor4, Object tenor5, Object tenor6, Object tenor7, Float tenor8, Object tenor9, Object tenor10, String startBerlaku, String endBerlaku, Object isApproved, Object statusApproved, Object tipeKonsumen, String namaSkema, Object remarks, Object nama) {
+    public DataRateCP(Integer jenisKendaraan, Object jenisKendaraanId, Integer produk, Object tenor1, Object tenor2, Object tenor3, Object tenor4, Object tenor5, Object tenor6, Object tenor7, Float tenor8, Object tenor9, Object tenor10, String startBerlaku, String endBerlaku, Object isApproved, Object statusApproved, Object tipeKonsumen, String namaSkema, Object remarks, Object nama) {
         super();
         this.jenisKendaraan = jenisKendaraan;
         this.jenisKendaraanId = jenisKendaraanId;

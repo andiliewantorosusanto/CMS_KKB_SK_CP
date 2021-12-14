@@ -1,3 +1,4 @@
+
 package com.CMS.CentralParam.KKBSK.model.RESPON;
 
 import java.util.List;
@@ -9,32 +10,32 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "code",
-    "dataKomponenPH"
+    "dataPerluasanAsuransi"
 })
 @Generated("jsonschema2pojo")
-public class ResponKomponenPH {
+public class ResponPerluasanAsuransi {
 
     @JsonProperty("code")
     private String code;
-    @JsonProperty("dataKomponenPH")
-    private List<DataKomponenPH> dataKomponenPH = null;
+    @JsonProperty("dataPerluasanAsuransi")
+    private List<DataPerluasanAsuransi> dataPerluasanAsuransi = null;
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public ResponKomponenPH() {
+    public ResponPerluasanAsuransi() {
     }
 
     /**
      * 
      * @param code
-     * @param dataKomponenPH
+     * @param dataPerluasanAsuransi
      */
-    public ResponKomponenPH(String code, List<DataKomponenPH> dataKomponenPH) {
+    public ResponPerluasanAsuransi(String code, List<DataPerluasanAsuransi> dataPerluasanAsuransi) {
         super();
         this.code = code;
-        this.dataKomponenPH = dataKomponenPH;
+        this.dataPerluasanAsuransi = dataPerluasanAsuransi;
     }
 
     @JsonProperty("code")
@@ -47,14 +48,14 @@ public class ResponKomponenPH {
         this.code = code;
     }
 
-    @JsonProperty("dataKomponenPH")
-    public List<DataKomponenPH> getDataKomponenPH() {
-        return dataKomponenPH;
+    @JsonProperty("dataPerluasanAsuransi")
+    public List<DataPerluasanAsuransi> getDataPerluasanAsuransi() {
+        return dataPerluasanAsuransi;
     }
 
-    @JsonProperty("dataKomponenPH")
-    public void setDataKomponenPH(List<DataKomponenPH> dataKomponenPH) {
-        this.dataKomponenPH = dataKomponenPH;
+    @JsonProperty("dataPerluasanAsuransi")
+    public void setDataPerluasanAsuransi(List<DataPerluasanAsuransi> dataPerluasanAsuransi) {
+        this.dataPerluasanAsuransi = dataPerluasanAsuransi;
     }
 
 }

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "code",
     "dataRateBunga"
 })
-public class ResponDataRateBunga {
+public class ResponRateBunga {
 
     @JsonProperty("code")
     private String code;
@@ -21,7 +21,7 @@ public class ResponDataRateBunga {
      * No args constructor for use in serialization
      * 
      */
-    public ResponDataRateBunga() {
+    public ResponRateBunga() {
     }
 
     /**
@@ -29,7 +29,7 @@ public class ResponDataRateBunga {
      * @param code
      * @param dataRateBunga
      */
-    public ResponDataRateBunga(String code, List<DataRateBunga> dataRateBunga) {
+    public ResponRateBunga(String code, List<DataRateBunga> dataRateBunga) {
         super();
         this.code = code;
         this.dataRateBunga = dataRateBunga;

@@ -1,134 +1,78 @@
-<!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
-
-<html lang="en">
-
-<div th:replace="fragments/common :: myheader"></div>
-
-<div th:replace="fragments/common :: navbar"></div>
-
-<!--NOTE BATAS ATAS NAVBAR  -->
-
-<div class="c-wrapper">
-    <header class="c-header c-header-light c-header-fixed">
-
-
-        <div class="c-subheader justify-content-between px-3">
-            <!-- Breadcrumb-->
-            <ol class="breadcrumb border-0 m-0 px-0 px-md-3">
-                <li class="breadcrumb-item">Selamat Datang</li>
-                <li class="breadcrumb-item"><a href="#">20190325</a></li>
-                <!-- Breadcrumb Menu-->
-            </ol>
-            <div class="c-subheader-nav d-md-down-none mfe-2">
-                <a class="c-subheader-nav-link" th:href="@{../logout}">
-                    <svg class="c-icon">
-                        <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
-                    </svg> &nbsp;Logout</a></div>
-        </div>
-    </header>
-
-
-
-
-    <div class="c-body">
-        <main class="c-main">
-            <div class="container-fluid">
-                <div class="fade-in">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header"> Form Input - Biaya Admin
-                                    <div class="card-header-actions"></div>
-                                </div>
-                                <div class="card-body">
-
-                                    <div class="row" style="width: 85rem;">
-                                        <div class="col-md-12">
-                                            <form id="signupForm" novalidate="novalidate">
-                                                <div class="form-group">
-                                                    <label class="col-form-label" for="firstname">Cluster</label>
-                                                    <input class="form-control" id="skema" type="text" name="skema"
-                                                        placeholder="Skema">
+    <head th:replace="fragments/common :: head"></head>
+    <body class="c-app">
+        <div th:replace="fragments/common :: sidebar"></div>
+        <div class="c-wrapper">
+            <div th:replace="fragments/common :: header"></div>
+            <div class="c-body">
+                <main class="c-main">
+                    <div class="container-fluid">
+                        <div class="fade-in">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header"> Form Input - Tujuan Pengunaan
+                                            <div class="card-header-actions"></div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <form id="signupForm" th:action="@{/TujuanPenggunaan/ActionInputData}"  th:object="${dataTujuanPenggunaan}" method="post" novalidate="novalidate">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="nama">Nama</label>
+                                                            <input class="form-control" id="nama" type="text" name="nama" th:field="*{nama}"
+                                                                placeholder="nama" th:classappend="${#fields.hasErrors('nama')} ?  is-invalid">
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('nama')}" th:errors="*{nama}"></div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="firstname">Produk</label>
+                                                            <input class="form-control" id="produk" type="text" name="produk" th:field="*{produk}"
+                                                                placeholder="produk" th:classappend="${#fields.hasErrors('produk')} ?  is-invalid">
+                                                                <div class="invalid-feedback" th:if="${#fields.hasErrors('produk')}" th:errors="*{produk}"></div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="firstname">Deskripsi</label>
+                                                            <input class="form-control" id="deskripsi" type="text" name="deskripsi" th:field="*{deskripsi}"
+                                                                placeholder="deskripsi" th:classappend="${#fields.hasErrors('deskripsi')} ?  is-invalid">
+                                                                <div class="invalid-feedback" th:if="${#fields.hasErrors('deskripsi')}" th:errors="*{deskripsi}"></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="password">Masa Berlaku
+                                                                    Start</label>
+                                                                <input class="form-control" id="start_date" type="date" th:field="*{start_date}"
+                                                                    name="start_date" th:classappend="${#fields.hasErrors('start_date')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('start_date')}" th:errors="*{start_date}"></div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="confirm_password">Masa Berlaku
+                                                                    End</label>
+                                                                <input class="form-control" id="end_date" type="date" th:field="*{end_date}"
+                                                                    name="end_date" th:classappend="${#fields.hasErrors('end_date')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('end_date')}" th:errors="*{end_date}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <button class="btn btn-info" type="submit" name="action"
+                                                                value="save">Save</button>
+                                                            <button class="btn btn-primary" type="submit" name="action"
+                                                                value="submit">Submit</button>
+                                                            <a href="/TujuanPenggunaan/Data"><button class="btn btn-secondary" type="button">Cancel</button></a>
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="col-form-label" for="firstname">Produk</label>
-                                                    <input class="form-control" id="Produk" type="text" name="Produk"
-                                                        placeholder="Produk">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-form-label" for="firstname">Deskripsi</label>
-                                                    <input class="form-control" id="Deskripsi" type="text" name="Deskripsi"
-                                                        placeholder="Deskripsi">
-                                                </div>
-                                               
-
-                                                <div class="row">
-                                                    <div class="form-group col-md-6">
-                                                        <label class="col-form-label" for="password">Masa Berlaku
-                                                            Start</label>
-                                                        <input class="form-control" id="otrstart" type="date"
-                                                            name="otrstart" placeholder="Rp.">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label class="col-form-label" for="confirm_password">Masa Berlaku
-                                                            End</label>
-                                                        <input class="form-control" id="otrend" type="date"
-                                                            name="otrend" placeholder="Rp.">
-                                                    </div>
-                                                </div>
-                                               
-                                                <div class="form-group">
-                                                    <button class="btn btn-primary" type="submit" name="signup"
-                                                        value="Sign up">Save</button>
-                                                        <button class="btn btn-success" type="submit" name="signup"
-                                                        value="Sign up">Submit</button>
-                                                        <button class="btn btn-danger" type="submit" name="signup"
-                                                        value="Sign up">Cancel</button>
-                                                </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-
-                </div>
+                    </div>                    
+                </main>
             </div>
-        </main>
-    </div>
-
-    <footer class="c-footer">
-        <div><a href="https://coreui.io">CoreUI</a> © 2020 creativeLabs.</div>
-        <div class="mfs-auto">Powered by&nbsp;<a href="https://coreui.io/pro/">CoreUI Pro</a></div>
-    </footer>
-</div>
-<!-- CoreUI and necessary plugins-->
-<script th:src="@{../vendors/@coreui/coreui-pro/js/coreui.bundle.min.js}"></script>
-<!--[if IE]><!-->
-<script th:src="@{../vendors/@coreui/icons/js/svgxuse.min.js}"></script>
-<!--<![endif]-->
-<!-- Plugins and scripts required by this view-->
-<script th:src="@{../vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js}"></script>
-<script th:src="@{../vendors/@coreui/utils/js/coreui-utils.js}"></script>
-<script th:src="@{../js/main.js}"></script>
-<script th:src="@{../js/index.js}"></script>
-<script th:src="@{../js/svgxuse.js}"></script>
-<script th:src="@{../js/ index.d.ts}"></script>
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-        setTimeout(function () {
-            document.body.classList.remove('c-no-layout-transition')
-        }, 2000);
-    });
-</script>
-
-</body>
-
+            <div th:replace="fragments/common :: footer"></div>
+        </div>
+        <div th:replace="fragments/common :: scripts"></div>
+    </body>
 </html>

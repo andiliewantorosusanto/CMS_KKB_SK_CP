@@ -69,7 +69,7 @@ public class TujuanPenggunaanController {
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponTujuanPenggunaan> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/tujuanpenggunaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponTujuanPenggunaan.class);
 
         List<DataTujuanPenggunaan> listTujuanPenggunaan = respon.getBody().getDataTujuanPenggunaan();
@@ -87,7 +87,7 @@ public class TujuanPenggunaanController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/tujuanpenggunaan/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataTujuanPenggunaan)), 
 				String.class
@@ -108,7 +108,7 @@ public class TujuanPenggunaanController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/tujuanpenggunaan/"+HelperConf.getAction(action)+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataTujuanPenggunaan)), 
 				String.class
@@ -126,7 +126,7 @@ public class TujuanPenggunaanController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/tujuanpenggunaan/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -142,7 +142,7 @@ public class TujuanPenggunaanController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/tujuanpenggunaan/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -157,7 +157,7 @@ public class TujuanPenggunaanController {
 	public String TujuanPenggunaanEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponTujuanPenggunaan> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/tujuanpenggunaan/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponTujuanPenggunaan.class
@@ -175,12 +175,13 @@ public class TujuanPenggunaanController {
 	public String getListTujuanPenggunaan(Model model) {
 		try {
 			ResponseEntity<ResponTujuanPenggunaan> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/tujuanpenggunaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponTujuanPenggunaan.class);
 
 			model.addAttribute("listDataTujuanPenggunaan", respon.getBody().getDataTujuanPenggunaan());
 			return "/pages/MasterParameter/TujuanPenggunaan/Data";
 		} catch (Exception e) {
+			System.out.println("err : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -190,7 +191,7 @@ public class TujuanPenggunaanController {
 	public String getListApprovalTujuanPenggunaan(Model model) {
 		try {
 			ResponseEntity<ResponTujuanPenggunaan> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/tujuanpenggunaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponTujuanPenggunaan.class);
 
 			model.addAttribute("listDataTujuanPenggunaan", respon.getBody().getDataTujuanPenggunaan());
@@ -205,7 +206,7 @@ public class TujuanPenggunaanController {
 	public String TujuanPenggunaanFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponTujuanPenggunaan> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/tujuanpenggunaan/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponTujuanPenggunaan.class

@@ -21,7 +21,7 @@
                             <tr role="row">
                               <th><input type="checkbox" id="check-all"></th>
                               <th></th>
-                              <th id="fil-nama"></th>
+                              <th id="fil-cluster"></th>
                               <th id="fil-produk"></th>
                               <th></th>
                               <th></th>
@@ -32,7 +32,7 @@
                             <tr role="filter">
                               <th data-value="checkbox"></th>
                               <th data-value="actions">Actions</th>
-                              <th data-value="nama">Nama</th>
+                              <th data-value="cluster">Cluster</th>
                               <th data-value="produk">Produk</th>
                               <th data-value="deskripsi">Deskripsi</th>
                               <th data-value="start_date">Start Date</th>
@@ -42,46 +42,46 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="tipeKonsumen :${listDataTipeKonsumen}">
+                            <tr th:each="cluster :${listDataCluster}">
                               <td>
                                 <div class="form-check">
-                                  <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${tipeKonsumen.id}">
+                                  <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${cluster.id}">
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/TipeKonsumen/FormApprovalData/{id}(id=${tipeKonsumen.id})}">
+                                <a class="btn btn-success" th:href="@{/Cluster/FormApprovalData/{id}(id=${cluster.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
                                 </svg></a>
                                 </td>
                                 
-                                <td th:text="${tipeKonsumen.nama}" th:attr="data-filter=${tipeKonsumen.nama}"></td>
-                                <td th:text="${tipeKonsumen.produk}" th:attr="data-filter=${tipeKonsumen.produk}"></td>
-                                <td th:text="${tipeKonsumen.deskripsi}" th:attr="data-filter=${tipeKonsumen.deskripsi}"></td>
-                                <td th:text="${#dates.format(tipeKonsumen.start_date,'dd-MM-yyyy')}" th:attr="data-filter=${tipeKonsumen.start_date}"></td>
-                                <td th:text="${#dates.format(tipeKonsumen.end_date,'dd-MM-yyyy')}" th:attr="data-filter=${tipeKonsumen.end_date}"></td>
-
-                                <td th:if="${tipeKonsumen.is_approved == null and tipeKonsumen.is_rejected == null}" data-filter="Draft">
+                                <td th:text="${cluster.cluster}" th:attr="data-filter=${cluster.cluster}"></td>
+                                <td th:text="${cluster.produk}" th:attr="data-filter=${cluster.produk}"></td>
+                                <td th:text="${cluster.deskripsi}" th:attr="data-filter=${cluster.deskripsi}"></td>
+                                <td th:text="${#dates.format(cluster.start_date,'dd-MM-yyyy')}" th:attr="data-filter=${cluster.start_date}"></td>
+                                <td th:text="${#dates.format(cluster.end_date,'dd-MM-yyyy')}" th:attr="data-filter=${cluster.end_date}"></td>
+                                
+                                <td th:if="${cluster.is_approved == null and cluster.is_rejected == null}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${tipeKonsumen.is_approved == 0 and tipeKonsumen.is_rejected == 0}" data-filter="Submitted">
+                                <td th:if="${cluster.is_approved == 0 and cluster.is_rejected == 0}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${tipeKonsumen.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${cluster.is_approved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${tipeKonsumen.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${cluster.is_rejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 
-                                <td th:text="${tipeKonsumen.remarks}"></td>
+                                <td th:text="${cluster.remarks}"></td>
                             </tr>
                           </tbody>
                         </table>
                         <div class="row">
                           <div class="col-auto">
-                            <form id="mass-action-form" th:action="@{/TipeKonsumen/ActionApproval}"  method="post">
+                            <form id="mass-action-form" th:action="@{/Cluster/ActionApproval}"  method="post">
                               <button class="btn btn-primary" name="action"
                                 value="approve">Approve</button>
                               <button class="btn btn-danger" name="action"
@@ -101,7 +101,7 @@
     </div>
     <div th:replace="fragments/common :: scripts"></div>
     <script>
-      let _FILTER_COLUMN = ['nama','produk','status'];
+      let _FILTER_COLUMN = ['produk','status'];
       let selectedIds = [];
       let table = $('#table').DataTable( {
           initComplete: function () {

@@ -65,11 +65,11 @@ public class WilayahController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=Wilayah_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponWilayah> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponWilayah.class);
 
         List<DataWilayah> listWilayah = respon.getBody().getDataWilayah();
@@ -87,7 +87,7 @@ public class WilayahController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/wilayah/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataWilayah)), 
 				String.class
@@ -108,7 +108,7 @@ public class WilayahController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/wilayah/"+HelperConf.getAction(action)+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataWilayah)), 
 				String.class
@@ -126,7 +126,7 @@ public class WilayahController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/wilayah/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -142,7 +142,7 @@ public class WilayahController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/wilayah/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -157,7 +157,7 @@ public class WilayahController {
 	public String WilayahEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponWilayah> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/wilayah/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponWilayah.class
@@ -175,7 +175,7 @@ public class WilayahController {
 	public String getListWilayah(Model model) {
 		try {
 			ResponseEntity<ResponWilayah> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponWilayah.class);
 
 			model.addAttribute("listDataWilayah", respon.getBody().getDataWilayah());
@@ -190,7 +190,7 @@ public class WilayahController {
 	public String getListApprovalWilayah(Model model) {
 		try {
 			ResponseEntity<ResponWilayah> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponWilayah.class);
 
 			model.addAttribute("listDataWilayah", respon.getBody().getDataWilayah());
@@ -205,7 +205,7 @@ public class WilayahController {
 	public String WilayahFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponWilayah> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/wilayah/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponWilayah.class

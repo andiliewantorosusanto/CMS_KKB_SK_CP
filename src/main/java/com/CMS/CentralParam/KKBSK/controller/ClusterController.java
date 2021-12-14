@@ -65,11 +65,11 @@ public class ClusterController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=Cluster_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponCluster> respon = restTemplate.exchange(
-			apiBaseUrl+"api/Cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponCluster.class);
 
         List<DataCluster> listCluster = respon.getBody().getDataCluster();
@@ -87,7 +87,7 @@ public class ClusterController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/Cluster/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/cluster/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataCluster)), 
 				String.class
@@ -108,7 +108,7 @@ public class ClusterController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/Cluster/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/cluster/"+HelperConf.getAction(action)+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataCluster)), 
 				String.class
@@ -126,7 +126,7 @@ public class ClusterController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/Cluster/"+action, 
+				apiBaseUrl+"/api/cluster/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -142,7 +142,7 @@ public class ClusterController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/Cluster/"+action, 
+				apiBaseUrl+"/api/cluster/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -157,7 +157,7 @@ public class ClusterController {
 	public String ClusterEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponCluster> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/Cluster/"+id, 
+				apiBaseUrl+"/api/cluster/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponCluster.class
@@ -166,6 +166,7 @@ public class ClusterController {
 			model.addAttribute("dataCluster",respon.getBody().getCluster());
 			return "/pages/MasterParameter/Cluster/EditData";
 		} catch (Exception e) {
+			System.out.println(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -175,10 +176,11 @@ public class ClusterController {
 	public String getListCluster(Model model) {
 		try {
 			ResponseEntity<ResponCluster> respon = restTemplate.exchange(
-					apiBaseUrl+"api/Cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponCluster.class);
 
 			model.addAttribute("listDataCluster", respon.getBody().getDataCluster());
+
 			return "/pages/MasterParameter/Cluster/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -190,7 +192,7 @@ public class ClusterController {
 	public String getListApprovalCluster(Model model) {
 		try {
 			ResponseEntity<ResponCluster> respon = restTemplate.exchange(
-					apiBaseUrl+"api/Cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponCluster.class);
 
 			model.addAttribute("listDataCluster", respon.getBody().getDataCluster());
@@ -205,7 +207,7 @@ public class ClusterController {
 	public String ClusterFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponCluster> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/Cluster/"+id, 
+				apiBaseUrl+"/api/cluster/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponCluster.class

@@ -163,7 +163,7 @@ public class ProgramController {
 				ResponProgram.class
 			);
 
-			model.addAttribute("dataProgram",respon.getBody().getProgram());
+			model.addAttribute("dataProgram",respon.getBody().getDataProgram());
 			return "/pages/MasterParameter/Program/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -211,7 +211,7 @@ public class ProgramController {
 				ResponProgram.class
 			);
 
-			model.addAttribute("dataProgram",respon.getBody().getProgram());
+			model.addAttribute("dataProgram",respon.getBody().getDataProgram());
 			return "/pages/MasterParameter/Program/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

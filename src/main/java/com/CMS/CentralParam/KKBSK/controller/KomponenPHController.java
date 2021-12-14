@@ -11,11 +11,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
-import com.CMS.CentralParam.KKBSK.excel.RateKomponenPHExcelExporter;
+import com.CMS.CentralParam.KKBSK.excel.KomponenPHExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataRateKomponenPH;
+import com.CMS.CentralParam.KKBSK.model.RESPON.DataKomponenPH;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponRateKomponenPH;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponKomponenPH;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
-public class RateKomponenPHController {
+public class KomponenPHController {
 
     @Autowired
 	RestTemplate restTemplate;
@@ -46,19 +46,19 @@ public class RateKomponenPHController {
 
 	ObjectMapper objectMapper = new ObjectMapper();
 
-	@RequestMapping(value = "/RateKomponenPH/InputData", method = RequestMethod.GET)
-	public String RateKomponenPHInputData(DataRateKomponenPH dataRateKomponenPH) {
+	@RequestMapping(value = "/KomponenPH/InputData", method = RequestMethod.GET)
+	public String KomponenPHInputData(DataKomponenPH dataKomponenPH) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
-			return "/pages/MasterParameter/RateKomponenPH/InputData";
+			return "/pages/MasterParameter/KomponenPH/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@GetMapping("/RateKomponenPH/Export/Excel")
+	@GetMapping("/KomponenPH/Export/Excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
@@ -68,61 +68,61 @@ public class RateKomponenPHController {
         String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
-		ResponseEntity<ResponRateKomponenPH> respon = restTemplate.exchange(
+		ResponseEntity<ResponKomponenPH> respon = restTemplate.exchange(
 			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
-			ResponRateKomponenPH.class);
+			ResponKomponenPH.class);
 
-        List<DataRateKomponenPH> listRateKomponenPH = respon.getBody().getDataRateKomponenPH();
+        List<DataKomponenPH> listKomponenPH = respon.getBody().getDataKomponenPH();
          
-        RateKomponenPHExcelExporter excelExporter = new RateKomponenPHExcelExporter(listRateKomponenPH);
+        KomponenPHExcelExporter excelExporter = new KomponenPHExcelExporter(listKomponenPH);
          
         excelExporter.export(response);    
     }  
 	
-	@PostMapping(value = "/RateKomponenPH/ActionInputData")
-	public String RateKomponenPHActionInputData(@Valid DataRateKomponenPH dataRateKomponenPH, BindingResult result,String action) {
+	@PostMapping(value = "/KomponenPH/ActionInputData")
+	public String KomponenPHActionInputData(@Valid DataKomponenPH dataKomponenPH, BindingResult result,String action) {
 		if (result.hasErrors()) {
-            return "/pages/MasterParameter/RateKomponenPH/InputData";
+            return "/pages/MasterParameter/KomponenPH/InputData";
         }
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataRateKomponenPH)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(dataKomponenPH)), 
 				String.class
 			);
 			
-			return "redirect:/RateKomponenPH/Data";
+			return "redirect:/KomponenPH/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@PostMapping(value = "/RateKomponenPH/ActionApprovalData")
-	public String RateKomponenPHActionApprovalData(@Valid DataRateKomponenPH dataRateKomponenPH, BindingResult result,String action) {
+	@PostMapping(value = "/KomponenPH/ActionApprovalData")
+	public String KomponenPHActionApprovalData(@Valid DataKomponenPH dataKomponenPH, BindingResult result,String action) {
 		if (result.hasErrors()) {
-            return "/pages/MasterParameter/RateKomponenPH/ApprovalData";
+            return "/pages/MasterParameter/KomponenPH/ApprovalData";
         }
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataRateKomponenPH)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(dataKomponenPH)), 
 				String.class
 			);
 			
-			return "redirect:/RateKomponenPH/Data";
+			return "redirect:/KomponenPH/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@PostMapping(value = "/RateKomponenPH/ActionData")
-	public String RateKomponenPHActionData(@RequestParam("ids") String ids,String action) {
+	@PostMapping(value = "/KomponenPH/ActionData")
+	public String KomponenPHActionData(@RequestParam("ids") String ids,String action) {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
@@ -131,14 +131,14 @@ public class RateKomponenPHController {
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
 			);
-			return "redirect:/RateKomponenPH/Data";
+			return "redirect:/KomponenPH/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
-	@PostMapping(value = "/RateKomponenPH/ActionApproval")
-	public String RateKomponenPHActionApproval(@RequestParam("ids") String ids,String action) {
+	@PostMapping(value = "/KomponenPH/ActionApproval")
+	public String KomponenPHActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
@@ -147,72 +147,72 @@ public class RateKomponenPHController {
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
 			);
-			return "redirect:/RateKomponenPH/ApprovalData";
+			return "redirect:/KomponenPH/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
-	@RequestMapping(value = "/RateKomponenPH/EditData/{id}", method = RequestMethod.GET)
-	public String RateKomponenPHEditData(@PathVariable @NotNull Integer id,Model model) {
+	@RequestMapping(value = "/KomponenPH/EditData/{id}", method = RequestMethod.GET)
+	public String KomponenPHEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
-			ResponseEntity<ResponRateKomponenPH> respon = restTemplate.exchange(
+			ResponseEntity<ResponKomponenPH> respon = restTemplate.exchange(
 				apiBaseUrl+"/api/tipekonsumen/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
-				ResponRateKomponenPH.class
+				ResponKomponenPH.class
 			);
 
-			model.addAttribute("dataRateKomponenPH",respon.getBody().getRateKomponenPH());
-			return "/pages/MasterParameter/RateKomponenPH/EditData";
+			model.addAttribute("dataKomponenPH",respon.getBody().getDataKomponenPH());
+			return "/pages/MasterParameter/KomponenPH/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@GetMapping(value = { "/RateKomponenPH/Data" })
-	public String getListRateKomponenPH(Model model) {
+	@GetMapping(value = { "/KomponenPH/Data" })
+	public String getListKomponenPH(Model model) {
 		try {
-			ResponseEntity<ResponRateKomponenPH> respon = restTemplate.exchange(
+			ResponseEntity<ResponKomponenPH> respon = restTemplate.exchange(
 					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
-					ResponRateKomponenPH.class);
+					ResponKomponenPH.class);
 
-			model.addAttribute("listDataRateKomponenPH", respon.getBody().getDataRateKomponenPH());
-			return "/pages/MasterParameter/RateKomponenPH/Data";
+			model.addAttribute("listDataKomponenPH", respon.getBody().getDataKomponenPH());
+			return "/pages/MasterParameter/KomponenPH/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@GetMapping(value = { "/RateKomponenPH/ApprovalData" })
-	public String getListApprovalRateKomponenPH(Model model) {
+	@GetMapping(value = { "/KomponenPH/ApprovalData" })
+	public String getListApprovalKomponenPH(Model model) {
 		try {
-			ResponseEntity<ResponRateKomponenPH> respon = restTemplate.exchange(
+			ResponseEntity<ResponKomponenPH> respon = restTemplate.exchange(
 					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
-					ResponRateKomponenPH.class);
+					ResponKomponenPH.class);
 
-			model.addAttribute("listDataRateKomponenPH", respon.getBody().getDataRateKomponenPH());
-			return "/pages/MasterParameter/RateKomponenPH/ApprovalData";
+			model.addAttribute("listDataKomponenPH", respon.getBody().getDataKomponenPH());
+			return "/pages/MasterParameter/KomponenPH/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
-	@RequestMapping(value = "/RateKomponenPH/FormApprovalData/{id}", method = RequestMethod.GET)
-	public String RateKomponenPHFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
+	@RequestMapping(value = "/KomponenPH/FormApprovalData/{id}", method = RequestMethod.GET)
+	public String KomponenPHFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
-			ResponseEntity<ResponRateKomponenPH> respon = restTemplate.exchange(
+			ResponseEntity<ResponKomponenPH> respon = restTemplate.exchange(
 				apiBaseUrl+"/api/tipekonsumen/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
-				ResponRateKomponenPH.class
+				ResponKomponenPH.class
 			);
 
-			model.addAttribute("dataRateKomponenPH",respon.getBody().getRateKomponenPH());
-			return "/pages/MasterParameter/RateKomponenPH/FormApprovalData";
+			model.addAttribute("dataKomponenPH",respon.getBody().getDataKomponenPH());
+			return "/pages/MasterParameter/KomponenPH/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}

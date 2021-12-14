@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,31 +15,27 @@ import org.springframework.format.annotation.DateTimeFormat;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
-    "jenis_pembiayaan",
+    "nama",
     "produk",
-    "is_refinancing",
+    "deskripsi",
     "start_date",
     "end_date",
     "is_approved",
     "is_rejected",
-    "remarks",
-    "createdby",
-    "createddate",
-    "updatedby",
-    "updateddate"
+    "remarks"
 })
-public class DataJenisPembiayaan {
+public class DataTujuanPenggunaan {
 
     @JsonProperty("id")
     private Integer id;
-    @JsonProperty("jenis_pembiayaan")
-    @NotEmpty(message = "Jenis Pembiayaan Tidak Boleh Kosong")
-    private String jenis_pembiayaan;
+    @JsonProperty("nama")
+    @NotEmpty(message = "Nama Tidak Boleh Kosong")
+    private String nama;
     @JsonProperty("produk")
     @NotNull(message = "Produk Tidak Boleh Kosong")
     private Integer produk;
-    @JsonProperty("is_refinancing")
-    private String is_refinancing;
+    @JsonProperty("deskripsi")
+    private String deskripsi;
     @JsonProperty("start_date")
     @NotNull(message = "Start Date Tidak Boleh Kosong")
     @DateTimeFormat (pattern="yyyy-MM-dd")
@@ -57,14 +52,14 @@ public class DataJenisPembiayaan {
     private String remarks;
 
 
-    public DataJenisPembiayaan() {
+    public DataTujuanPenggunaan() {
     }
 
-    public DataJenisPembiayaan(Integer id, String jenis_pembiayaan, Integer produk, String is_refinancing, Date start_date, Date end_date, Integer is_approved, Integer is_rejected, String remarks) {
+    public DataTujuanPenggunaan(Integer id, String nama, Integer produk, String deskripsi, Date start_date, Date end_date, Integer is_approved, Integer is_rejected, String remarks) {
         this.id = id;
-        this.jenis_pembiayaan = jenis_pembiayaan;
+        this.nama = nama;
         this.produk = produk;
-        this.is_refinancing = is_refinancing;
+        this.deskripsi = deskripsi;
         this.start_date = start_date;
         this.end_date = end_date;
         this.is_approved = is_approved;
@@ -80,12 +75,12 @@ public class DataJenisPembiayaan {
         this.id = id;
     }
 
-    public String getJenis_pembiayaan() {
-        return this.jenis_pembiayaan;
+    public String getNama() {
+        return this.nama;
     }
 
-    public void setJenis_pembiayaan(String jenis_pembiayaan) {
-        this.jenis_pembiayaan = jenis_pembiayaan;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
     public Integer getProduk() {
@@ -96,12 +91,12 @@ public class DataJenisPembiayaan {
         this.produk = produk;
     }
 
-    public String getIs_refinancing() {
-        return this.is_refinancing;
+    public String getDeskripsi() {
+        return this.deskripsi;
     }
 
-    public void setIs_refinancing(String is_refinancing) {
-        this.is_refinancing = is_refinancing;
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
     }
 
     public Date getStart_date() {
@@ -144,58 +139,58 @@ public class DataJenisPembiayaan {
         this.remarks = remarks;
     }
 
-    public DataJenisPembiayaan id(Integer id) {
+    public DataTujuanPenggunaan id(Integer id) {
         setId(id);
         return this;
     }
 
-    public DataJenisPembiayaan jenis_pembiayaan(String jenis_pembiayaan) {
-        setJenis_pembiayaan(jenis_pembiayaan);
+    public DataTujuanPenggunaan nama(String nama) {
+        setNama(nama);
         return this;
     }
 
-    public DataJenisPembiayaan produk(Integer produk) {
+    public DataTujuanPenggunaan produk(Integer produk) {
         setProduk(produk);
         return this;
     }
 
-    public DataJenisPembiayaan is_refinancing(String is_refinancing) {
-        setIs_refinancing(is_refinancing);
+    public DataTujuanPenggunaan deskripsi(String deskripsi) {
+        setDeskripsi(deskripsi);
         return this;
     }
 
-    public DataJenisPembiayaan start_date(Date start_date) {
+    public DataTujuanPenggunaan start_date(Date start_date) {
         setStart_date(start_date);
         return this;
     }
 
-    public DataJenisPembiayaan end_date(Date end_date) {
+    public DataTujuanPenggunaan end_date(Date end_date) {
         setEnd_date(end_date);
         return this;
     }
 
-    public DataJenisPembiayaan is_approved(Integer is_approved) {
+    public DataTujuanPenggunaan is_approved(Integer is_approved) {
         setIs_approved(is_approved);
         return this;
     }
 
-    public DataJenisPembiayaan is_rejected(Integer is_rejected) {
+    public DataTujuanPenggunaan is_rejected(Integer is_rejected) {
         setIs_rejected(is_rejected);
         return this;
     }
 
-    public DataJenisPembiayaan remarks(String remarks) {
+    public DataTujuanPenggunaan remarks(String remarks) {
         setRemarks(remarks);
         return this;
     }
-    
+
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
-            ", jenis_pembiayaan='" + getJenis_pembiayaan() + "'" +
+            ", nama='" + getNama() + "'" +
             ", produk='" + getProduk() + "'" +
-            ", is_refinancing='" + getIs_refinancing() + "'" +
+            ", deskripsi='" + getDeskripsi() + "'" +
             ", start_date='" + getStart_date() + "'" +
             ", end_date='" + getEnd_date() + "'" +
             ", is_approved='" + getIs_approved() + "'" +
@@ -203,7 +198,6 @@ public class DataJenisPembiayaan {
             ", remarks='" + getRemarks() + "'" +
             "}";
     }
-
     
 
 }
