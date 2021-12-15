@@ -10,9 +10,11 @@
         <style>
           table.dataTable td {
             white-space:nowrap;
+            padding: 1em;
           }
           table.dataTable th {
             white-space:nowrap;
+            padding: 1em;
           }
         </style>
         <div class="c-body">
@@ -170,7 +172,7 @@
                 if(_FILTER_COLUMN.includes($(this.header()).data('value'))) {
                   var header = $(this.header()).data('value');
                   var column = this;
-                  var select = $('<select class="form-control" ><option value=""></option></select>')
+                  var select = $('<select class="form-control" style="width:auto;"><option value=""></option></select>')
                       .appendTo( $("#"+"fil-"+header).empty() )
                       .on( 'change', function () {
                           var val = $.fn.dataTable.util.escapeRegex(
@@ -189,13 +191,15 @@
                   
                   filters = [...new Set(filters)];
                   
+                  filters = [...new Set(filters)];
+                  
                   filters.forEach(function (data) {
                     select.append( '<option value="'+data+'">'+data+'</option>' )
                   })
                 }
               } );
           }
-      } );
+      } ).columns.adjust();
 
       $(document).ready(function(){
         $("#check-all").click(function(event) {

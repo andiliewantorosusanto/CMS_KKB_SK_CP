@@ -69,7 +69,7 @@ public class MinimalDPController {
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponMinimalDP> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/minimaldp/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponMinimalDP.class);
 
         List<DataMinimalDP> listMinimalDP = respon.getBody().getDataMinimalDP();
@@ -87,7 +87,7 @@ public class MinimalDPController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/minimaldp/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataMinimalDP)), 
 				String.class
@@ -108,7 +108,7 @@ public class MinimalDPController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/minimaldp/"+HelperConf.getAction(action)+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataMinimalDP)), 
 				String.class
@@ -126,7 +126,7 @@ public class MinimalDPController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/minimaldp/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -142,7 +142,7 @@ public class MinimalDPController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/minimaldp/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -157,7 +157,7 @@ public class MinimalDPController {
 	public String MinimalDPEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponMinimalDP> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/minimaldp/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponMinimalDP.class
@@ -175,7 +175,7 @@ public class MinimalDPController {
 	public String getListMinimalDP(Model model) {
 		try {
 			ResponseEntity<ResponMinimalDP> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/minimaldp/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponMinimalDP.class);
 
 			model.addAttribute("listDataMinimalDP", respon.getBody().getDataMinimalDP());
@@ -190,7 +190,7 @@ public class MinimalDPController {
 	public String getListApprovalMinimalDP(Model model) {
 		try {
 			ResponseEntity<ResponMinimalDP> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/minimaldp/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponMinimalDP.class);
 
 			model.addAttribute("listDataMinimalDP", respon.getBody().getDataMinimalDP());
@@ -205,7 +205,7 @@ public class MinimalDPController {
 	public String MinimalDPFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponMinimalDP> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/minimaldp/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponMinimalDP.class

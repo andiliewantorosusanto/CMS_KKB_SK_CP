@@ -114,8 +114,13 @@ public class DataBiayaProvisi {
     @JsonProperty("tenor1_persen0")
     private Float tenor10_persen;
 
+    @JsonProperty("is_approved")
+    private Integer is_approved;
+    @JsonProperty("is_rejected")
+    private Integer is_rejected;
     @JsonProperty("remarks")
     private String remarks;
+
     @JsonProperty("status")
     private Object status;
 
@@ -126,7 +131,7 @@ public class DataBiayaProvisi {
     public DataBiayaProvisi() {
     }
 
-    public DataBiayaProvisi(Integer id, String nama_skema, Date startBerlaku, Date endBerlaku, Integer loanType, DataJenisKendaraan jenis_kendaraanObject, Integer jenis_kendaraan, DataJenisPembiayaan jenis_pembiayaanObject, Integer jenis_pembiayaan, Float tenor1, Float tenor2, Float tenor3, Float tenor4, Float tenor5, Float tenor6, Float tenor7, Float tenor8, Float tenor9, Float tenor10, Float tenor1_persen, Float tenor2_persen, Float tenor3_persen, Float tenor4_persen, Float tenor5_persen, Float tenor6_persen, Float tenor7_persen, Float tenor8_persen, Float tenor9_persen, Float tenor10_persen, String remarks, Object status, Integer statusApproved) {
+    public DataBiayaProvisi(Integer id, String nama_skema, Date startBerlaku, Date endBerlaku, Integer loanType, DataJenisKendaraan jenis_kendaraanObject, Integer jenis_kendaraan, DataJenisPembiayaan jenis_pembiayaanObject, Integer jenis_pembiayaan, Float tenor1, Float tenor2, Float tenor3, Float tenor4, Float tenor5, Float tenor6, Float tenor7, Float tenor8, Float tenor9, Float tenor10, Float tenor1_persen, Float tenor2_persen, Float tenor3_persen, Float tenor4_persen, Float tenor5_persen, Float tenor6_persen, Float tenor7_persen, Float tenor8_persen, Float tenor9_persen, Float tenor10_persen, Integer is_approved, Integer is_rejected, String remarks, Object status, Integer statusApproved) {
         this.id = id;
         this.nama_skema = nama_skema;
         this.startBerlaku = startBerlaku;
@@ -156,6 +161,8 @@ public class DataBiayaProvisi {
         this.tenor8_persen = tenor8_persen;
         this.tenor9_persen = tenor9_persen;
         this.tenor10_persen = tenor10_persen;
+        this.is_approved = is_approved;
+        this.is_rejected = is_rejected;
         this.remarks = remarks;
         this.status = status;
         this.statusApproved = statusApproved;
@@ -393,6 +400,22 @@ public class DataBiayaProvisi {
         this.tenor10_persen = tenor10_persen;
     }
 
+    public Integer getIs_approved() {
+        return this.is_approved;
+    }
+
+    public void setIs_approved(Integer is_approved) {
+        this.is_approved = is_approved;
+    }
+
+    public Integer getIs_rejected() {
+        return this.is_rejected;
+    }
+
+    public void setIs_rejected(Integer is_rejected) {
+        this.is_rejected = is_rejected;
+    }
+
     public String getRemarks() {
         return this.remarks;
     }
@@ -562,6 +585,16 @@ public class DataBiayaProvisi {
         return this;
     }
 
+    public DataBiayaProvisi is_approved(Integer is_approved) {
+        setIs_approved(is_approved);
+        return this;
+    }
+
+    public DataBiayaProvisi is_rejected(Integer is_rejected) {
+        setIs_rejected(is_rejected);
+        return this;
+    }
+
     public DataBiayaProvisi remarks(String remarks) {
         setRemarks(remarks);
         return this;
@@ -609,6 +642,8 @@ public class DataBiayaProvisi {
             ", tenor8_persen='" + getTenor8_persen() + "'" +
             ", tenor9_persen='" + getTenor9_persen() + "'" +
             ", tenor10_persen='" + getTenor10_persen() + "'" +
+            ", is_approved='" + getIs_approved() + "'" +
+            ", is_rejected='" + getIs_rejected() + "'" +
             ", remarks='" + getRemarks() + "'" +
             ", status='" + getStatus() + "'" +
             ", statusApproved='" + getStatusApproved() + "'" +

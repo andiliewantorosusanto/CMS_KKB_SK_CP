@@ -30,45 +30,64 @@
                               <th><input type="checkbox" id="check-all"></th>
                               <th></th>
                               <th id="fil-nama_skema"></th>
-                              <th id="fil-tipe_konsumen"></th>
-                              <th id="fil-tipe_asuransi"></th>
+                              <th id="fil-loanType"></th>
                               <th id="fil-Jenis_kendaraan"></th>
                               <th id="fil-jenis_pembiayaan"></th>
-                              <th id="fil-cluster"></th>
-                              <th id="fil-npwp"></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
+
+                              <th id="fil-otr_start"></th>
+                              <th id="fil-otr_start"></th>
                               <th id="fil-status"></th>
-                              <th></th>
+                              <th id="fil-remarks"></th>
                             </tr>
                             <tr role="filter">
                               <th data-value="checkbox"></th>
                               <th data-value="actions">Actions</th>
                               <th data-value="nama_skema">Skema</th>
-                              <th data-value="tipe_konsumen">Tipe Konsumen</th>
+                              <th data-value="loanType">Loan Type</th>
                               <th data-value="Jenis_kendaraan">Jenis Kendaraan</th>
                               <th data-value="jenis_pembiayaan">Jenis Pembiayaan</th>
-                              <th data-value="cluster">Cluster</th>
-                              <th data-value="npwp">NPWP</th>
+
+                              <th data-value="otr_start">Tenor 1 (Rp)</th>
                               <th data-value="otr_start">Tenor 1 (%)</th>
+                              <th data-value="otr_start">Tenor 2 (Rp)</th>
                               <th data-value="otr_start">Tenor 2 (%)</th>
+                              <th data-value="otr_start">Tenor 3 (Rp)</th>
                               <th data-value="otr_start">Tenor 3 (%)</th>
+                              <th data-value="otr_start">Tenor 4 (Rp)</th>
                               <th data-value="otr_start">Tenor 4 (%)</th>
+                              <th data-value="otr_start">Tenor 5 (Rp)</th>
                               <th data-value="otr_start">Tenor 5 (%)</th>
+                              <th data-value="otr_start">Tenor 6 (Rp)</th>
                               <th data-value="otr_start">Tenor 6 (%)</th>
+                              <th data-value="otr_start">Tenor 7 (Rp)</th>
                               <th data-value="otr_start">Tenor 7 (%)</th>
+                              <th data-value="otr_start">Tenor 8 (Rp)</th>
                               <th data-value="otr_start">Tenor 8 (%)</th>
+                              <th data-value="otr_start">Tenor 9 (Rp)</th>
                               <th data-value="otr_start">Tenor 9 (%)</th>
+                              <th data-value="otr_start">Tenor 10 (Rp)</th>
                               <th data-value="otr_start">Tenor 10 (%)</th>
+
                               <th data-value="otr_start">Masa Berlaku Start</th>
                               <th data-value="otr_start">Masa Berlaku End</th>
                               <th data-value="status">Status</th>
@@ -76,61 +95,70 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="biayaAdmin :${listDataBiayaAdmin}">
+                            <tr th:each="biayaProvisi :${listDataBiayaProvisi}">
                               <td>
                                 <div class="form-check">
-                                  <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${biayaAdmin.id}">
+                                  <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${biayaProvisi.id}">
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/BiayaAdminEditData/{id}(id=${biayaAdmin.id})}">
+                                <a class="btn btn-success" th:href="@{/BiayaProvisiEditData/{id}(id=${biayaProvisi.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
                                 </svg></a>
                                 </td>
                                 
-                                <td th:text="${biayaAdmin.nama_skema}" th:attr="data-filter=${biayaAdmin.nama_skema}"></td>
-                                <td th:text="${biayaAdmin.tipe_konsumenObject.nama}" th:attr="data-filter=${biayaAdmin.tipe_konsumenObject.nama}"></td>
-                                <td th:text="${biayaAdmin.jenis_kendaraanObject.jenis_kendaraan}" th:attr="data-filter=${biayaAdmin.jenis_kendaraanObject.jenis_kendaraan}"></td>
-                                <td th:text="${biayaAdmin.jenis_pembiayaanObject.jenis_pembiayaan}" th:attr="data-filter=${biayaAdmin.jenis_pembiayaanObject.jenis_pembiayaan}"></td>
-                                <td th:text="${biayaAdmin.clusterObject.cluster}" th:attr="data-filter=${biayaAdmin.clusterObject.cluster}"></td>
-                                <td th:text="${biayaAdmin.diskon_npwp}" th:attr="data-filter=${biayaAdmin.diskon_npwp}"></td>
+                                <td th:text="${biayaProvisi.nama_skema}" th:attr="data-filter=${biayaProvisi.nama_skema}"></td>
+                                <td th:text="${biayaProvisi.loanType}" th:attr="data-filter=${biayaProvisi.loanType}"></td>
+                                <td th:text="${biayaProvisi.jenis_kendaraanObject.jenis_kendaraan}" th:attr="data-filter=${biayaProvisi.jenis_kendaraanObject.jenis_kendaraan}"></td>
+                                <td th:text="${biayaProvisi.jenis_pembiayaanObject.jenis_pembiayaan}" th:attr="data-filter=${biayaProvisi.jenis_pembiayaanObject.jenis_pembiayaan}"></td>
 
-                                <td th:text="${biayaAdmin.tenor1}" th:attr="data-filter=${biayaAdmin.tenor1}"></td>
-                                <td th:text="${biayaAdmin.tenor2}" th:attr="data-filter=${biayaAdmin.tenor2}"></td>
-                                <td th:text="${biayaAdmin.tenor3}" th:attr="data-filter=${biayaAdmin.tenor3}"></td>
-                                <td th:text="${biayaAdmin.tenor4}" th:attr="data-filter=${biayaAdmin.tenor4}"></td>
-                                <td th:text="${biayaAdmin.tenor5}" th:attr="data-filter=${biayaAdmin.tenor5}"></td>
-                                <td th:text="${biayaAdmin.tenor6}" th:attr="data-filter=${biayaAdmin.tenor6}"></td>
-                                <td th:text="${biayaAdmin.tenor7}" th:attr="data-filter=${biayaAdmin.tenor7}"></td>
-                                <td th:text="${biayaAdmin.tenor8}" th:attr="data-filter=${biayaAdmin.tenor8}"></td>
-                                <td th:text="${biayaAdmin.tenor9}" th:attr="data-filter=${biayaAdmin.tenor9}"></td>
-                                <td th:text="${biayaAdmin.tenor10}" th:attr="data-filter=${biayaAdmin.tenor10}"></td>
-                                <td th:text="${#dates.format(biayaAdmin.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${biayaAdmin.startBerlaku}"></td>
-                                <td th:text="${#dates.format(biayaAdmin.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${biayaAdmin.endBerlaku}"></td>
+                                <td th:text="${biayaProvisi.tenor1}" th:attr="data-filter=${biayaProvisi.tenor1}"></td>
+                                <td th:text="${biayaProvisi.tenor1_persen}" th:attr="data-filter=${biayaProvisi.tenor1_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor2}" th:attr="data-filter=${biayaProvisi.tenor2}"></td>
+                                <td th:text="${biayaProvisi.tenor2_persen}" th:attr="data-filter=${biayaProvisi.tenor2_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor3}" th:attr="data-filter=${biayaProvisi.tenor3}"></td>
+                                <td th:text="${biayaProvisi.tenor3_persen}" th:attr="data-filter=${biayaProvisi.tenor3_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor4}" th:attr="data-filter=${biayaProvisi.tenor4}"></td>
+                                <td th:text="${biayaProvisi.tenor4_persen}" th:attr="data-filter=${biayaProvisi.tenor4_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor5}" th:attr="data-filter=${biayaProvisi.tenor5}"></td>
+                                <td th:text="${biayaProvisi.tenor5_persen}" th:attr="data-filter=${biayaProvisi.tenor5_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor6}" th:attr="data-filter=${biayaProvisi.tenor6}"></td>
+                                <td th:text="${biayaProvisi.tenor6_persen}" th:attr="data-filter=${biayaProvisi.tenor6_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor7}" th:attr="data-filter=${biayaProvisi.tenor7}"></td>
+                                <td th:text="${biayaProvisi.tenor7_persen}" th:attr="data-filter=${biayaProvisi.tenor7_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor8}" th:attr="data-filter=${biayaProvisi.tenor8}"></td>
+                                <td th:text="${biayaProvisi.tenor8_persen}" th:attr="data-filter=${biayaProvisi.tenor8_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor9}" th:attr="data-filter=${biayaProvisi.tenor9}"></td>
+                                <td th:text="${biayaProvisi.tenor9_persen}" th:attr="data-filter=${biayaProvisi.tenor9_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor10}" th:attr="data-filter=${biayaProvisi.tenor10}"></td>
+                                <td th:text="${biayaProvisi.tenor10_persen}" th:attr="data-filter=${biayaProvisi.tenor10_persen}"></td>
                                 
-                                <td th:if="${biayaAdmin.statusApproval == null or biayaAdmin.statusApproval == 0}" data-filter="Draft">
+                                <td th:text="${#dates.format(biayaProvisi.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${biayaProvisi.startBerlaku}"></td>
+                                <td th:text="${#dates.format(biayaProvisi.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${biayaProvisi.endBerlaku}"></td>
+                                
+                                <td th:if="${biayaProvisi.statusApproved == null or biayaProvisi.statusApproved == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${biayaAdmin.statusApproval == 1}" data-filter="Submitted">
+                                <td th:if="${biayaProvisi.statusApproved == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${biayaAdmin.statusApproval == 2 and biayaAdmin.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${biayaProvisi.statusApproved == 2 and biayaProvisi.is_approved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${biayaAdmin.statusApproval == 2 and biayaAdmin.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${biayaProvisi.statusApproved == 2 and biayaProvisi.is_rejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 
-                                <td th:text="${biayaAdmin.remarks}"></td>
+                                <td th:text="${biayaProvisi.remarks}"></td>
                             </tr>
                           </tbody>
                         </table>
                           
                         <div class="row">
                           <div class="col-auto">
-                            <form id="mass-action-form" th:action="@{/BiayaAdmin/ActionApproval}"  method="post">
+                            <form id="mass-action-form" th:action="@{/BiayaProvisi/ActionApproval}"  method="post">
                               <button class="btn btn-primary" name="action"
                                 value="approve">Approve</button>
                               <button class="btn btn-danger" name="action"

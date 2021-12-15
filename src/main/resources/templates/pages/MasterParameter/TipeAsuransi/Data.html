@@ -130,13 +130,15 @@
                   
                   filters = [...new Set(filters)];
                   
+                  filters = [...new Set(filters)];
+                  
                   filters.forEach(function (data) {
                     select.append( '<option value="'+data+'">'+data+'</option>' )
                   })
                 }
               } );
           }
-      } );
+      } ).columns.adjust();
 
       $(document).ready(function(){
         $("#check-all").click(function(event) {
