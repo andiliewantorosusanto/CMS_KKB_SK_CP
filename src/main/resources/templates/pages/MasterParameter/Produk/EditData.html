@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+    <head th:replace="fragments/common :: head"></head>
+    <body class="c-app">
+        <div th:replace="fragments/common :: sidebar"></div>
+        <div class="c-wrapper">
+            <div th:replace="fragments/common :: header"></div>
+            <div class="c-body">
+                <main class="c-main">
+                    <div class="container-fluid">
+                        <div class="fade-in">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header"> Form Input - Produk
+                                            <div class="card-header-actions"></div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <form id="signupForm" th:action="@{/Produk/ActionInputData}"  th:object="${dataProduk}" method="post" novalidate="novalidate">
+                                                        <input type="hidden" th:field="*{id}" id="id" nama="id">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="produk">Nama Produk</label>
+                                                            <input class="form-control" id="produk" type="text" name="produk" th:field="*{produk}"
+                                                                placeholder="produk" th:classappend="${#fields.hasErrors('produk')} ?  is-invalid">
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('produk')}" th:errors="*{produk}"></div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="firstname">Deskripsi</label>
+                                                            <input class="form-control" id="deskripsi" type="text" name="deskripsi" th:field="*{deskripsi}"
+                                                                placeholder="deskripsi" th:classappend="${#fields.hasErrors('deskripsi')} ?  is-invalid">
+                                                                <div class="invalid-feedback" th:if="${#fields.hasErrors('deskripsi')}" th:errors="*{deskripsi}"></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="password">Masa Berlaku
+                                                                    Start</label>
+                                                                <input class="form-control" id="startBerlaku" type="date" th:field="*{startBerlaku}"
+                                                                    name="startBerlaku" th:classappend="${#fields.hasErrors('startBerlaku')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('startBerlaku')}" th:errors="*{startBerlaku}"></div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="confirm_password">Masa Berlaku
+                                                                    End</label>
+                                                                <input class="form-control" id="endBerlaku" type="date" th:field="*{endBerlaku}"
+                                                                    name="endBerlaku" th:classappend="${#fields.hasErrors('endBerlaku')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('endBerlaku')}" th:errors="*{endBerlaku}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <button class="btn btn-info" type="submit" name="action"
+                                                                value="save">Save</button>
+                                                            <button class="btn btn-primary" type="submit" name="action"
+                                                                value="submit">Submit</button>
+                                                            <a href="/Produk/Data"><button class="btn btn-secondary" type="button">Cancel</button></a>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </main>
+            </div>
+            <div th:replace="fragments/common :: footer"></div>
+        </div>
+        <div th:replace="fragments/common :: scripts"></div>
+    </body>
+</html>

@@ -17,6 +17,7 @@
                       <div class="card-header"> Data - Tujuan Penggunaan
                         <a href="/Cluster/InputData"><button class="btn btn-sm btn-ghost-success" type="button">Input Data</button></a>
                         <a href="/Cluster/Export/Excel" target="_blank"><button class="btn btn-sm btn-ghost-success" type="button">Export Data</button></a>
+                        <!-- <a href="/Cluster/ImportData"><button class="btn btn-sm btn-ghost-success" type="button">Import Data</button></a> -->
                       </div>
                       <div class="card-body" id="body">
                         <table id="table" class="table table-striped table-bordered datatables" style="width:100%;">
@@ -52,7 +53,7 @@
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/Cluster/EditData/{id}(id=${cluster.id})}">
+                                <a class="btn btn-success" th:href="@{/Cluster/FormApprovalData/{id}(id=${cluster.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
@@ -60,23 +61,24 @@
                                 </td>
                                 
                                 <td th:text="${cluster.cluster}" th:attr="data-filter=${cluster.cluster}"></td>
-                                <td th:text="${cluster.produk}" th:attr="data-filter=${cluster.produk}"></td>
+                                <td th:text="${cluster.produkObject.produk}" th:attr="data-filter=${cluster.produkObject.produk}"></td>
                                 <td th:text="${cluster.deskripsi}" th:attr="data-filter=${cluster.deskripsi}"></td>
                                 <td th:text="${#dates.format(cluster.start_date,'dd-MM-yyyy')}" th:attr="data-filter=${cluster.start_date}"></td>
                                 <td th:text="${#dates.format(cluster.end_date,'dd-MM-yyyy')}" th:attr="data-filter=${cluster.end_date}"></td>
-                                
-                                <td th:if="${cluster.is_approved == null and cluster.is_rejected == null}" data-filter="Draft">
+
+                                <td th:if="${cluster.statusApproval == null or cluster.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${cluster.is_approved == 0 and cluster.is_rejected == 0}" data-filter="Submitted">
+                                <td th:if="${cluster.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${cluster.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${cluster.statusApproval == 2 and cluster.is_approved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${cluster.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${cluster.statusApproval == 2 and cluster.is_rejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
+
 
                                 <td th:text="${cluster.remarks}"></td>
                             </tr>

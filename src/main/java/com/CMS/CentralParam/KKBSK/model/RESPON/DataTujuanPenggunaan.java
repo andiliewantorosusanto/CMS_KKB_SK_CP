@@ -16,6 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @JsonPropertyOrder({
     "id",
     "nama",
+    "produkObject",
     "produk",
     "deskripsi",
     "start_date",
@@ -31,6 +32,8 @@ public class DataTujuanPenggunaan {
     @JsonProperty("nama")
     @NotEmpty(message = "Nama Tidak Boleh Kosong")
     private String nama;
+    @JsonProperty("produkObject")
+    private DataProduk produkObject;
     @JsonProperty("produk")
     @NotNull(message = "Produk Tidak Boleh Kosong")
     private Integer produk;
@@ -50,14 +53,17 @@ public class DataTujuanPenggunaan {
     private Integer is_rejected;
     @JsonProperty("remarks")
     private String remarks;
+    @JsonProperty("statusApproval")
+    private Integer statusApproval;
 
 
     public DataTujuanPenggunaan() {
     }
 
-    public DataTujuanPenggunaan(Integer id, String nama, Integer produk, String deskripsi, Date start_date, Date end_date, Integer is_approved, Integer is_rejected, String remarks) {
+    public DataTujuanPenggunaan(Integer id, String nama, DataProduk produkObject, Integer produk, String deskripsi, Date start_date, Date end_date, Integer is_approved, Integer is_rejected, String remarks, Integer statusApproval) {
         this.id = id;
         this.nama = nama;
+        this.produkObject = produkObject;
         this.produk = produk;
         this.deskripsi = deskripsi;
         this.start_date = start_date;
@@ -65,6 +71,7 @@ public class DataTujuanPenggunaan {
         this.is_approved = is_approved;
         this.is_rejected = is_rejected;
         this.remarks = remarks;
+        this.statusApproval = statusApproval;
     }
 
     public Integer getId() {
@@ -81,6 +88,14 @@ public class DataTujuanPenggunaan {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+
+    public DataProduk getProdukObject() {
+        return this.produkObject;
+    }
+
+    public void setProdukObject(DataProduk produkObject) {
+        this.produkObject = produkObject;
     }
 
     public Integer getProduk() {
@@ -139,6 +154,14 @@ public class DataTujuanPenggunaan {
         this.remarks = remarks;
     }
 
+    public Integer getStatusApproval() {
+        return this.statusApproval;
+    }
+
+    public void setStatusApproval(Integer statusApproval) {
+        this.statusApproval = statusApproval;
+    }
+
     public DataTujuanPenggunaan id(Integer id) {
         setId(id);
         return this;
@@ -146,6 +169,11 @@ public class DataTujuanPenggunaan {
 
     public DataTujuanPenggunaan nama(String nama) {
         setNama(nama);
+        return this;
+    }
+
+    public DataTujuanPenggunaan produkObject(DataProduk produkObject) {
+        setProdukObject(produkObject);
         return this;
     }
 
@@ -184,11 +212,17 @@ public class DataTujuanPenggunaan {
         return this;
     }
 
+    public DataTujuanPenggunaan statusApproval(Integer statusApproval) {
+        setStatusApproval(statusApproval);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
             ", nama='" + getNama() + "'" +
+            ", produkObject='" + getProdukObject() + "'" +
             ", produk='" + getProduk() + "'" +
             ", deskripsi='" + getDeskripsi() + "'" +
             ", start_date='" + getStart_date() + "'" +
@@ -196,8 +230,9 @@ public class DataTujuanPenggunaan {
             ", is_approved='" + getIs_approved() + "'" +
             ", is_rejected='" + getIs_rejected() + "'" +
             ", remarks='" + getRemarks() + "'" +
+            ", statusApproval='" + getStatusApproval() + "'" +
             "}";
     }
-    
+
 
 }

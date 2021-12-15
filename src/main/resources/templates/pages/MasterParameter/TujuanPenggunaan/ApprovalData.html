@@ -57,21 +57,21 @@
                                 </td>
                                 
                                 <td th:text="${tujuanPenggunaan.nama}" th:attr="data-filter=${tujuanPenggunaan.nama}"></td>
-                                <td th:text="${tujuanPenggunaan.produk}" th:attr="data-filter=${tujuanPenggunaan.produk}"></td>
+                                <td th:text="${tujuanPenggunaan.produkObject.produk}" th:attr="data-filter=${tujuanPenggunaan.produkObject.produk}"></td>
                                 <td th:text="${tujuanPenggunaan.deskripsi}" th:attr="data-filter=${tujuanPenggunaan.deskripsi}"></td>
                                 <td th:text="${#dates.format(tujuanPenggunaan.start_date,'dd-MM-yyyy')}" th:attr="data-filter=${tujuanPenggunaan.start_date}"></td>
                                 <td th:text="${#dates.format(tujuanPenggunaan.end_date,'dd-MM-yyyy')}" th:attr="data-filter=${tujuanPenggunaan.end_date}"></td>
 
-                                <td th:if="${tujuanPenggunaan.is_approved == null and tujuanPenggunaan.is_rejected == null}" data-filter="Draft">
+                                <td th:if="${tujuanPenggunaan.statusApproval == null or tujuanPenggunaan.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${(tujuanPenggunaan.is_approved == null or tujuanPenggunaan.is_approved == 0) and (tujuanPenggunaan.is_rejected == null or tujuanPenggunaan.is_rejected == 0) }" data-filter="Submitted">
+                                <td th:if="${tujuanPenggunaan.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${tujuanPenggunaan.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${tujuanPenggunaan.statusApproval == 2 and tujuanPenggunaan.is_approved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${tujuanPenggunaan.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${tujuanPenggunaan.statusApproval == 2 and tujuanPenggunaan.is_rejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 

@@ -179,7 +179,6 @@ public class JenisKendaraanController {
 					ResponJenisKendaraan.class);
 
 			model.addAttribute("listDataJenisKendaraan", respon.getBody().getDataJenisKendaraan());
-			System.out.println("data : "+respon.getBody().getDataJenisKendaraan().get(1).toString());
 			return "/pages/MasterParameter/JenisKendaraan/Data";
 		} catch (Exception e) {
 			System.out.println("hello :"+e.toString());

@@ -59,18 +59,19 @@
                                 <td th:text="${#dates.format(tipeAsuransi.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${tipeAsuransi.startBerlaku}"></td>
                                 <td th:text="${#dates.format(tipeAsuransi.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${tipeAsuransi.endBerlaku}"></td>
 
-                                <td th:if="${tipeAsuransi.is_approved == null and tipeAsuransi.is_rejected == null}" data-filter="Draft">
+                                <td th:if="${tipeAsuransi.statusApproval == null or tipeAsuransi.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${(tipeAsuransi.is_approved == null or tipeAsuransi.is_approved == 0) and (tipeAsuransi.is_rejected == null or tipeAsuransi.is_rejected == 0) }" data-filter="Submitted">
+                                <td th:if="${tipeAsuransi.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${tipeAsuransi.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${tipeAsuransi.statusApproval == 2 and tipeAsuransi.is_approved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${tipeAsuransi.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${tipeAsuransi.statusApproval == 2 and tipeAsuransi.is_rejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
+
 
                                 <td th:text="${tipeAsuransi.remarks}"></td>
                             </tr>
@@ -106,7 +107,7 @@
                 if(_FILTER_COLUMN.includes($(this.header()).data('value'))) {
                   var header = $(this.header()).data('value');
                   var column = this;
-                  var select = $('<select><option value=""></option></select>')
+                  var select = $('<select ><option value=""></option></select>')
                       .appendTo( $("#"+"fil-"+header).empty() )
                       .on( 'change', function () {
                           var val = $.fn.dataTable.util.escapeRegex(

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+<head th:replace="fragments/common :: head">
+
+</head>
+<body class="c-app">
+    <div th:replace="fragments/common :: sidebar"></div>
+    <div class="c-wrapper">
+        <div th:replace="fragments/common :: header"></div>
+        <div class="c-body">
+          <main class="c-main">
+            <div class="container-fluid">
+              <div class="fade-in">
+                <div class="row"> 
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header"> Data - Produk</div>
+                      <div class="card-body" id="body">
+                        <table id="table" class="table table-striped table-bordered datatables" style="width:100%;">
+                          <thead>
+                            <tr role="row">
+                              <th><input type="checkbox" id="check-all"></th>
+                              <th></th>
+                              <th id="fil-produk"></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th id="fil-status"></th>
+                              <th></th>
+                            </tr>
+                            <tr role="filter">
+                              <th data-value="checkbox"></th>
+                              <th data-value="actions">Actions</th>
+                              <th data-value="produk">Nama Produk</th>
+                              <th data-value="deskripsi">Deskripsi</th>
+                              <th data-value="start_date">Start Date</th>
+                              <th data-value="end_date">End Date</th>
+                              <th data-value="status">Status</th>
+                              <th data-value="remarks">Remarks</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr th:each="produk :${listDataProduk}">
+                              <td>
+                                <div class="form-check">
+                                  <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${produk.id}">
+                                </div>
+                              </td>
+                              <td>
+                                <a class="btn btn-success" th:href="@{/ProdukEditData/{id}(id=${produk.id})}">
+                                <svg class="c-icon">
+                                  <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
+                                  </use>
+                                </svg></a>
+                                </td>
+                                
+                                <td th:text="${produk.produk}" th:attr="data-filter=${produk.produk}"></td>
+                                <td th:text="${produk.deskripsi}" th:attr="data-filter=${produk.deskripsi}"></td>
+                                <td th:text="${#dates.format(produk.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${produk.startBerlaku}"></td>
+                                <td th:text="${#dates.format(produk.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${produk.endBerlaku}"></td>
+
+                                <td th:if="${produk.statusApproval == null or produk.statusApproval == 0}" data-filter="Draft">
+                                  <span class="badge badge-primary">Draft</span>
+                                </td>
+                                <td th:if="${produk.statusApproval == 1}" data-filter="Submitted">
+                                  <span class="badge badge-warning">Submitted</span>
+                                </td>
+                                <td th:if="${produk.statusApproval == 2 and produk.is_approved == 1}"  data-filter="Approved">
+                                  <span class="badge badge-success">Approved</span>
+                                </td>
+                                <td th:if="${produk.statusApproval == 2 and produk.is_rejected == 1}" data-filter="Rejected">
+                                  <span class="badge badge-danger">Rejected</span>
+                                </td>
+
+                                
+                                <td th:text="${produk.remarks}"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="row">
+                          <div class="col-auto">
+                            <form id="mass-action-form" th:action="@{/Produk/ActionApproval}"  method="post">
+                              <button class="btn btn-primary" name="action"
+                                value="approve">Approve</button>
+                              <button class="btn btn-danger" name="action"
+                                  value="decline">Decline</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+        <div th:replace="fragments/common :: footer"></div>
+    </div>
+    <div th:replace="fragments/common :: scripts"></div>
+    <script>
+      let _FILTER_COLUMN = ['status'];
+      let selectedIds = [];
+      let table = $('#table').DataTable( {
+          initComplete: function () {
+              this.api().columns().every( function () {
+                if(_FILTER_COLUMN.includes($(this.header()).data('value'))) {
+                  var header = $(this.header()).data('value');
+                  var column = this;
+                  var select = $('<select><option value=""></option></select>')
+                      .appendTo( $("#"+"fil-"+header).empty() )
+                      .on( 'change', function () {
+                          var val = $.fn.dataTable.util.escapeRegex(
+                              $(this).val()
+                          );
+  
+                          column
+                              .search( val ? '^'+val+'$' : '', true, false )
+                              .draw();
+                      } );
+
+                  let filters = [];
+                  $.map(column.nodes(), function (item) {
+                    filters.push($(item).data('filter'));
+                  })
+                  
+                  filters = [...new Set(filters)];
+                  
+                  filters.forEach(function (data) {
+                    select.append( '<option value="'+data+'">'+data+'</option>' )
+                  })
+                }
+              } );
+          }
+      } );
+
+      $(document).ready(function(){
+        $("#check-all").click(function(event) {
+          this.checked = false;
+          let check = ($('.checkbox').not(':checked').length > 0);
+          $('.checkbox').each(function() {
+            this.checked = check;
+            $(this).trigger('change');
+          });
+        });
+
+        $("#table").on('change','.checkbox',function(event) {
+          if(this.checked) {
+            selectedIds.push($(this).data('checkbox'));
+          } else {
+            let val = $(this).data('checkbox')
+            selectedIds = selectedIds.filter(item => item !== val);
+          }
+        });
+
+        $("#mass-action-form").submit( function(eventObj) {
+            $("<input />").attr("type", "hidden")
+                .attr("name", "ids")
+                .attr("value", selectedIds.join(","))
+                .appendTo("#mass-action-form");
+            return true;
+        });
+      })
+  </script>
+</body>
+</html>

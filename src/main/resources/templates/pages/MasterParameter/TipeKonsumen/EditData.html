@@ -28,9 +28,11 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-form-label" for="firstname">Produk</label>
-                                                            <input class="form-control" id="produk" type="text" name="produk" th:field="*{produk}"
-                                                                placeholder="produk" th:classappend="${#fields.hasErrors('produk')} ?  is-invalid">
-                                                                <div class="invalid-feedback" th:if="${#fields.hasErrors('produk')}" th:errors="*{produk}"></div>
+                                                            <select class="form-control" id="produk" type="text" name="produk" th:field="*{produk}"
+                                                            placeholder="produk" th:classappend="${#fields.hasErrors('produk')} ?  is-invalid">
+                                                                <option th:each="dataProduk :${listDataProduk}" th:value="${dataProduk.id}" th:text="${dataProduk.produk}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('produk')}" th:errors="*{produk}"></div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-form-label" for="firstname">Deskripsi</label>

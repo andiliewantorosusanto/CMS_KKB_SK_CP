@@ -15,6 +15,7 @@ import com.CMS.CentralParam.KKBSK.excel.TujuanPenggunaanExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.RESPON.DataTujuanPenggunaan;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponProduk;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTujuanPenggunaan;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -47,10 +48,15 @@ public class TujuanPenggunaanController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/TujuanPenggunaan/InputData", method = RequestMethod.GET)
-	public String TujuanPenggunaanInputData(DataTujuanPenggunaan dataTujuanPenggunaan) {
+	public String TujuanPenggunaanInputData(DataTujuanPenggunaan dataTujuanPenggunaan,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+
 			return "/pages/MasterParameter/TujuanPenggunaan/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -80,8 +86,13 @@ public class TujuanPenggunaanController {
     }  
 	
 	@PostMapping(value = "/TujuanPenggunaan/ActionInputData")
-	public String TujuanPenggunaanActionInputData(@Valid DataTujuanPenggunaan dataTujuanPenggunaan, BindingResult result,String action) {
+	public String TujuanPenggunaanActionInputData(@Valid DataTujuanPenggunaan dataTujuanPenggunaan, BindingResult result,String action,Model model) {
 		if (result.hasErrors()) {
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+
             return "/pages/MasterParameter/TujuanPenggunaan/InputData";
         }
 
@@ -164,6 +175,11 @@ public class TujuanPenggunaanController {
 			);
 
 			model.addAttribute("dataTujuanPenggunaan",respon.getBody().getTujuanPenggunaan());
+			
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
 			return "/pages/MasterParameter/TujuanPenggunaan/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -213,6 +229,12 @@ public class TujuanPenggunaanController {
 			);
 
 			model.addAttribute("dataTujuanPenggunaan",respon.getBody().getTujuanPenggunaan());
+
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+
 			return "/pages/MasterParameter/TujuanPenggunaan/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

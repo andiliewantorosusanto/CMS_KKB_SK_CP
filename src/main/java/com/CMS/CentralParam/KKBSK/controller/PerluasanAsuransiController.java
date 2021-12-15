@@ -15,7 +15,12 @@ import com.CMS.CentralParam.KKBSK.excel.PerluasanAsuransiExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.RESPON.DataPerluasanAsuransi;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisKendaraan;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPembiayaan;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPerluasan;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponPerluasanAsuransi;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTipeAsuransi;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponWilayah;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,10 +52,35 @@ public class PerluasanAsuransiController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/PerluasanAsuransi/InputData", method = RequestMethod.GET)
-	public String PerluasanAsuransiInputData(DataPerluasanAsuransi dataPerluasanAsuransi) {
+	public String PerluasanAsuransiInputData(DataPerluasanAsuransi dataPerluasanAsuransi,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
+			ResponseEntity<ResponWilayah> responWilayah = restTemplate.exchange(
+				apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponWilayah.class);
+			model.addAttribute("listDataWilayah",responWilayah.getBody().getDataWilayah());
+
+			ResponseEntity<ResponJenisPerluasan> responJenisPerluasan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPerluasan.class);
+			model.addAttribute("listDataJenisPerluasan",responJenisPerluasan.getBody().getDataJenisPerluasan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listDataJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponTipeAsuransi> responTipeAsuransi = restTemplate.exchange(
+				apiBaseUrl+"api/tipeasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeAsuransi.class);
+			model.addAttribute("listDataTipeAsuransi",responTipeAsuransi.getBody().getDataTipeAsuransi());
+
+			ResponseEntity<ResponJenisPerluasan> responjenisPerluasan = restTemplate.exchange(
+				apiBaseUrl+"api/jenisperluasan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPerluasan.class);
+			model.addAttribute("listDatajenisPerluasan",responjenisPerluasan.getBody().getDataJenisPerluasan());
+
 			return "/pages/MasterParameter/PerluasanAsuransi/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -65,11 +95,11 @@ public class PerluasanAsuransiController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=PerluasanAsuransi_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponPerluasanAsuransi> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/perluasanasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponPerluasanAsuransi.class);
 
         List<DataPerluasanAsuransi> listPerluasanAsuransi = respon.getBody().getDataPerluasanAsuransi();
@@ -80,14 +110,39 @@ public class PerluasanAsuransiController {
     }  
 	
 	@PostMapping(value = "/PerluasanAsuransi/ActionInputData")
-	public String PerluasanAsuransiActionInputData(@Valid DataPerluasanAsuransi dataPerluasanAsuransi, BindingResult result,String action) {
+	public String PerluasanAsuransiActionInputData(@Valid DataPerluasanAsuransi dataPerluasanAsuransi, BindingResult result,String action,Model model) {
 		if (result.hasErrors()) {
+			ResponseEntity<ResponWilayah> responWilayah = restTemplate.exchange(
+				apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponWilayah.class);
+			model.addAttribute("listDataWilayah",responWilayah.getBody().getDataWilayah());
+
+			ResponseEntity<ResponJenisPerluasan> responJenisPerluasan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPerluasan.class);
+			model.addAttribute("listDataJenisPerluasan",responJenisPerluasan.getBody().getDataJenisPerluasan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listDataJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponTipeAsuransi> responTipeAsuransi = restTemplate.exchange(
+				apiBaseUrl+"api/tipeasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeAsuransi.class);
+			model.addAttribute("listDataTipeAsuransi",responTipeAsuransi.getBody().getDataTipeAsuransi());
+
+			ResponseEntity<ResponJenisPerluasan> responjenisPerluasan = restTemplate.exchange(
+				apiBaseUrl+"api/jenisperluasan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPerluasan.class);
+			model.addAttribute("listDatajenisPerluasan",responjenisPerluasan.getBody().getDataJenisPerluasan());
+
             return "/pages/MasterParameter/PerluasanAsuransi/InputData";
         }
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/perluasanasuransi/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataPerluasanAsuransi)), 
 				String.class
@@ -108,7 +163,7 @@ public class PerluasanAsuransiController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/perluasanasuransi/"+HelperConf.getAction(action)+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataPerluasanAsuransi)), 
 				String.class
@@ -126,7 +181,7 @@ public class PerluasanAsuransiController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/perluasanasuransi/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -142,7 +197,7 @@ public class PerluasanAsuransiController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/perluasanasuransi/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -157,13 +212,38 @@ public class PerluasanAsuransiController {
 	public String PerluasanAsuransiEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponPerluasanAsuransi> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/perluasanasuransi/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponPerluasanAsuransi.class
 			);
 
 			model.addAttribute("dataPerluasanAsuransi",respon.getBody().getDataPerluasanAsuransi());
+			
+			ResponseEntity<ResponWilayah> responWilayah = restTemplate.exchange(
+				apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponWilayah.class);
+			model.addAttribute("listDataWilayah",responWilayah.getBody().getDataWilayah());
+
+			ResponseEntity<ResponJenisPerluasan> responJenisPerluasan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPerluasan.class);
+			model.addAttribute("listDataJenisPerluasan",responJenisPerluasan.getBody().getDataJenisPerluasan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listDataJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponTipeAsuransi> responTipeAsuransi = restTemplate.exchange(
+				apiBaseUrl+"api/tipeasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeAsuransi.class);
+			model.addAttribute("listDataTipeAsuransi",responTipeAsuransi.getBody().getDataTipeAsuransi());
+
+			ResponseEntity<ResponJenisPerluasan> responjenisPerluasan = restTemplate.exchange(
+				apiBaseUrl+"api/jenisperluasan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPerluasan.class);
+			model.addAttribute("listDatajenisPerluasan",responjenisPerluasan.getBody().getDataJenisPerluasan());
 			return "/pages/MasterParameter/PerluasanAsuransi/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -175,12 +255,13 @@ public class PerluasanAsuransiController {
 	public String getListPerluasanAsuransi(Model model) {
 		try {
 			ResponseEntity<ResponPerluasanAsuransi> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/perluasanasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponPerluasanAsuransi.class);
 
 			model.addAttribute("listDataPerluasanAsuransi", respon.getBody().getDataPerluasanAsuransi());
 			return "/pages/MasterParameter/PerluasanAsuransi/Data";
 		} catch (Exception e) {
+			System.out.println(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -190,7 +271,7 @@ public class PerluasanAsuransiController {
 	public String getListApprovalPerluasanAsuransi(Model model) {
 		try {
 			ResponseEntity<ResponPerluasanAsuransi> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/perluasanasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponPerluasanAsuransi.class);
 
 			model.addAttribute("listDataPerluasanAsuransi", respon.getBody().getDataPerluasanAsuransi());
@@ -205,13 +286,39 @@ public class PerluasanAsuransiController {
 	public String PerluasanAsuransiFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponPerluasanAsuransi> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/perluasanasuransi/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponPerluasanAsuransi.class
 			);
 
 			model.addAttribute("dataPerluasanAsuransi",respon.getBody().getDataPerluasanAsuransi());
+
+			ResponseEntity<ResponWilayah> responWilayah = restTemplate.exchange(
+				apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponWilayah.class);
+			model.addAttribute("listDataWilayah",responWilayah.getBody().getDataWilayah());
+
+			ResponseEntity<ResponJenisPerluasan> responJenisPerluasan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPerluasan.class);
+			model.addAttribute("listDataJenisPerluasan",responJenisPerluasan.getBody().getDataJenisPerluasan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listDataJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponTipeAsuransi> responTipeAsuransi = restTemplate.exchange(
+				apiBaseUrl+"api/tipeasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeAsuransi.class);
+			model.addAttribute("listDataTipeAsuransi",responTipeAsuransi.getBody().getDataTipeAsuransi());
+
+			ResponseEntity<ResponJenisPerluasan> responjenisPerluasan = restTemplate.exchange(
+				apiBaseUrl+"api/jenisperluasan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPerluasan.class);
+			model.addAttribute("listDatajenisPerluasan",responjenisPerluasan.getBody().getDataJenisPerluasan());
+
 			return "/pages/MasterParameter/PerluasanAsuransi/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

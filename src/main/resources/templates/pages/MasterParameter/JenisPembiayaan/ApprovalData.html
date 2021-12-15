@@ -62,16 +62,16 @@
                                 <td th:text="${#dates.format(jenisPembiayaan.start_date,'dd-MM-yyyy')}" th:attr="data-filter=${jenisPembiayaan.start_date}"></td>
                                 <td th:text="${#dates.format(jenisPembiayaan.end_date,'dd-MM-yyyy')}" th:attr="data-filter=${jenisPembiayaan.end_date}"></td>
                                 
-                                <td th:if="${jenisPembiayaan.is_approved == null and jenisPembiayaan.is_rejected == null}" data-filter="Draft">
+                                <td th:if="${jenisPembiayaan.statusApproval == null or jenisPembiayaan.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${jenisPembiayaan.is_approved == 0 and jenisPembiayaan.is_rejected == 0}" data-filter="Submitted">
+                                <td th:if="${jenisPembiayaan.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${jenisPembiayaan.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${jenisPembiayaan.statusApproval == 2 and jenisPembiayaan.is_approved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${jenisPembiayaan.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${jenisPembiayaan.statusApproval == 2 and jenisPembiayaan.is_rejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 

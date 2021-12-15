@@ -9,12 +9,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "dataRateAsuransi",
+    "rateAsuransi",
     "code"
 })
 public class ResponRateAsuransi {
 
     @JsonProperty("dataRateAsuransi")
     private List<DataRateAsuransi> dataRateAsuransi = null;
+    @JsonProperty("rateAsuransi")
+    private DataRateAsuransi rateAsuransi = null;
     @JsonProperty("code")
     private String code;
 
@@ -30,9 +33,10 @@ public class ResponRateAsuransi {
      * @param dataRateAsuransi
      * @param code
      */
-    public ResponRateAsuransi(List<DataRateAsuransi> dataRateAsuransi, String code) {
+    public ResponRateAsuransi(List<DataRateAsuransi> dataRateAsuransi,DataRateAsuransi rateAsuransi,String code) {
         super();
         this.dataRateAsuransi = dataRateAsuransi;
+        this.rateAsuransi = rateAsuransi;
         this.code = code;
     }
 
@@ -44,6 +48,17 @@ public class ResponRateAsuransi {
     @JsonProperty("dataRateAsuransi")
     public void setDataRateAsuransi(List<DataRateAsuransi> dataRateAsuransi) {
         this.dataRateAsuransi = dataRateAsuransi;
+    }
+
+    
+    @JsonProperty("rateAsuransi")
+    public DataRateAsuransi getRateAsuransi() {
+        return rateAsuransi;
+    }
+
+    @JsonProperty("rateAsuransi")
+    public void setRateAsuransi(DataRateAsuransi rateAsuransi) {
+        this.rateAsuransi = rateAsuransi;
     }
 
     @JsonProperty("code")

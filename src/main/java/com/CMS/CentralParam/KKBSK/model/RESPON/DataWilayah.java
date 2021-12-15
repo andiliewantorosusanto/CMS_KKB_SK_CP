@@ -51,12 +51,14 @@ public class DataWilayah {
     private Integer is_rejected;
     @JsonProperty("remarks")
     private String remarks;
+    @JsonProperty("statusApproval")
+    private Integer statusApproval;
 
 
     public DataWilayah() {
     }
 
-    public DataWilayah(Integer id, String namaWilayah, String deskripsi, Date startBerlaku, Date endBerlaku, Integer is_approved, Integer is_rejected, String remarks) {
+    public DataWilayah(Integer id, String namaWilayah, String deskripsi, Date startBerlaku, Date endBerlaku, Integer is_approved, Integer is_rejected, String remarks, Integer statusApproval) {
         this.id = id;
         this.namaWilayah = namaWilayah;
         this.deskripsi = deskripsi;
@@ -65,6 +67,7 @@ public class DataWilayah {
         this.is_approved = is_approved;
         this.is_rejected = is_rejected;
         this.remarks = remarks;
+        this.statusApproval = statusApproval;
     }
 
     public Integer getId() {
@@ -131,6 +134,14 @@ public class DataWilayah {
         this.remarks = remarks;
     }
 
+    public Integer getStatusApproval() {
+        return this.statusApproval;
+    }
+
+    public void setStatusApproval(Integer statusApproval) {
+        this.statusApproval = statusApproval;
+    }
+
     public DataWilayah id(Integer id) {
         setId(id);
         return this;
@@ -171,6 +182,11 @@ public class DataWilayah {
         return this;
     }
 
+    public DataWilayah statusApproval(Integer statusApproval) {
+        setStatusApproval(statusApproval);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -182,7 +198,9 @@ public class DataWilayah {
             ", is_approved='" + getIs_approved() + "'" +
             ", is_rejected='" + getIs_rejected() + "'" +
             ", remarks='" + getRemarks() + "'" +
+            ", statusApproval='" + getStatusApproval() + "'" +
             "}";
     }
+
 
 }

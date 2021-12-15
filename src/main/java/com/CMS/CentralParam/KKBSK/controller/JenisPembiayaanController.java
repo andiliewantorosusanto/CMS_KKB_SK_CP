@@ -16,6 +16,7 @@ import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.RESPON.DataJenisPembiayaan;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPembiayaan;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponProduk;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,10 +48,15 @@ public class JenisPembiayaanController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/JenisPembiayaan/InputData", method = RequestMethod.GET)
-	public String JenisPembiayaanInputData(DataJenisPembiayaan dataJenisPembiayaan) {
+	public String JenisPembiayaanInputData(DataJenisPembiayaan dataJenisPembiayaan,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
-			
+
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+
 			return "/pages/MasterParameter/JenisPembiayaan/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -80,8 +86,13 @@ public class JenisPembiayaanController {
     }  
 	
 	@PostMapping(value = "/JenisPembiayaan/ActionInputData")
-	public String JenisPembiayaanActionInputData(@Valid DataJenisPembiayaan dataJenisPembiayaan, BindingResult result,String action) {
+	public String JenisPembiayaanActionInputData(@Valid DataJenisPembiayaan dataJenisPembiayaan, BindingResult result,String action,Model model) {
 		if (result.hasErrors()) {
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+
             return "/pages/MasterParameter/JenisPembiayaan/InputData";
         }
 
@@ -164,6 +175,11 @@ public class JenisPembiayaanController {
 			);
 
 			model.addAttribute("dataJenisPembiayaan",respon.getBody().getJenisPembiayaan());
+
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
 			return "/pages/MasterParameter/JenisPembiayaan/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -212,6 +228,11 @@ public class JenisPembiayaanController {
 			);
 
 			model.addAttribute("dataJenisPembiayaan",respon.getBody().getJenisPembiayaan());
+
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
 			return "/pages/MasterParameter/JenisPembiayaan/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

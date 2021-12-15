@@ -36,6 +36,8 @@ public class DataJenisPembiayaan {
     @JsonProperty("jenis_pembiayaan")
     @NotEmpty(message = "Jenis Pembiayaan Tidak Boleh Kosong")
     private String jenis_pembiayaan;
+    @JsonProperty("produkObject")
+    private DataProduk produkObject;
     @JsonProperty("produk")
     @NotNull(message = "Produk Tidak Boleh Kosong")
     private Integer produk;
@@ -55,14 +57,17 @@ public class DataJenisPembiayaan {
     private Integer is_rejected;
     @JsonProperty("remarks")
     private String remarks;
+    @JsonProperty("statusApproval")
+    private Integer statusApproval;
 
 
     public DataJenisPembiayaan() {
     }
 
-    public DataJenisPembiayaan(Integer id, String jenis_pembiayaan, Integer produk, String is_refinancing, Date start_date, Date end_date, Integer is_approved, Integer is_rejected, String remarks) {
+    public DataJenisPembiayaan(Integer id, String jenis_pembiayaan, DataProduk produkObject, Integer produk, String is_refinancing, Date start_date, Date end_date, Integer is_approved, Integer is_rejected, String remarks, Integer statusApproval) {
         this.id = id;
         this.jenis_pembiayaan = jenis_pembiayaan;
+        this.produkObject = produkObject;
         this.produk = produk;
         this.is_refinancing = is_refinancing;
         this.start_date = start_date;
@@ -70,6 +75,7 @@ public class DataJenisPembiayaan {
         this.is_approved = is_approved;
         this.is_rejected = is_rejected;
         this.remarks = remarks;
+        this.statusApproval = statusApproval;
     }
 
     public Integer getId() {
@@ -86,6 +92,14 @@ public class DataJenisPembiayaan {
 
     public void setJenis_pembiayaan(String jenis_pembiayaan) {
         this.jenis_pembiayaan = jenis_pembiayaan;
+    }
+
+    public DataProduk getProdukObject() {
+        return this.produkObject;
+    }
+
+    public void setProdukObject(DataProduk produkObject) {
+        this.produkObject = produkObject;
     }
 
     public Integer getProduk() {
@@ -144,6 +158,14 @@ public class DataJenisPembiayaan {
         this.remarks = remarks;
     }
 
+    public Integer getStatusApproval() {
+        return this.statusApproval;
+    }
+
+    public void setStatusApproval(Integer statusApproval) {
+        this.statusApproval = statusApproval;
+    }
+
     public DataJenisPembiayaan id(Integer id) {
         setId(id);
         return this;
@@ -151,6 +173,11 @@ public class DataJenisPembiayaan {
 
     public DataJenisPembiayaan jenis_pembiayaan(String jenis_pembiayaan) {
         setJenis_pembiayaan(jenis_pembiayaan);
+        return this;
+    }
+
+    public DataJenisPembiayaan produkObject(DataProduk produkObject) {
+        setProdukObject(produkObject);
         return this;
     }
 
@@ -188,12 +215,18 @@ public class DataJenisPembiayaan {
         setRemarks(remarks);
         return this;
     }
-    
+
+    public DataJenisPembiayaan statusApproval(Integer statusApproval) {
+        setStatusApproval(statusApproval);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
             ", jenis_pembiayaan='" + getJenis_pembiayaan() + "'" +
+            ", produkObject='" + getProdukObject() + "'" +
             ", produk='" + getProduk() + "'" +
             ", is_refinancing='" + getIs_refinancing() + "'" +
             ", start_date='" + getStart_date() + "'" +
@@ -201,9 +234,7 @@ public class DataJenisPembiayaan {
             ", is_approved='" + getIs_approved() + "'" +
             ", is_rejected='" + getIs_rejected() + "'" +
             ", remarks='" + getRemarks() + "'" +
+            ", statusApproval='" + getStatusApproval() + "'" +
             "}";
     }
-
-    
-
 }

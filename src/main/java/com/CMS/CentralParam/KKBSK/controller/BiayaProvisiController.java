@@ -69,7 +69,7 @@ public class BiayaProvisiController {
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponBiayaProvisi> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/biayaprovisi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponBiayaProvisi.class);
 
         List<DataBiayaProvisi> listBiayaProvisi = respon.getBody().getDataBiayaProvisi();
@@ -87,7 +87,7 @@ public class BiayaProvisiController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/biayaprovisi/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataBiayaProvisi)), 
 				String.class
@@ -108,7 +108,7 @@ public class BiayaProvisiController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/biayaprovisi/"+HelperConf.getAction(action)+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataBiayaProvisi)), 
 				String.class
@@ -126,7 +126,7 @@ public class BiayaProvisiController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/biayaprovisi/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -142,7 +142,7 @@ public class BiayaProvisiController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/biayaprovisi/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -157,7 +157,7 @@ public class BiayaProvisiController {
 	public String BiayaProvisiEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponBiayaProvisi> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/biayaprovisi/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponBiayaProvisi.class
@@ -175,12 +175,14 @@ public class BiayaProvisiController {
 	public String getListBiayaProvisi(Model model) {
 		try {
 			ResponseEntity<ResponBiayaProvisi> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/biayaprovisi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponBiayaProvisi.class);
 
 			model.addAttribute("listDataBiayaProvisi", respon.getBody().getDataBiayaProvisi());
+
 			return "/pages/MasterParameter/BiayaProvisi/Data";
 		} catch (Exception e) {
+			System.out.print(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -190,7 +192,7 @@ public class BiayaProvisiController {
 	public String getListApprovalBiayaProvisi(Model model) {
 		try {
 			ResponseEntity<ResponBiayaProvisi> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/biayaprovisi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponBiayaProvisi.class);
 
 			model.addAttribute("listDataBiayaProvisi", respon.getBody().getDataBiayaProvisi());
@@ -205,13 +207,14 @@ public class BiayaProvisiController {
 	public String BiayaProvisiFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponBiayaProvisi> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/biayaprovisi/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponBiayaProvisi.class
 			);
 
 			model.addAttribute("dataBiayaProvisi",respon.getBody().getDataBiayaProvisi());
+
 			return "/pages/MasterParameter/BiayaProvisi/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

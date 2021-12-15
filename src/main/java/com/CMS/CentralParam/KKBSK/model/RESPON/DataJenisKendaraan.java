@@ -62,12 +62,14 @@ public class DataJenisKendaraan {
     private Integer createdby;
     @JsonProperty("updatedby")
     private Integer updatedby;
+    @JsonProperty("statusApproval")
+    private Integer statusApproval;
 
 
     public DataJenisKendaraan() {
     }
 
-    public DataJenisKendaraan(Integer id, String jenis_kendaraan, String deskripsi, Date startBerlaku, Date endBerlaku, Date created_at, Integer status, String remarks, Integer is_rejected, Integer is_approved, Date updateddate, Integer createdby, Integer updatedby) {
+    public DataJenisKendaraan(Integer id, String jenis_kendaraan, String deskripsi, Date startBerlaku, Date endBerlaku, Date created_at, Integer status, String remarks, Integer is_rejected, Integer is_approved, Date updateddate, Integer createdby, Integer updatedby, Integer statusApproval) {
         this.id = id;
         this.jenis_kendaraan = jenis_kendaraan;
         this.deskripsi = deskripsi;
@@ -81,6 +83,7 @@ public class DataJenisKendaraan {
         this.updateddate = updateddate;
         this.createdby = createdby;
         this.updatedby = updatedby;
+        this.statusApproval = statusApproval;
     }
 
     public Integer getId() {
@@ -187,6 +190,14 @@ public class DataJenisKendaraan {
         this.updatedby = updatedby;
     }
 
+    public Integer getStatusApproval() {
+        return this.statusApproval;
+    }
+
+    public void setStatusApproval(Integer statusApproval) {
+        this.statusApproval = statusApproval;
+    }
+
     public DataJenisKendaraan id(Integer id) {
         setId(id);
         return this;
@@ -252,6 +263,11 @@ public class DataJenisKendaraan {
         return this;
     }
 
+    public DataJenisKendaraan statusApproval(Integer statusApproval) {
+        setStatusApproval(statusApproval);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -268,8 +284,7 @@ public class DataJenisKendaraan {
             ", updateddate='" + getUpdateddate() + "'" +
             ", createdby='" + getCreatedby() + "'" +
             ", updatedby='" + getUpdatedby() + "'" +
+            ", statusApproval='" + getStatusApproval() + "'" +
             "}";
     }
-
-
 }

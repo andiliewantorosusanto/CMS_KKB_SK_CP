@@ -59,18 +59,19 @@
                                 <td th:text="${#dates.format(wilayah.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${wilayah.startBerlaku}"></td>
                                 <td th:text="${#dates.format(wilayah.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${wilayah.endBerlaku}"></td>
 
-                                <td th:if="${wilayah.is_approved == null and wilayah.is_rejected == null}" data-filter="Draft">
+                                <td th:if="${wilayah.statusApproval == null or wilayah.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${(wilayah.is_approved == null or wilayah.is_approved == 0) and (wilayah.is_rejected == null or wilayah.is_rejected == 0) }" data-filter="Submitted">
+                                <td th:if="${wilayah.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${wilayah.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${wilayah.statusApproval == 2 and wilayah.is_approved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${wilayah.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${wilayah.statusApproval == 2 and wilayah.is_rejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
+
 
                                 <td th:text="${wilayah.remarks}"></td>
                             </tr>

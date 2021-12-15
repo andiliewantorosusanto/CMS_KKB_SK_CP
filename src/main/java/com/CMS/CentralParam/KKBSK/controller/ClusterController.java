@@ -16,6 +16,7 @@ import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.RESPON.DataCluster;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCluster;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponProduk;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,10 +48,16 @@ public class ClusterController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/Cluster/InputData", method = RequestMethod.GET)
-	public String ClusterInputData(DataCluster dataCluster) {
+	public String ClusterInputData(DataCluster dataCluster,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
+			ResponseEntity<ResponProduk> respon = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+
+			model.addAttribute("listDataProduk",respon.getBody().getDataProduk());
+
 			return "/pages/MasterParameter/Cluster/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -80,8 +87,14 @@ public class ClusterController {
     }  
 	
 	@PostMapping(value = "/Cluster/ActionInputData")
-	public String ClusterActionInputData(@Valid DataCluster dataCluster, BindingResult result,String action) {
+	public String ClusterActionInputData(@Valid DataCluster dataCluster, BindingResult result,String action,Model model) {
 		if (result.hasErrors()) {
+			ResponseEntity<ResponProduk> respon = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+
+			model.addAttribute("listDataProduk",respon.getBody().getDataProduk());
+
             return "/pages/MasterParameter/Cluster/InputData";
         }
 
@@ -164,6 +177,11 @@ public class ClusterController {
 			);
 
 			model.addAttribute("dataCluster",respon.getBody().getCluster());
+
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
 			return "/pages/MasterParameter/Cluster/EditData";
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -214,6 +232,11 @@ public class ClusterController {
 			);
 
 			model.addAttribute("dataCluster",respon.getBody().getCluster());
+
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
 			return "/pages/MasterParameter/Cluster/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

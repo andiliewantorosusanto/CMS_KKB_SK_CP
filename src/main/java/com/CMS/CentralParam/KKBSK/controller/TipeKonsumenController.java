@@ -13,8 +13,10 @@ import javax.validation.constraints.NotNull;
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.TipeKonsumenExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.RESPON.DataProduk;
 import com.CMS.CentralParam.KKBSK.model.RESPON.DataTipeKonsumen;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponProduk;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTipeKonsumen;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -47,10 +49,16 @@ public class TipeKonsumenController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/TipeKonsumen/InputData", method = RequestMethod.GET)
-	public String TipeKonsumenInputData(DataTipeKonsumen dataTipeKonsumen) {
+	public String TipeKonsumenInputData(DataTipeKonsumen dataTipeKonsumen,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
+			ResponseEntity<ResponProduk> respon = restTemplate.exchange(
+					apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponProduk.class);
+
+			model.addAttribute("listDataProduk",respon.getBody().getDataProduk());
+
 			return "/pages/MasterParameter/TipeKonsumen/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -80,8 +88,14 @@ public class TipeKonsumenController {
     }  
 	
 	@PostMapping(value = "/TipeKonsumen/ActionInputData")
-	public String TipeKonsumenActionInputData(@Valid DataTipeKonsumen dataTipeKonsumen, BindingResult result,String action) {
+	public String TipeKonsumenActionInputData(@Valid DataTipeKonsumen dataTipeKonsumen, BindingResult result,String action,Model model) {
 		if (result.hasErrors()) {
+			ResponseEntity<ResponProduk> respon = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+
+			model.addAttribute("listDataProduk",respon.getBody().getDataProduk());
+
             return "/pages/MasterParameter/TipeKonsumen/InputData";
         }
 
@@ -103,6 +117,7 @@ public class TipeKonsumenController {
 	@PostMapping(value = "/TipeKonsumen/ActionApprovalData")
 	public String TipeKonsumenActionApprovalData(@Valid DataTipeKonsumen dataTipeKonsumen, BindingResult result,String action) {
 		if (result.hasErrors()) {
+			
             return "/pages/MasterParameter/TipeKonsumen/ApprovalData";
         }
 
@@ -164,6 +179,12 @@ public class TipeKonsumenController {
 			);
 
 			model.addAttribute("dataTipeKonsumen",respon.getBody().getTipeKonsumen());
+
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+			
 			return "/pages/MasterParameter/TipeKonsumen/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -179,8 +200,11 @@ public class TipeKonsumenController {
 					ResponTipeKonsumen.class);
 
 			model.addAttribute("listDataTipeKonsumen", respon.getBody().getDataTipeKonsumen());
+
+			System.out.println(respon.getBody().getDataTipeKonsumen().get(1).toString());
 			return "/pages/MasterParameter/TipeKonsumen/Data";
 		} catch (Exception e) {
+			System.out.println(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -194,6 +218,7 @@ public class TipeKonsumenController {
 					ResponTipeKonsumen.class);
 
 			model.addAttribute("listDataTipeKonsumen", respon.getBody().getDataTipeKonsumen());
+			
 			return "/pages/MasterParameter/TipeKonsumen/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -210,8 +235,13 @@ public class TipeKonsumenController {
 				HelperConf.getHeader(), 
 				ResponTipeKonsumen.class
 			);
-
 			model.addAttribute("dataTipeKonsumen",respon.getBody().getTipeKonsumen());
+
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+
 			return "/pages/MasterParameter/TipeKonsumen/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

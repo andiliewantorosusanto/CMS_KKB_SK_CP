@@ -37,11 +37,11 @@ public class TujuanPenggunaanExcelExporter {
         font.setFontHeight(16);
         style.setFont(font);
          
-        createCell(row, 0, "User ID", style);      
-        createCell(row, 1, "E-mail", style);       
-        createCell(row, 2, "Full Name", style);    
-        createCell(row, 3, "Roles", style);
-        createCell(row, 4, "Enabled", style);
+        createCell(row, 0, "Nama", style);      
+        createCell(row, 1, "Produk", style);       
+        createCell(row, 2, "Deskripsi", style);    
+        createCell(row, 3, "Start Date", style);
+        createCell(row, 4, "End Date", style);
     }
      
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -69,12 +69,11 @@ public class TujuanPenggunaanExcelExporter {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            // createCell(row, columnCount++, Cluster.getId(), style);
-            // createCell(row, columnCount++, Cluster.getNama(), style);
-            // createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-            // createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
-            // createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
-             
+            createCell(row, columnCount++, Cluster.getNama(), style);
+            createCell(row, columnCount++, Cluster.getProdukObject().getProduk(), style);
+            createCell(row, columnCount++, Cluster.getDeskripsi(), style);
+            createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
+            createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
         }
     }
      

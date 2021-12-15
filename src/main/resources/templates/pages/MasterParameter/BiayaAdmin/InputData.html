@@ -1,300 +1,188 @@
-<!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+    <head th:replace="fragments/common :: head"></head>
+    <body class="c-app">
+        <div th:replace="fragments/common :: sidebar"></div>
+        <div class="c-wrapper">
+            <div th:replace="fragments/common :: header"></div>
+            <div class="c-body">
+                <main class="c-main">
+                    <div class="container-fluid">
+                        <div class="fade-in">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header"> Form Input - Biaya Admin
+                                            <div class="card-header-actions"></div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <form id="signupForm" th:action="@{/BiayaAdmin/ActionInputData}"  th:object="${dataBiayaAdmin}" method="post" novalidate="novalidate">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="nama_skema">Nama Skema</label>
+                                                            <input class="form-control" id="nama_skema" type="text" name="nama_skema" th:field="*{nama_skema}"
+                                                                placeholder="nama_skema" th:classappend="${#fields.hasErrors('nama_skema')} ?  is-invalid">
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('nama_skema')}" th:errors="*{nama_skema}"></div>
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="firstname">Tipe Konsumen</label>
+                                                            <select class="form-control" id="tipe_konsumen" type="text" name="tipe_konsumen" th:field="*{tipe_konsumen}"
+                                                            placeholder="tipe_konsumen" th:classappend="${#fields.hasErrors('tipe_konsumen')} ?  is-invalid">
+                                                                <option th:each="dataTipeKonsumen :${listDataTipeKonsumen}" th:value="${dataTipeKonsumen.id}" th:text="${dataTipeKonsumen.nama}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('tipe_konsumen')}" th:errors="*{tipe_konsumen}"></div>
+                                                        </div>
 
-<html lang="en">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="firstname">Jenis Kendaraan</label>
+                                                            <select class="form-control" id="jenis_kendaraan" type="text" name="jenis_kendaraan" th:field="*{jenis_kendaraan}"
+                                                            placeholder="jenis_kendaraan" th:classappend="${#fields.hasErrors('jenis_kendaraan')} ?  is-invalid">
+                                                                <option th:each="dataJenisKendaraan :${listDataJenisKendaraan}" th:value="${dataJenisKendaraan.id}" th:text="${dataJenisKendaraan.jenis_kendaraan}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('jenis_kendaraan')}" th:errors="*{jenis_kendaraan}"></div>
+                                                        </div>
 
-<div th:replace="fragments/common :: myheader"></div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="firstname">Jenis Pembiayaan</label>
+                                                            <select class="form-control" id="jenis_pembiayaan" type="text" name="jenis_pembiayaan" th:field="*{jenis_pembiayaan}"
+                                                            placeholder="jenis_pembiayaan" th:classappend="${#fields.hasErrors('jenis_pembiayaan')} ?  is-invalid">
+                                                                <option th:each="dataJenisPembiayaan :${listDataJenisPembiayaan}" th:value="${dataJenisPembiayaan.id}" th:text="${dataJenisPembiayaan.jenis_pembiayaan}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('jenis_pembiayaan')}" th:errors="*{jenis_pembiayaan}"></div>
+                                                        </div>
 
-<div th:replace="fragments/common :: navbar"></div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="firstname">Cluster</label>
+                                                            <select class="form-control" id="cluster" type="text" name="cluster" th:field="*{cluster}"
+                                                            placeholder="cluster" th:classappend="${#fields.hasErrors('cluster')} ?  is-invalid">
+                                                                <option th:each="dataCluster :${listDataCluster}" th:value="${dataCluster.id}" th:text="${dataCluster.cluster}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('cluster')}" th:errors="*{cluster}"></div>
+                                                        </div>
 
-<!--NOTE BATAS ATAS NAVBAR  -->
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="password">NPWP</label>
+                                                                <input class="form-control" id="diskon_npwp" th:field="*{diskon_npwp}"
+                                                                    name="diskon_npwp" th:classappend="${#fields.hasErrors('diskon_npwp')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('diskon_npwp')}" th:errors="*{diskon_npwp}"></div>
+                                                            </div>
+                                                        </div>
 
-<div class="c-wrapper">
-    <header class="c-header c-header-light c-header-fixed">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="password">Tenor 1 (%)</label>
+                                                                <input class="form-control" id="tenor1" type="text" th:field="*{tenor1}"
+                                                                    name="tenor1" th:classappend="${#fields.hasErrors('tenor1')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor1')}" th:errors="*{tenor1}"></div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="confirm_password">Tenor 6 (%)</label>
+                                                                <input class="form-control" id="tenor6" type="text" th:field="*{tenor6}"
+                                                                    name="tenor6" th:classappend="${#fields.hasErrors('tenor6')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor6')}" th:errors="*{tenor6}"></div>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="password">Tenor 2 (%)</label>
+                                                                <input class="form-control" id="tenor2" type="text" th:field="*{tenor2}"
+                                                                    name="tenor2" th:classappend="${#fields.hasErrors('tenor2')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor2')}" th:errors="*{tenor2}"></div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="confirm_password">Tenor 7 (%)</label>
+                                                                <input class="form-control" id="tenor7" type="text" th:field="*{tenor7}"
+                                                                    name="tenor7" th:classappend="${#fields.hasErrors('tenor7')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor7')}" th:errors="*{tenor7}"></div>
+                                                            </div>
+                                                        </div>
 
-        <div class="c-subheader justify-content-between px-3">
-            <!-- Breadcrumb-->
-            <ol class="breadcrumb border-0 m-0 px-0 px-md-3">
-                <li class="breadcrumb-item">Selamat Datang</li>
-                <li class="breadcrumb-item"><a href="#">20190325</a></li>
-                <!-- Breadcrumb Menu-->
-            </ol>
-            <div class="c-subheader-nav d-md-down-none mfe-2">
-                <a class="c-subheader-nav-link" th:href="@{../logout}">
-                    <svg class="c-icon">
-                        <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
-                    </svg> &nbsp;Logout</a></div>
-        </div>
-    </header>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="password">Tenor 3 (%)</label>
+                                                                <input class="form-control" id="tenor3" type="text" th:field="*{tenor3}"
+                                                                    name="tenor3" th:classappend="${#fields.hasErrors('tenor3')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor3')}" th:errors="*{tenor3}"></div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="confirm_password">Tenor 8 (%)</label>
+                                                                <input class="form-control" id="tenor8" type="text" th:field="*{tenor8}"
+                                                                    name="tenor8" th:classappend="${#fields.hasErrors('tenor8')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor8')}" th:errors="*{tenor8}"></div>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="password">Tenor 4 (%)</label>
+                                                                <input class="form-control" id="tenor4" type="text" th:field="*{tenor4}"
+                                                                    name="tenor4" th:classappend="${#fields.hasErrors('tenor4')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor4')}" th:errors="*{tenor4}"></div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="confirm_password">Tenor 9 (%)</label>
+                                                                <input class="form-control" id="tenor9" type="text" th:field="*{tenor9}"
+                                                                    name="tenor9" th:classappend="${#fields.hasErrors('tenor9')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor9')}" th:errors="*{tenor9}"></div>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="password">Tenor 5 (%)</label>
+                                                                <input class="form-control" id="tenor5" type="text" th:field="*{tenor5}"
+                                                                    name="tenor5" th:classappend="${#fields.hasErrors('tenor5')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor5')}" th:errors="*{tenor5}"></div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="confirm_password">Tenor 10 (%)</label>
+                                                                <input class="form-control" id="tenor10" type="text" th:field="*{tenor10}"
+                                                                    name="tenor10" th:classappend="${#fields.hasErrors('tenor10')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor10')}" th:errors="*{tenor10}"></div>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="password">Masa Berlaku
+                                                                    Start</label>
+                                                                <input class="form-control" id="startBerlaku" type="date" th:field="*{startBerlaku}"
+                                                                    name="startBerlaku" th:classappend="${#fields.hasErrors('startBerlaku')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('startBerlaku')}" th:errors="*{startBerlaku}"></div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="col-form-label" for="confirm_password">Masa Berlaku
+                                                                    End</label>
+                                                                <input class="form-control" id="endBerlaku" type="date" th:field="*{endBerlaku}"
+                                                                    name="endBerlaku" th:classappend="${#fields.hasErrors('endBerlaku')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('endBerlaku')}" th:errors="*{endBerlaku}"></div>
+                                                            </div>
+                                                        </div>
 
-    <div class="c-body">
-        <main class="c-main">
-            <div class="container-fluid">
-                <div class="fade-in">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header"> Form Input - Biaya Admin
-                                    <div class="card-header-actions"></div>
-                                </div>
-                                <div class="card-body">
-
-                                    <div class="row" style="width: 85rem;">
-                                        <div class="col-md-12">
-                                            <form th:action="@{/BiayaAdmin/ActionInputData}" method="post">
-                                            <form id="signupForm" novalidate="novalidate">
-                                                <div class="form-group">
-                                                    <label class="col-form-label" for="skema">Skema</label>
-                                                    <input class="form-control" id="skema" type="text" name="skema"
-                                                        placeholder="Skema">
+                                                        <div class="form-group">
+                                                            <button class="btn btn-info" type="submit" name="action"
+                                                                value="save">Save</button>
+                                                            <button class="btn btn-primary" type="submit" name="action"
+                                                                value="submit">Submit</button>
+                                                            <a href="/BiayaAdmin/Data"><button class="btn btn-secondary" type="button">Cancel</button></a>
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                               
-                                             
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 col-form-label">Jenis Pembiayaan</label>
-                                                    <div class="col-md-9 col-form-label">
-                                                    <div class="form-check">
-                                                    <input class="form-check-input" id="jenisPembiayaan" type="radio" value="0" name="jenisPembiayaan">
-                                                    <label class="form-check-label" for="jenisPembiayaan">All</label>
-                                                    </div>
-                                                    <br>
-                                                    <tr  th:each="modelJenisPembiayaan :${listJenisPembiayaan}">
-                                                    <div class="form-check">
-                                                     <input class="form-check-input" id="jenisPembiayaan" type="radio" th:value="${modelJenisPembiayaan.id}" name="jenisPembiayaan">
-                                                    <label class="form-check-label" for="jenisPembiayaan"><p th:text=${modelJenisPembiayaan.jenisPembiayaanId}></p></label>
-                                                    </div>
-                                                    </tr>
-                                                    </div>
-                                               
-                                                    </div>
-
-
-                                                    <div class="form-group row">
-                                                        <label class="col-md-3 col-form-label">Jenis Kendaraan</label>
-                                                        <div class="col-md-9 col-form-label">
-                                                        <div class="form-check">
-                                                        <input class="form-check-input" id="jenisKendaraan" type="radio" value="0" name="jenisKendaraan">
-                                                        <label class="form-check-label" for="jenisKendaraan">All</label>
-                                                        </div>
-                                                        <br>
-                                                        <tr  th:each="modelJenisKendaraan :${listJenisKendaraan}">
-                                                        <div class="form-check">
-                                                         <input class="form-check-input" id="jenisKendaraan" type="radio" th:value="${modelJenisKendaraan.id}" name="jenisKendaraan">
-                                                        <label class="form-check-label" for="jenisKendaraan"><p th:text=${modelJenisKendaraan.jenisKendaraanId}></p></label>
-                                                        </div>
-                                                        </tr>
-                                                        </div>
-                                                   
-                                                        </div>
-                                                   
-
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 col-form-label">Tipe Konsumen</label>
-                                                    <div class="col-md-9 col-form-label">
-                                                    <div class="form-check">
-                                                    <input class="form-check-input" id="tipeKonsumen" type="radio" value="0" name="tipeKonsumen">
-                                                    <label class="form-check-label" for="tipeKonsumen">All</label>
-                                                    </div>
-                                                    <br>
-                                                    <tr  th:each="modelTipeKonsumen :${listTipeKonsumen}">
-                                                    <div class="form-check">
-                                                     <input class="form-check-input" id="tipeKonsumen" type="radio" th:value="${modelTipeKonsumen.id}" name="tipeKonsumen">
-                                                    <label class="form-check-label" for="tipeKonsumen"><p th:text=${modelTipeKonsumen.nama}></p></label>
-                                                    </div>
-                                                    </tr>
-                                                    </div>
-                                               
-                                                    </div>
-                                               
-
-
-                                                    <div class="form-group row">
-                                                        <label class="col-md-3 col-form-label">Cluster</label>
-                                                        <div class="col-md-9 col-form-label">
-                                                        <div class="form-check">
-                                                        <input class="form-check-input" id="cluster" type="radio" value="0" name="cluster">
-                                                        <label class="form-check-label" for="cluster">All</label>
-                                                        </div>
-                                                        <br>
-                                                        <tr  th:each="modelCluster :${listCluster}">
-                                                        <div class="form-check">
-                                                         <input class="form-check-input" id="cluster" type="radio" th:value="${modelCluster.id}" name="cluster">
-                                                        <label class="form-check-label" for="cluster"><p th:text=${modelCluster.clusterId}></p></label>
-                                                        </div>
-                                                        </tr>
-                                                        </div>
-                                                   
-                                                        </div>
-
-                                                                <div class="form-group row">
-                                                                    <label class="col-md-3 col-form-label">NPWP</label>
-                                                                    <div class="col-md-9 col-form-label">
-                                                                    <div class="form-check">
-                                                                    <input class="form-check-input" id="npwp" type="radio" value="0" name="npwp">
-                                                                    <label class="form-check-label" for="npwp">All</label>
-                                                                    </div>
-                                                                    <br>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" id="npwp" type="radio" value="1" name="npwp">
-                                                                        <label class="form-check-label" for="npwp">Ya</label>
-                                                                        </div>
-                                                                        <br>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" id="npwp" type="radio" value="2" name="npwp">
-                                                                            <label class="form-check-label" for="npwp">Tidak</label>
-                                                                            </div>
-                                                                    </tr>
-                                                                    </div>
-                                                               
-                                                                    </div>
-                                               
-
-                                              
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label class="col-form-label" for="tenor1">Tenor 1
-                                                                                </label>
-                                                                            <input class="form-control" id="tenor1" type="text"
-                                                                                name="tenor1" placeholder="Number Only" required>
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label class="col-form-label" for="tenor2">Tenor 2
-                                                                                </label>
-                                                                            <input class="form-control" id="tenor2" type="text"
-                                                                                name="tenor2" placeholder="Number Only" required>
-                                                                        </div>
-                                                                    </div>
-                    
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label class="col-form-label" for="tenor3">Tenor 3
-                                                                                </label>
-                                                                            <input class="form-control" id="tenor3" type="text"
-                                                                                name="tenor3" placeholder="Number Only" required>
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label class="col-form-label" for="tenor4">Tenor 4
-                                                                                </label>
-                                                                            <input class="form-control" id="tenor4" type="text"
-                                                                                name="tenor4" placeholder="Number Only" required>
-                                                                        </div>
-                                                                    </div>
-                    
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label class="col-form-label" for="tenor5">Tenor 5
-                                                                                </label>
-                                                                            <input class="form-control" id="tenor5" type="text"
-                                                                                name="tenor5" placeholder="Number Only" required>
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label class="col-form-label" for="tenor6">Tenor 6
-                                                                                </label>
-                                                                            <input class="form-control" id="tenor7" type="text"
-                                                                                name="tenor6" placeholder="Number Only" required>
-                                                                        </div>
-                                                                    </div>
-                    
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label class="col-form-label" for="tenor7">Tenor 7
-                                                                                </label>
-                                                                            <input class="form-control" id="tenor7" type="text"
-                                                                                name="tenor7" placeholder="Number Only" required>
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label class="col-form-label" for="tenor8">Tenor 8
-                                                                                </label>
-                                                                            <input class="form-control" id="tenor8" type="text"
-                                                                                name="tenor8" placeholder="Number Only" required>
-                                                                        </div>
-                                                                    </div>
-                    
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label class="col-form-label" for="tenor9">Tenor 9
-                                                                                </label>
-                                                                            <input class="form-control" id="tenor9" type="text"
-                                                                                name="tenor9" placeholder="Number Only" required>
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label class="col-form-label" for="tenor10">Tenor 10
-                                                                                </label>
-                                                                            <input class="form-control" id="tenor10" type="text"
-                                                                                name="tenor10" placeholder="Number Only" required>
-                                                                        </div>
-                                                                    </div>
-                    
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label class="col-form-label" for="startBerlaku">Masa Berlaku
-                                                                                Start</label>
-                                                                            <input class="form-control" id="startBerlaku" type="date"
-                                                                                name="startBerlaku" required>
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label class="col-form-label" for="endBerlaku">Masa Berlaku
-                                                                                End</label>
-                                                                            <input class="form-control" id="endBerlaku" type="date"
-                                                                                name="endBerlaku" required>
-                                                                        </div>
-                                                                    </div>
-                                               
-                                                <div class="form-group">
-                                                    <button class="btn btn-primary" type="submit" name="signup"
-                                                        value="Sign up">Save</button>
-                                                        <button class="btn btn-success" type="submit" name="signup"
-                                                        value="Sign up">Submit</button>
-                                                        <button class="btn btn-danger" type="submit" name="signup"
-                                                        value="Sign up">Cancel</button>
-                                                </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-
-                </div>
+                    </div>                    
+                </main>
             </div>
-        </main>
-    </div>
-
-    <footer class="c-footer">
-        <div><a href="https://coreui.io">CoreUI</a> © 2020 creativeLabs.</div>
-        <div class="mfs-auto">Powered by&nbsp;<a href="https://coreui.io/pro/">CoreUI Pro</a></div>
-    </footer>
-</div>
-<!-- CoreUI and necessary plugins-->
-<script th:src="@{../vendors/@coreui/coreui-pro/js/coreui.bundle.min.js}"></script>
-<!--[if IE]><!-->
-<script th:src="@{../vendors/@coreui/icons/js/svgxuse.min.js}"></script>
-<!--<![endif]-->
-<!-- Plugins and scripts required by this view-->
-<script th:src="@{../vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js}"></script>
-<script th:src="@{../vendors/@coreui/utils/js/coreui-utils.js}"></script>
-<script th:src="@{../js/main.js}"></script>
-<script th:src="@{../js/index.js}"></script>
-<script th:src="@{../js/svgxuse.js}"></script>
-<script th:src="@{../js/ index.d.ts}"></script>
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-        setTimeout(function () {
-            document.body.classList.remove('c-no-layout-transition')
-        }, 2000);
-    });
-</script>
-
-</body>
-
+            <div th:replace="fragments/common :: footer"></div>
+        </div>
+        <div th:replace="fragments/common :: scripts"></div>
+    </body>
 </html>

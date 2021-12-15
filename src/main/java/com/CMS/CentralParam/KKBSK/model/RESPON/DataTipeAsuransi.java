@@ -48,12 +48,14 @@ public class DataTipeAsuransi {
     private Integer is_rejected;
     @JsonProperty("remarks")
     private String remarks;
+    @JsonProperty("statusApproval")
+    private Integer statusApproval;
 
 
     public DataTipeAsuransi() {
     }
 
-    public DataTipeAsuransi(Integer id, String namaAsuransi, Date startBerlaku, String deskripsi, Date endBerlaku, Integer is_approved, Integer is_rejected, String remarks) {
+    public DataTipeAsuransi(Integer id, String namaAsuransi, Date startBerlaku, String deskripsi, Date endBerlaku, Integer is_approved, Integer is_rejected, String remarks, Integer statusApproval) {
         this.id = id;
         this.namaAsuransi = namaAsuransi;
         this.startBerlaku = startBerlaku;
@@ -62,6 +64,7 @@ public class DataTipeAsuransi {
         this.is_approved = is_approved;
         this.is_rejected = is_rejected;
         this.remarks = remarks;
+        this.statusApproval = statusApproval;
     }
 
     public Integer getId() {
@@ -128,6 +131,14 @@ public class DataTipeAsuransi {
         this.remarks = remarks;
     }
 
+    public Integer getStatusApproval() {
+        return this.statusApproval;
+    }
+
+    public void setStatusApproval(Integer statusApproval) {
+        this.statusApproval = statusApproval;
+    }
+
     public DataTipeAsuransi id(Integer id) {
         setId(id);
         return this;
@@ -168,6 +179,11 @@ public class DataTipeAsuransi {
         return this;
     }
 
+    public DataTipeAsuransi statusApproval(Integer statusApproval) {
+        setStatusApproval(statusApproval);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -179,6 +195,7 @@ public class DataTipeAsuransi {
             ", is_approved='" + getIs_approved() + "'" +
             ", is_rejected='" + getIs_rejected() + "'" +
             ", remarks='" + getRemarks() + "'" +
+            ", statusApproval='" + getStatusApproval() + "'" +
             "}";
     }
 

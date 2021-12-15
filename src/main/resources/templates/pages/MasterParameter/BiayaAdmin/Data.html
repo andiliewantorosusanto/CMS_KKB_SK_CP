@@ -1,226 +1,225 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+<head th:replace="fragments/common :: head">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
-
-<html lang="en">
-
-<div th:replace="fragments/common :: myheaderPage"></div>
-
-<div th:replace="fragments/common :: navbar"></div>
-
-<!--NOTE BATAS ATAS NAVBAR  -->
-
-<div class="c-wrapper">
-  <header class="c-header c-header-light c-header-fixed">
-
-
-    <div class="c-subheader justify-content-between px-3">
-      <!-- Breadcrumb-->
-      <ol class="breadcrumb border-0 m-0 px-0 px-md-3">
-        <li class="breadcrumb-item">Selamat Datang</li>
-        <li class="breadcrumb-item">
-        <span th:text="${loginas}"></span></li>
-        <span sec:authentication="name"></span>
-        <!-- Breadcrumb Menu-->
-      </ol>
-      <div class="c-subheader-nav d-md-down-none mfe-2"><a class="c-subheader-nav-link" th:href="@{/logout}">
-          <svg class="c-icon">
-            <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-speech"></use>
-          </svg></a><a class="c-subheader-nav-link" th:href="@{../logout}">
-          <svg class="c-icon">
-            <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
-          </svg> &nbsp;Logout</a></div>
-    </div>
-  </header>
-
-
-
-
-
-  <!--NOTE TABLE DATA-->
-
-  <div class="c-body">
-    <main class="c-main">
-      <div class="container-fluid">
-        <div class="fade-in">
-          <div class="row">
-
-            <div class="card">
-              <div class="card-header"> Data - Rate Biaya Admin
-                <a href="/BiayaAdmin/InputData"><button class="btn btn-sm btn-ghost-success" type="button">Input
-                    Data</button></a>
-                <a href="/BiayaAdmin/ExportData"><button class="btn btn-sm btn-ghost-success" type="button">Export
-                    Data</button></a>
-                <a href="/BiayaAdmin/ImportData"><button class="btn btn-sm btn-ghost-success" type="button">Import
-                    Data</button></a>
-
-              </div>
-              <!-- <div class="card-body">
-                <div class="row"> -->
-              <!-- <div class="col-md-6">
-                    <h6>Filter Rate Bunga</h6>
-                    <form class="form-inline" action="" method="post">
-                      <div class="form-group">
-                        <label class="mr-1" for="exampleInputName2">Search</label>
-                        <input class="form-control" id="exampleInputName2" type="text" placeholder="Honda"
-                          autocomplete="name">
+</head>
+<body class="c-app">
+    <div th:replace="fragments/common :: sidebar"></div>
+    <div class="c-wrapper">
+        <div th:replace="fragments/common :: header"></div>
+        <style>
+          table.dataTable td {
+            white-space:nowrap;
+            padding: 1em;
+          }
+          table.dataTable th {
+            white-space:nowrap;
+            padding: 1em;
+          }
+        </style>
+        <div class="c-body">
+          <main class="c-main">
+            <div class="container-fluid">
+              <div class="fade-in">
+                <div class="row"> 
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header"> Data - Biaya Admin
+                        <a href="/BiayaAdmin/InputData"><button class="btn btn-sm btn-ghost-success" type="button">Input Data</button></a>
+                        <a href="/BiayaAdmin/Export/Excel" target="_blank"><button class="btn btn-sm btn-ghost-success" type="button">Export Data</button></a>
                       </div>
-
-                      
-                      <div class="form-group">
-                        <label class="mx-1" for="exampleInputEmail2">By</label>
-                        <select class="form-control" id="select1" name="select1">
-                          <option value="0">Please select</option>
-                          <option value="1">Skema</option>
-                          <option value="2">Wilayah</option>
-                          <option value="3">Jenis Pembiayaan</option>
-                          <option value="4">Jenis Kendaraan</option>
-                          <option value="5">Tipe Asuransi</option>
-                          <option value="6">Status</option>
-                        </select>
-                      </div> &nbsp;&nbsp;&nbsp;&nbsp;
-
-                      <button class="btn btn-primary" type="submit" name="signup"
-                        value="Sign up">Search</button>&nbsp;&nbsp;&nbsp;
-                      <button class="btn btn-danger" type="submit" name="signup" value="Sign up">Clear</button>
-
-
-                    </form>
-                  </div>
-
-                  <hr> -->
-
-
-              <div class="card-body">
-                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                  <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                      <div class="dataTables_length" id="DataTables_Table_0_length">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <table id="tabel-data" class="table table-striped table-bordered" width="100%" cellspacing="0">
-                        <thead>
-                          <tr role="row">
-                               
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" style="width: 258.917px;"
-                            aria-label="Actions: activate to sort column ascending">Actions</th>
-                            <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                              colspan="1" style="width: 318.583px;" aria-sort="ascending"
-                              aria-label="Username: activate to sort column descending">Skema</th>
-                              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                              colspan="1" style="width: 120.35px;"
-                              aria-label="Role: activate to sort column ascending">Tipe Konsumen</th>
-                              
-                              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                              colspan="1" style="width: 120.35px;"
-                              aria-label="Role: activate to sort column ascending">Jenis Kendaraan</th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                              colspan="1" style="width: 269.75px;"
-                              aria-label="Date registered: activate to sort column ascending">Jenis Pembiayaan</th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                              colspan="1" style="width: 120.35px;"
-                              aria-label="Role: activate to sort column ascending">Cluster</th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                              colspan="1" style="width: 140.4px;"
-                              aria-label="Status: activate to sort column ascending">Diskon NPWP</th>
-                              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                              colspan="1" style="width: 140.4px;"
-                              aria-label="Status: activate to sort column ascending">Masa Berlaku Start</th>
-                              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                              colspan="1" style="width: 140.4px;"
-                              aria-label="Status: activate to sort column ascending">Masa Berlaku End</th>
-                              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                              colspan="1" style="width: 140.4px;"
-                              aria-label="Status: activate to sort column ascending">Status</th>
-                              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                              colspan="1" style="width: 140.4px;"
-                              aria-label="Status: activate to sort column ascending">Remark</th>
-                              
-                          </tr>
-                        </thead>
-                        <tbody>
-
-
-
-                          <tr th:each="modelBiayaAdmin :${listDataBiayaAdmin}">
-                            <td><a class="btn btn-success" href="/BiayaAdmin/EditData">
+                      <div class="card-body" id="body" style="overflow-x:auto;">
+                        <table id="table" class="table table-striped table-bordered datatables" style="width:100%;">
+                          <thead>
+                            <tr role="row">
+                              <th><input type="checkbox" id="check-all"></th>
+                              <th></th>
+                              <th id="fil-nama_skema"></th>
+                              <th id="fil-tipe_konsumen"></th>
+                              <th id="fil-tipe_asuransi"></th>
+                              <th id="fil-Jenis_kendaraan"></th>
+                              <th id="fil-jenis_pembiayaan"></th>
+                              <th id="fil-cluster"></th>
+                              <th id="fil-npwp"></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th id="fil-status"></th>
+                              <th></th>
+                            </tr>
+                            <tr role="filter">
+                              <th data-value="checkbox"></th>
+                              <th data-value="actions">Actions</th>
+                              <th data-value="nama_skema">Skema</th>
+                              <th data-value="tipe_konsumen">Tipe Konsumen</th>
+                              <th data-value="Jenis_kendaraan">Jenis Kendaraan</th>
+                              <th data-value="jenis_pembiayaan">Jenis Pembiayaan</th>
+                              <th data-value="cluster">Cluster</th>
+                              <th data-value="npwp">NPWP</th>
+                              <th data-value="otr_start">Tenor 1 (%)</th>
+                              <th data-value="otr_start">Tenor 2 (%)</th>
+                              <th data-value="otr_start">Tenor 3 (%)</th>
+                              <th data-value="otr_start">Tenor 4 (%)</th>
+                              <th data-value="otr_start">Tenor 5 (%)</th>
+                              <th data-value="otr_start">Tenor 6 (%)</th>
+                              <th data-value="otr_start">Tenor 7 (%)</th>
+                              <th data-value="otr_start">Tenor 8 (%)</th>
+                              <th data-value="otr_start">Tenor 9 (%)</th>
+                              <th data-value="otr_start">Tenor 10 (%)</th>
+                              <th data-value="otr_start">Masa Berlaku Start</th>
+                              <th data-value="otr_start">Masa Berlaku End</th>
+                              <th data-value="status">Status</th>
+                              <th data-value="remarks">Remarks</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr th:each="biayaAdmin :${listDataBiayaAdmin}">
+                              <td>
+                                <div class="form-check">
+                                  <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${biayaAdmin.id}">
+                                </div>
+                              </td>
+                              <td>
+                                <a class="btn btn-success" th:href="@{/BiayaAdminEditData/{id}(id=${biayaAdmin.id})}">
                                 <svg class="c-icon">
-                                  <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-magnifying-glass">
+                                  <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
                                 </svg></a>
-                            </td>
-                            <td th:text="${modelBiayaAdmin.namaSkema}"></td>                        
-                            <td th:text="${modelBiayaAdmin.tipeKonsumen}"></td>
-                            <td th:text="${modelBiayaAdmin.jenisKendaraanId}"></td>
-                            <td th:text="${modelBiayaAdmin.jenisPembiayaanId}"></td>
-                            <td th:text="${modelBiayaAdmin.clusterId}"></td>
-                            <td th:text="${modelBiayaAdmin.diskonNpwp}"></td>
-                            <td th:text="${modelBiayaAdmin.startBerlaku}"></td>
-                            <td th:text="${modelBiayaAdmin.endBerlaku}"></td>
-                            <td th:text="${modelBiayaAdmin.statusApproval}"></td>
-                            <td th:text="${modelBiayaAdmin.remarks}"></td>
-                            
-                        </tr>
+                                </td>
+                                
+                                <td th:text="${biayaAdmin.nama_skema}" th:attr="data-filter=${biayaAdmin.nama_skema}"></td>
+                                <td th:text="${biayaAdmin.tipe_konsumenObject.nama}" th:attr="data-filter=${biayaAdmin.tipe_konsumenObject.nama}"></td>
+                                <td th:text="${biayaAdmin.jenis_kendaraanObject.jenis_kendaraan}" th:attr="data-filter=${biayaAdmin.jenis_kendaraanObject.jenis_kendaraan}"></td>
+                                <td th:text="${biayaAdmin.jenis_pembiayaanObject.jenis_pembiayaan}" th:attr="data-filter=${biayaAdmin.jenis_pembiayaanObject.jenis_pembiayaan}"></td>
+                                <td th:text="${biayaAdmin.clusterObject.cluster}" th:attr="data-filter=${biayaAdmin.clusterObject.cluster}"></td>
+                                <td th:text="${biayaAdmin.diskon_npwp}" th:attr="data-filter=${biayaAdmin.diskon_npwp}"></td>
 
-                        </tbody>
-                      </table>
+                                <td th:text="${biayaAdmin.tenor1}" th:attr="data-filter=${biayaAdmin.tenor1}"></td>
+                                <td th:text="${biayaAdmin.tenor2}" th:attr="data-filter=${biayaAdmin.tenor2}"></td>
+                                <td th:text="${biayaAdmin.tenor3}" th:attr="data-filter=${biayaAdmin.tenor3}"></td>
+                                <td th:text="${biayaAdmin.tenor4}" th:attr="data-filter=${biayaAdmin.tenor4}"></td>
+                                <td th:text="${biayaAdmin.tenor5}" th:attr="data-filter=${biayaAdmin.tenor5}"></td>
+                                <td th:text="${biayaAdmin.tenor6}" th:attr="data-filter=${biayaAdmin.tenor6}"></td>
+                                <td th:text="${biayaAdmin.tenor7}" th:attr="data-filter=${biayaAdmin.tenor7}"></td>
+                                <td th:text="${biayaAdmin.tenor8}" th:attr="data-filter=${biayaAdmin.tenor8}"></td>
+                                <td th:text="${biayaAdmin.tenor9}" th:attr="data-filter=${biayaAdmin.tenor9}"></td>
+                                <td th:text="${biayaAdmin.tenor10}" th:attr="data-filter=${biayaAdmin.tenor10}"></td>
+                                <td th:text="${#dates.format(biayaAdmin.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${biayaAdmin.startBerlaku}"></td>
+                                <td th:text="${#dates.format(biayaAdmin.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${biayaAdmin.endBerlaku}"></td>
+                                
+                                <td th:if="${biayaAdmin.statusApproval == null or biayaAdmin.statusApproval == 0}" data-filter="Draft">
+                                  <span class="badge badge-primary">Draft</span>
+                                </td>
+                                <td th:if="${biayaAdmin.statusApproval == 1}" data-filter="Submitted">
+                                  <span class="badge badge-warning">Submitted</span>
+                                </td>
+                                <td th:if="${biayaAdmin.statusApproval == 2 and biayaAdmin.is_approved == 1}"  data-filter="Approved">
+                                  <span class="badge badge-success">Approved</span>
+                                </td>
+                                <td th:if="${biayaAdmin.statusApproval == 2 and biayaAdmin.is_rejected == 1}" data-filter="Rejected">
+                                  <span class="badge badge-danger">Rejected</span>
+                                </td>
+
+                                <td th:text="${biayaAdmin.remarks}"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="row">
+                          <div class="col-auto">
+                            <form id="mass-action-form" th:action="@{/BiayaAdmin/ActionData}"  method="post">
+                              <button class="btn btn-primary" name="action" id="btn-submit"
+                                value="submit">Submit</button>
+                              <button class="btn btn-danger" name="action" id="btn-delete"
+                                  value="delete">Delete</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-
                 </div>
               </div>
-
             </div>
-          </div>
-          <!-- </div>
-
-
-
-
-        </div> -->
-          <!-- /.row-->
-
-
+          </main>
         </div>
-      </div>
-    </main>
-  </div>
+        <div th:replace="fragments/common :: footer"></div>
+    </div>
+    <div th:replace="fragments/common :: scripts"></div>
+    <script>
+      let _FILTER_COLUMN = ['status'];
+      let selectedIds = [];
+      let table = $('#table').DataTable( {
+          "scrollX": true,
+          initComplete: function () {
+              this.api().columns().every( function () {
+                if(_FILTER_COLUMN.includes($(this.header()).data('value'))) {
+                  var header = $(this.header()).data('value');
+                  var column = this;
+                  var select = $('<select class="form-control" style="width:auto;"><option value=""></option></select>')
+                      .appendTo( $("#"+"fil-"+header).empty() )
+                      .on( 'change', function () {
+                          var val = $.fn.dataTable.util.escapeRegex(
+                              $(this).val()
+                          );
+  
+                          column
+                              .search( val ? '^'+val+'$' : '', true, false )
+                              .draw();
+                      } );
 
+                  let filters = [];
+                  $.map(column.nodes(), function (item) {
+                    filters.push($(item).data('filter'));
+                  })
+                  
+                  filters = [...new Set(filters)];
+                  
+                  filters.forEach(function (data) {
+                    select.append( '<option value="'+data+'">'+data+'</option>' )
+                  })
+                }
+              } );
+          }
+      } ).columns.adjust();
 
+      $(document).ready(function(){
+        $("#check-all").click(function(event) {
+          this.checked = false;
+          let check = ($('.checkbox').not(':checked').length > 0);
+          $('.checkbox').each(function() {
+            this.checked = check;
+            $(this).trigger('change');
+          });
+        });
 
-  <footer class="c-footer">
-    <div><a href="https://coreui.io">CoreUI</a> © 2020 creativeLabs.</div>
-    <div class="mfs-auto">Powered by&nbsp;<a href="https://coreui.io/pro/">CoreUI Pro</a></div>
-  </footer>
-</div>
-<!-- CoreUI and necessary plugins-->
-<script th:src="@{../vendors/@coreui/coreui-pro/js/coreui.bundle.min.js}"></script>
-<!--[if IE]><!-->
-<script th:src="@{../vendors/@coreui/icons/js/svgxuse.min.js}"></script>
-<!--<![endif]-->
-<!-- Plugins and scripts required by this view-->
-<script th:src="@{../vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js}"></script>
-<script th:src="@{../vendors/@coreui/utils/js/coreui-utils.js}"></script>
-<script>
-  $(document).ready(function () {
-    $('#tabel-data').DataTable();
-  });
-</script>
+        $("#table").on('change','.checkbox',function(event) {
+          if(this.checked) {
+            selectedIds.push($(this).data('checkbox'));
+          } else {
+            let val = $(this).data('checkbox')
+            selectedIds = selectedIds.filter(item => item !== val);
+          }
+        });
 
-
-<script>
-  document.addEventListener("DOMContentLoaded", function (event) {
-    setTimeout(function () {
-      document.body.classList.remove('c-no-layout-transition')
-    }, 2000);
-  });
-</script>
-
+        $("#mass-action-form").submit( function(eventObj) {
+            $("<input />").attr("type", "hidden")
+                .attr("name", "ids")
+                .attr("value", selectedIds.join(","))
+                .appendTo("#mass-action-form");
+            return true;
+        });
+      })
+  </script>
 </body>
-
 </html>
+
+
+

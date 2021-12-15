@@ -13,19 +13,19 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
-                                    <div class="card-header"> Form Input - Tipe Konsumen
+                                    <div class="card-header"> Form Input - Wilayah
                                         <div class="card-header-actions"></div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <form id="signupForm" th:action="@{/TipeAsuransi/ActionApprovalData}"  th:object="${dataTipeAsuransi}" method="post" novalidate="novalidate">
+                                                <form id="signupForm" th:action="@{/Wilayah/ActionApprovalData}"  th:object="${dataWilayah}" method="post" novalidate="novalidate">
                                                     <input type="hidden" th:field="*{id}" id="id" name="id">
                                                     <div class="form-group">
-                                                        <label class="col-form-label" for="namaAsuransi">Nama Asuransi</label>
-                                                        <input class="form-control" id="namaAsuransi" type="text" name="namaAsuransi" th:field="*{namaAsuransi}"
-                                                            placeholder="namaAsuransi" th:classappend="${#fields.hasErrors('namaAsuransi')} ?  is-invalid">
-                                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('namaAsuransi')}" th:errors="*{namaAsuransi}"></div>
+                                                        <label class="col-form-label" for="namaWilayah">Nama Wilayah</label>
+                                                        <input class="form-control" id="namaWilayah" type="text" name="namaWilayah" th:field="*{namaWilayah}"
+                                                            placeholder="namaWilayah" th:classappend="${#fields.hasErrors('namaWilayah')} ?  is-invalid">
+                                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('namaWilayah')}" th:errors="*{namaWilayah}"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="firstname">Deskripsi</label>
@@ -54,7 +54,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                             value="approve">Approve</button>
                                                         <button class="btn btn-danger" type="submit" name="action"
                                                             value="decline">Decline</button>
-                                                        <a href="/TipeAsuransi/Data"><button class="btn btn-secondary" type="button">Cancel</button></a>
+                                                        <a href="/Wilayah/Data"><button class="btn btn-secondary" type="button">Cancel</button></a>
                                                     </div>
                                                 </form>
                                             </div>

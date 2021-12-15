@@ -1,240 +1,306 @@
 
 package com.CMS.CentralParam.KKBSK.model.RESPON;
 
+import java.util.Date;
+
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "namaSkema",
-    "tipe_konsumen",
-    "jeniskendaraanid",
-    "jenis_kendaraan_id",
-    "jenis_pembiayaan",
-    "jenis_pembiayaan_id",
-    "cluster",
-    "cluster_id",
-    "diskon_npwp",
-    "startBerlaku",
-    "endBerlaku",
-    "statusApproval",
+    "id",
+    "nama",
+    "produk",
+    "deskripsi",
+    "start_date",
+    "end_date",
+    "is_approved",
+    "is_rejected",
     "remarks",
-    "nama"
+    "createdby",
+    "createddate",
+    "updatedby",
+    "updateddate"
 })
 @Generated("jsonschema2pojo")
 public class DataJenisPerluasan {
 
-    @JsonProperty("namaSkema")
-    private String namaSkema;
-    @JsonProperty("tipe_konsumen")
-    private Integer tipeKonsumen;
-    @JsonProperty("jeniskendaraanid")
-    private Integer jeniskendaraanid;
-    @JsonProperty("jenis_kendaraan_id")
-    private String jenisKendaraanId;
-    @JsonProperty("jenis_pembiayaan")
-    private Integer jenisPembiayaan;
-    @JsonProperty("jenis_pembiayaan_id")
-    private String jenisPembiayaanId;
-    @JsonProperty("cluster")
-    private Integer cluster;
-    @JsonProperty("cluster_id")
-    private String clusterId;
-    @JsonProperty("diskon_npwp")
-    private Integer diskonNpwp;
-    @JsonProperty("startBerlaku")
-    private String startBerlaku;
-    @JsonProperty("endBerlaku")
-    private String endBerlaku;
-    @JsonProperty("statusApproval")
-    private String statusApproval;
-    @JsonProperty("remarks")
-    private String remarks;
+    @JsonProperty("id")
+    private Integer id;
     @JsonProperty("nama")
     private String nama;
+    @JsonProperty("produkObject")
+    private DataProduk produkObject;
+    @JsonProperty("produk")
+    private Integer produk;
+    @JsonProperty("deskripsi")
+    private String deskripsi;
+    @JsonProperty("start_date")
+    @DateTimeFormat (pattern="yyyy-MM-dd")
+    private Date start_date;
+    @JsonProperty("end_date")
+    @DateTimeFormat (pattern="yyyy-MM-dd")
+    private Date end_date;
+    @JsonProperty("is_approved")
+    private Integer is_approved;
+    @JsonProperty("is_rejected")
+    private Integer is_rejected;
+    @JsonProperty("remarks")
+    private String remarks;
+    @JsonProperty("createdby")
+    private Integer createdby;
+    @JsonProperty("createddate")
+    @DateTimeFormat (pattern="yyyy-MM-dd")
+    private Date createddate;
+    @JsonProperty("updatedby")
+    private Integer updatedby;
+    @JsonProperty("updateddate")
+    @DateTimeFormat (pattern="yyyy-MM-dd")
+    private Date updateddate;
+    @JsonProperty("statusApproval")
+    private Integer statusApproval;
+    
 
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
     public DataJenisPerluasan() {
     }
 
-    /**
-     * 
-     * @param cluster
-     * @param jenisKendaraanId
-     * @param jenisPembiayaanId
-     * @param jenisPembiayaan
-     * @param statusApproval
-     * @param clusterId
-     * @param tipeKonsumen
-     * @param jeniskendaraanid
-     * @param namaSkema
-     * @param nama
-     * @param diskonNpwp
-     * @param endBerlaku
-     * @param startBerlaku
-     * @param remarks
-     */
-    public DataJenisPerluasan(String namaSkema, Integer tipeKonsumen, Integer jeniskendaraanid, String jenisKendaraanId, Integer jenisPembiayaan, String jenisPembiayaanId, Integer cluster, String clusterId, Integer diskonNpwp, String startBerlaku, String endBerlaku, String statusApproval, String remarks, String nama) {
-        super();
-        this.namaSkema = namaSkema;
-        this.tipeKonsumen = tipeKonsumen;
-        this.jeniskendaraanid = jeniskendaraanid;
-        this.jenisKendaraanId = jenisKendaraanId;
-        this.jenisPembiayaan = jenisPembiayaan;
-        this.jenisPembiayaanId = jenisPembiayaanId;
-        this.cluster = cluster;
-        this.clusterId = clusterId;
-        this.diskonNpwp = diskonNpwp;
-        this.startBerlaku = startBerlaku;
-        this.endBerlaku = endBerlaku;
-        this.statusApproval = statusApproval;
+    public DataJenisPerluasan(Integer id, String nama, DataProduk produkObject, Integer produk, String deskripsi, Date start_date, Date end_date, Integer is_approved, Integer is_rejected, String remarks, Integer createdby, Date createddate, Integer updatedby, Date updateddate, Integer statusApproval) {
+        this.id = id;
+        this.nama = nama;
+        this.produkObject = produkObject;
+        this.produk = produk;
+        this.deskripsi = deskripsi;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.is_approved = is_approved;
+        this.is_rejected = is_rejected;
         this.remarks = remarks;
+        this.createdby = createdby;
+        this.createddate = createddate;
+        this.updatedby = updatedby;
+        this.updateddate = updateddate;
+        this.statusApproval = statusApproval;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNama() {
+        return this.nama;
+    }
+
+    public void setNama(String nama) {
         this.nama = nama;
     }
 
-    @JsonProperty("namaSkema")
-    public String getNamaSkema() {
-        return namaSkema;
+    public DataProduk getProdukObject() {
+        return this.produkObject;
     }
 
-    @JsonProperty("namaSkema")
-    public void setNamaSkema(String namaSkema) {
-        this.namaSkema = namaSkema;
+    public void setProdukObject(DataProduk produkObject) {
+        this.produkObject = produkObject;
     }
 
-    @JsonProperty("tipe_konsumen")
-    public Integer getTipeKonsumen() {
-        return tipeKonsumen;
+    public Integer getProduk() {
+        return this.produk;
     }
 
-    @JsonProperty("tipe_konsumen")
-    public void setTipeKonsumen(Integer tipeKonsumen) {
-        this.tipeKonsumen = tipeKonsumen;
+    public void setProduk(Integer produk) {
+        this.produk = produk;
     }
 
-    @JsonProperty("jeniskendaraanid")
-    public Integer getJeniskendaraanid() {
-        return jeniskendaraanid;
+    public String getDeskripsi() {
+        return this.deskripsi;
     }
 
-    @JsonProperty("jeniskendaraanid")
-    public void setJeniskendaraanid(Integer jeniskendaraanid) {
-        this.jeniskendaraanid = jeniskendaraanid;
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
     }
 
-    @JsonProperty("jenis_kendaraan_id")
-    public String getJenisKendaraanId() {
-        return jenisKendaraanId;
+    public Date getStart_date() {
+        return this.start_date;
     }
 
-    @JsonProperty("jenis_kendaraan_id")
-    public void setJenisKendaraanId(String jenisKendaraanId) {
-        this.jenisKendaraanId = jenisKendaraanId;
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
     }
 
-    @JsonProperty("jenis_pembiayaan")
-    public Integer getJenisPembiayaan() {
-        return jenisPembiayaan;
+    public Date getEnd_date() {
+        return this.end_date;
     }
 
-    @JsonProperty("jenis_pembiayaan")
-    public void setJenisPembiayaan(Integer jenisPembiayaan) {
-        this.jenisPembiayaan = jenisPembiayaan;
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
     }
 
-    @JsonProperty("jenis_pembiayaan_id")
-    public String getJenisPembiayaanId() {
-        return jenisPembiayaanId;
+    public Integer getIs_approved() {
+        return this.is_approved;
     }
 
-    @JsonProperty("jenis_pembiayaan_id")
-    public void setJenisPembiayaanId(String jenisPembiayaanId) {
-        this.jenisPembiayaanId = jenisPembiayaanId;
+    public void setIs_approved(Integer is_approved) {
+        this.is_approved = is_approved;
     }
 
-    @JsonProperty("cluster")
-    public Integer getCluster() {
-        return cluster;
+    public Integer getIs_rejected() {
+        return this.is_rejected;
     }
 
-    @JsonProperty("cluster")
-    public void setCluster(Integer cluster) {
-        this.cluster = cluster;
+    public void setIs_rejected(Integer is_rejected) {
+        this.is_rejected = is_rejected;
     }
 
-    @JsonProperty("cluster_id")
-    public String getClusterId() {
-        return clusterId;
-    }
-
-    @JsonProperty("cluster_id")
-    public void setClusterId(String clusterId) {
-        this.clusterId = clusterId;
-    }
-
-    @JsonProperty("diskon_npwp")
-    public Integer getDiskonNpwp() {
-        return diskonNpwp;
-    }
-
-    @JsonProperty("diskon_npwp")
-    public void setDiskonNpwp(Integer diskonNpwp) {
-        this.diskonNpwp = diskonNpwp;
-    }
-
-    @JsonProperty("startBerlaku")
-    public String getStartBerlaku() {
-        return startBerlaku;
-    }
-
-    @JsonProperty("startBerlaku")
-    public void setStartBerlaku(String startBerlaku) {
-        this.startBerlaku = startBerlaku;
-    }
-
-    @JsonProperty("endBerlaku")
-    public String getEndBerlaku() {
-        return endBerlaku;
-    }
-
-    @JsonProperty("endBerlaku")
-    public void setEndBerlaku(String endBerlaku) {
-        this.endBerlaku = endBerlaku;
-    }
-
-    @JsonProperty("statusApproval")
-    public String getStatusApproval() {
-        return statusApproval;
-    }
-
-    @JsonProperty("statusApproval")
-    public void setStatusApproval(String statusApproval) {
-        this.statusApproval = statusApproval;
-    }
-
-    @JsonProperty("remarks")
     public String getRemarks() {
-        return remarks;
+        return this.remarks;
     }
 
-    @JsonProperty("remarks")
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
 
-    @JsonProperty("nama")
-    public String getNama() {
-        return nama;
+    public Integer getCreatedby() {
+        return this.createdby;
     }
 
-    @JsonProperty("nama")
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setCreatedby(Integer createdby) {
+        this.createdby = createdby;
     }
+
+    public Date getCreateddate() {
+        return this.createddate;
+    }
+
+    public void setCreateddate(Date createddate) {
+        this.createddate = createddate;
+    }
+
+    public Integer getUpdatedby() {
+        return this.updatedby;
+    }
+
+    public void setUpdatedby(Integer updatedby) {
+        this.updatedby = updatedby;
+    }
+
+    public Date getUpdateddate() {
+        return this.updateddate;
+    }
+
+    public void setUpdateddate(Date updateddate) {
+        this.updateddate = updateddate;
+    }
+
+    public Integer getStatusApproval() {
+        return this.statusApproval;
+    }
+
+    public void setStatusApproval(Integer statusApproval) {
+        this.statusApproval = statusApproval;
+    }
+
+    public DataJenisPerluasan id(Integer id) {
+        setId(id);
+        return this;
+    }
+
+    public DataJenisPerluasan nama(String nama) {
+        setNama(nama);
+        return this;
+    }
+
+    public DataJenisPerluasan produkObject(DataProduk produkObject) {
+        setProdukObject(produkObject);
+        return this;
+    }
+
+    public DataJenisPerluasan produk(Integer produk) {
+        setProduk(produk);
+        return this;
+    }
+
+    public DataJenisPerluasan deskripsi(String deskripsi) {
+        setDeskripsi(deskripsi);
+        return this;
+    }
+
+    public DataJenisPerluasan start_date(Date start_date) {
+        setStart_date(start_date);
+        return this;
+    }
+
+    public DataJenisPerluasan end_date(Date end_date) {
+        setEnd_date(end_date);
+        return this;
+    }
+
+    public DataJenisPerluasan is_approved(Integer is_approved) {
+        setIs_approved(is_approved);
+        return this;
+    }
+
+    public DataJenisPerluasan is_rejected(Integer is_rejected) {
+        setIs_rejected(is_rejected);
+        return this;
+    }
+
+    public DataJenisPerluasan remarks(String remarks) {
+        setRemarks(remarks);
+        return this;
+    }
+
+    public DataJenisPerluasan createdby(Integer createdby) {
+        setCreatedby(createdby);
+        return this;
+    }
+
+    public DataJenisPerluasan createddate(Date createddate) {
+        setCreateddate(createddate);
+        return this;
+    }
+
+    public DataJenisPerluasan updatedby(Integer updatedby) {
+        setUpdatedby(updatedby);
+        return this;
+    }
+
+    public DataJenisPerluasan updateddate(Date updateddate) {
+        setUpdateddate(updateddate);
+        return this;
+    }
+
+    public DataJenisPerluasan statusApproval(Integer statusApproval) {
+        setStatusApproval(statusApproval);
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", nama='" + getNama() + "'" +
+            ", produkObject='" + getProdukObject() + "'" +
+            ", produk='" + getProduk() + "'" +
+            ", deskripsi='" + getDeskripsi() + "'" +
+            ", start_date='" + getStart_date() + "'" +
+            ", end_date='" + getEnd_date() + "'" +
+            ", is_approved='" + getIs_approved() + "'" +
+            ", is_rejected='" + getIs_rejected() + "'" +
+            ", remarks='" + getRemarks() + "'" +
+            ", createdby='" + getCreatedby() + "'" +
+            ", createddate='" + getCreateddate() + "'" +
+            ", updatedby='" + getUpdatedby() + "'" +
+            ", updateddate='" + getUpdateddate() + "'" +
+            ", statusApproval='" + getStatusApproval() + "'" +
+            "}";
+    }
+
 
 }

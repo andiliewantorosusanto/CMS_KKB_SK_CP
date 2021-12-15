@@ -16,6 +16,7 @@ import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.RESPON.DataJenisPerluasan;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPerluasan;
+import com.CMS.CentralParam.KKBSK.model.RESPON.ResponProduk;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,10 +48,15 @@ public class JenisPerluasanController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/JenisPerluasan/InputData", method = RequestMethod.GET)
-	public String JenisPerluasanInputData(DataJenisPerluasan dataJenisPerluasan) {
+	public String JenisPerluasanInputData(DataJenisPerluasan dataJenisPerluasan,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+
 			return "/pages/MasterParameter/JenisPerluasan/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -65,11 +71,11 @@ public class JenisPerluasanController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=JenisPerluasan_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponJenisPerluasan> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/jenisperluasan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponJenisPerluasan.class);
 
         List<DataJenisPerluasan> listJenisPerluasan = respon.getBody().getDataJenisPerluasan();
@@ -87,7 +93,7 @@ public class JenisPerluasanController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/jenisperluasan/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisPerluasan)), 
 				String.class
@@ -101,14 +107,19 @@ public class JenisPerluasanController {
 	}
 
 	@PostMapping(value = "/JenisPerluasan/ActionApprovalData")
-	public String JenisPerluasanActionApprovalData(@Valid DataJenisPerluasan dataJenisPerluasan, BindingResult result,String action) {
+	public String JenisPerluasanActionApprovalData(@Valid DataJenisPerluasan dataJenisPerluasan, BindingResult result,String action,Model model) {
 		if (result.hasErrors()) {
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+
             return "/pages/MasterParameter/JenisPerluasan/ApprovalData";
         }
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/jenisperluasan/"+HelperConf.getAction(action)+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisPerluasan)), 
 				String.class
@@ -126,7 +137,7 @@ public class JenisPerluasanController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/jenisperluasan/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -142,7 +153,7 @@ public class JenisPerluasanController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/jenisperluasan/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -157,13 +168,19 @@ public class JenisPerluasanController {
 	public String JenisPerluasanEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponJenisPerluasan> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/jenisperluasan/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponJenisPerluasan.class
 			);
 
-			model.addAttribute("dataJenisPerluasan",respon.getBody().getDataJenisPerluasan());
+			model.addAttribute("dataJenisPerluasan",respon.getBody().getJenisPerluasan());
+
+			
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
 			return "/pages/MasterParameter/JenisPerluasan/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -175,12 +192,14 @@ public class JenisPerluasanController {
 	public String getListJenisPerluasan(Model model) {
 		try {
 			ResponseEntity<ResponJenisPerluasan> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/jenisperluasan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponJenisPerluasan.class);
 
 			model.addAttribute("listDataJenisPerluasan", respon.getBody().getDataJenisPerluasan());
+			System.out.println(respon.getBody().getDataJenisPerluasan().get(1).toString());
 			return "/pages/MasterParameter/JenisPerluasan/Data";
 		} catch (Exception e) {
+
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -190,7 +209,7 @@ public class JenisPerluasanController {
 	public String getListApprovalJenisPerluasan(Model model) {
 		try {
 			ResponseEntity<ResponJenisPerluasan> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/jenisperluasan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponJenisPerluasan.class);
 
 			model.addAttribute("listDataJenisPerluasan", respon.getBody().getDataJenisPerluasan());
@@ -205,13 +224,20 @@ public class JenisPerluasanController {
 	public String JenisPerluasanFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponJenisPerluasan> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/jenisperluasan/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponJenisPerluasan.class
 			);
 
-			model.addAttribute("dataJenisPerluasan",respon.getBody().getDataJenisPerluasan());
+			model.addAttribute("dataJenisPerluasan",respon.getBody().getJenisPerluasan());
+
+			
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+
 			return "/pages/MasterParameter/JenisPerluasan/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

@@ -70,7 +70,7 @@ public class ClusterExcelExporter {
             int columnCount = 0;
              
             createCell(row, columnCount++, Cluster.getCluster(), style);
-            createCell(row, columnCount++, Cluster.getProduk(), style);
+            createCell(row, columnCount++, Cluster.getProdukObject().getProduk(), style);
             createCell(row, columnCount++, Cluster.getDeskripsi(), style);
             createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
             createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);

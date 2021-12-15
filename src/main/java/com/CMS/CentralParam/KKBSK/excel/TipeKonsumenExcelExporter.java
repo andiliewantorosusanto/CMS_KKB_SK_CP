@@ -70,7 +70,7 @@ public class TipeKonsumenExcelExporter {
             int columnCount = 0;
              
             createCell(row, columnCount++, tipeKonsumen.getNama(), style);
-            createCell(row, columnCount++, tipeKonsumen.getProduk(), style);
+            createCell(row, columnCount++, tipeKonsumen.getProdukObject().getProduk(), style);
             createCell(row, columnCount++, tipeKonsumen.getDeskripsi(), style);
             createCell(row, columnCount++, tipeKonsumen.getStart_date().toString(), style);
             createCell(row, columnCount++, tipeKonsumen.getEnd_date().toString(), style);

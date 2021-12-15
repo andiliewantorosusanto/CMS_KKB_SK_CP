@@ -33,6 +33,8 @@ public class DataCluster {
     private Integer id;
     @JsonProperty("cluster")
     private String cluster;
+    @JsonProperty("produkObject")
+    private DataProduk produkObject;
     @JsonProperty("produk")
     private Integer produk;
     @JsonProperty("deskripsi")
@@ -59,14 +61,17 @@ public class DataCluster {
     @JsonProperty("updateddate")
     @DateTimeFormat (pattern="yyyy-MM-dd")
     private Date updateddate;
+    @JsonProperty("statusApproval")
+    private Integer statusApproval;
 
 
     public DataCluster() {
     }
 
-    public DataCluster(Integer id, String cluster, Integer produk, String deskripsi, Date start_date, Date end_date, Integer is_approved, Integer is_rejected, String remarks, Integer createdby, Date createddate, Integer updatedby, Date updateddate) {
+    public DataCluster(Integer id, String cluster, DataProduk produkObject, Integer produk, String deskripsi, Date start_date, Date end_date, Integer is_approved, Integer is_rejected, String remarks, Integer createdby, Date createddate, Integer updatedby, Date updateddate, Integer statusApproval) {
         this.id = id;
         this.cluster = cluster;
+        this.produkObject = produkObject;
         this.produk = produk;
         this.deskripsi = deskripsi;
         this.start_date = start_date;
@@ -78,6 +83,7 @@ public class DataCluster {
         this.createddate = createddate;
         this.updatedby = updatedby;
         this.updateddate = updateddate;
+        this.statusApproval = statusApproval;
     }
 
     public Integer getId() {
@@ -94,6 +100,14 @@ public class DataCluster {
 
     public void setCluster(String cluster) {
         this.cluster = cluster;
+    }
+
+    public DataProduk getProdukObject() {
+        return this.produkObject;
+    }
+
+    public void setProdukObject(DataProduk produkObject) {
+        this.produkObject = produkObject;
     }
 
     public Integer getProduk() {
@@ -184,6 +198,14 @@ public class DataCluster {
         this.updateddate = updateddate;
     }
 
+    public Integer getStatusApproval() {
+        return this.statusApproval;
+    }
+
+    public void setStatusApproval(Integer statusApproval) {
+        this.statusApproval = statusApproval;
+    }
+
     public DataCluster id(Integer id) {
         setId(id);
         return this;
@@ -191,6 +213,11 @@ public class DataCluster {
 
     public DataCluster cluster(String cluster) {
         setCluster(cluster);
+        return this;
+    }
+
+    public DataCluster produkObject(DataProduk produkObject) {
+        setProdukObject(produkObject);
         return this;
     }
 
@@ -249,11 +276,17 @@ public class DataCluster {
         return this;
     }
 
+    public DataCluster statusApproval(Integer statusApproval) {
+        setStatusApproval(statusApproval);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
             ", cluster='" + getCluster() + "'" +
+            ", produkObject='" + getProdukObject() + "'" +
             ", produk='" + getProduk() + "'" +
             ", deskripsi='" + getDeskripsi() + "'" +
             ", start_date='" + getStart_date() + "'" +
@@ -265,8 +298,8 @@ public class DataCluster {
             ", createddate='" + getCreateddate() + "'" +
             ", updatedby='" + getUpdatedby() + "'" +
             ", updateddate='" + getUpdateddate() + "'" +
+            ", statusApproval='" + getStatusApproval() + "'" +
             "}";
     }
-
 
 }
