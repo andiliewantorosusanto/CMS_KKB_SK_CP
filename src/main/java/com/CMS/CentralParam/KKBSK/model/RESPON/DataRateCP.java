@@ -34,7 +34,7 @@ import org.springframework.format.annotation.DateTimeFormat;
     "remarks",
     "program"
 })
-public class DataRateCPP {
+public class DataRateCP {
 
     @JsonProperty("id")
     private Integer id;
@@ -87,10 +87,10 @@ public class DataRateCPP {
     private Float tenor10;
 
 
-    public DataRateCPP() {
+    public DataRateCP() {
     }
 
-    public DataRateCPP(Integer id, String nama_skema, DataTipeKonsumen tipe_konsumenObject, Integer tipe_konsumen, Date startBerlaku, Date endBerlaku, Integer statusApproved, String remarks, Integer is_approved, Integer is_rejected, Float tenor1, Float tenor2, Float tenor3, Float tenor4, Float tenor5, Float tenor6, Float tenor7, Float tenor8, Float tenor9, Float tenor10) {
+    public DataRateCP(Integer id, String nama_skema, DataTipeKonsumen tipe_konsumenObject, Integer tipe_konsumen, Date startBerlaku, Date endBerlaku, Integer statusApproved, String remarks, Integer is_approved, Integer is_rejected, Float tenor1, Float tenor2, Float tenor3, Float tenor4, Float tenor5, Float tenor6, Float tenor7, Float tenor8, Float tenor9, Float tenor10) {
         this.id = id;
         this.nama_skema = nama_skema;
         this.tipe_konsumenObject = tipe_konsumenObject;
@@ -273,102 +273,102 @@ public class DataRateCPP {
         this.tenor10 = tenor10;
     }
 
-    public DataRateCPP id(Integer id) {
+    public DataRateCP id(Integer id) {
         setId(id);
         return this;
     }
 
-    public DataRateCPP nama_skema(String nama_skema) {
+    public DataRateCP nama_skema(String nama_skema) {
         setNama_skema(nama_skema);
         return this;
     }
 
-    public DataRateCPP tipe_konsumenObject(DataTipeKonsumen tipe_konsumenObject) {
+    public DataRateCP tipe_konsumenObject(DataTipeKonsumen tipe_konsumenObject) {
         setTipe_konsumenObject(tipe_konsumenObject);
         return this;
     }
 
-    public DataRateCPP tipe_konsumen(Integer tipe_konsumen) {
+    public DataRateCP tipe_konsumen(Integer tipe_konsumen) {
         setTipe_konsumen(tipe_konsumen);
         return this;
     }
 
-    public DataRateCPP startBerlaku(Date startBerlaku) {
+    public DataRateCP startBerlaku(Date startBerlaku) {
         setStartBerlaku(startBerlaku);
         return this;
     }
 
-    public DataRateCPP endBerlaku(Date endBerlaku) {
+    public DataRateCP endBerlaku(Date endBerlaku) {
         setEndBerlaku(endBerlaku);
         return this;
     }
 
-    public DataRateCPP statusApproved(Integer statusApproved) {
+    public DataRateCP statusApproved(Integer statusApproved) {
         setStatusApproved(statusApproved);
         return this;
     }
 
-    public DataRateCPP remarks(String remarks) {
+    public DataRateCP remarks(String remarks) {
         setRemarks(remarks);
         return this;
     }
 
-    public DataRateCPP is_approved(Integer is_approved) {
+    public DataRateCP is_approved(Integer is_approved) {
         setIs_approved(is_approved);
         return this;
     }
 
-    public DataRateCPP is_rejected(Integer is_rejected) {
+    public DataRateCP is_rejected(Integer is_rejected) {
         setIs_rejected(is_rejected);
         return this;
     }
 
-    public DataRateCPP tenor1(Float tenor1) {
+    public DataRateCP tenor1(Float tenor1) {
         setTenor1(tenor1);
         return this;
     }
 
-    public DataRateCPP tenor2(Float tenor2) {
+    public DataRateCP tenor2(Float tenor2) {
         setTenor2(tenor2);
         return this;
     }
 
-    public DataRateCPP tenor3(Float tenor3) {
+    public DataRateCP tenor3(Float tenor3) {
         setTenor3(tenor3);
         return this;
     }
 
-    public DataRateCPP tenor4(Float tenor4) {
+    public DataRateCP tenor4(Float tenor4) {
         setTenor4(tenor4);
         return this;
     }
 
-    public DataRateCPP tenor5(Float tenor5) {
+    public DataRateCP tenor5(Float tenor5) {
         setTenor5(tenor5);
         return this;
     }
 
-    public DataRateCPP tenor6(Float tenor6) {
+    public DataRateCP tenor6(Float tenor6) {
         setTenor6(tenor6);
         return this;
     }
 
-    public DataRateCPP tenor7(Float tenor7) {
+    public DataRateCP tenor7(Float tenor7) {
         setTenor7(tenor7);
         return this;
     }
 
-    public DataRateCPP tenor8(Float tenor8) {
+    public DataRateCP tenor8(Float tenor8) {
         setTenor8(tenor8);
         return this;
     }
 
-    public DataRateCPP tenor9(Float tenor9) {
+    public DataRateCP tenor9(Float tenor9) {
         setTenor9(tenor9);
         return this;
     }
 
-    public DataRateCPP tenor10(Float tenor10) {
+    public DataRateCP tenor10(Float tenor10) {
         setTenor10(tenor10);
         return this;
     }
