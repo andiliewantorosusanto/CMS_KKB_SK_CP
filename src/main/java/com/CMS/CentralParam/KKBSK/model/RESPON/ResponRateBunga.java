@@ -1,3 +1,4 @@
+
 package com.CMS.CentralParam.KKBSK.model.RESPON;
 
 import java.util.List;
@@ -7,15 +8,18 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "code",
-    "dataRateBunga"
+    "dataRateBunga",
+    "rateBunga",
+    "code"
 })
 public class ResponRateBunga {
 
-    @JsonProperty("code")
-    private String code;
     @JsonProperty("dataRateBunga")
     private List<DataRateBunga> dataRateBunga = null;
+    @JsonProperty("rateBunga")
+    private DataRateBunga rateBunga = null;
+    @JsonProperty("code")
+    private String code;
 
     /**
      * No args constructor for use in serialization
@@ -26,22 +30,13 @@ public class ResponRateBunga {
 
     /**
      * 
-     * @param code
      * @param dataRateBunga
+     * @param code
      */
-    public ResponRateBunga(String code, List<DataRateBunga> dataRateBunga) {
+    public ResponRateBunga(List<DataRateBunga> dataRateBunga,DataRateBunga rateBunga,String code) {
         super();
-        this.code = code;
         this.dataRateBunga = dataRateBunga;
-    }
-
-    @JsonProperty("code")
-    public String getCode() {
-        return code;
-    }
-
-    @JsonProperty("code")
-    public void setCode(String code) {
+        this.rateBunga = rateBunga;
         this.code = code;
     }
 
@@ -53,6 +48,27 @@ public class ResponRateBunga {
     @JsonProperty("dataRateBunga")
     public void setDataRateBunga(List<DataRateBunga> dataRateBunga) {
         this.dataRateBunga = dataRateBunga;
+    }
+
+    
+    @JsonProperty("rateBunga")
+    public DataRateBunga getRateBunga() {
+        return rateBunga;
+    }
+
+    @JsonProperty("rateBunga")
+    public void setRateBunga(DataRateBunga rateBunga) {
+        this.rateBunga = rateBunga;
+    }
+
+    @JsonProperty("code")
+    public String getCode() {
+        return code;
+    }
+
+    @JsonProperty("code")
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

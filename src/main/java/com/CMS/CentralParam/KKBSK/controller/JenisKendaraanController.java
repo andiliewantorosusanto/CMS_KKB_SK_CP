@@ -81,6 +81,10 @@ public class JenisKendaraanController {
 	
 	@PostMapping(value = "/JenisKendaraan/ActionInputData")
 	public String JenisKendaraanActionInputData(@Valid DataJenisKendaraan dataJenisKendaraan, BindingResult result,String action) {
+		if(dataJenisKendaraan.getEndBerlaku().before(dataJenisKendaraan.getStartBerlaku())) {
+			result.rejectValue("endBerlaku", "error.dataJenisKendaraan", "End date must be greater than start date");
+		}
+
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/JenisKendaraan/InputData";
         }
@@ -108,7 +112,7 @@ public class JenisKendaraanController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/jeniskendaraan/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/jeniskendaraan/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisKendaraan)), 
 				String.class

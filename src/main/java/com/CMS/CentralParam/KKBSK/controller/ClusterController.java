@@ -88,6 +88,10 @@ public class ClusterController {
 	
 	@PostMapping(value = "/Cluster/ActionInputData")
 	public String ClusterActionInputData(@Valid DataCluster dataCluster, BindingResult result,String action,Model model) {
+		if(dataCluster.getEnd_date().before(dataCluster.getStart_date())) {
+			result.rejectValue("end_date", "error.dataCluster", "End date must be greater than start date");
+		}
+
 		if (result.hasErrors()) {
 			ResponseEntity<ResponProduk> respon = restTemplate.exchange(
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
@@ -108,6 +112,7 @@ public class ClusterController {
 			
 			return "redirect:/Cluster/Data";
 		} catch (Exception e) {
+			System.out.print(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -121,7 +126,7 @@ public class ClusterController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/cluster/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/cluster/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataCluster)), 
 				String.class
@@ -129,6 +134,7 @@ public class ClusterController {
 			
 			return "redirect:/Cluster/Data";
 		} catch (Exception e) {
+			System.out.print(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

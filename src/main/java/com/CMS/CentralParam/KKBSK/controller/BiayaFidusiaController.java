@@ -81,6 +81,10 @@ public class BiayaFidusiaController {
 	
 	@PostMapping(value = "/BiayaFidusia/ActionInputData")
 	public String BiayaFidusiaActionInputData(@Valid DataBiayaFidusia dataBiayaFidusia, BindingResult result,String action) {
+		// if(dataBiayaFidusia.getEndBerlaku().before(dataBiayaFidusia.getStartBerlaku())) {
+		// 	result.rejectValue("endBerlaku", "error.dataBiayaFidusia", "End date must be greater than start date");
+		// }
+
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/BiayaFidusia/InputData";
         }
@@ -108,7 +112,7 @@ public class BiayaFidusiaController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/tipekonsumen/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataBiayaFidusia)), 
 				String.class

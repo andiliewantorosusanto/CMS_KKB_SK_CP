@@ -87,6 +87,10 @@ public class TujuanPenggunaanController {
 	
 	@PostMapping(value = "/TujuanPenggunaan/ActionInputData")
 	public String TujuanPenggunaanActionInputData(@Valid DataTujuanPenggunaan dataTujuanPenggunaan, BindingResult result,String action,Model model) {
+		if(dataTujuanPenggunaan.getEnd_date().before(dataTujuanPenggunaan.getStart_date())) {
+			result.rejectValue("end_date", "error.dataTujuanPenggunaan", "End date must be greater than start date");
+		}
+
 		if (result.hasErrors()) {
 			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
@@ -119,7 +123,7 @@ public class TujuanPenggunaanController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tujuanpenggunaan/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/tujuanpenggunaan/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataTujuanPenggunaan)), 
 				String.class

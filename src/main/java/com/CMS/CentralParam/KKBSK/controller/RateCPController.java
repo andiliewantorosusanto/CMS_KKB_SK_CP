@@ -15,13 +15,8 @@ import com.CMS.CentralParam.KKBSK.excel.RateCPExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.RESPON.DataRateCP;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisKendaraan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPembiayaan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPerluasan;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponRateCP;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTipeAsuransi;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTipeKonsumen;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponWilayah;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -93,6 +88,10 @@ public class RateCPController {
 	
 	@PostMapping(value = "/RateCP/ActionInputData")
 	public String RateCPActionInputData(@Valid DataRateCP dataRateCP, BindingResult result,String action,Model model) {
+		if(dataRateCP.getEndBerlaku().before(dataRateCP.getStartBerlaku())) {
+			result.rejectValue("endBerlaku", "error.dataRateCP", "End date must be greater than start date");
+		}
+		
 		if (result.hasErrors()) {
 			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
 				apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
@@ -124,7 +123,7 @@ public class RateCPController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/ratecp/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/ratecp/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataRateCP)), 
 				String.class

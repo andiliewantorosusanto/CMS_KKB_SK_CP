@@ -2,7 +2,6 @@
 package com.CMS.CentralParam.KKBSK.model.RESPON;
 
 import java.util.List;
-import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -10,13 +9,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "dataBiayaAdmin",
+    "biayaAdmin",
     "code"
 })
-@Generated("jsonschema2pojo")
 public class ResponBiayaAdmin {
 
     @JsonProperty("dataBiayaAdmin")
     private List<DataBiayaAdmin> dataBiayaAdmin = null;
+    @JsonProperty("biayaAdmin")
+    private DataBiayaAdmin biayaAdmin = null;
     @JsonProperty("code")
     private String code;
 
@@ -32,9 +33,10 @@ public class ResponBiayaAdmin {
      * @param dataBiayaAdmin
      * @param code
      */
-    public ResponBiayaAdmin(List<DataBiayaAdmin> dataBiayaAdmin, String code) {
+    public ResponBiayaAdmin(List<DataBiayaAdmin> dataBiayaAdmin,DataBiayaAdmin biayaAdmin,String code) {
         super();
         this.dataBiayaAdmin = dataBiayaAdmin;
+        this.biayaAdmin = biayaAdmin;
         this.code = code;
     }
 
@@ -44,8 +46,19 @@ public class ResponBiayaAdmin {
     }
 
     @JsonProperty("dataBiayaAdmin")
-    public void setDataratebiayaadmin(List<DataBiayaAdmin> dataBiayaAdmin) {
+    public void setDataBiayaAdmin(List<DataBiayaAdmin> dataBiayaAdmin) {
         this.dataBiayaAdmin = dataBiayaAdmin;
+    }
+
+    
+    @JsonProperty("biayaAdmin")
+    public DataBiayaAdmin getBiayaAdmin() {
+        return biayaAdmin;
+    }
+
+    @JsonProperty("biayaAdmin")
+    public void setBiayaAdmin(DataBiayaAdmin biayaAdmin) {
+        this.biayaAdmin = biayaAdmin;
     }
 
     @JsonProperty("code")

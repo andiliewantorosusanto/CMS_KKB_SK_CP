@@ -105,6 +105,10 @@ public class RateAsuransiController {
 	
 	@PostMapping(value = "/RateAsuransi/ActionInputData")
 	public String RateAsuransiActionInputData(@Valid DataRateAsuransi dataRateAsuransi, BindingResult result,String action) {
+		if(dataRateAsuransi.getEndBerlaku().before(dataRateAsuransi.getStartBerlaku())) {
+			result.rejectValue("endBerlaku", "error.dataRateAsuransi", "End date must be greater than start date");
+		}
+		
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/RateAsuransi/InputData";
         }
@@ -132,7 +136,7 @@ public class RateAsuransiController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/rateasuransi/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/rateasuransi/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataRateAsuransi)), 
 				String.class

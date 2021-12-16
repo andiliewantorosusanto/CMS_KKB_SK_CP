@@ -16,7 +16,6 @@ import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.RESPON.DataPerluasanAsuransi;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisKendaraan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPembiayaan;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPerluasan;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponPerluasanAsuransi;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTipeAsuransi;
@@ -111,6 +110,10 @@ public class PerluasanAsuransiController {
 	
 	@PostMapping(value = "/PerluasanAsuransi/ActionInputData")
 	public String PerluasanAsuransiActionInputData(@Valid DataPerluasanAsuransi dataPerluasanAsuransi, BindingResult result,String action,Model model) {
+		if(dataPerluasanAsuransi.getEndBerlaku().before(dataPerluasanAsuransi.getStartBerlaku())) {
+			result.rejectValue("endBerlaku", "error.dataPerluasanAsuransi", "End date must be greater than start date");
+		}
+		
 		if (result.hasErrors()) {
 			ResponseEntity<ResponWilayah> responWilayah = restTemplate.exchange(
 				apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
@@ -163,7 +166,7 @@ public class PerluasanAsuransiController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/perluasanasuransi/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/perluasanasuransi/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataPerluasanAsuransi)), 
 				String.class

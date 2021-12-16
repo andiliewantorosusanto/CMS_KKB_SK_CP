@@ -81,6 +81,10 @@ public class RateBungaController {
 	
 	@PostMapping(value = "/RateBunga/ActionInputData")
 	public String RateBungaActionInputData(@Valid DataRateBunga dataRateBunga, BindingResult result,String action) {
+		// if(dataRateBunga.getEndBerlaku().before(dataRateBunga.getStartBerlaku())) {
+		// 	result.rejectValue("endBerlaku", "error.dataRateBunga", "End date must be greater than start date");
+		// }
+
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/RateBunga/InputData";
         }
@@ -108,7 +112,7 @@ public class RateBungaController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/tipekonsumen/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataRateBunga)), 
 				String.class

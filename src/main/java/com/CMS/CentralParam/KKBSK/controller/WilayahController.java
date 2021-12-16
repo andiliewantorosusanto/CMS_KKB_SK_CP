@@ -102,13 +102,17 @@ public class WilayahController {
 
 	@PostMapping(value = "/Wilayah/ActionApprovalData")
 	public String WilayahActionApprovalData(@Valid DataWilayah dataWilayah, BindingResult result,String action) {
+		if(dataWilayah.getEndBerlaku().before(dataWilayah.getStartBerlaku())) {
+			result.rejectValue("endBerlaku", "error.dataWilayah", "End date must be greater than start date");
+		}
+
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/Wilayah/ApprovalData";
         }
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/wilayah/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/wilayah/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataWilayah)), 
 				String.class

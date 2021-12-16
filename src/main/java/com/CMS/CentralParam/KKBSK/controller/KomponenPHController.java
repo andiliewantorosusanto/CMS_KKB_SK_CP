@@ -81,6 +81,10 @@ public class KomponenPHController {
 	
 	@PostMapping(value = "/KomponenPH/ActionInputData")
 	public String KomponenPHActionInputData(@Valid DataKomponenPH dataKomponenPH, BindingResult result,String action) {
+		// if(dataKomponenPH.getEndBerlaku().before(dataKomponenPH.getStartBerlaku())) {
+		// 	result.rejectValue("endBerlaku", "error.dataKomponenPH", "End date must be greater than start date");
+		// }
+
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/KomponenPH/InputData";
         }
@@ -108,7 +112,7 @@ public class KomponenPHController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/tipekonsumen/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataKomponenPH)), 
 				String.class

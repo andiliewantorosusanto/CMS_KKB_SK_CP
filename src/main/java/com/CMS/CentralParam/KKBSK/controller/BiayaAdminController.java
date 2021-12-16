@@ -105,6 +105,10 @@ public class BiayaAdminController {
 	
 	@PostMapping(value = "/BiayaAdmin/ActionInputData")
 	public String BiayaAdminActionInputData(@Valid DataBiayaAdmin dataBiayaAdmin, BindingResult result,String action,Model model) {
+		if(dataBiayaAdmin.getEndBerlaku().before(dataBiayaAdmin.getStartBerlaku())) {
+			result.rejectValue("endBerlaku", "error.dataBiayaAdmin", "End date must be greater than start date");
+		}
+
 		if (result.hasErrors()) {
 			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
 				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
@@ -152,7 +156,7 @@ public class BiayaAdminController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/biayaadmin/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/biayaadmin/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataBiayaAdmin)), 
 				String.class
@@ -207,7 +211,7 @@ public class BiayaAdminController {
 				ResponBiayaAdmin.class
 			);
 
-			model.addAttribute("dataBiayaAdmin",respon.getBody().getDataBiayaAdmin());
+			model.addAttribute("dataBiayaAdmin",respon.getBody().getBiayaAdmin());
 
 			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
 				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
@@ -276,7 +280,7 @@ public class BiayaAdminController {
 				ResponBiayaAdmin.class
 			);
 
-			model.addAttribute("dataBiayaAdmin",respon.getBody().getDataBiayaAdmin());
+			model.addAttribute("dataBiayaAdmin",respon.getBody().getBiayaAdmin());
 
 			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
 				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),

@@ -92,6 +92,10 @@ public class BiayaProvisiController {
 	
 	@PostMapping(value = "/BiayaProvisi/ActionInputData")
 	public String BiayaProvisiActionInputData(@Valid DataBiayaProvisi dataBiayaProvisi, BindingResult result,String action,Model model) {
+		if(dataBiayaProvisi.getEndBerlaku().before(dataBiayaProvisi.getStartBerlaku())) {
+			result.rejectValue("endBerlaku", "error.dataBiayaProvisi", "End date must be greater than start date");
+		}
+
 		if (result.hasErrors()) {
 			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
 				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
@@ -129,7 +133,7 @@ public class BiayaProvisiController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/biayaprovisi/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/biayaprovisi/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataBiayaProvisi)), 
 				String.class

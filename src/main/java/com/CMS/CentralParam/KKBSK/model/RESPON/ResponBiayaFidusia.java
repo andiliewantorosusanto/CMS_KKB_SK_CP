@@ -1,25 +1,25 @@
 
 package com.CMS.CentralParam.KKBSK.model.RESPON;
 
-
 import java.util.List;
-import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "code",
-    "dataBiayaFidusia"
+    "dataBiayaFidusia",
+    "biayaFidusia",
+    "code"
 })
-@Generated("jsonschema2pojo")
 public class ResponBiayaFidusia {
 
-    @JsonProperty("code")
-    private String code;
     @JsonProperty("dataBiayaFidusia")
     private List<DataBiayaFidusia> dataBiayaFidusia = null;
+    @JsonProperty("biayaFidusia")
+    private DataBiayaFidusia biayaFidusia = null;
+    @JsonProperty("code")
+    private String code;
 
     /**
      * No args constructor for use in serialization
@@ -30,22 +30,13 @@ public class ResponBiayaFidusia {
 
     /**
      * 
-     * @param code
      * @param dataBiayaFidusia
+     * @param code
      */
-    public ResponBiayaFidusia(String code, List<DataBiayaFidusia> dataBiayaFidusia) {
+    public ResponBiayaFidusia(List<DataBiayaFidusia> dataBiayaFidusia,DataBiayaFidusia biayaFidusia,String code) {
         super();
-        this.code = code;
         this.dataBiayaFidusia = dataBiayaFidusia;
-    }
-
-    @JsonProperty("code")
-    public String getCode() {
-        return code;
-    }
-
-    @JsonProperty("code")
-    public void setCode(String code) {
+        this.biayaFidusia = biayaFidusia;
         this.code = code;
     }
 
@@ -57,6 +48,27 @@ public class ResponBiayaFidusia {
     @JsonProperty("dataBiayaFidusia")
     public void setDataBiayaFidusia(List<DataBiayaFidusia> dataBiayaFidusia) {
         this.dataBiayaFidusia = dataBiayaFidusia;
+    }
+
+    
+    @JsonProperty("biayaFidusia")
+    public DataBiayaFidusia getBiayaFidusia() {
+        return biayaFidusia;
+    }
+
+    @JsonProperty("biayaFidusia")
+    public void setBiayaFidusia(DataBiayaFidusia biayaFidusia) {
+        this.biayaFidusia = biayaFidusia;
+    }
+
+    @JsonProperty("code")
+    public String getCode() {
+        return code;
+    }
+
+    @JsonProperty("code")
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

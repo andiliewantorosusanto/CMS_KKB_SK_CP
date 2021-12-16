@@ -108,7 +108,7 @@ public class MinimalDPController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/minimaldp/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/minimaldp/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataMinimalDP)), 
 				String.class

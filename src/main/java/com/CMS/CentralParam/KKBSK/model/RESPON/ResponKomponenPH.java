@@ -1,23 +1,25 @@
+
 package com.CMS.CentralParam.KKBSK.model.RESPON;
 
 import java.util.List;
-import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "code",
-    "dataKomponenPH"
+    "dataKomponenPH",
+    "komponenPH",
+    "code"
 })
-@Generated("jsonschema2pojo")
 public class ResponKomponenPH {
 
-    @JsonProperty("code")
-    private String code;
     @JsonProperty("dataKomponenPH")
     private List<DataKomponenPH> dataKomponenPH = null;
+    @JsonProperty("komponenPH")
+    private DataKomponenPH komponenPH = null;
+    @JsonProperty("code")
+    private String code;
 
     /**
      * No args constructor for use in serialization
@@ -28,22 +30,13 @@ public class ResponKomponenPH {
 
     /**
      * 
-     * @param code
      * @param dataKomponenPH
+     * @param code
      */
-    public ResponKomponenPH(String code, List<DataKomponenPH> dataKomponenPH) {
+    public ResponKomponenPH(List<DataKomponenPH> dataKomponenPH,DataKomponenPH komponenPH,String code) {
         super();
-        this.code = code;
         this.dataKomponenPH = dataKomponenPH;
-    }
-
-    @JsonProperty("code")
-    public String getCode() {
-        return code;
-    }
-
-    @JsonProperty("code")
-    public void setCode(String code) {
+        this.komponenPH = komponenPH;
         this.code = code;
     }
 
@@ -55,6 +48,27 @@ public class ResponKomponenPH {
     @JsonProperty("dataKomponenPH")
     public void setDataKomponenPH(List<DataKomponenPH> dataKomponenPH) {
         this.dataKomponenPH = dataKomponenPH;
+    }
+
+    
+    @JsonProperty("komponenPH")
+    public DataKomponenPH getKomponenPH() {
+        return komponenPH;
+    }
+
+    @JsonProperty("komponenPH")
+    public void setKomponenPH(DataKomponenPH komponenPH) {
+        this.komponenPH = komponenPH;
+    }
+
+    @JsonProperty("code")
+    public String getCode() {
+        return code;
+    }
+
+    @JsonProperty("code")
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

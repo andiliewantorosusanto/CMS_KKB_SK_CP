@@ -81,6 +81,10 @@ public class ProgramController {
 	
 	@PostMapping(value = "/Program/ActionInputData")
 	public String ProgramActionInputData(@Valid DataProgram dataProgram, BindingResult result,String action) {
+		// if(dataProgram.getEndDate().before(dataProgram.getStartDate())) {
+		// 	result.rejectValue("endBerlaku", "error.dataProgram", "End date must be greater than start date");
+		// }
+
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/Program/InputData";
         }
@@ -108,7 +112,7 @@ public class ProgramController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/tipekonsumen/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataProgram)), 
 				String.class

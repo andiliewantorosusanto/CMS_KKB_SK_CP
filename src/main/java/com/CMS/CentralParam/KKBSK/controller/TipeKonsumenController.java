@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.TipeKonsumenExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataProduk;
 import com.CMS.CentralParam.KKBSK.model.RESPON.DataTipeKonsumen;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
 import com.CMS.CentralParam.KKBSK.model.RESPON.ResponProduk;
@@ -89,6 +88,10 @@ public class TipeKonsumenController {
 	
 	@PostMapping(value = "/TipeKonsumen/ActionInputData")
 	public String TipeKonsumenActionInputData(@Valid DataTipeKonsumen dataTipeKonsumen, BindingResult result,String action,Model model) {
+		if(dataTipeKonsumen.getEnd_date().before(dataTipeKonsumen.getStart_date())) {
+			result.rejectValue("end_date", "error.dataTipeKonsumen", "End date must be greater than start date");
+		}
+
 		if (result.hasErrors()) {
 			ResponseEntity<ResponProduk> respon = restTemplate.exchange(
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
@@ -98,6 +101,7 @@ public class TipeKonsumenController {
 
             return "/pages/MasterParameter/TipeKonsumen/InputData";
         }
+
 
 		try {
 			restTemplate.exchange(
@@ -117,18 +121,17 @@ public class TipeKonsumenController {
 	@PostMapping(value = "/TipeKonsumen/ActionApprovalData")
 	public String TipeKonsumenActionApprovalData(@Valid DataTipeKonsumen dataTipeKonsumen, BindingResult result,String action) {
 		if (result.hasErrors()) {
-			
             return "/pages/MasterParameter/TipeKonsumen/ApprovalData";
         }
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/tipekonsumen/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataTipeKonsumen)), 
 				String.class
 			);
-			
+			System.out.println(apiBaseUrl+"/api/tipekonsumen/"+action+"Data");
 			return "redirect:/TipeKonsumen/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

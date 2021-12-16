@@ -81,6 +81,10 @@ public class ProdukController {
 	
 	@PostMapping(value = "/Produk/ActionInputData")
 	public String ProdukActionInputData(@Valid DataProduk dataProduk, BindingResult result,String action) {
+		if(dataProduk.getEndBerlaku().before(dataProduk.getStartBerlaku())) {
+			result.rejectValue("endBerlaku", "error.dataProduk", "End date must be greater than start date");
+		}
+		
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/Produk/InputData";
         }
@@ -108,7 +112,7 @@ public class ProdukController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/produk/"+HelperConf.getAction(action)+"Data", 
+				apiBaseUrl+"/api/produk/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(dataProduk)), 
 				String.class
