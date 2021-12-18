@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataKomponenPH;
+import com.CMS.CentralParam.KKBSK.model.data.KomponenPH;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class KomponenPHExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataKomponenPH> listCluster;
+    private List<KomponenPH> listCluster;
      
-    public KomponenPHExcelExporter(List<DataKomponenPH> listCluster) {
+    public KomponenPHExcelExporter(List<KomponenPH> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -65,7 +65,7 @@ public class KomponenPHExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataKomponenPH Cluster : listCluster) {
+        for (KomponenPH Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              

@@ -2,7 +2,7 @@ package com.CMS.CentralParam.KKBSK.controller;
 
 import java.util.Arrays;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;

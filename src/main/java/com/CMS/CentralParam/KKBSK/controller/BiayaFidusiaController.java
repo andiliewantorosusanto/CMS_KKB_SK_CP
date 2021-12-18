@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.BiayaFidusiaExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataBiayaFidusia;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponBiayaFidusia;
+import com.CMS.CentralParam.KKBSK.model.data.BiayaFidusia;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponBiayaFidusia;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,7 +47,7 @@ public class BiayaFidusiaController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/BiayaFidusia/InputData", method = RequestMethod.GET)
-	public String BiayaFidusiaInputData(DataBiayaFidusia dataBiayaFidusia) {
+	public String BiayaFidusiaInputData(BiayaFidusia dataBiayaFidusia) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -72,7 +72,7 @@ public class BiayaFidusiaController {
 			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponBiayaFidusia.class);
 
-        List<DataBiayaFidusia> listBiayaFidusia = respon.getBody().getDataBiayaFidusia();
+        List<BiayaFidusia> listBiayaFidusia = respon.getBody().getDataBiayaFidusia();
          
         BiayaFidusiaExcelExporter excelExporter = new BiayaFidusiaExcelExporter(listBiayaFidusia);
          
@@ -80,7 +80,7 @@ public class BiayaFidusiaController {
     }  
 	
 	@PostMapping(value = "/BiayaFidusia/ActionInputData")
-	public String BiayaFidusiaActionInputData(@Valid DataBiayaFidusia dataBiayaFidusia, BindingResult result,String action) {
+	public String BiayaFidusiaActionInputData(@Valid BiayaFidusia dataBiayaFidusia, BindingResult result,String action) {
 		// if(dataBiayaFidusia.getEndBerlaku().before(dataBiayaFidusia.getStartBerlaku())) {
 		// 	result.rejectValue("endBerlaku", "error.dataBiayaFidusia", "End date must be greater than start date");
 		// }
@@ -105,7 +105,7 @@ public class BiayaFidusiaController {
 	}
 
 	@PostMapping(value = "/BiayaFidusia/ActionApprovalData")
-	public String BiayaFidusiaActionApprovalData(@Valid DataBiayaFidusia dataBiayaFidusia, BindingResult result,String action) {
+	public String BiayaFidusiaActionApprovalData(@Valid BiayaFidusia dataBiayaFidusia, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/BiayaFidusia/ApprovalData";
         }

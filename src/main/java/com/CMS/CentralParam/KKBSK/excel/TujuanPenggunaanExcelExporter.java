@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataTujuanPenggunaan;
+import com.CMS.CentralParam.KKBSK.model.data.TujuanPenggunaan;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class TujuanPenggunaanExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataTujuanPenggunaan> listCluster;
+    private List<TujuanPenggunaan> listCluster;
      
-    public TujuanPenggunaanExcelExporter(List<DataTujuanPenggunaan> listCluster) {
+    public TujuanPenggunaanExcelExporter(List<TujuanPenggunaan> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -65,15 +65,15 @@ public class TujuanPenggunaanExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataTujuanPenggunaan Cluster : listCluster) {
+        for (TujuanPenggunaan Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            createCell(row, columnCount++, Cluster.getNama(), style);
-            createCell(row, columnCount++, Cluster.getProdukObject().getProduk(), style);
-            createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-            createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
-            createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
+            // createCell(row, columnCount++, Cluster.getNama(), style);
+            // createCell(row, columnCount++, Cluster.getProdukObject().getProduk(), style);
+            // createCell(row, columnCount++, Cluster.getDeskripsi(), style);
+            // createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
+            // createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
         }
     }
      

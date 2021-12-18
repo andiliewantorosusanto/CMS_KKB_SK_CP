@@ -12,11 +12,11 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.TipeKonsumenExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataTipeKonsumen;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponProduk;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.model.data.TipeKonsumen;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponProduk;
+import com.CMS.CentralParam.KKBSK.model.response.ResponTipeKonsumen;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -48,7 +48,7 @@ public class TipeKonsumenController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/TipeKonsumen/InputData", method = RequestMethod.GET)
-	public String TipeKonsumenInputData(DataTipeKonsumen dataTipeKonsumen,Model model) {
+	public String TipeKonsumenInputData(TipeKonsumen dataTipeKonsumen,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -79,7 +79,7 @@ public class TipeKonsumenController {
 			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponTipeKonsumen.class);
 
-        List<DataTipeKonsumen> listTipeKonsumen = respon.getBody().getDataTipeKonsumen();
+        List<TipeKonsumen> listTipeKonsumen = respon.getBody().getDataTipeKonsumen();
          
         TipeKonsumenExcelExporter excelExporter = new TipeKonsumenExcelExporter(listTipeKonsumen);
          
@@ -87,8 +87,8 @@ public class TipeKonsumenController {
     }  
 	
 	@PostMapping(value = "/TipeKonsumen/ActionInputData")
-	public String TipeKonsumenActionInputData(@Valid DataTipeKonsumen dataTipeKonsumen, BindingResult result,String action,Model model) {
-		if(dataTipeKonsumen.getEnd_date().before(dataTipeKonsumen.getStart_date())) {
+	public String TipeKonsumenActionInputData(@Valid TipeKonsumen dataTipeKonsumen, BindingResult result,String action,Model model) {
+		if(dataTipeKonsumen.getEndBerlaku().before(dataTipeKonsumen.getStartBerlaku())) {
 			result.rejectValue("end_date", "error.dataTipeKonsumen", "End date must be greater than start date");
 		}
 
@@ -119,7 +119,7 @@ public class TipeKonsumenController {
 	}
 
 	@PostMapping(value = "/TipeKonsumen/ActionApprovalData")
-	public String TipeKonsumenActionApprovalData(@Valid DataTipeKonsumen dataTipeKonsumen, BindingResult result,String action) {
+	public String TipeKonsumenActionApprovalData(@Valid TipeKonsumen dataTipeKonsumen, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/TipeKonsumen/ApprovalData";
         }

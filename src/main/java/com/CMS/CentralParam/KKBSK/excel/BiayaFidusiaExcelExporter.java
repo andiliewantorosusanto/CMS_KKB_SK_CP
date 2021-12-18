@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataBiayaFidusia;
+import com.CMS.CentralParam.KKBSK.model.data.BiayaFidusia;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class BiayaFidusiaExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataBiayaFidusia> listCluster;
+    private List<BiayaFidusia> listCluster;
      
-    public BiayaFidusiaExcelExporter(List<DataBiayaFidusia> listCluster) {
+    public BiayaFidusiaExcelExporter(List<BiayaFidusia> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -65,7 +65,7 @@ public class BiayaFidusiaExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataBiayaFidusia Cluster : listCluster) {
+        for (BiayaFidusia Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              

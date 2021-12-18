@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.KomponenPHExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataKomponenPH;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponKomponenPH;
+import com.CMS.CentralParam.KKBSK.model.data.KomponenPH;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponKomponenPH;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,7 +47,7 @@ public class KomponenPHController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/KomponenPH/InputData", method = RequestMethod.GET)
-	public String KomponenPHInputData(DataKomponenPH dataKomponenPH) {
+	public String KomponenPHInputData(KomponenPH dataKomponenPH) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -72,7 +72,7 @@ public class KomponenPHController {
 			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponKomponenPH.class);
 
-        List<DataKomponenPH> listKomponenPH = respon.getBody().getDataKomponenPH();
+        List<KomponenPH> listKomponenPH = respon.getBody().getDataKomponenPH();
          
         KomponenPHExcelExporter excelExporter = new KomponenPHExcelExporter(listKomponenPH);
          
@@ -80,7 +80,7 @@ public class KomponenPHController {
     }  
 	
 	@PostMapping(value = "/KomponenPH/ActionInputData")
-	public String KomponenPHActionInputData(@Valid DataKomponenPH dataKomponenPH, BindingResult result,String action) {
+	public String KomponenPHActionInputData(@Valid KomponenPH dataKomponenPH, BindingResult result,String action) {
 		// if(dataKomponenPH.getEndBerlaku().before(dataKomponenPH.getStartBerlaku())) {
 		// 	result.rejectValue("endBerlaku", "error.dataKomponenPH", "End date must be greater than start date");
 		// }
@@ -105,7 +105,7 @@ public class KomponenPHController {
 	}
 
 	@PostMapping(value = "/KomponenPH/ActionApprovalData")
-	public String KomponenPHActionApprovalData(@Valid DataKomponenPH dataKomponenPH, BindingResult result,String action) {
+	public String KomponenPHActionApprovalData(@Valid KomponenPH dataKomponenPH, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/KomponenPH/ApprovalData";
         }

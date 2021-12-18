@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.MinimalDPExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataMinimalDP;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponMinimalDP;
+import com.CMS.CentralParam.KKBSK.model.data.MinimalDP;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponMinimalDP;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,7 +47,7 @@ public class MinimalDPController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/MinimalDP/InputData", method = RequestMethod.GET)
-	public String MinimalDPInputData(DataMinimalDP dataMinimalDP) {
+	public String MinimalDPInputData(MinimalDP dataMinimalDP) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -72,7 +72,7 @@ public class MinimalDPController {
 			apiBaseUrl+"api/minimaldp/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponMinimalDP.class);
 
-        List<DataMinimalDP> listMinimalDP = respon.getBody().getDataMinimalDP();
+        List<MinimalDP> listMinimalDP = respon.getBody().getDataMinimalDP();
          
         MinimalDPExcelExporter excelExporter = new MinimalDPExcelExporter(listMinimalDP);
          
@@ -80,7 +80,7 @@ public class MinimalDPController {
     }  
 	
 	@PostMapping(value = "/MinimalDP/ActionInputData")
-	public String MinimalDPActionInputData(@Valid DataMinimalDP dataMinimalDP, BindingResult result,String action) {
+	public String MinimalDPActionInputData(@Valid MinimalDP dataMinimalDP, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/MinimalDP/InputData";
         }
@@ -101,7 +101,7 @@ public class MinimalDPController {
 	}
 
 	@PostMapping(value = "/MinimalDP/ActionApprovalData")
-	public String MinimalDPActionApprovalData(@Valid DataMinimalDP dataMinimalDP, BindingResult result,String action) {
+	public String MinimalDPActionApprovalData(@Valid MinimalDP dataMinimalDP, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/MinimalDP/ApprovalData";
         }

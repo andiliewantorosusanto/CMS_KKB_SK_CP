@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.JenisKendaraanExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataJenisKendaraan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisKendaraan;
+import com.CMS.CentralParam.KKBSK.model.data.JenisKendaraan;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisKendaraan;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,7 +47,7 @@ public class JenisKendaraanController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/JenisKendaraan/InputData", method = RequestMethod.GET)
-	public String JenisKendaraanInputData(DataJenisKendaraan dataJenisKendaraan) {
+	public String JenisKendaraanInputData(JenisKendaraan dataJenisKendaraan) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -72,7 +72,7 @@ public class JenisKendaraanController {
 			apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponJenisKendaraan.class);
 
-        List<DataJenisKendaraan> listJenisKendaraan = respon.getBody().getDataJenisKendaraan();
+        List<JenisKendaraan> listJenisKendaraan = respon.getBody().getDataJenisKendaraan();
          
         JenisKendaraanExcelExporter excelExporter = new JenisKendaraanExcelExporter(listJenisKendaraan);
          
@@ -80,7 +80,7 @@ public class JenisKendaraanController {
     }  
 	
 	@PostMapping(value = "/JenisKendaraan/ActionInputData")
-	public String JenisKendaraanActionInputData(@Valid DataJenisKendaraan dataJenisKendaraan, BindingResult result,String action) {
+	public String JenisKendaraanActionInputData(@Valid JenisKendaraan dataJenisKendaraan, BindingResult result,String action) {
 		if(dataJenisKendaraan.getEndBerlaku().before(dataJenisKendaraan.getStartBerlaku())) {
 			result.rejectValue("endBerlaku", "error.dataJenisKendaraan", "End date must be greater than start date");
 		}
@@ -105,7 +105,7 @@ public class JenisKendaraanController {
 	}
 
 	@PostMapping(value = "/JenisKendaraan/ActionApprovalData")
-	public String JenisKendaraanActionApprovalData(@Valid DataJenisKendaraan dataJenisKendaraan, BindingResult result,String action) {
+	public String JenisKendaraanActionApprovalData(@Valid JenisKendaraan dataJenisKendaraan, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/JenisKendaraan/ApprovalData";
         }

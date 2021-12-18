@@ -12,14 +12,14 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.PerluasanAsuransiExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataPerluasanAsuransi;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisKendaraan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPerluasan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponPerluasanAsuransi;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTipeAsuransi;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponWilayah;
+import com.CMS.CentralParam.KKBSK.model.data.PerluasanAsuransi;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisKendaraan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPerluasan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponPerluasanAsuransi;
+import com.CMS.CentralParam.KKBSK.model.response.ResponTipeAsuransi;
+import com.CMS.CentralParam.KKBSK.model.response.ResponWilayah;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -51,7 +51,7 @@ public class PerluasanAsuransiController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/PerluasanAsuransi/InputData", method = RequestMethod.GET)
-	public String PerluasanAsuransiInputData(DataPerluasanAsuransi dataPerluasanAsuransi,Model model) {
+	public String PerluasanAsuransiInputData(PerluasanAsuransi dataPerluasanAsuransi,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -101,7 +101,7 @@ public class PerluasanAsuransiController {
 			apiBaseUrl+"api/perluasanasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponPerluasanAsuransi.class);
 
-        List<DataPerluasanAsuransi> listPerluasanAsuransi = respon.getBody().getDataPerluasanAsuransi();
+        List<PerluasanAsuransi> listPerluasanAsuransi = respon.getBody().getDataPerluasanAsuransi();
          
         PerluasanAsuransiExcelExporter excelExporter = new PerluasanAsuransiExcelExporter(listPerluasanAsuransi);
          
@@ -109,7 +109,7 @@ public class PerluasanAsuransiController {
     }  
 	
 	@PostMapping(value = "/PerluasanAsuransi/ActionInputData")
-	public String PerluasanAsuransiActionInputData(@Valid DataPerluasanAsuransi dataPerluasanAsuransi, BindingResult result,String action,Model model) {
+	public String PerluasanAsuransiActionInputData(@Valid PerluasanAsuransi dataPerluasanAsuransi, BindingResult result,String action,Model model) {
 		if(dataPerluasanAsuransi.getEndBerlaku().before(dataPerluasanAsuransi.getStartBerlaku())) {
 			result.rejectValue("endBerlaku", "error.dataPerluasanAsuransi", "End date must be greater than start date");
 		}
@@ -159,7 +159,7 @@ public class PerluasanAsuransiController {
 	}
 
 	@PostMapping(value = "/PerluasanAsuransi/ActionApprovalData")
-	public String PerluasanAsuransiActionApprovalData(@Valid DataPerluasanAsuransi dataPerluasanAsuransi, BindingResult result,String action) {
+	public String PerluasanAsuransiActionApprovalData(@Valid PerluasanAsuransi dataPerluasanAsuransi, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/PerluasanAsuransi/ApprovalData";
         }

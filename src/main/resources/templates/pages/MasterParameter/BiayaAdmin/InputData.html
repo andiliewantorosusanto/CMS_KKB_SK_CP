@@ -20,41 +20,41 @@
                                                 <div class="col-md-12">
                                                     <form id="signupForm" th:action="@{/BiayaAdmin/ActionInputData}"  th:object="${dataBiayaAdmin}" method="post" novalidate="novalidate">
                                                         <div class="form-group">
-                                                            <label class="col-form-label" for="nama_skema">Nama Skema</label>
-                                                            <input class="form-control" id="nama_skema" type="text" name="nama_skema" th:field="*{nama_skema}"
-                                                                placeholder="nama_skema" th:classappend="${#fields.hasErrors('nama_skema')} ?  is-invalid">
-                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('nama_skema')}" th:errors="*{nama_skema}"></div>
+                                                            <label class="col-form-label" for="namaSkema">Nama Skema</label>
+                                                            <input class="form-control" id="namaSkema" type="text" name="namaSkema" th:field="*{namaSkema}"
+                                                                placeholder="namaSkema" th:classappend="${#fields.hasErrors('namaSkema')} ?  is-invalid">
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('namaSkema')}" th:errors="*{namaSkema}"></div>
                                                         </div>
                                                         
                                                         <div class="form-group">
-                                                            <label class="col-form-label" for="firstname">Tipe Konsumen</label>
-                                                            <select class="form-control" id="tipe_konsumen" type="text" name="tipe_konsumen" th:field="*{tipe_konsumen}"
-                                                            placeholder="tipe_konsumen" th:classappend="${#fields.hasErrors('tipe_konsumen')} ?  is-invalid">
+                                                            <label class="col-form-label" for="tipeKonsumen">Tipe Konsumen</label>
+                                                            <select class="form-control" id="tipeKonsumen" type="text" name="tipeKonsumen" th:field="*{tipeKonsumen}"
+                                                            placeholder="tipeKonsumen" th:classappend="${#fields.hasErrors('tipeKonsumen')} ?  is-invalid">
                                                                 <option th:each="dataTipeKonsumen :${listDataTipeKonsumen}" th:value="${dataTipeKonsumen.id}" th:text="${dataTipeKonsumen.nama}"></option>
                                                             </select>
-                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('tipe_konsumen')}" th:errors="*{tipe_konsumen}"></div>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('tipeKonsumen')}" th:errors="*{tipeKonsumen}"></div>
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label class="col-form-label" for="firstname">Jenis Kendaraan</label>
-                                                            <select class="form-control" id="jenis_kendaraan" type="text" name="jenis_kendaraan" th:field="*{jenis_kendaraan}"
-                                                            placeholder="jenis_kendaraan" th:classappend="${#fields.hasErrors('jenis_kendaraan')} ?  is-invalid">
-                                                                <option th:each="dataJenisKendaraan :${listDataJenisKendaraan}" th:value="${dataJenisKendaraan.id}" th:text="${dataJenisKendaraan.jenis_kendaraan}"></option>
+                                                            <label class="col-form-label" for="jenisKendaraan">Jenis Kendaraan</label>
+                                                            <select class="form-control" id="jenisKendaraan" type="text" name="jenisKendaraan" th:field="*{jenisKendaraan}"
+                                                            placeholder="jenisKendaraan" th:classappend="${#fields.hasErrors('jenisKendaraan')} ?  is-invalid">
+                                                                <option th:each="dataJenisKendaraan :${listDataJenisKendaraan}" th:value="${dataJenisKendaraan.id}" th:text="${dataJenisKendaraan.jenisKendaraan}"></option>
                                                             </select>
-                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('jenis_kendaraan')}" th:errors="*{jenis_kendaraan}"></div>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('jenisKendaraan')}" th:errors="*{jenisKendaraan}"></div>
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label class="col-form-label" for="firstname">Jenis Pembiayaan</label>
-                                                            <select class="form-control" id="jenis_pembiayaan" type="text" name="jenis_pembiayaan" th:field="*{jenis_pembiayaan}"
-                                                            placeholder="jenis_pembiayaan" th:classappend="${#fields.hasErrors('jenis_pembiayaan')} ?  is-invalid">
-                                                                <option th:each="dataJenisPembiayaan :${listDataJenisPembiayaan}" th:value="${dataJenisPembiayaan.id}" th:text="${dataJenisPembiayaan.jenis_pembiayaan}"></option>
+                                                            <label class="col-form-label" for="jenisPembiayaan">Jenis Pembiayaan</label>
+                                                            <select class="form-control" id="jenisPembiayaan" type="text" name="jenisPembiayaan" th:field="*{jenisPembiayaan}"
+                                                            placeholder="jenisPembiayaan" th:classappend="${#fields.hasErrors('jenisPembiayaan')} ?  is-invalid">
+                                                                <option th:each="dataJenisPembiayaan :${listDataJenisPembiayaan}" th:value="${dataJenisPembiayaan.id}" th:text="${dataJenisPembiayaan.jenisPembiayaan}"></option>
                                                             </select>
-                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('jenis_pembiayaan')}" th:errors="*{jenis_pembiayaan}"></div>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('jenisPembiayaan')}" th:errors="*{jenisPembiayaan}"></div>
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label class="col-form-label" for="firstname">Cluster</label>
+                                                            <label class="col-form-label" for="cluster">Cluster</label>
                                                             <select class="form-control" id="cluster" type="text" name="cluster" th:field="*{cluster}"
                                                             placeholder="cluster" th:classappend="${#fields.hasErrors('cluster')} ?  is-invalid">
                                                                 <option th:each="dataCluster :${listDataCluster}" th:value="${dataCluster.id}" th:text="${dataCluster.cluster}"></option>
@@ -64,10 +64,10 @@
 
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">NPWP</label>
-                                                                <input class="form-control" id="diskon_npwp" th:field="*{diskon_npwp}"
-                                                                    name="diskon_npwp" th:classappend="${#fields.hasErrors('diskon_npwp')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('diskon_npwp')}" th:errors="*{diskon_npwp}"></div>
+                                                                <label class="col-form-label" for="diskonNpwp">NPWP</label>
+                                                                <input class="form-control" id="diskonNpwp" th:field="*{diskonNpwp}"
+                                                                    name="diskonNpwp" th:classappend="${#fields.hasErrors('diskonNpwp')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('diskonNpwp')}" th:errors="*{diskonNpwp}"></div>
                                                             </div>
                                                         </div>
 

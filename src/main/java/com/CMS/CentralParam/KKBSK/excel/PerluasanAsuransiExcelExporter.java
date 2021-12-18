@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataPerluasanAsuransi;
+import com.CMS.CentralParam.KKBSK.model.data.PerluasanAsuransi;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class PerluasanAsuransiExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataPerluasanAsuransi> listCluster;
+    private List<PerluasanAsuransi> listCluster;
      
-    public PerluasanAsuransiExcelExporter(List<DataPerluasanAsuransi> listCluster) {
+    public PerluasanAsuransiExcelExporter(List<PerluasanAsuransi> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -65,7 +65,7 @@ public class PerluasanAsuransiExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataPerluasanAsuransi Cluster : listCluster) {
+        for (PerluasanAsuransi Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              

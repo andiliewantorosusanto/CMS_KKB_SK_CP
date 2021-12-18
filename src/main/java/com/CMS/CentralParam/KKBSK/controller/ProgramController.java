@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.ProgramExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataProgram;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponProgram;
+import com.CMS.CentralParam.KKBSK.model.data.Program;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponProgram;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,7 +47,7 @@ public class ProgramController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/Program/InputData", method = RequestMethod.GET)
-	public String ProgramInputData(DataProgram dataProgram) {
+	public String ProgramInputData(Program dataProgram) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -72,7 +72,7 @@ public class ProgramController {
 			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponProgram.class);
 
-        List<DataProgram> listProgram = respon.getBody().getDataProgram();
+        List<Program> listProgram = respon.getBody().getDataProgram();
          
         ProgramExcelExporter excelExporter = new ProgramExcelExporter(listProgram);
          
@@ -80,7 +80,7 @@ public class ProgramController {
     }  
 	
 	@PostMapping(value = "/Program/ActionInputData")
-	public String ProgramActionInputData(@Valid DataProgram dataProgram, BindingResult result,String action) {
+	public String ProgramActionInputData(@Valid Program dataProgram, BindingResult result,String action) {
 		// if(dataProgram.getEndDate().before(dataProgram.getStartDate())) {
 		// 	result.rejectValue("endBerlaku", "error.dataProgram", "End date must be greater than start date");
 		// }
@@ -105,7 +105,7 @@ public class ProgramController {
 	}
 
 	@PostMapping(value = "/Program/ActionApprovalData")
-	public String ProgramActionApprovalData(@Valid DataProgram dataProgram, BindingResult result,String action) {
+	public String ProgramActionApprovalData(@Valid Program dataProgram, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/Program/ApprovalData";
         }

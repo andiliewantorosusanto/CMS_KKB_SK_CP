@@ -12,12 +12,12 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.BiayaProvisiExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataBiayaProvisi;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisKendaraan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPembiayaan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponBiayaProvisi;
+import com.CMS.CentralParam.KKBSK.model.data.BiayaProvisi;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponBiayaProvisi;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisKendaraan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPembiayaan;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -49,7 +49,7 @@ public class BiayaProvisiController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/BiayaProvisi/InputData", method = RequestMethod.GET)
-	public String BiayaProvisiInputData(DataBiayaProvisi dataBiayaProvisi,Model model) {
+	public String BiayaProvisiInputData(BiayaProvisi dataBiayaProvisi,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
@@ -83,7 +83,7 @@ public class BiayaProvisiController {
 			apiBaseUrl+"api/biayaprovisi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponBiayaProvisi.class);
 
-        List<DataBiayaProvisi> listBiayaProvisi = respon.getBody().getDataBiayaProvisi();
+        List<BiayaProvisi> listBiayaProvisi = respon.getBody().getDataBiayaProvisi();
          
         BiayaProvisiExcelExporter excelExporter = new BiayaProvisiExcelExporter(listBiayaProvisi);
          
@@ -91,7 +91,7 @@ public class BiayaProvisiController {
     }  
 	
 	@PostMapping(value = "/BiayaProvisi/ActionInputData")
-	public String BiayaProvisiActionInputData(@Valid DataBiayaProvisi dataBiayaProvisi, BindingResult result,String action,Model model) {
+	public String BiayaProvisiActionInputData(@Valid BiayaProvisi dataBiayaProvisi, BindingResult result,String action,Model model) {
 		if(dataBiayaProvisi.getEndBerlaku().before(dataBiayaProvisi.getStartBerlaku())) {
 			result.rejectValue("endBerlaku", "error.dataBiayaProvisi", "End date must be greater than start date");
 		}
@@ -126,7 +126,7 @@ public class BiayaProvisiController {
 	}
 
 	@PostMapping(value = "/BiayaProvisi/ActionApprovalData")
-	public String BiayaProvisiActionApprovalData(@Valid DataBiayaProvisi dataBiayaProvisi, BindingResult result,String action) {
+	public String BiayaProvisiActionApprovalData(@Valid BiayaProvisi dataBiayaProvisi, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/BiayaProvisi/ApprovalData";
         }

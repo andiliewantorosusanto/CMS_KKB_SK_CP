@@ -12,11 +12,11 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.TujuanPenggunaanExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataTujuanPenggunaan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponProduk;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTujuanPenggunaan;
+import com.CMS.CentralParam.KKBSK.model.data.TujuanPenggunaan;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponProduk;
+import com.CMS.CentralParam.KKBSK.model.response.ResponTujuanPenggunaan;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -48,7 +48,7 @@ public class TujuanPenggunaanController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/TujuanPenggunaan/InputData", method = RequestMethod.GET)
-	public String TujuanPenggunaanInputData(DataTujuanPenggunaan dataTujuanPenggunaan,Model model) {
+	public String TujuanPenggunaanInputData(TujuanPenggunaan dataTujuanPenggunaan,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -78,7 +78,7 @@ public class TujuanPenggunaanController {
 			apiBaseUrl+"api/tujuanpenggunaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponTujuanPenggunaan.class);
 
-        List<DataTujuanPenggunaan> listTujuanPenggunaan = respon.getBody().getDataTujuanPenggunaan();
+        List<TujuanPenggunaan> listTujuanPenggunaan = respon.getBody().getDataTujuanPenggunaan();
          
         TujuanPenggunaanExcelExporter excelExporter = new TujuanPenggunaanExcelExporter(listTujuanPenggunaan);
          
@@ -86,8 +86,8 @@ public class TujuanPenggunaanController {
     }  
 	
 	@PostMapping(value = "/TujuanPenggunaan/ActionInputData")
-	public String TujuanPenggunaanActionInputData(@Valid DataTujuanPenggunaan dataTujuanPenggunaan, BindingResult result,String action,Model model) {
-		if(dataTujuanPenggunaan.getEnd_date().before(dataTujuanPenggunaan.getStart_date())) {
+	public String TujuanPenggunaanActionInputData(@Valid TujuanPenggunaan dataTujuanPenggunaan, BindingResult result,String action,Model model) {
+		if(dataTujuanPenggunaan.getEndBerlaku().before(dataTujuanPenggunaan.getStartBerlaku())) {
 			result.rejectValue("end_date", "error.dataTujuanPenggunaan", "End date must be greater than start date");
 		}
 
@@ -116,7 +116,7 @@ public class TujuanPenggunaanController {
 	}
 
 	@PostMapping(value = "/TujuanPenggunaan/ActionApprovalData")
-	public String TujuanPenggunaanActionApprovalData(@Valid DataTujuanPenggunaan dataTujuanPenggunaan, BindingResult result,String action) {
+	public String TujuanPenggunaanActionApprovalData(@Valid TujuanPenggunaan dataTujuanPenggunaan, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/TujuanPenggunaan/ApprovalData";
         }

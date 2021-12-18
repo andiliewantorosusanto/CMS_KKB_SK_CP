@@ -1,7 +1,6 @@
 package com.CMS.CentralParam.KKBSK.model.LDAP;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;

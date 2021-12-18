@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.TipeAsuransiExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataTipeAsuransi;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTipeAsuransi;
+import com.CMS.CentralParam.KKBSK.model.data.TipeAsuransi;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponTipeAsuransi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,7 +47,7 @@ public class TipeAsuransiController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/TipeAsuransi/InputData", method = RequestMethod.GET)
-	public String TipeAsuransiInputData(DataTipeAsuransi dataTipeAsuransi) {
+	public String TipeAsuransiInputData(TipeAsuransi dataTipeAsuransi) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -72,7 +72,7 @@ public class TipeAsuransiController {
 			apiBaseUrl+"api/tipeasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponTipeAsuransi.class);
 
-        List<DataTipeAsuransi> listTipeAsuransi = respon.getBody().getDataTipeAsuransi();
+        List<TipeAsuransi> listTipeAsuransi = respon.getBody().getDataTipeAsuransi();
          
         TipeAsuransiExcelExporter excelExporter = new TipeAsuransiExcelExporter(listTipeAsuransi);
          
@@ -80,7 +80,7 @@ public class TipeAsuransiController {
     }  
 	
 	@PostMapping(value = "/TipeAsuransi/ActionInputData")
-	public String TipeAsuransiActionInputData(@Valid DataTipeAsuransi dataTipeAsuransi, BindingResult result,String action) {
+	public String TipeAsuransiActionInputData(@Valid TipeAsuransi dataTipeAsuransi, BindingResult result,String action) {
 		if(dataTipeAsuransi.getEndBerlaku().before(dataTipeAsuransi.getStartBerlaku())) {
 			result.rejectValue("endBerlaku", "error.dataTipeAsuransi", "End date must be greater than start date");
 		}
@@ -104,7 +104,7 @@ public class TipeAsuransiController {
 	}
 
 	@PostMapping(value = "/TipeAsuransi/ActionApprovalData")
-	public String TipeAsuransiActionApprovalData(@Valid DataTipeAsuransi dataTipeAsuransi, BindingResult result,String action) {
+	public String TipeAsuransiActionApprovalData(@Valid TipeAsuransi dataTipeAsuransi, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/TipeAsuransi/ApprovalData";
         }

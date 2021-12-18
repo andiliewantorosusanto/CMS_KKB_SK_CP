@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.model.data.TipeKonsumen;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class TipeKonsumenExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataTipeKonsumen> listTipeKonsumen;
+    private List<TipeKonsumen> listTipeKonsumen;
      
-    public TipeKonsumenExcelExporter(List<DataTipeKonsumen> listTipeKonsumen) {
+    public TipeKonsumenExcelExporter(List<TipeKonsumen> listTipeKonsumen) {
         this.listTipeKonsumen = listTipeKonsumen;
         workbook = new XSSFWorkbook();
     }
@@ -65,15 +65,15 @@ public class TipeKonsumenExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataTipeKonsumen tipeKonsumen : listTipeKonsumen) {
+        for (TipeKonsumen tipeKonsumen : listTipeKonsumen) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            createCell(row, columnCount++, tipeKonsumen.getNama(), style);
-            createCell(row, columnCount++, tipeKonsumen.getProdukObject().getProduk(), style);
-            createCell(row, columnCount++, tipeKonsumen.getDeskripsi(), style);
-            createCell(row, columnCount++, tipeKonsumen.getStart_date().toString(), style);
-            createCell(row, columnCount++, tipeKonsumen.getEnd_date().toString(), style);
+            // createCell(row, columnCount++, tipeKonsumen.getNama(), style);
+            // createCell(row, columnCount++, tipeKonsumen.getProdukObject().getProduk(), style);
+            // createCell(row, columnCount++, tipeKonsumen.getDeskripsi(), style);
+            // createCell(row, columnCount++, tipeKonsumen.getStart_date().toString(), style);
+            // createCell(row, columnCount++, tipeKonsumen.getEnd_date().toString(), style);
              
         }
     }

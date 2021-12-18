@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataRateCP;
+import com.CMS.CentralParam.KKBSK.model.data.RateCP;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class RateCPExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataRateCP> listCluster;
+    private List<RateCP> listCluster;
      
-    public RateCPExcelExporter(List<DataRateCP> listCluster) {
+    public RateCPExcelExporter(List<RateCP> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -65,7 +65,7 @@ public class RateCPExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataRateCP Cluster : listCluster) {
+        for (RateCP Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              

@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataWilayah;
+import com.CMS.CentralParam.KKBSK.model.data.Wilayah;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class WilayahExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataWilayah> listCluster;
+    private List<Wilayah> listCluster;
      
-    public WilayahExcelExporter(List<DataWilayah> listCluster) {
+    public WilayahExcelExporter(List<Wilayah> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -64,7 +64,7 @@ public class WilayahExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataWilayah Cluster : listCluster) {
+        for (Wilayah Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              

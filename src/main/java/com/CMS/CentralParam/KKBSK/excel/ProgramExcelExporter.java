@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataProgram;
+import com.CMS.CentralParam.KKBSK.model.data.Program;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ProgramExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataProgram> listCluster;
+    private List<Program> listCluster;
      
-    public ProgramExcelExporter(List<DataProgram> listCluster) {
+    public ProgramExcelExporter(List<Program> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -65,7 +65,7 @@ public class ProgramExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataProgram Cluster : listCluster) {
+        for (Program Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              

@@ -12,11 +12,11 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.ClusterExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataCluster;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCluster;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponProduk;
+import com.CMS.CentralParam.KKBSK.model.data.Cluster;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCluster;
+import com.CMS.CentralParam.KKBSK.model.response.ResponProduk;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -48,7 +48,7 @@ public class ClusterController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/Cluster/InputData", method = RequestMethod.GET)
-	public String ClusterInputData(DataCluster dataCluster,Model model) {
+	public String ClusterInputData(Cluster dataCluster,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -79,7 +79,7 @@ public class ClusterController {
 			apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponCluster.class);
 
-        List<DataCluster> listCluster = respon.getBody().getDataCluster();
+        List<Cluster> listCluster = respon.getBody().getDataCluster();
          
         ClusterExcelExporter excelExporter = new ClusterExcelExporter(listCluster);
          
@@ -87,8 +87,8 @@ public class ClusterController {
     }  
 	
 	@PostMapping(value = "/Cluster/ActionInputData")
-	public String ClusterActionInputData(@Valid DataCluster dataCluster, BindingResult result,String action,Model model) {
-		if(dataCluster.getEnd_date().before(dataCluster.getStart_date())) {
+	public String ClusterActionInputData(@Valid Cluster dataCluster, BindingResult result,String action,Model model) {
+		if(dataCluster.getEndBerlaku().before(dataCluster.getStartBerlaku())) {
 			result.rejectValue("end_date", "error.dataCluster", "End date must be greater than start date");
 		}
 
@@ -119,7 +119,7 @@ public class ClusterController {
 	}
 
 	@PostMapping(value = "/Cluster/ActionApprovalData")
-	public String ClusterActionApprovalData(@Valid DataCluster dataCluster, BindingResult result,String action) {
+	public String ClusterActionApprovalData(@Valid Cluster dataCluster, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/Cluster/ApprovalData";
         }

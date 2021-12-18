@@ -12,14 +12,15 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.BiayaAdminExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataBiayaAdmin;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCluster;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisKendaraan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPembiayaan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTipeKonsumen;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponBiayaAdmin;
+import com.CMS.CentralParam.KKBSK.model.data.BiayaAdmin;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponBiayaAdmin;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCluster;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisKendaraan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPembiayaan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.view.vwDataBiayaAdmin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -51,7 +52,7 @@ public class BiayaAdminController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/BiayaAdmin/InputData", method = RequestMethod.GET)
-	public String BiayaAdminInputData(DataBiayaAdmin dataBiayaAdmin,Model model) {
+	public String BiayaAdminInputData(BiayaAdmin dataBiayaAdmin,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -96,7 +97,7 @@ public class BiayaAdminController {
 			apiBaseUrl+"api/biayaadmin/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponBiayaAdmin.class);
 
-        List<DataBiayaAdmin> listBiayaAdmin = respon.getBody().getDataBiayaAdmin();
+        List<vwDataBiayaAdmin> listBiayaAdmin = respon.getBody().getDataBiayaAdmin();
          
         BiayaAdminExcelExporter excelExporter = new BiayaAdminExcelExporter(listBiayaAdmin);
          
@@ -104,7 +105,7 @@ public class BiayaAdminController {
     }  
 	
 	@PostMapping(value = "/BiayaAdmin/ActionInputData")
-	public String BiayaAdminActionInputData(@Valid DataBiayaAdmin dataBiayaAdmin, BindingResult result,String action,Model model) {
+	public String BiayaAdminActionInputData(@Valid BiayaAdmin dataBiayaAdmin, BindingResult result,String action,Model model) {
 		if(dataBiayaAdmin.getEndBerlaku().before(dataBiayaAdmin.getStartBerlaku())) {
 			result.rejectValue("endBerlaku", "error.dataBiayaAdmin", "End date must be greater than start date");
 		}
@@ -149,7 +150,7 @@ public class BiayaAdminController {
 	}
 
 	@PostMapping(value = "/BiayaAdmin/ActionApprovalData")
-	public String BiayaAdminActionApprovalData(@Valid DataBiayaAdmin dataBiayaAdmin, BindingResult result,String action) {
+	public String BiayaAdminActionApprovalData(@Valid BiayaAdmin dataBiayaAdmin, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/BiayaAdmin/ApprovalData";
         }

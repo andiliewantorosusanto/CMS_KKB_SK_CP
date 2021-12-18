@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataBiayaProvisi;
+import com.CMS.CentralParam.KKBSK.model.data.BiayaProvisi;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class BiayaProvisiExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataBiayaProvisi> listCluster;
+    private List<BiayaProvisi> listCluster;
      
-    public BiayaProvisiExcelExporter(List<DataBiayaProvisi> listCluster) {
+    public BiayaProvisiExcelExporter(List<BiayaProvisi> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -65,7 +65,7 @@ public class BiayaProvisiExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataBiayaProvisi Cluster : listCluster) {
+        for (BiayaProvisi Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              

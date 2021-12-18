@@ -1,7 +1,6 @@
 package com.CMS.CentralParam.KKBSK.model.LOGIN;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @Table(name="users_roles_cms")

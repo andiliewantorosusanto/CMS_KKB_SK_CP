@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.ProdukExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataProduk;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponProduk;
+import com.CMS.CentralParam.KKBSK.model.data.Produk;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponProduk;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,7 +47,7 @@ public class ProdukController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/Produk/InputData", method = RequestMethod.GET)
-	public String ProdukInputData(DataProduk dataProduk) {
+	public String ProdukInputData(Produk dataProduk) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -72,7 +72,7 @@ public class ProdukController {
 			apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponProduk.class);
 
-        List<DataProduk> listProduk = respon.getBody().getDataProduk();
+        List<Produk> listProduk = respon.getBody().getDataProduk();
          
         ProdukExcelExporter excelExporter = new ProdukExcelExporter(listProduk);
          
@@ -80,7 +80,7 @@ public class ProdukController {
     }  
 	
 	@PostMapping(value = "/Produk/ActionInputData")
-	public String ProdukActionInputData(@Valid DataProduk dataProduk, BindingResult result,String action) {
+	public String ProdukActionInputData(@Valid Produk dataProduk, BindingResult result,String action) {
 		if(dataProduk.getEndBerlaku().before(dataProduk.getStartBerlaku())) {
 			result.rejectValue("endBerlaku", "error.dataProduk", "End date must be greater than start date");
 		}
@@ -105,7 +105,7 @@ public class ProdukController {
 	}
 
 	@PostMapping(value = "/Produk/ActionApprovalData")
-	public String ProdukActionApprovalData(@Valid DataProduk dataProduk, BindingResult result,String action) {
+	public String ProdukActionApprovalData(@Valid Produk dataProduk, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/Produk/ApprovalData";
         }

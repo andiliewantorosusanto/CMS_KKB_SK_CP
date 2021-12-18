@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.WilayahExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataWilayah;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponWilayah;
+import com.CMS.CentralParam.KKBSK.model.data.Wilayah;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponWilayah;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,7 +47,7 @@ public class WilayahController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/Wilayah/InputData", method = RequestMethod.GET)
-	public String WilayahInputData(DataWilayah dataWilayah) {
+	public String WilayahInputData(Wilayah dataWilayah) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -72,7 +72,7 @@ public class WilayahController {
 			apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponWilayah.class);
 
-        List<DataWilayah> listWilayah = respon.getBody().getDataWilayah();
+        List<Wilayah> listWilayah = respon.getBody().getDataWilayah();
          
         WilayahExcelExporter excelExporter = new WilayahExcelExporter(listWilayah);
          
@@ -80,7 +80,7 @@ public class WilayahController {
     }  
 	
 	@PostMapping(value = "/Wilayah/ActionInputData")
-	public String WilayahActionInputData(@Valid DataWilayah dataWilayah, BindingResult result,String action) {
+	public String WilayahActionInputData(@Valid Wilayah dataWilayah, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/Wilayah/InputData";
         }
@@ -101,7 +101,7 @@ public class WilayahController {
 	}
 
 	@PostMapping(value = "/Wilayah/ActionApprovalData")
-	public String WilayahActionApprovalData(@Valid DataWilayah dataWilayah, BindingResult result,String action) {
+	public String WilayahActionApprovalData(@Valid Wilayah dataWilayah, BindingResult result,String action) {
 		if(dataWilayah.getEndBerlaku().before(dataWilayah.getStartBerlaku())) {
 			result.rejectValue("endBerlaku", "error.dataWilayah", "End date must be greater than start date");
 		}

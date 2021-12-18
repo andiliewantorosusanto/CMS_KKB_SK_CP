@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.RateBungaExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataRateBunga;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponRateBunga;
+import com.CMS.CentralParam.KKBSK.model.data.RateBunga;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponRateBunga;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,7 +47,7 @@ public class RateBungaController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/RateBunga/InputData", method = RequestMethod.GET)
-	public String RateBungaInputData(DataRateBunga dataRateBunga) {
+	public String RateBungaInputData(RateBunga dataRateBunga) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -72,7 +72,7 @@ public class RateBungaController {
 			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponRateBunga.class);
 
-        List<DataRateBunga> listRateBunga = respon.getBody().getDataRateBunga();
+        List<RateBunga> listRateBunga = respon.getBody().getDataRateBunga();
          
         RateBungaExcelExporter excelExporter = new RateBungaExcelExporter(listRateBunga);
          
@@ -80,7 +80,7 @@ public class RateBungaController {
     }  
 	
 	@PostMapping(value = "/RateBunga/ActionInputData")
-	public String RateBungaActionInputData(@Valid DataRateBunga dataRateBunga, BindingResult result,String action) {
+	public String RateBungaActionInputData(@Valid RateBunga dataRateBunga, BindingResult result,String action) {
 		// if(dataRateBunga.getEndBerlaku().before(dataRateBunga.getStartBerlaku())) {
 		// 	result.rejectValue("endBerlaku", "error.dataRateBunga", "End date must be greater than start date");
 		// }
@@ -105,7 +105,7 @@ public class RateBungaController {
 	}
 
 	@PostMapping(value = "/RateBunga/ActionApprovalData")
-	public String RateBungaActionApprovalData(@Valid DataRateBunga dataRateBunga, BindingResult result,String action) {
+	public String RateBungaActionApprovalData(@Valid RateBunga dataRateBunga, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/RateBunga/ApprovalData";
         }

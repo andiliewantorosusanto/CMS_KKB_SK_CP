@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataRateBunga;
+import com.CMS.CentralParam.KKBSK.model.data.RateBunga;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class RateBungaExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataRateBunga> listCluster;
+    private List<RateBunga> listCluster;
      
-    public RateBungaExcelExporter(List<DataRateBunga> listCluster) {
+    public RateBungaExcelExporter(List<RateBunga> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -65,7 +65,7 @@ public class RateBungaExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataRateBunga Cluster : listCluster) {
+        for (RateBunga Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              

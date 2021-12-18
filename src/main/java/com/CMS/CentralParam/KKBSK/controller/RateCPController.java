@@ -12,11 +12,11 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.RateCPExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataRateCP;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponRateCP;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.model.data.RateCP;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponRateCP;
+import com.CMS.CentralParam.KKBSK.model.response.ResponTipeKonsumen;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -48,7 +48,7 @@ public class RateCPController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/RateCP/InputData", method = RequestMethod.GET)
-	public String RateCPInputData(DataRateCP dataRateCP,Model model) {
+	public String RateCPInputData(RateCP dataRateCP,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -79,7 +79,7 @@ public class RateCPController {
 			apiBaseUrl+"api/ratecp/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponRateCP.class);
 
-        List<DataRateCP> listRateCP = respon.getBody().getDataRateCP();
+        List<RateCP> listRateCP = respon.getBody().getDataRateCP();
          
         RateCPExcelExporter excelExporter = new RateCPExcelExporter(listRateCP);
          
@@ -87,7 +87,7 @@ public class RateCPController {
     }  
 	
 	@PostMapping(value = "/RateCP/ActionInputData")
-	public String RateCPActionInputData(@Valid DataRateCP dataRateCP, BindingResult result,String action,Model model) {
+	public String RateCPActionInputData(@Valid RateCP dataRateCP, BindingResult result,String action,Model model) {
 		if(dataRateCP.getEndBerlaku().before(dataRateCP.getStartBerlaku())) {
 			result.rejectValue("endBerlaku", "error.dataRateCP", "End date must be greater than start date");
 		}
@@ -116,7 +116,7 @@ public class RateCPController {
 	}
 
 	@PostMapping(value = "/RateCP/ActionApprovalData")
-	public String RateCPActionApprovalData(@Valid DataRateCP dataRateCP, BindingResult result,String action) {
+	public String RateCPActionApprovalData(@Valid RateCP dataRateCP, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/RateCP/ApprovalData";
         }

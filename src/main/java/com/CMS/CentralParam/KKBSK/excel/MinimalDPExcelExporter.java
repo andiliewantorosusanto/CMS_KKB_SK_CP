@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataMinimalDP;
+import com.CMS.CentralParam.KKBSK.model.data.MinimalDP;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class MinimalDPExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataMinimalDP> listCluster;
+    private List<MinimalDP> listCluster;
      
-    public MinimalDPExcelExporter(List<DataMinimalDP> listCluster) {
+    public MinimalDPExcelExporter(List<MinimalDP> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -65,7 +65,7 @@ public class MinimalDPExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataMinimalDP Cluster : listCluster) {
+        for (MinimalDP Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              

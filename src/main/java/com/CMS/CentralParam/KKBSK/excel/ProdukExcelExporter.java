@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataProduk;
+import com.CMS.CentralParam.KKBSK.model.data.Produk;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ProdukExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<DataProduk> listCluster;
+    private List<Produk> listCluster;
      
-    public ProdukExcelExporter(List<DataProduk> listCluster) {
+    public ProdukExcelExporter(List<Produk> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -64,7 +64,7 @@ public class ProdukExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (DataProduk Cluster : listCluster) {
+        for (Produk Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              

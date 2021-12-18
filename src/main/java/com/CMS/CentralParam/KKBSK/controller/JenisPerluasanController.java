@@ -12,11 +12,11 @@ import javax.validation.constraints.NotNull;
 
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.JenisPerluasanExcelExporter;
-import com.CMS.CentralParam.KKBSK.model.REQUEST.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.RESPON.DataJenisPerluasan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponJenisPerluasan;
-import com.CMS.CentralParam.KKBSK.model.RESPON.ResponProduk;
+import com.CMS.CentralParam.KKBSK.model.data.JenisPerluasan;
+import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPerluasan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponProduk;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -48,7 +48,7 @@ public class JenisPerluasanController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/JenisPerluasan/InputData", method = RequestMethod.GET)
-	public String JenisPerluasanInputData(DataJenisPerluasan dataJenisPerluasan,Model model) {
+	public String JenisPerluasanInputData(JenisPerluasan dataJenisPerluasan,Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -78,7 +78,7 @@ public class JenisPerluasanController {
 			apiBaseUrl+"api/jenisperluasan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponJenisPerluasan.class);
 
-        List<DataJenisPerluasan> listJenisPerluasan = respon.getBody().getDataJenisPerluasan();
+        List<JenisPerluasan> listJenisPerluasan = respon.getBody().getDataJenisPerluasan();
          
         JenisPerluasanExcelExporter excelExporter = new JenisPerluasanExcelExporter(listJenisPerluasan);
          
@@ -86,8 +86,8 @@ public class JenisPerluasanController {
     }  
 	
 	@PostMapping(value = "/JenisPerluasan/ActionInputData")
-	public String JenisPerluasanActionInputData(@Valid DataJenisPerluasan dataJenisPerluasan, BindingResult result,String action) {
-		if(dataJenisPerluasan.getEnd_date().before(dataJenisPerluasan.getStart_date())) {
+	public String JenisPerluasanActionInputData(@Valid JenisPerluasan dataJenisPerluasan, BindingResult result,String action) {
+		if(dataJenisPerluasan.getEndBerlaku().before(dataJenisPerluasan.getStartBerlaku())) {
 			result.rejectValue("end_date", "error.dataJenisPerluasan", "End date must be greater than start date");
 		}
 
@@ -111,7 +111,7 @@ public class JenisPerluasanController {
 	}
 
 	@PostMapping(value = "/JenisPerluasan/ActionApprovalData")
-	public String JenisPerluasanActionApprovalData(@Valid DataJenisPerluasan dataJenisPerluasan, BindingResult result,String action,Model model) {
+	public String JenisPerluasanActionApprovalData(@Valid JenisPerluasan dataJenisPerluasan, BindingResult result,String action,Model model) {
 		if (result.hasErrors()) {
 			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),

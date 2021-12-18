@@ -90,12 +90,12 @@
                                 </svg></a>
                                 </td>
                                 
-                                <td th:text="${biayaAdmin.nama_skema}" th:attr="data-filter=${biayaAdmin.nama_skema}"></td>
-                                <td th:text="${biayaAdmin.tipe_konsumenObject.nama}" th:attr="data-filter=${biayaAdmin.tipe_konsumenObject.nama}"></td>
-                                <td th:text="${biayaAdmin.jenis_kendaraanObject.jenis_kendaraan}" th:attr="data-filter=${biayaAdmin.jenis_kendaraanObject.jenis_kendaraan}"></td>
-                                <td th:text="${biayaAdmin.jenis_pembiayaanObject.jenis_pembiayaan}" th:attr="data-filter=${biayaAdmin.jenis_pembiayaanObject.jenis_pembiayaan}"></td>
-                                <td th:text="${biayaAdmin.clusterObject.cluster}" th:attr="data-filter=${biayaAdmin.clusterObject.cluster}"></td>
-                                <td th:text="${biayaAdmin.diskon_npwp}" th:attr="data-filter=${biayaAdmin.diskon_npwp}"></td>
+                                <td th:text="${biayaAdmin.namaSkema}" th:attr="data-filter=${biayaAdmin.namaSkema}"></td>
+                                <td th:text="${biayaAdmin.tipeKonsumenName}" th:attr="data-filter=${biayaAdmin.tipeKonsumenName}"></td>
+                                <td th:text="${biayaAdmin.jenisKendaraanName}" th:attr="data-filter=${biayaAdmin.jenisKendaraanName}"></td>
+                                <td th:text="${biayaAdmin.jenisPembiayaanName}" th:attr="data-filter=${biayaAdmin.jenisPembiayaanName}"></td>
+                                <td th:text="${biayaAdmin.clusterName}" th:attr="data-filter=${biayaAdmin.clusterName}"></td>
+                                <td th:text="${biayaAdmin.diskonNpwp}" th:attr="data-filter=${biayaAdmin.diskonNpwp}"></td>
 
                                 <td th:text="${biayaAdmin.tenor1}" th:attr="data-filter=${biayaAdmin.tenor1}"></td>
                                 <td th:text="${biayaAdmin.tenor2}" th:attr="data-filter=${biayaAdmin.tenor2}"></td>
@@ -107,6 +107,7 @@
                                 <td th:text="${biayaAdmin.tenor8}" th:attr="data-filter=${biayaAdmin.tenor8}"></td>
                                 <td th:text="${biayaAdmin.tenor9}" th:attr="data-filter=${biayaAdmin.tenor9}"></td>
                                 <td th:text="${biayaAdmin.tenor10}" th:attr="data-filter=${biayaAdmin.tenor10}"></td>
+                                
                                 <td th:text="${#dates.format(biayaAdmin.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${biayaAdmin.startBerlaku}"></td>
                                 <td th:text="${#dates.format(biayaAdmin.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${biayaAdmin.endBerlaku}"></td>
                                 
@@ -116,10 +117,10 @@
                                 <td th:if="${biayaAdmin.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${biayaAdmin.statusApproval == 2 and biayaAdmin.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${biayaAdmin.statusApproval == 2 and biayaAdmin.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${biayaAdmin.statusApproval == 2 and biayaAdmin.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${biayaAdmin.statusApproval == 2 and biayaAdmin.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 
