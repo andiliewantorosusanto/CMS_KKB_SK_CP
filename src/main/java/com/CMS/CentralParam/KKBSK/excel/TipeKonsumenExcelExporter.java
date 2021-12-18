@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.data.TipeKonsumen;
+import com.CMS.CentralParam.KKBSK.view.vwTipeKonsumen;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class TipeKonsumenExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<TipeKonsumen> listTipeKonsumen;
+    private List<vwTipeKonsumen> listTipeKonsumen;
      
-    public TipeKonsumenExcelExporter(List<TipeKonsumen> listTipeKonsumen) {
+    public TipeKonsumenExcelExporter(List<vwTipeKonsumen> listTipeKonsumen) {
         this.listTipeKonsumen = listTipeKonsumen;
         workbook = new XSSFWorkbook();
     }
@@ -37,11 +37,12 @@ public class TipeKonsumenExcelExporter {
         font.setFontHeight(16);
         style.setFont(font);
          
-        createCell(row, 0, "Nama", style);      
-        createCell(row, 1, "Produk", style);       
-        createCell(row, 2, "Deskripsi", style);    
-        createCell(row, 3, "Start Date", style);
-        createCell(row, 4, "End Date", style);
+        int rowCount = 0;
+        createCell(row, rowCount++, "Nama", style);      
+        createCell(row, rowCount++, "Produk", style);       
+        createCell(row, rowCount++, "Deskripsi", style);    
+        createCell(row, rowCount++, "Masa Berlaku Start", style);
+        createCell(row, rowCount++, "Masa Berlaku End", style);
     }
      
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -65,15 +66,15 @@ public class TipeKonsumenExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (TipeKonsumen tipeKonsumen : listTipeKonsumen) {
+        for (vwTipeKonsumen tipeKonsumen : listTipeKonsumen) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            // createCell(row, columnCount++, tipeKonsumen.getNama(), style);
-            // createCell(row, columnCount++, tipeKonsumen.getProdukObject().getProduk(), style);
-            // createCell(row, columnCount++, tipeKonsumen.getDeskripsi(), style);
-            // createCell(row, columnCount++, tipeKonsumen.getStart_date().toString(), style);
-            // createCell(row, columnCount++, tipeKonsumen.getEnd_date().toString(), style);
+            createCell(row, columnCount++, tipeKonsumen.getNama(), style);
+            createCell(row, columnCount++, tipeKonsumen.getProdukName(), style);
+            createCell(row, columnCount++, tipeKonsumen.getDeskripsi(), style);
+            createCell(row, columnCount++, tipeKonsumen.getStartBerlaku().toString(), style);
+            createCell(row, columnCount++, tipeKonsumen.getEndBerlaku().toString(), style);
              
         }
     }

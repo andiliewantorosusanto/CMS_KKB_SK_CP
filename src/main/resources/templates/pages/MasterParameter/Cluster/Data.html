@@ -25,7 +25,7 @@
                             <tr role="row">
                               <th><input type="checkbox" id="check-all"></th>
                               <th></th>
-                              <th id="fil-cluster"></th>
+                              <th id="fil-nama"></th>
                               <th id="fil-produk"></th>
                               <th></th>
                               <th></th>
@@ -36,7 +36,7 @@
                             <tr role="filter">
                               <th data-value="checkbox"></th>
                               <th data-value="actions">Actions</th>
-                              <th data-value="cluster">Cluster</th>
+                              <th data-value="nama">Nama</th>
                               <th data-value="produk">Produk</th>
                               <th data-value="deskripsi">Deskripsi</th>
                               <th data-value="start_date">Start Date</th>
@@ -46,14 +46,14 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="cluster :${listDataCluster}">
+                            <tr th:each="cluster :${listCluster}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${cluster.id}">
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/Cluster/FormApprovalData/{id}(id=${cluster.id})}">
+                                <a class="btn btn-success" th:href="@{/Cluster/EditData/{id}(id=${cluster.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
@@ -61,10 +61,10 @@
                                 </td>
                                 
                                 <td th:text="${cluster.cluster}" th:attr="data-filter=${cluster.cluster}"></td>
-                                <td th:text="${cluster.produkObject.produk}" th:attr="data-filter=${cluster.produkObject.produk}"></td>
+                                <td th:text="${cluster.produkName}" th:attr="data-filter=${cluster.produkName}"></td>
                                 <td th:text="${cluster.deskripsi}" th:attr="data-filter=${cluster.deskripsi}"></td>
-                                <td th:text="${#dates.format(cluster.start_date,'dd-MM-yyyy')}" th:attr="data-filter=${cluster.start_date}"></td>
-                                <td th:text="${#dates.format(cluster.end_date,'dd-MM-yyyy')}" th:attr="data-filter=${cluster.end_date}"></td>
+                                <td th:text="${#dates.format(cluster.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${cluster.startBerlaku}"></td>
+                                <td th:text="${#dates.format(cluster.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${cluster.endBerlaku}"></td>
 
                                 <td th:if="${cluster.statusApproval == null or cluster.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
@@ -72,13 +72,12 @@
                                 <td th:if="${cluster.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${cluster.statusApproval == 2 and cluster.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${cluster.statusApproval == 2 and cluster.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${cluster.statusApproval == 2 and cluster.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${cluster.statusApproval == 2 and cluster.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
-
 
                                 <td th:text="${cluster.remarks}"></td>
                             </tr>
@@ -106,7 +105,7 @@
     </div>
     <div th:replace="fragments/common :: scripts"></div>
     <script>
-      let _FILTER_COLUMN = ['produk','status'];
+      let _FILTER_COLUMN = ['nama','produk','status'];
       let selectedIds = [];
       let table = $('#table').DataTable( {
           "scrollX": true,

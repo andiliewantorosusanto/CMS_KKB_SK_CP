@@ -1,6 +1,7 @@
 
 package com.CMS.CentralParam.KKBSK.model.data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
@@ -12,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TipeKonsumen {
+public class TipeKonsumen implements Serializable {
 
     @JsonProperty("id")
     private Integer id;

@@ -4,6 +4,7 @@ package com.CMS.CentralParam.KKBSK.model.response;
 import java.util.List;
 
 import com.CMS.CentralParam.KKBSK.model.data.Cluster;
+import com.CMS.CentralParam.KKBSK.view.vwCluster;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ResponCluster {
 
     @JsonProperty("dataCluster")
-    private List<Cluster> dataCluster = null;
+    private List<vwCluster> dataCluster = null;
     @JsonProperty("cluster")
     private Cluster cluster = null;
     @JsonProperty("code")
@@ -35,7 +36,7 @@ public class ResponCluster {
      * @param dataCluster
      * @param code
      */
-    public ResponCluster(List<Cluster> dataCluster,Cluster cluster,String code) {
+    public ResponCluster(List<vwCluster> dataCluster,Cluster cluster,String code) {
         super();
         this.dataCluster = dataCluster;
         this.cluster = cluster;
@@ -43,12 +44,12 @@ public class ResponCluster {
     }
 
     @JsonProperty("dataCluster")
-    public List<Cluster> getDataCluster() {
+    public List<vwCluster> getDataCluster() {
         return dataCluster;
     }
 
     @JsonProperty("dataCluster")
-    public void setDataCluster(List<Cluster> dataCluster) {
+    public void setDataCluster(List<vwCluster> dataCluster) {
         this.dataCluster = dataCluster;
     }
 

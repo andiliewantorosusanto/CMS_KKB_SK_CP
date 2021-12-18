@@ -17,6 +17,7 @@ import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
 import com.CMS.CentralParam.KKBSK.model.response.ResponProduk;
 import com.CMS.CentralParam.KKBSK.model.response.ResponTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.view.vwTipeKonsumen;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -48,7 +49,7 @@ public class TipeKonsumenController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/TipeKonsumen/InputData", method = RequestMethod.GET)
-	public String TipeKonsumenInputData(TipeKonsumen dataTipeKonsumen,Model model) {
+	public String TipeKonsumenInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
@@ -56,8 +57,9 @@ public class TipeKonsumenController {
 					apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponProduk.class);
 
-			model.addAttribute("listDataProduk",respon.getBody().getDataProduk());
-
+			model.addAttribute("listProduk",respon.getBody().getDataProduk());
+			model.addAttribute("tipeKonsumen", new TipeKonsumen());
+			
 			return "/pages/MasterParameter/TipeKonsumen/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -79,7 +81,7 @@ public class TipeKonsumenController {
 			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponTipeKonsumen.class);
 
-        List<TipeKonsumen> listTipeKonsumen = respon.getBody().getDataTipeKonsumen();
+        List<vwTipeKonsumen> listTipeKonsumen = respon.getBody().getDataTipeKonsumen();
          
         TipeKonsumenExcelExporter excelExporter = new TipeKonsumenExcelExporter(listTipeKonsumen);
          
@@ -87,9 +89,11 @@ public class TipeKonsumenController {
     }  
 	
 	@PostMapping(value = "/TipeKonsumen/ActionInputData")
-	public String TipeKonsumenActionInputData(@Valid TipeKonsumen dataTipeKonsumen, BindingResult result,String action,Model model) {
-		if(dataTipeKonsumen.getEndBerlaku().before(dataTipeKonsumen.getStartBerlaku())) {
-			result.rejectValue("end_date", "error.dataTipeKonsumen", "End date must be greater than start date");
+	public String TipeKonsumenActionInputData(@Valid TipeKonsumen tipeKonsumen, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(tipeKonsumen.getEndBerlaku().before(tipeKonsumen.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.tipeKonsumen", "End date must be greater than start date");
+			}
 		}
 
 		if (result.hasErrors()) {
@@ -97,8 +101,8 @@ public class TipeKonsumenController {
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponProduk.class);
 
-			model.addAttribute("listDataProduk",respon.getBody().getDataProduk());
-
+			model.addAttribute("listProduk",respon.getBody().getDataProduk());
+			model.addAttribute("tipeKonsumen", tipeKonsumen);
             return "/pages/MasterParameter/TipeKonsumen/InputData";
         }
 
@@ -107,7 +111,7 @@ public class TipeKonsumenController {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataTipeKonsumen)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(tipeKonsumen)), 
 				String.class
 			);
 			
@@ -119,7 +123,7 @@ public class TipeKonsumenController {
 	}
 
 	@PostMapping(value = "/TipeKonsumen/ActionApprovalData")
-	public String TipeKonsumenActionApprovalData(@Valid TipeKonsumen dataTipeKonsumen, BindingResult result,String action) {
+	public String TipeKonsumenActionApprovalData(@Valid TipeKonsumen tipeKonsumen, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/TipeKonsumen/ApprovalData";
         }
@@ -128,10 +132,10 @@ public class TipeKonsumenController {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/tipekonsumen/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataTipeKonsumen)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(tipeKonsumen)), 
 				String.class
 			);
-			System.out.println(apiBaseUrl+"/api/tipekonsumen/"+action+"Data");
+
 			return "redirect:/TipeKonsumen/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -155,6 +159,7 @@ public class TipeKonsumenController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/TipeKonsumen/ActionApproval")
 	public String TipeKonsumenActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
@@ -171,6 +176,7 @@ public class TipeKonsumenController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/TipeKonsumen/EditData/{id}", method = RequestMethod.GET)
 	public String TipeKonsumenEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
@@ -181,12 +187,12 @@ public class TipeKonsumenController {
 				ResponTipeKonsumen.class
 			);
 
-			model.addAttribute("dataTipeKonsumen",respon.getBody().getTipeKonsumen());
+			model.addAttribute("tipeKonsumen",respon.getBody().getTipeKonsumen());
 
 			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponProduk.class);
-			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
 			
 			return "/pages/MasterParameter/TipeKonsumen/EditData";
 		} catch (Exception e) {
@@ -202,12 +208,10 @@ public class TipeKonsumenController {
 					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponTipeKonsumen.class);
 
-			model.addAttribute("listDataTipeKonsumen", respon.getBody().getDataTipeKonsumen());
+			model.addAttribute("listTipeKonsumen", respon.getBody().getDataTipeKonsumen());
 
-			System.out.println(respon.getBody().getDataTipeKonsumen().get(1).toString());
 			return "/pages/MasterParameter/TipeKonsumen/Data";
 		} catch (Exception e) {
-			System.out.println(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -220,7 +224,7 @@ public class TipeKonsumenController {
 					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponTipeKonsumen.class);
 
-			model.addAttribute("listDataTipeKonsumen", respon.getBody().getDataTipeKonsumen());
+			model.addAttribute("listTipeKonsumen", respon.getBody().getDataTipeKonsumen());
 			
 			return "/pages/MasterParameter/TipeKonsumen/ApprovalData";
 		} catch (Exception e) {
@@ -238,12 +242,12 @@ public class TipeKonsumenController {
 				HelperConf.getHeader(), 
 				ResponTipeKonsumen.class
 			);
-			model.addAttribute("dataTipeKonsumen",respon.getBody().getTipeKonsumen());
+			model.addAttribute("tipeKonsumen",respon.getBody().getTipeKonsumen());
 
 			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponProduk.class);
-			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
 
 			return "/pages/MasterParameter/TipeKonsumen/FormApprovalData";
 		} catch (Exception e) {

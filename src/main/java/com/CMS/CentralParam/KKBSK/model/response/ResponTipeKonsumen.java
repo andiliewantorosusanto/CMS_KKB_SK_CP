@@ -4,6 +4,7 @@ package com.CMS.CentralParam.KKBSK.model.response;
 import java.util.List;
 
 import com.CMS.CentralParam.KKBSK.model.data.TipeKonsumen;
+import com.CMS.CentralParam.KKBSK.view.vwTipeKonsumen;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ResponTipeKonsumen {
 
     @JsonProperty("dataTipeKonsumen")
-    private List<TipeKonsumen> dataTipeKonsumen = null;
+    private List<vwTipeKonsumen> dataTipeKonsumen = null;
     @JsonProperty("tipeKonsumen")
     private TipeKonsumen tipeKonsumen = null;
     @JsonProperty("code")
@@ -35,7 +36,7 @@ public class ResponTipeKonsumen {
      * @param dataTipeKonsumen
      * @param code
      */
-    public ResponTipeKonsumen(List<TipeKonsumen> dataTipeKonsumen,TipeKonsumen tipeKonsumen,String code) {
+    public ResponTipeKonsumen(List<vwTipeKonsumen> dataTipeKonsumen,TipeKonsumen tipeKonsumen,String code) {
         super();
         this.dataTipeKonsumen = dataTipeKonsumen;
         this.tipeKonsumen = tipeKonsumen;
@@ -43,12 +44,12 @@ public class ResponTipeKonsumen {
     }
 
     @JsonProperty("dataTipeKonsumen")
-    public List<TipeKonsumen> getDataTipeKonsumen() {
+    public List<vwTipeKonsumen> getDataTipeKonsumen() {
         return dataTipeKonsumen;
     }
 
     @JsonProperty("dataTipeKonsumen")
-    public void setDataTipeKonsumen(List<TipeKonsumen> dataTipeKonsumen) {
+    public void setDataTipeKonsumen(List<vwTipeKonsumen> dataTipeKonsumen) {
         this.dataTipeKonsumen = dataTipeKonsumen;
     }
 

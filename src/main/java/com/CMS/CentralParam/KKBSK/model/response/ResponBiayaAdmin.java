@@ -24,54 +24,53 @@ public class ResponBiayaAdmin {
     @JsonProperty("code")
     private String code;
 
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
+
     public ResponBiayaAdmin() {
     }
 
-    /**
-     * 
-     * @param dataBiayaAdmin
-     * @param code
-     */
-    public ResponBiayaAdmin(List<vwBiayaAdmin> dataBiayaAdmin,BiayaAdmin biayaAdmin,String code) {
-        super();
+    public ResponBiayaAdmin(List<vwBiayaAdmin> dataBiayaAdmin, BiayaAdmin biayaAdmin, String code) {
         this.dataBiayaAdmin = dataBiayaAdmin;
         this.biayaAdmin = biayaAdmin;
         this.code = code;
     }
 
-    @JsonProperty("dataBiayaAdmin")
     public List<vwBiayaAdmin> getDataBiayaAdmin() {
-        return dataBiayaAdmin;
+        return this.dataBiayaAdmin;
     }
 
-    @JsonProperty("dataBiayaAdmin")
     public void setDataBiayaAdmin(List<vwBiayaAdmin> dataBiayaAdmin) {
         this.dataBiayaAdmin = dataBiayaAdmin;
     }
 
-    
-    @JsonProperty("biayaAdmin")
     public BiayaAdmin getBiayaAdmin() {
-        return biayaAdmin;
+        return this.biayaAdmin;
     }
 
-    @JsonProperty("biayaAdmin")
     public void setBiayaAdmin(BiayaAdmin biayaAdmin) {
         this.biayaAdmin = biayaAdmin;
     }
 
-    @JsonProperty("code")
     public String getCode() {
-        return code;
+        return this.code;
     }
 
-    @JsonProperty("code")
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public ResponBiayaAdmin dataBiayaAdmin(List<vwBiayaAdmin> dataBiayaAdmin) {
+        setDataBiayaAdmin(dataBiayaAdmin);
+        return this;
+    }
+
+    public ResponBiayaAdmin biayaAdmin(BiayaAdmin biayaAdmin) {
+        setBiayaAdmin(biayaAdmin);
+        return this;
+    }
+
+    public ResponBiayaAdmin code(String code) {
+        setCode(code);
+        return this;
     }
 
 }

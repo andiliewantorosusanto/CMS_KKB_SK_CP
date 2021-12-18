@@ -15,8 +15,9 @@ import com.CMS.CentralParam.KKBSK.excel.ClusterExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.data.Cluster;
 import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.response.ResponCluster;
 import com.CMS.CentralParam.KKBSK.model.response.ResponProduk;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCluster;
+import com.CMS.CentralParam.KKBSK.view.vwCluster;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -48,16 +49,17 @@ public class ClusterController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/Cluster/InputData", method = RequestMethod.GET)
-	public String ClusterInputData(Cluster dataCluster,Model model) {
+	public String ClusterInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
 			ResponseEntity<ResponProduk> respon = restTemplate.exchange(
-				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
-				ResponProduk.class);
+					apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponProduk.class);
 
-			model.addAttribute("listDataProduk",respon.getBody().getDataProduk());
-
+			model.addAttribute("listProduk",respon.getBody().getDataProduk());
+			model.addAttribute("cluster", new Cluster());
+			
 			return "/pages/MasterParameter/Cluster/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -79,7 +81,7 @@ public class ClusterController {
 			apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponCluster.class);
 
-        List<Cluster> listCluster = respon.getBody().getDataCluster();
+        List<vwCluster> listCluster = respon.getBody().getDataCluster();
          
         ClusterExcelExporter excelExporter = new ClusterExcelExporter(listCluster);
          
@@ -87,9 +89,11 @@ public class ClusterController {
     }  
 	
 	@PostMapping(value = "/Cluster/ActionInputData")
-	public String ClusterActionInputData(@Valid Cluster dataCluster, BindingResult result,String action,Model model) {
-		if(dataCluster.getEndBerlaku().before(dataCluster.getStartBerlaku())) {
-			result.rejectValue("end_date", "error.dataCluster", "End date must be greater than start date");
+	public String ClusterActionInputData(@Valid Cluster cluster, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(cluster.getEndBerlaku().before(cluster.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.cluster", "End date must be greater than start date");
+			}
 		}
 
 		if (result.hasErrors()) {
@@ -97,29 +101,29 @@ public class ClusterController {
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponProduk.class);
 
-			model.addAttribute("listDataProduk",respon.getBody().getDataProduk());
-
+			model.addAttribute("listProduk",respon.getBody().getDataProduk());
+			model.addAttribute("cluster", cluster);
             return "/pages/MasterParameter/Cluster/InputData";
         }
+
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/cluster/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataCluster)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(cluster)), 
 				String.class
 			);
 			
 			return "redirect:/Cluster/Data";
 		} catch (Exception e) {
-			System.out.print(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
 	@PostMapping(value = "/Cluster/ActionApprovalData")
-	public String ClusterActionApprovalData(@Valid Cluster dataCluster, BindingResult result,String action) {
+	public String ClusterActionApprovalData(@Valid Cluster cluster, BindingResult result,String action) {
 		if (result.hasErrors()) {
             return "/pages/MasterParameter/Cluster/ApprovalData";
         }
@@ -128,13 +132,12 @@ public class ClusterController {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/cluster/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataCluster)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(cluster)), 
 				String.class
 			);
-			
+
 			return "redirect:/Cluster/Data";
 		} catch (Exception e) {
-			System.out.print(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -156,6 +159,7 @@ public class ClusterController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/Cluster/ActionApproval")
 	public String ClusterActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
@@ -172,6 +176,7 @@ public class ClusterController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/Cluster/EditData/{id}", method = RequestMethod.GET)
 	public String ClusterEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
@@ -182,15 +187,15 @@ public class ClusterController {
 				ResponCluster.class
 			);
 
-			model.addAttribute("dataCluster",respon.getBody().getCluster());
+			model.addAttribute("cluster",respon.getBody().getCluster());
 
 			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponProduk.class);
-			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+			
 			return "/pages/MasterParameter/Cluster/EditData";
 		} catch (Exception e) {
-			System.out.println(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -203,7 +208,7 @@ public class ClusterController {
 					apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponCluster.class);
 
-			model.addAttribute("listDataCluster", respon.getBody().getDataCluster());
+			model.addAttribute("listCluster", respon.getBody().getDataCluster());
 
 			return "/pages/MasterParameter/Cluster/Data";
 		} catch (Exception e) {
@@ -219,7 +224,8 @@ public class ClusterController {
 					apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponCluster.class);
 
-			model.addAttribute("listDataCluster", respon.getBody().getDataCluster());
+			model.addAttribute("listCluster", respon.getBody().getDataCluster());
+			
 			return "/pages/MasterParameter/Cluster/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -236,13 +242,13 @@ public class ClusterController {
 				HelperConf.getHeader(), 
 				ResponCluster.class
 			);
-
-			model.addAttribute("dataCluster",respon.getBody().getCluster());
+			model.addAttribute("cluster",respon.getBody().getCluster());
 
 			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponProduk.class);
-			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+
 			return "/pages/MasterParameter/Cluster/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

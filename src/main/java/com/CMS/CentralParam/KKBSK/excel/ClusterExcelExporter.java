@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.data.Cluster;
+import com.CMS.CentralParam.KKBSK.view.vwCluster;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ClusterExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<Cluster> listCluster;
+    private List<vwCluster> listCluster;
      
-    public ClusterExcelExporter(List<Cluster> listCluster) {
+    public ClusterExcelExporter(List<vwCluster> listCluster) {
         this.listCluster = listCluster;
         workbook = new XSSFWorkbook();
     }
@@ -65,14 +65,15 @@ public class ClusterExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (Cluster Cluster : listCluster) {
+        for (vwCluster Cluster : listCluster) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
             createCell(row, columnCount++, Cluster.getCluster(), style);
-            createCell(row, columnCount++, Cluster.getProduk(), style);
+            createCell(row, columnCount++, Cluster.getProdukName(), style);
             createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-             
+            createCell(row, columnCount++, Cluster.getStartBerlaku().toString(), style);
+            createCell(row, columnCount++, Cluster.getEndBerlaku().toString(), style);
         }
     }
      

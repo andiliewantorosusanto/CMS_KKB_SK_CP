@@ -42,7 +42,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="tipeKonsumen :${listDataTipeKonsumen}">
+                            <tr th:each="tipeKonsumen :${listTipeKonsumen}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${tipeKonsumen.id}">
@@ -57,10 +57,10 @@
                                 </td>
                                 
                                 <td th:text="${tipeKonsumen.nama}" th:attr="data-filter=${tipeKonsumen.nama}"></td>
-                                <td th:text="${tipeKonsumen.produkObject.produk}" th:attr="data-filter=${tipeKonsumen.produkObject.produk}"></td>
+                                <td th:text="${tipeKonsumen.produkName}" th:attr="data-filter=${tipeKonsumen.produkName}"></td>
                                 <td th:text="${tipeKonsumen.deskripsi}" th:attr="data-filter=${tipeKonsumen.deskripsi}"></td>
-                                <td th:text="${#dates.format(tipeKonsumen.start_date,'dd-MM-yyyy')}" th:attr="data-filter=${tipeKonsumen.start_date}"></td>
-                                <td th:text="${#dates.format(tipeKonsumen.end_date,'dd-MM-yyyy')}" th:attr="data-filter=${tipeKonsumen.end_date}"></td>
+                                <td th:text="${#dates.format(tipeKonsumen.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${tipeKonsumen.startBerlaku}"></td>
+                                <td th:text="${#dates.format(tipeKonsumen.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${tipeKonsumen.endBerlaku}"></td>
 
                                 <td th:if="${tipeKonsumen.statusApproval == null or tipeKonsumen.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
@@ -68,10 +68,10 @@
                                 <td th:if="${tipeKonsumen.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${tipeKonsumen.statusApproval == 2 and tipeKonsumen.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${tipeKonsumen.statusApproval == 2 and tipeKonsumen.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${tipeKonsumen.statusApproval == 2 and tipeKonsumen.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${tipeKonsumen.statusApproval == 2 and tipeKonsumen.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 
