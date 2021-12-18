@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.view.vwDataBiayaAdmin;
+import com.CMS.CentralParam.KKBSK.view.vwBiayaAdmin;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,9 +18,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class BiayaAdminExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<vwDataBiayaAdmin> listBiayaAdmin;
+    private List<vwBiayaAdmin> listBiayaAdmin;
      
-    public BiayaAdminExcelExporter(List<vwDataBiayaAdmin> listBiayaAdmin) {
+    public BiayaAdminExcelExporter(List<vwBiayaAdmin> listBiayaAdmin) {
         this.listBiayaAdmin = listBiayaAdmin;
         workbook = new XSSFWorkbook();
     }
@@ -79,7 +79,7 @@ public class BiayaAdminExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (vwDataBiayaAdmin biayaAdmin : listBiayaAdmin) {
+        for (vwBiayaAdmin biayaAdmin : listBiayaAdmin) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              

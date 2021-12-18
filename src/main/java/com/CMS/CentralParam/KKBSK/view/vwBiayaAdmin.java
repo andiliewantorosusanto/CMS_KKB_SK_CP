@@ -2,7 +2,7 @@ package com.CMS.CentralParam.KKBSK.view;
 
 import java.util.Date;
 
-public class vwDataBiayaAdmin {
+public class vwBiayaAdmin {
     
     private Integer id;
     private String namaSkema;
@@ -41,11 +41,11 @@ public class vwDataBiayaAdmin {
     private Integer isRejected;
     private Integer isApproved;
 
-    public vwDataBiayaAdmin() {
+    public vwBiayaAdmin() {
         
     }
 
-    public vwDataBiayaAdmin(Integer id, String namaSkema, Integer loanType, Integer tipeKonsumen,
+    public vwBiayaAdmin(Integer id, String namaSkema, Integer loanType, Integer tipeKonsumen,
             String tipeKonsumenName, Integer jenisKendaraan, String jenisKendaraanName, Integer jenisPembiayaan,
             String jenisPembiayaanName, Integer cluster, String clusterName, Integer diskonNpwp, Integer tenor1,
             Integer tenor2, Integer tenor3, Integer tenor4, Integer tenor5, Integer tenor6, Integer tenor7,

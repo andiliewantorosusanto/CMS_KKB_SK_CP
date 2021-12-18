@@ -1,14 +1,10 @@
 package com.CMS.CentralParam.security.services;
 
 import com.CMS.CentralParam.KKBSK.model.LDAP.Credentials;
-import com.CMS.CentralParam.KKBSK.model.LDAP.CustomerAuthority;
 import com.CMS.CentralParam.KKBSK.model.LDAP.Example;
 import com.CMS.CentralParam.KKBSK.model.LDAP.ResponLoginBE;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -18,22 +14,16 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties.Credential;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
 
 @Service
 public class AuthenticationService implements AuthenticationProvider {
@@ -52,7 +42,7 @@ public class AuthenticationService implements AuthenticationProvider {
 
             // request url
 // String url = "http://192.168.29.71:12103/EnterpriseAuthentication/AuthenticateUserV2/";
-String url2 = "http://147.139.171.241:443/api/login";
+// String url2 = "http://147.139.171.241:443/api/login";
 String url = "http://localhost:9098/api/login/LDAP/";
 //String url = "http://10.4.198.79:10203/EnterpriseAuthentication/AuthenticateUserV2";
 
@@ -76,7 +66,7 @@ System.out.println(userString);
 
 
 // send POST request
-HttpEntity<String> entity = new HttpEntity(userString, headers);
+HttpEntity<String> entity = new HttpEntity<String>(userString, headers);
 ResponseEntity<ResponLoginBE> respon = restTemplate.postForEntity(url, entity,
 ResponLoginBE.class);
         //System.out.println(respon.getBody().getResponseHeader().getErrorDescription());
@@ -128,7 +118,7 @@ if (respon.getBody().getLogin().getSucceed().equals("Berhasil Login") ) {
         }// remove it for production ! :)
 
         if (customer != null) {
-            String token = "ok";
+            //String token = "ok";
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
             grantedAuthorities.add(new CustomerGrantAuthority(customer));
             grantedAuthorities.add(new SimpleGrantedAuthority(customer.getLogin().getToken()));

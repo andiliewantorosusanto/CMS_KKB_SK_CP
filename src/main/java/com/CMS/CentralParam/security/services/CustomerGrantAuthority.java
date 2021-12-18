@@ -4,7 +4,6 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.validation.constraints.NotNull;
 
-import com.CMS.CentralParam.KKBSK.model.LDAP.CustomerAuthority;
 import com.CMS.CentralParam.KKBSK.model.LDAP.ResponLoginBE;
 
 import java.util.Objects;

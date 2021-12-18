@@ -20,7 +20,7 @@ import com.CMS.CentralParam.KKBSK.model.response.ResponCluster;
 import com.CMS.CentralParam.KKBSK.model.response.ResponJenisKendaraan;
 import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPembiayaan;
 import com.CMS.CentralParam.KKBSK.model.response.ResponTipeKonsumen;
-import com.CMS.CentralParam.KKBSK.view.vwDataBiayaAdmin;
+import com.CMS.CentralParam.KKBSK.view.vwBiayaAdmin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -97,7 +97,7 @@ public class BiayaAdminController {
 			apiBaseUrl+"api/biayaadmin/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponBiayaAdmin.class);
 
-        List<vwDataBiayaAdmin> listBiayaAdmin = respon.getBody().getDataBiayaAdmin();
+        List<vwBiayaAdmin> listBiayaAdmin = respon.getBody().getDataBiayaAdmin();
          
         BiayaAdminExcelExporter excelExporter = new BiayaAdminExcelExporter(listBiayaAdmin);
          
