@@ -10,9 +10,11 @@
         <style>
           table.dataTable td {
             white-space:nowrap;
+            padding: 1em;
           }
           table.dataTable th {
             white-space:nowrap;
+            padding: 1em;
           }
         </style>
         <div class="c-body">
@@ -31,23 +33,23 @@
                           <thead>
                             <tr role="row">
                               <th><input type="checkbox" id="check-all"></th>
-                              <th></th>
-                              <th></th>
-                              <th id="fil-wilayah"></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th id="fil-status"></th>
-                              <th></th>
+                              <th id="fil-actions">Actions</th>
+                              <th id="fil-nama_skema">Skema</th>
+                              <th id="fil-tipe_konsumen">Wilayah</th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th id="fil-status">Status</th>
+                              <th id="fil-remarks"></th>
                             </tr>
                             <tr role="filter">
                               <th data-value="checkbox"></th>
@@ -71,22 +73,23 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="rateCP :${listDataRateCP}">
+                            <tr th:each="rateCP :${listRateCP}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${rateCP.id}">
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/RateCPEditData/{id}(id=${rateCP.id})}">
+                                <a class="btn btn-success" th:href="@{/RateCP/EditData/{id}(id=${rateCP.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
                                 </svg></a>
                                 </td>
                                 
-                                <td th:text="${rateCP.nama_skema}" th:attr="data-filter=${rateCP.nama_skema}"></td>
-                                <td th:text="${rateCP.tipe_konsumenObject.nama}" th:attr="data-filter=${rateCP.tipe_konsumenObject.nama}"></td>
+                                <td th:text="${rateCP.namaSkema}" th:attr="data-filter=${rateCP.namaSkema}"></td>
+                                <td th:text="${rateCP.tipeKonsumenName}" th:attr="data-filter=${rateCP.tipeKonsumenName}"></td>
+
                                 <td th:text="${rateCP.tenor1}" th:attr="data-filter=${rateCP.tenor1}"></td>
                                 <td th:text="${rateCP.tenor2}" th:attr="data-filter=${rateCP.tenor2}"></td>
                                 <td th:text="${rateCP.tenor3}" th:attr="data-filter=${rateCP.tenor3}"></td>
@@ -97,19 +100,20 @@
                                 <td th:text="${rateCP.tenor8}" th:attr="data-filter=${rateCP.tenor8}"></td>
                                 <td th:text="${rateCP.tenor9}" th:attr="data-filter=${rateCP.tenor9}"></td>
                                 <td th:text="${rateCP.tenor10}" th:attr="data-filter=${rateCP.tenor10}"></td>
+                                
                                 <td th:text="${#dates.format(rateCP.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${rateCP.startBerlaku}"></td>
                                 <td th:text="${#dates.format(rateCP.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${rateCP.endBerlaku}"></td>
                                 
-                                <td th:if="${rateCP.statusApproved == null or rateCP.statusApproved == 0}" data-filter="Draft">
+                                <td th:if="${rateCP.statusApproval == null or rateCP.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${rateCP.statusApproved == 1}" data-filter="Submitted">
+                                <td th:if="${rateCP.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${rateCP.statusApproved == 2 and rateCP.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${rateCP.statusApproval == 2 and rateCP.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${rateCP.statusApproved == 2 and rateCP.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${rateCP.statusApproval == 2 and rateCP.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 
@@ -139,7 +143,7 @@
     </div>
     <div th:replace="fragments/common :: scripts"></div>
     <script>
-      let _FILTER_COLUMN = ['wilayah','jenis_pembiayaan','jenis_kendaraan','tipe_asuransi','status'];
+      let _FILTER_COLUMN = ['nama_skema','tipe_konsumen','status'];
       let selectedIds = [];
       let table = $('#table').DataTable( {
           "scrollX": true,
@@ -164,8 +168,6 @@
                   $.map(column.nodes(), function (item) {
                     filters.push($(item).data('filter'));
                   })
-                  
-                  filters = [...new Set(filters)];
                   
                   filters = [...new Set(filters)];
                   

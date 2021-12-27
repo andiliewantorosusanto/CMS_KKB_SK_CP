@@ -4,6 +4,7 @@ package com.CMS.CentralParam.KKBSK.model.response;
 import java.util.List;
 
 import com.CMS.CentralParam.KKBSK.model.data.RateAsuransi;
+import com.CMS.CentralParam.KKBSK.view.vwRateAsuransi;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ResponRateAsuransi {
 
     @JsonProperty("dataRateAsuransi")
-    private List<RateAsuransi> dataRateAsuransi = null;
+    private List<vwRateAsuransi> dataRateAsuransi = null;
     @JsonProperty("rateAsuransi")
     private RateAsuransi rateAsuransi = null;
     @JsonProperty("code")
@@ -35,7 +36,7 @@ public class ResponRateAsuransi {
      * @param dataRateAsuransi
      * @param code
      */
-    public ResponRateAsuransi(List<RateAsuransi> dataRateAsuransi,RateAsuransi rateAsuransi,String code) {
+    public ResponRateAsuransi(List<vwRateAsuransi> dataRateAsuransi,RateAsuransi rateAsuransi,String code) {
         super();
         this.dataRateAsuransi = dataRateAsuransi;
         this.rateAsuransi = rateAsuransi;
@@ -43,12 +44,12 @@ public class ResponRateAsuransi {
     }
 
     @JsonProperty("dataRateAsuransi")
-    public List<RateAsuransi> getDataRateAsuransi() {
+    public List<vwRateAsuransi> getDataRateAsuransi() {
         return dataRateAsuransi;
     }
 
     @JsonProperty("dataRateAsuransi")
-    public void setDataRateAsuransi(List<RateAsuransi> dataRateAsuransi) {
+    public void setDataRateAsuransi(List<vwRateAsuransi> dataRateAsuransi) {
         this.dataRateAsuransi = dataRateAsuransi;
     }
 

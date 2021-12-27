@@ -14,7 +14,7 @@
                 <div class="row"> 
                   <div class="col-12">
                     <div class="card">
-                      <div class="card-header"> Data - Jenis Kendaraan
+                      <div class="card-header"> Data - Tujuan Penggunaan
                         <a href="/JenisKendaraan/InputData"><button class="btn btn-sm btn-ghost-success" type="button">Input Data</button></a>
                         <a href="/JenisKendaraan/Export/Excel" target="_blank"><button class="btn btn-sm btn-ghost-success" type="button">Export Data</button></a>
                         <!-- <a href="/JenisKendaraan/ImportData"><button class="btn btn-sm btn-ghost-success" type="button">Import Data</button></a> -->
@@ -35,7 +35,7 @@
                             <tr role="filter">
                               <th data-value="checkbox"></th>
                               <th data-value="actions">Actions</th>
-                              <th data-value="jenis_kendaraan">Jenis Kendaraan</th>
+                              <th data-value="nama">Nama</th>
                               <th data-value="deskripsi">Deskripsi</th>
                               <th data-value="start_date">Start Date</th>
                               <th data-value="end_date">End Date</th>
@@ -44,7 +44,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="jenisKendaraan :${listDataJenisKendaraan}">
+                            <tr th:each="jenisKendaraan :${listJenisKendaraan}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${jenisKendaraan.id}">
@@ -58,7 +58,7 @@
                                 </svg></a>
                                 </td>
                                 
-                                <td th:text="${jenisKendaraan.jenis_kendaraan}" th:attr="data-filter=${jenisKendaraan.jenis_kendaraan}"></td>
+                                <td th:text="${jenisKendaraan.jenisKendaraan}" th:attr="data-filter=${jenisKendaraan.jenisKendaraan}"></td>
                                 <td th:text="${jenisKendaraan.deskripsi}" th:attr="data-filter=${jenisKendaraan.deskripsi}"></td>
                                 <td th:text="${#dates.format(jenisKendaraan.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${jenisKendaraan.startBerlaku}"></td>
                                 <td th:text="${#dates.format(jenisKendaraan.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${jenisKendaraan.endBerlaku}"></td>
@@ -69,10 +69,10 @@
                                 <td th:if="${jenisKendaraan.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${jenisKendaraan.statusApproval == 2 and jenisKendaraan.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${jenisKendaraan.statusApproval == 2 and jenisKendaraan.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${jenisKendaraan.statusApproval == 2 and jenisKendaraan.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${jenisKendaraan.statusApproval == 2 and jenisKendaraan.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 
@@ -102,7 +102,7 @@
     </div>
     <div th:replace="fragments/common :: scripts"></div>
     <script>
-      let _FILTER_COLUMN = ['status'];
+      let _FILTER_COLUMN = ['nama','status'];
       let selectedIds = [];
       let table = $('#table').DataTable( {
           "scrollX": true,

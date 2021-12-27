@@ -18,13 +18,13 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <form id="signupForm" th:action="@{/JenisKendaraan/ActionInputData}"  th:object="${dataJenisKendaraan}" method="post" novalidate="novalidate">
+                                                    <form id="signupForm" th:action="@{/JenisKendaraan/ActionEditData}"  th:object="${jenisKendaraan}" method="post">
                                                         <input type="hidden" th:field="*{id}" id="id" nama="id">
                                                         <div class="form-group">
-                                                            <label class="col-form-label" for="jenis_kendaraan">Jenis Kendaraan</label>
-                                                            <input class="form-control" id="jenis_kendaraan" type="text" name="jenis_kendaraan" th:field="*{jenis_kendaraan}"
-                                                                placeholder="jenis_kendaraan" th:classappend="${#fields.hasErrors('jenis_kendaraan')} ?  is-invalid">
-                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('jenis_kendaraan')}" th:errors="*{jenis_kendaraan}"></div>
+                                                            <label class="col-form-label" for="jenisKendaraan">Jenis Kendaraan</label>
+                                                            <input class="form-control" id="jenisKendaraan" type="text" name="jenisKendaraan" th:field="*{jenisKendaraan}"
+                                                                placeholder="Jenis Kendaraan" th:classappend="${#fields.hasErrors('jenisKendaraan')} ?  is-invalid">
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('jenisKendaraan')}" th:errors="*{jenisKendaraan}"></div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-form-label" for="firstname">Deskripsi</label>

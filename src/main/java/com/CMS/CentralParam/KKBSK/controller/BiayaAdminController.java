@@ -13,16 +13,16 @@ import javax.validation.constraints.NotNull;
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.BiayaAdminExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.data.BiayaAdmin;
+import com.CMS.CentralParam.KKBSK.model.form.BiayaAdminForm;
 import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.response.ResponBiayaAdmin;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCluster;
 import com.CMS.CentralParam.KKBSK.model.response.ResponJenisKendaraan;
 import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPembiayaan;
 import com.CMS.CentralParam.KKBSK.model.response.ResponTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.model.response.ResponBiayaAdmin;
 import com.CMS.CentralParam.KKBSK.view.vwBiayaAdmin;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+
 @Controller
 public class BiayaAdminController {
 
@@ -52,30 +53,37 @@ public class BiayaAdminController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/BiayaAdmin/InputData", method = RequestMethod.GET)
-	public String BiayaAdminInputData(BiayaAdmin dataBiayaAdmin,Model model) {
+	public String BiayaAdminInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
 			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
 				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponTipeKonsumen.class);
-			model.addAttribute("listDataTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
 
 			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
 				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponJenisPembiayaan.class);
-			model.addAttribute("listDataJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
 
 			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
 				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponJenisKendaraan.class);
-			model.addAttribute("listDataJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
 
 			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
 				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponCluster.class);
-			model.addAttribute("listDataCluster",responCluster.getBody().getDataCluster());
-			
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+
+			BiayaAdminForm biayaAdminForm = new BiayaAdminForm();
+			biayaAdminForm.setTipeKonsumen(0);
+			biayaAdminForm.setJenisKendaraan(0);
+			biayaAdminForm.setDiskonNpwp(0);
+
+			model.addAttribute("biayaAdmin", biayaAdminForm);
+
 			return "/pages/MasterParameter/BiayaAdmin/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -105,40 +113,112 @@ public class BiayaAdminController {
     }  
 	
 	@PostMapping(value = "/BiayaAdmin/ActionInputData")
-	public String BiayaAdminActionInputData(@Valid BiayaAdmin dataBiayaAdmin, BindingResult result,String action,Model model) {
-		if(dataBiayaAdmin.getEndBerlaku().before(dataBiayaAdmin.getStartBerlaku())) {
-			result.rejectValue("endBerlaku", "error.dataBiayaAdmin", "End date must be greater than start date");
+	public String BiayaAdminActionInputData(@Valid BiayaAdminForm biayaAdmin, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(biayaAdmin.getEndBerlaku().before(biayaAdmin.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.biayaAdmin", "End date must be greater than start date");
+			}
+			if(biayaAdmin.getCluster().size() == 0) {
+				result.rejectValue("cluster", "error.biayaAdmin", "You must choose Cluster");
+			}
+			if(biayaAdmin.getJenisPembiayaan().size() == 0) {
+				result.rejectValue("jenisPembiayaan", "error.biayaAdmin", "You must choose Jenis Pembiayaan");
+			}
 		}
 
 		if (result.hasErrors()) {
 			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
 				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponTipeKonsumen.class);
-			model.addAttribute("listDataTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
 
 			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
 				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponJenisPembiayaan.class);
-			model.addAttribute("listDataJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
 
 			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
 				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponJenisKendaraan.class);
-			model.addAttribute("listDataJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
 
 			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
 				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponCluster.class);
-			model.addAttribute("listDataCluster",responCluster.getBody().getDataCluster());
-
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+			model.addAttribute("biayaAdmin", biayaAdmin);
             return "/pages/MasterParameter/BiayaAdmin/InputData";
         }
+
+
+		try {
+			biayaAdmin.getCluster().forEach((cluster) -> {
+				biayaAdmin.getJenisPembiayaan().forEach((jenisPembiayaan) -> {
+					BiayaAdmin temp = new BiayaAdmin(null, 
+					biayaAdmin.getNamaSkema(), biayaAdmin.getTipeKonsumen(), biayaAdmin.getJenisKendaraan(), jenisPembiayaan, cluster, biayaAdmin.getDiskonNpwp(), 
+					biayaAdmin.getTenor1(), biayaAdmin.getTenor2(), biayaAdmin.getTenor3(), biayaAdmin.getTenor4(), biayaAdmin.getTenor5(), biayaAdmin.getTenor6(), biayaAdmin.getTenor7(), biayaAdmin.getTenor8(), biayaAdmin.getTenor9(), biayaAdmin.getTenor10(),
+					biayaAdmin.getStartBerlaku(), biayaAdmin.getEndBerlaku(), null, null, null, null, null, null, null, null);
+
+					try {
+						restTemplate.exchange(
+							apiBaseUrl+"/api/biayaadmin/"+HelperConf.getAction(action), 
+							HttpMethod.POST, 
+							HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
+							String.class
+						);
+					} catch (Exception e) {
+						
+					}
+
+				});
+			});
+
+			
+			return "redirect:/BiayaAdmin/Data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/BiayaAdmin/ActionEditData")
+	public String BiayaAdminActionEditData(@Valid BiayaAdmin biayaAdmin, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(biayaAdmin.getEndBerlaku().before(biayaAdmin.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.biayaAdmin", "End date must be greater than start date");
+			}
+		}
+
+		if (result.hasErrors()) {
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
+				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponCluster.class);
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+			model.addAttribute("biayaAdmin", biayaAdmin);
+            return "/pages/MasterParameter/BiayaAdmin/EditData";
+        }
+
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/biayaadmin/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataBiayaAdmin)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(biayaAdmin)), 
 				String.class
 			);
 			
@@ -150,20 +230,16 @@ public class BiayaAdminController {
 	}
 
 	@PostMapping(value = "/BiayaAdmin/ActionApprovalData")
-	public String BiayaAdminActionApprovalData(@Valid BiayaAdmin dataBiayaAdmin, BindingResult result,String action) {
-		if (result.hasErrors()) {
-            return "/pages/MasterParameter/BiayaAdmin/ApprovalData";
-        }
-
+	public String BiayaAdminActionApprovalData(BiayaAdmin biayaAdmin, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/biayaadmin/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataBiayaAdmin)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(biayaAdmin)), 
 				String.class
 			);
-			
-			return "redirect:/BiayaAdmin/Data";
+
+			return "redirect:/BiayaAdmin/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
@@ -186,6 +262,7 @@ public class BiayaAdminController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/BiayaAdmin/ActionApproval")
 	public String BiayaAdminActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
@@ -202,6 +279,7 @@ public class BiayaAdminController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/BiayaAdmin/EditData/{id}", method = RequestMethod.GET)
 	public String BiayaAdminEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
@@ -212,27 +290,28 @@ public class BiayaAdminController {
 				ResponBiayaAdmin.class
 			);
 
-			model.addAttribute("dataBiayaAdmin",respon.getBody().getBiayaAdmin());
+			model.addAttribute("biayaAdmin",respon.getBody().getBiayaAdmin());
 
 			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
 				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponTipeKonsumen.class);
-			model.addAttribute("listDataTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
 
 			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
 				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponJenisPembiayaan.class);
-			model.addAttribute("listDataJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
 
 			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
 				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponJenisKendaraan.class);
-			model.addAttribute("listDataJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
 
 			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
 				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponCluster.class);
-			model.addAttribute("listDataCluster",responCluster.getBody().getDataCluster());
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+			
 			return "/pages/MasterParameter/BiayaAdmin/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -247,10 +326,10 @@ public class BiayaAdminController {
 					apiBaseUrl+"api/biayaadmin/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponBiayaAdmin.class);
 
-			model.addAttribute("listDataBiayaAdmin", respon.getBody().getDataBiayaAdmin());
+			model.addAttribute("listBiayaAdmin", respon.getBody().getDataBiayaAdmin());
+
 			return "/pages/MasterParameter/BiayaAdmin/Data";
 		} catch (Exception e) {
-			System.out.println(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -263,7 +342,8 @@ public class BiayaAdminController {
 					apiBaseUrl+"api/biayaadmin/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponBiayaAdmin.class);
 
-			model.addAttribute("listDataBiayaAdmin", respon.getBody().getDataBiayaAdmin());
+			model.addAttribute("listBiayaAdmin", respon.getBody().getDataBiayaAdmin());
+			
 			return "/pages/MasterParameter/BiayaAdmin/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -280,28 +360,27 @@ public class BiayaAdminController {
 				HelperConf.getHeader(), 
 				ResponBiayaAdmin.class
 			);
-
-			model.addAttribute("dataBiayaAdmin",respon.getBody().getBiayaAdmin());
+			model.addAttribute("biayaAdmin",respon.getBody().getBiayaAdmin());
 
 			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
 				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponTipeKonsumen.class);
-			model.addAttribute("listDataTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
 
 			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
 				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponJenisPembiayaan.class);
-			model.addAttribute("listDataJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
 
 			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
 				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponJenisKendaraan.class);
-			model.addAttribute("listDataJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
 
 			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
 				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponCluster.class);
-			model.addAttribute("listDataCluster",responCluster.getBody().getDataCluster());
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 
 			return "/pages/MasterParameter/BiayaAdmin/FormApprovalData";
 		} catch (Exception e) {

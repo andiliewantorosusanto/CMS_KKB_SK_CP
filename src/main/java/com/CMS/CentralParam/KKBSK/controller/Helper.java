@@ -21,6 +21,10 @@ public class Helper {
     @Autowired
     static RestTemplate restTemplate;
 
+    public static String parseString(Float value) {
+        return value == null ? "" : String.valueOf(value);
+    }
+
     public static void myMethod(UsernamePasswordAuthenticationToken ok) {
         // NOTE CEK TOKEN
         Object[] strObjects = ok.getAuthorities().toArray();

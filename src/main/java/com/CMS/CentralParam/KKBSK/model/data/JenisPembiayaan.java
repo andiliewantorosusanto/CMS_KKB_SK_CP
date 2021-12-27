@@ -21,6 +21,10 @@ public class JenisPembiayaan {
     @NotEmpty(message = "Jenis Pembiayaan Tidak Boleh Kosong")
     private String jenisPembiayaan;
 
+    @JsonProperty("isRefinancing")
+    @NotNull(message = "Is Refinancing Tidak Boleh Kosong")
+    private Integer isRefinancing;
+
     @JsonProperty("produk")
     @NotNull(message = "Produk Tidak Boleh Kosong")
     private Integer produk;
@@ -56,9 +60,10 @@ public class JenisPembiayaan {
     public JenisPembiayaan() {
     }
 
-    public JenisPembiayaan(Integer id, String jenisPembiayaan, Integer produk, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
+    public JenisPembiayaan(Integer id, String jenisPembiayaan, Integer isRefinancing, Integer produk, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
         this.id = id;
         this.jenisPembiayaan = jenisPembiayaan;
+        this.isRefinancing = isRefinancing;
         this.produk = produk;
         this.startBerlaku = startBerlaku;
         this.endBerlaku = endBerlaku;
@@ -86,6 +91,14 @@ public class JenisPembiayaan {
 
     public void setJenisPembiayaan(String jenisPembiayaan) {
         this.jenisPembiayaan = jenisPembiayaan;
+    }
+
+    public Integer getIsRefinancing() {
+        return this.isRefinancing;
+    }
+
+    public void setIsRefinancing(Integer isRefinancing) {
+        this.isRefinancing = isRefinancing;
     }
 
     public Integer getProduk() {
@@ -186,6 +199,11 @@ public class JenisPembiayaan {
         return this;
     }
 
+    public JenisPembiayaan isRefinancing(Integer isRefinancing) {
+        setIsRefinancing(isRefinancing);
+        return this;
+    }
+
     public JenisPembiayaan produk(Integer produk) {
         setProduk(produk);
         return this;
@@ -246,6 +264,7 @@ public class JenisPembiayaan {
         return "{" +
             " id='" + getId() + "'" +
             ", jenisPembiayaan='" + getJenisPembiayaan() + "'" +
+            ", isRefinancing='" + getIsRefinancing() + "'" +
             ", produk='" + getProduk() + "'" +
             ", startBerlaku='" + getStartBerlaku() + "'" +
             ", endBerlaku='" + getEndBerlaku() + "'" +
@@ -259,5 +278,6 @@ public class JenisPembiayaan {
             ", updatedDate='" + getUpdatedDate() + "'" +
             "}";
     }
+
 
 }

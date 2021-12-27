@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.data.JenisPembiayaan;
+import com.CMS.CentralParam.KKBSK.view.vwJenisPembiayaan;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,16 +18,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class JenisPembiayaanExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<JenisPembiayaan> listCluster;
+    private List<vwJenisPembiayaan> listJenisPembiayaan;
      
-    public JenisPembiayaanExcelExporter(List<JenisPembiayaan> listCluster) {
-        this.listCluster = listCluster;
+    public JenisPembiayaanExcelExporter(List<vwJenisPembiayaan> listJenisPembiayaan) {
+        this.listJenisPembiayaan = listJenisPembiayaan;
         workbook = new XSSFWorkbook();
     }
  
  
     private void writeHeaderLine() {
-        sheet = workbook.createSheet("Cluster");
+        sheet = workbook.createSheet("JenisPembiayaan");
          
         Row row = sheet.createRow(0);
          
@@ -37,11 +37,11 @@ public class JenisPembiayaanExcelExporter {
         font.setFontHeight(16);
         style.setFont(font);
          
-        createCell(row, 0, "User ID", style);      
-        createCell(row, 1, "E-mail", style);       
-        createCell(row, 2, "Full Name", style);    
-        createCell(row, 3, "Roles", style);
-        createCell(row, 4, "Enabled", style);
+        createCell(row, 0, "Jenis Pembiayaan", style);      
+        createCell(row, 1, "Produk", style);       
+        createCell(row, 2, "Is Refinancing", style);    
+        createCell(row, 3, "Start Date", style);
+        createCell(row, 4, "End Date", style);
     }
      
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -65,15 +65,15 @@ public class JenisPembiayaanExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (JenisPembiayaan Cluster : listCluster) {
+        for (vwJenisPembiayaan JenisPembiayaan : listJenisPembiayaan) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            // createCell(row, columnCount++, Cluster.getId(), style);
-            // createCell(row, columnCount++, Cluster.getNama(), style);
-            // createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-            // createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
-            // createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
+            createCell(row, columnCount++, JenisPembiayaan.getJenisPembiayaan(), style);
+            createCell(row, columnCount++, JenisPembiayaan.getProdukName(), style);
+            createCell(row, columnCount++, JenisPembiayaan.getIsRefinancing(), style);
+            createCell(row, columnCount++, JenisPembiayaan.getStartBerlaku().toString(), style);
+            createCell(row, columnCount++, JenisPembiayaan.getEndBerlaku().toString(), style);
              
         }
     }

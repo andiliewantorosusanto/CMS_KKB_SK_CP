@@ -122,12 +122,42 @@ public class ClusterController {
 		return "/pages/expired/token";
 	}
 
-	@PostMapping(value = "/Cluster/ActionApprovalData")
-	public String ClusterActionApprovalData(@Valid Cluster cluster, BindingResult result,String action) {
+	@PostMapping(value = "/Cluster/ActionEditData")
+	public String ClusterActionEditData(@Valid Cluster cluster, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(cluster.getEndBerlaku().before(cluster.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.cluster", "End date must be greater than start date");
+			}
+		}
+
 		if (result.hasErrors()) {
-            return "/pages/MasterParameter/Cluster/ApprovalData";
+			ResponseEntity<ResponProduk> respon = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+
+			model.addAttribute("listProduk",respon.getBody().getDataProduk());
+			model.addAttribute("cluster", cluster);
+            return "/pages/MasterParameter/Cluster/EditData";
         }
 
+
+		try {
+			restTemplate.exchange(
+				apiBaseUrl+"/api/cluster/"+HelperConf.getAction(action), 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(cluster)), 
+				String.class
+			);
+			
+			return "redirect:/Cluster/Data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/Cluster/ActionApprovalData")
+	public String ClusterActionApprovalData(Cluster cluster, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/cluster/"+action+"Data", 
@@ -136,7 +166,7 @@ public class ClusterController {
 				String.class
 			);
 
-			return "redirect:/Cluster/Data";
+			return "redirect:/Cluster/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}

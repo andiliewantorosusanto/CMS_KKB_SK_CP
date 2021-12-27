@@ -15,8 +15,9 @@ import com.CMS.CentralParam.KKBSK.excel.JenisPembiayaanExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.data.JenisPembiayaan;
 import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPembiayaan;
 import com.CMS.CentralParam.KKBSK.model.response.ResponProduk;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPembiayaan;
+import com.CMS.CentralParam.KKBSK.view.vwJenisPembiayaan;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -48,15 +49,17 @@ public class JenisPembiayaanController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/JenisPembiayaan/InputData", method = RequestMethod.GET)
-	public String JenisPembiayaanInputData(JenisPembiayaan dataJenisPembiayaan,Model model) {
+	public String JenisPembiayaanInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
+			
+			ResponseEntity<ResponProduk> respon = restTemplate.exchange(
+					apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponProduk.class);
 
-			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
-				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
-				ResponProduk.class);
-			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
-
+			model.addAttribute("listProduk",respon.getBody().getDataProduk());
+			model.addAttribute("jenisPembiayaan", new JenisPembiayaan());
+			
 			return "/pages/MasterParameter/JenisPembiayaan/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -71,14 +74,14 @@ public class JenisPembiayaanController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=JenisPembiayaan_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponJenisPembiayaan> respon = restTemplate.exchange(
 			apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponJenisPembiayaan.class);
 
-        List<JenisPembiayaan> listJenisPembiayaan = respon.getBody().getDataJenisPembiayaan();
+        List<vwJenisPembiayaan> listJenisPembiayaan = respon.getBody().getDataJenisPembiayaan();
          
         JenisPembiayaanExcelExporter excelExporter = new JenisPembiayaanExcelExporter(listJenisPembiayaan);
          
@@ -86,25 +89,63 @@ public class JenisPembiayaanController {
     }  
 	
 	@PostMapping(value = "/JenisPembiayaan/ActionInputData")
-	public String JenisPembiayaanActionInputData(@Valid JenisPembiayaan dataJenisPembiayaan, BindingResult result,String action,Model model) {
-		if(dataJenisPembiayaan.getEndBerlaku().before(dataJenisPembiayaan.getStartBerlaku())) {
-			result.rejectValue("end_date", "error.dataJenisPembiayaan", "End date must be greater than start date");
+	public String JenisPembiayaanActionInputData(@Valid JenisPembiayaan jenisPembiayaan, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(jenisPembiayaan.getEndBerlaku().before(jenisPembiayaan.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.jenisPembiayaan", "End date must be greater than start date");
+			}
 		}
 
 		if (result.hasErrors()) {
-			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+			ResponseEntity<ResponProduk> respon = restTemplate.exchange(
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponProduk.class);
-			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
 
+			model.addAttribute("listProduk",respon.getBody().getDataProduk());
+			model.addAttribute("jenisPembiayaan", jenisPembiayaan);
             return "/pages/MasterParameter/JenisPembiayaan/InputData";
         }
+
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/jenispembiayaan/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisPembiayaan)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(jenisPembiayaan)), 
+				String.class
+			);
+			
+			return "redirect:/JenisPembiayaan/Data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/JenisPembiayaan/ActionEditData")
+	public String JenisPembiayaanActionEditData(@Valid JenisPembiayaan jenisPembiayaan, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(jenisPembiayaan.getEndBerlaku().before(jenisPembiayaan.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.jenisPembiayaan", "End date must be greater than start date");
+			}
+		}
+
+		if (result.hasErrors()) {
+			ResponseEntity<ResponProduk> respon = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+
+			model.addAttribute("listProduk",respon.getBody().getDataProduk());
+			model.addAttribute("jenisPembiayaan", jenisPembiayaan);
+            return "/pages/MasterParameter/JenisPembiayaan/EditData";
+        }
+
+
+		try {
+			restTemplate.exchange(
+				apiBaseUrl+"/api/jenispembiayaan/"+HelperConf.getAction(action), 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(jenisPembiayaan)), 
 				String.class
 			);
 			
@@ -116,20 +157,16 @@ public class JenisPembiayaanController {
 	}
 
 	@PostMapping(value = "/JenisPembiayaan/ActionApprovalData")
-	public String JenisPembiayaanActionApprovalData(@Valid JenisPembiayaan dataJenisPembiayaan, BindingResult result,String action) {
-		if (result.hasErrors()) {
-            return "/pages/MasterParameter/JenisPembiayaan/ApprovalData";
-        }
-
+	public String JenisPembiayaanActionApprovalData(JenisPembiayaan jenisPembiayaan, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/jenispembiayaan/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisPembiayaan)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(jenisPembiayaan)), 
 				String.class
 			);
-			
-			return "redirect:/JenisPembiayaan/Data";
+
+			return "redirect:/JenisPembiayaan/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
@@ -152,6 +189,7 @@ public class JenisPembiayaanController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/JenisPembiayaan/ActionApproval")
 	public String JenisPembiayaanActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
@@ -168,6 +206,7 @@ public class JenisPembiayaanController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/JenisPembiayaan/EditData/{id}", method = RequestMethod.GET)
 	public String JenisPembiayaanEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
@@ -178,12 +217,13 @@ public class JenisPembiayaanController {
 				ResponJenisPembiayaan.class
 			);
 
-			model.addAttribute("dataJenisPembiayaan",respon.getBody().getJenisPembiayaan());
+			model.addAttribute("jenisPembiayaan",respon.getBody().getJenisPembiayaan());
 
 			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponProduk.class);
-			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+			
 			return "/pages/MasterParameter/JenisPembiayaan/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -198,9 +238,11 @@ public class JenisPembiayaanController {
 					apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponJenisPembiayaan.class);
 
-			model.addAttribute("listDataJenisPembiayaan", respon.getBody().getDataJenisPembiayaan());
+			model.addAttribute("listJenisPembiayaan", respon.getBody().getDataJenisPembiayaan());
+			
 			return "/pages/MasterParameter/JenisPembiayaan/Data";
 		} catch (Exception e) {
+			System.out.println(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -213,7 +255,8 @@ public class JenisPembiayaanController {
 					apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponJenisPembiayaan.class);
 
-			model.addAttribute("listDataJenisPembiayaan", respon.getBody().getDataJenisPembiayaan());
+			model.addAttribute("listJenisPembiayaan", respon.getBody().getDataJenisPembiayaan());
+			
 			return "/pages/MasterParameter/JenisPembiayaan/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -230,13 +273,13 @@ public class JenisPembiayaanController {
 				HelperConf.getHeader(), 
 				ResponJenisPembiayaan.class
 			);
-
-			model.addAttribute("dataJenisPembiayaan",respon.getBody().getJenisPembiayaan());
+			model.addAttribute("jenisPembiayaan",respon.getBody().getJenisPembiayaan());
 
 			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
 				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponProduk.class);
-			model.addAttribute("listDataProduk",responProduk.getBody().getDataProduk());
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+
 			return "/pages/MasterParameter/JenisPembiayaan/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

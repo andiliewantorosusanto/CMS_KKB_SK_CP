@@ -47,9 +47,11 @@ public class JenisKendaraanController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/JenisKendaraan/InputData", method = RequestMethod.GET)
-	public String JenisKendaraanInputData(JenisKendaraan dataJenisKendaraan) {
+	public String JenisKendaraanInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
+			
+			model.addAttribute("jenisKendaraan", new JenisKendaraan());
 			
 			return "/pages/MasterParameter/JenisKendaraan/InputData";
 		} catch (Exception e) {
@@ -80,20 +82,53 @@ public class JenisKendaraanController {
     }  
 	
 	@PostMapping(value = "/JenisKendaraan/ActionInputData")
-	public String JenisKendaraanActionInputData(@Valid JenisKendaraan dataJenisKendaraan, BindingResult result,String action) {
-		if(dataJenisKendaraan.getEndBerlaku().before(dataJenisKendaraan.getStartBerlaku())) {
-			result.rejectValue("endBerlaku", "error.dataJenisKendaraan", "End date must be greater than start date");
+	public String JenisKendaraanActionInputData(@Valid JenisKendaraan jenisKendaraan, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(jenisKendaraan.getEndBerlaku().before(jenisKendaraan.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.jenisKendaraan", "End date must be greater than start date");
+			}
 		}
 
 		if (result.hasErrors()) {
+			model.addAttribute("jenisKendaraan", jenisKendaraan);
             return "/pages/MasterParameter/JenisKendaraan/InputData";
         }
+
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/jeniskendaraan/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisKendaraan)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(jenisKendaraan)), 
+				String.class
+			);
+			
+			return "redirect:/JenisKendaraan/Data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/JenisKendaraan/ActionEditData")
+	public String JenisKendaraanActionEditData(@Valid JenisKendaraan jenisKendaraan, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(jenisKendaraan.getEndBerlaku().before(jenisKendaraan.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.jenisKendaraan", "End date must be greater than start date");
+			}
+		}
+
+		if (result.hasErrors()) {
+			model.addAttribute("jenisKendaraan", jenisKendaraan);
+            return "/pages/MasterParameter/JenisKendaraan/EditData";
+        }
+
+
+		try {
+			restTemplate.exchange(
+				apiBaseUrl+"/api/jeniskendaraan/"+HelperConf.getAction(action), 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(jenisKendaraan)), 
 				String.class
 			);
 			
@@ -105,20 +140,16 @@ public class JenisKendaraanController {
 	}
 
 	@PostMapping(value = "/JenisKendaraan/ActionApprovalData")
-	public String JenisKendaraanActionApprovalData(@Valid JenisKendaraan dataJenisKendaraan, BindingResult result,String action) {
-		if (result.hasErrors()) {
-            return "/pages/MasterParameter/JenisKendaraan/ApprovalData";
-        }
-
+	public String JenisKendaraanActionApprovalData(JenisKendaraan jenisKendaraan, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/jeniskendaraan/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataJenisKendaraan)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(jenisKendaraan)), 
 				String.class
 			);
-			
-			return "redirect:/JenisKendaraan/Data";
+
+			return "redirect:/JenisKendaraan/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
@@ -141,6 +172,7 @@ public class JenisKendaraanController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/JenisKendaraan/ActionApproval")
 	public String JenisKendaraanActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
@@ -157,6 +189,7 @@ public class JenisKendaraanController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/JenisKendaraan/EditData/{id}", method = RequestMethod.GET)
 	public String JenisKendaraanEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
@@ -167,7 +200,8 @@ public class JenisKendaraanController {
 				ResponJenisKendaraan.class
 			);
 
-			model.addAttribute("dataJenisKendaraan",respon.getBody().getDataJenisKendaraan());
+			model.addAttribute("jenisKendaraan",respon.getBody().getJenisKendaraan());
+			
 			return "/pages/MasterParameter/JenisKendaraan/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -182,10 +216,10 @@ public class JenisKendaraanController {
 					apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponJenisKendaraan.class);
 
-			model.addAttribute("listDataJenisKendaraan", respon.getBody().getDataJenisKendaraan());
+			model.addAttribute("listJenisKendaraan", respon.getBody().getDataJenisKendaraan());
+
 			return "/pages/MasterParameter/JenisKendaraan/Data";
 		} catch (Exception e) {
-			System.out.println("hello :"+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -198,7 +232,8 @@ public class JenisKendaraanController {
 					apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponJenisKendaraan.class);
 
-			model.addAttribute("listDataJenisKendaraan", respon.getBody().getDataJenisKendaraan());
+			model.addAttribute("listJenisKendaraan", respon.getBody().getDataJenisKendaraan());
+			
 			return "/pages/MasterParameter/JenisKendaraan/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -215,8 +250,8 @@ public class JenisKendaraanController {
 				HelperConf.getHeader(), 
 				ResponJenisKendaraan.class
 			);
+			model.addAttribute("jenisKendaraan",respon.getBody().getJenisKendaraan());
 
-			model.addAttribute("dataJenisKendaraan",respon.getBody().getDataJenisKendaraan());
 			return "/pages/MasterParameter/JenisKendaraan/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

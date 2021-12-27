@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.data.JenisPerluasan;
+import com.CMS.CentralParam.KKBSK.view.vwJenisPerluasan;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,10 +18,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class JenisPerluasanExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<JenisPerluasan> listCluster;
+    private List<vwJenisPerluasan> listJenisPerluasan;
      
-    public JenisPerluasanExcelExporter(List<JenisPerluasan> listCluster) {
-        this.listCluster = listCluster;
+    public JenisPerluasanExcelExporter(List<vwJenisPerluasan> listJenisPerluasan) {
+        this.listJenisPerluasan = listJenisPerluasan;
         workbook = new XSSFWorkbook();
     }
  
@@ -37,11 +37,12 @@ public class JenisPerluasanExcelExporter {
         font.setFontHeight(16);
         style.setFont(font);
          
-        createCell(row, 0, "User ID", style);      
-        createCell(row, 1, "E-mail", style);       
-        createCell(row, 2, "Full Name", style);    
-        createCell(row, 3, "Roles", style);
-        createCell(row, 4, "Enabled", style);
+        int rowCount = 0;
+        createCell(row, rowCount++, "Nama", style);      
+        createCell(row, rowCount++, "Produk", style);       
+        createCell(row, rowCount++, "Deskripsi", style);    
+        createCell(row, rowCount++, "Masa Berlaku Start", style);
+        createCell(row, rowCount++, "Masa Berlaku End", style);
     }
      
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -65,15 +66,15 @@ public class JenisPerluasanExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (JenisPerluasan Cluster : listCluster) {
+        for (vwJenisPerluasan jenisPerluasan : listJenisPerluasan) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            // createCell(row, columnCount++, Cluster.getId(), style);
-            // createCell(row, columnCount++, Cluster.getNama(), style);
-            // createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-            // createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
-            // createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
+            createCell(row, columnCount++, jenisPerluasan.getNama(), style);
+            createCell(row, columnCount++, jenisPerluasan.getProdukName(), style);
+            createCell(row, columnCount++, jenisPerluasan.getDeskripsi(), style);
+            createCell(row, columnCount++, jenisPerluasan.getStartBerlaku().toString(), style);
+            createCell(row, columnCount++, jenisPerluasan.getEndBerlaku().toString(), style);
              
         }
     }

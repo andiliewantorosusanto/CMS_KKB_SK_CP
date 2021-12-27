@@ -4,6 +4,7 @@ package com.CMS.CentralParam.KKBSK.model.response;
 import java.util.List;
 
 import com.CMS.CentralParam.KKBSK.model.data.TujuanPenggunaan;
+import com.CMS.CentralParam.KKBSK.view.vwTujuanPenggunaan;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ResponTujuanPenggunaan {
 
     @JsonProperty("dataTujuanPenggunaan")
-    private List<TujuanPenggunaan> dataTujuanPenggunaan = null;
+    private List<vwTujuanPenggunaan> dataTujuanPenggunaan = null;
     @JsonProperty("tujuanPenggunaan")
     private TujuanPenggunaan tujuanPenggunaan = null;
     @JsonProperty("code")
@@ -35,7 +36,7 @@ public class ResponTujuanPenggunaan {
      * @param dataTujuanPenggunaan
      * @param code
      */
-    public ResponTujuanPenggunaan(List<TujuanPenggunaan> dataTujuanPenggunaan,TujuanPenggunaan tujuanPenggunaan,String code) {
+    public ResponTujuanPenggunaan(List<vwTujuanPenggunaan> dataTujuanPenggunaan,TujuanPenggunaan tujuanPenggunaan,String code) {
         super();
         this.dataTujuanPenggunaan = dataTujuanPenggunaan;
         this.tujuanPenggunaan = tujuanPenggunaan;
@@ -43,12 +44,12 @@ public class ResponTujuanPenggunaan {
     }
 
     @JsonProperty("dataTujuanPenggunaan")
-    public List<TujuanPenggunaan> getDataTujuanPenggunaan() {
+    public List<vwTujuanPenggunaan> getDataTujuanPenggunaan() {
         return dataTujuanPenggunaan;
     }
 
     @JsonProperty("dataTujuanPenggunaan")
-    public void setDataTujuanPenggunaan(List<TujuanPenggunaan> dataTujuanPenggunaan) {
+    public void setDataTujuanPenggunaan(List<vwTujuanPenggunaan> dataTujuanPenggunaan) {
         this.dataTujuanPenggunaan = dataTujuanPenggunaan;
     }
 

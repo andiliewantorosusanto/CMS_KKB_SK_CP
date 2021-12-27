@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.data.TujuanPenggunaan;
+import com.CMS.CentralParam.KKBSK.view.vwTujuanPenggunaan;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,16 +18,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class TujuanPenggunaanExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<TujuanPenggunaan> listCluster;
+    private List<vwTujuanPenggunaan> listTujuanPenggunaan;
      
-    public TujuanPenggunaanExcelExporter(List<TujuanPenggunaan> listCluster) {
-        this.listCluster = listCluster;
+    public TujuanPenggunaanExcelExporter(List<vwTujuanPenggunaan> listTujuanPenggunaan) {
+        this.listTujuanPenggunaan = listTujuanPenggunaan;
         workbook = new XSSFWorkbook();
     }
  
  
     private void writeHeaderLine() {
-        sheet = workbook.createSheet("Cluster");
+        sheet = workbook.createSheet("TujuanPenggunaan");
          
         Row row = sheet.createRow(0);
          
@@ -65,15 +65,15 @@ public class TujuanPenggunaanExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (TujuanPenggunaan Cluster : listCluster) {
+        for (vwTujuanPenggunaan TujuanPenggunaan : listTujuanPenggunaan) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            // createCell(row, columnCount++, Cluster.getNama(), style);
-            // createCell(row, columnCount++, Cluster.getProdukObject().getProduk(), style);
-            // createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-            // createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
-            // createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
+            createCell(row, columnCount++, TujuanPenggunaan.getNama(), style);
+            createCell(row, columnCount++, TujuanPenggunaan.getProdukName(), style);
+            createCell(row, columnCount++, TujuanPenggunaan.getDeskripsi(), style);
+            createCell(row, columnCount++, TujuanPenggunaan.getStartBerlaku().toString(), style);
+            createCell(row, columnCount++, TujuanPenggunaan.getEndBerlaku().toString(), style);
         }
     }
      

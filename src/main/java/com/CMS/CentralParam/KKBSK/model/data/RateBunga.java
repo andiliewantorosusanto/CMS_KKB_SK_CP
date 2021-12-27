@@ -20,22 +20,12 @@ public class RateBunga {
     @JsonProperty("loanType")
     private Integer loanType;
 
-    @JsonProperty("produk")
-    private Integer produk;
     @JsonProperty("jenisKendaraan")
     private Integer jenisKendaraan;
-    @JsonProperty("kondisiKendaraan")
-    private Integer kondisiKendaraan;
     @JsonProperty("jenisPembiayaan")
     private Integer jenisPembiayaan;
-    @JsonProperty("tujuanPenggunaan")
-    private Integer tujuanPenggunaan;
     @JsonProperty("cluster")
     private Integer cluster;
-    @JsonProperty("program")
-    private Integer program;
-    @JsonProperty("tipeKonsumen")
-    private Integer tipeKonsumen;
 
     @JsonProperty("startTahunKendaraan")
     private Integer startTahunKendaraan;
@@ -140,22 +130,16 @@ public class RateBunga {
     private Date updatedDate;
 
 
-
     public RateBunga() {
     }
 
-    public RateBunga(Integer id, String namaSkema, Integer loanType, Integer produk, Integer jenisKendaraan, Integer kondisiKendaraan, Integer jenisPembiayaan, Integer tujuanPenggunaan, Integer cluster, Integer program, Integer tipeKonsumen, Integer startTahunKendaraan, Integer endTahun, Float tenor1, Float tenor2, Float tenor3, Float tenor4, Integer tenor5Periode1, Integer tenor5Periode2, Float tenor5Rate1, Float tenor5Rate2, Integer tenor6Periode1, Integer tenor6Periode2, Float tenor6Rate1, Float tenor6Rate2, Integer tenor7Periode1, Integer tenor7Periode2, Float tenor7Rate1, Float tenor7Rate2, Integer tenor8Periode1, Integer tenor8Periode2, Float tenor8Rate1, Float tenor8Rate2, Integer tenor9Periode1, Integer tenor9Periode2, Float tenor9Rate1, Float tenor9Rate2, Integer tenor10Periode1, Integer tenor10Periode2, Float tenor10Rate1, Float tenor10Rate2, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
+    public RateBunga(Integer id, String namaSkema, Integer loanType, Integer jenisKendaraan, Integer jenisPembiayaan, Integer cluster, Integer startTahunKendaraan, Integer endTahun, Float tenor1, Float tenor2, Float tenor3, Float tenor4, Integer tenor5Periode1, Integer tenor5Periode2, Float tenor5Rate1, Float tenor5Rate2, Integer tenor6Periode1, Integer tenor6Periode2, Float tenor6Rate1, Float tenor6Rate2, Integer tenor7Periode1, Integer tenor7Periode2, Float tenor7Rate1, Float tenor7Rate2, Integer tenor8Periode1, Integer tenor8Periode2, Float tenor8Rate1, Float tenor8Rate2, Integer tenor9Periode1, Integer tenor9Periode2, Float tenor9Rate1, Float tenor9Rate2, Integer tenor10Periode1, Integer tenor10Periode2, Float tenor10Rate1, Float tenor10Rate2, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
         this.id = id;
         this.namaSkema = namaSkema;
         this.loanType = loanType;
-        this.produk = produk;
         this.jenisKendaraan = jenisKendaraan;
-        this.kondisiKendaraan = kondisiKendaraan;
         this.jenisPembiayaan = jenisPembiayaan;
-        this.tujuanPenggunaan = tujuanPenggunaan;
         this.cluster = cluster;
-        this.program = program;
-        this.tipeKonsumen = tipeKonsumen;
         this.startTahunKendaraan = startTahunKendaraan;
         this.endTahun = endTahun;
         this.tenor1 = tenor1;
@@ -222,28 +206,12 @@ public class RateBunga {
         this.loanType = loanType;
     }
 
-    public Integer getProduk() {
-        return this.produk;
-    }
-
-    public void setProduk(Integer produk) {
-        this.produk = produk;
-    }
-
     public Integer getJenisKendaraan() {
         return this.jenisKendaraan;
     }
 
     public void setJenisKendaraan(Integer jenisKendaraan) {
         this.jenisKendaraan = jenisKendaraan;
-    }
-
-    public Integer getKondisiKendaraan() {
-        return this.kondisiKendaraan;
-    }
-
-    public void setKondisiKendaraan(Integer kondisiKendaraan) {
-        this.kondisiKendaraan = kondisiKendaraan;
     }
 
     public Integer getJenisPembiayaan() {
@@ -254,36 +222,12 @@ public class RateBunga {
         this.jenisPembiayaan = jenisPembiayaan;
     }
 
-    public Integer getTujuanPenggunaan() {
-        return this.tujuanPenggunaan;
-    }
-
-    public void setTujuanPenggunaan(Integer tujuanPenggunaan) {
-        this.tujuanPenggunaan = tujuanPenggunaan;
-    }
-
     public Integer getCluster() {
         return this.cluster;
     }
 
     public void setCluster(Integer cluster) {
         this.cluster = cluster;
-    }
-
-    public Integer getProgram() {
-        return this.program;
-    }
-
-    public void setProgram(Integer program) {
-        this.program = program;
-    }
-
-    public Integer getTipeKonsumen() {
-        return this.tipeKonsumen;
-    }
-
-    public void setTipeKonsumen(Integer tipeKonsumen) {
-        this.tipeKonsumen = tipeKonsumen;
     }
 
     public Integer getStartTahunKendaraan() {
@@ -621,18 +565,8 @@ public class RateBunga {
         return this;
     }
 
-    public RateBunga produk(Integer produk) {
-        setProduk(produk);
-        return this;
-    }
-
     public RateBunga jenisKendaraan(Integer jenisKendaraan) {
         setJenisKendaraan(jenisKendaraan);
-        return this;
-    }
-
-    public RateBunga kondisiKendaraan(Integer kondisiKendaraan) {
-        setKondisiKendaraan(kondisiKendaraan);
         return this;
     }
 
@@ -641,23 +575,8 @@ public class RateBunga {
         return this;
     }
 
-    public RateBunga tujuanPenggunaan(Integer tujuanPenggunaan) {
-        setTujuanPenggunaan(tujuanPenggunaan);
-        return this;
-    }
-
     public RateBunga cluster(Integer cluster) {
         setCluster(cluster);
-        return this;
-    }
-
-    public RateBunga program(Integer program) {
-        setProgram(program);
-        return this;
-    }
-
-    public RateBunga tipeKonsumen(Integer tipeKonsumen) {
-        setTipeKonsumen(tipeKonsumen);
         return this;
     }
 
@@ -867,14 +786,9 @@ public class RateBunga {
             " id='" + getId() + "'" +
             ", namaSkema='" + getNamaSkema() + "'" +
             ", loanType='" + getLoanType() + "'" +
-            ", produk='" + getProduk() + "'" +
             ", jenisKendaraan='" + getJenisKendaraan() + "'" +
-            ", kondisiKendaraan='" + getKondisiKendaraan() + "'" +
             ", jenisPembiayaan='" + getJenisPembiayaan() + "'" +
-            ", tujuanPenggunaan='" + getTujuanPenggunaan() + "'" +
             ", cluster='" + getCluster() + "'" +
-            ", program='" + getProgram() + "'" +
-            ", tipeKonsumen='" + getTipeKonsumen() + "'" +
             ", startTahunKendaraan='" + getStartTahunKendaraan() + "'" +
             ", endTahun='" + getEndTahun() + "'" +
             ", tenor1='" + getTenor1() + "'" +

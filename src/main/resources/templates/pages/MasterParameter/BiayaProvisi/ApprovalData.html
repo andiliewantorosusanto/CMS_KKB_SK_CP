@@ -95,7 +95,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="biayaProvisi :${listDataBiayaProvisi}">
+                            <tr th:each="biayaProvisi :${listBiayaProvisi}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${biayaProvisi.id}">
@@ -109,45 +109,45 @@
                                 </svg></a>
                                 </td>
                                 
-                                <td th:text="${biayaProvisi.nama_skema}" th:attr="data-filter=${biayaProvisi.nama_skema}"></td>
+                                <td th:text="${biayaProvisi.namaSkema}" th:attr="data-filter=${biayaProvisi.namaSkema}"></td>
                                 <td th:text="${biayaProvisi.loanType}" th:attr="data-filter=${biayaProvisi.loanType}"></td>
-                                <td th:text="${biayaProvisi.jenis_kendaraanObject.jenis_kendaraan}" th:attr="data-filter=${biayaProvisi.jenis_kendaraanObject.jenis_kendaraan}"></td>
-                                <td th:text="${biayaProvisi.jenis_pembiayaanObject.jenis_pembiayaan}" th:attr="data-filter=${biayaProvisi.jenis_pembiayaanObject.jenis_pembiayaan}"></td>
+                                <td th:text="${biayaProvisi.jenisKendaraanName}" th:attr="data-filter=${biayaProvisi.jenisKendaraanName}"></td>
+                                <td th:text="${biayaProvisi.jenisPembiayaanname}" th:attr="data-filter=${biayaProvisi.jenisPembiayaanname}"></td>
 
                                 <td th:text="${biayaProvisi.tenor1}" th:attr="data-filter=${biayaProvisi.tenor1}"></td>
-                                <td th:text="${biayaProvisi.tenor1_persen}" th:attr="data-filter=${biayaProvisi.tenor1_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor1Persen}" th:attr="data-filter=${biayaProvisi.tenor1Persen}"></td>
                                 <td th:text="${biayaProvisi.tenor2}" th:attr="data-filter=${biayaProvisi.tenor2}"></td>
-                                <td th:text="${biayaProvisi.tenor2_persen}" th:attr="data-filter=${biayaProvisi.tenor2_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor2Persen}" th:attr="data-filter=${biayaProvisi.tenor2Persen}"></td>
                                 <td th:text="${biayaProvisi.tenor3}" th:attr="data-filter=${biayaProvisi.tenor3}"></td>
-                                <td th:text="${biayaProvisi.tenor3_persen}" th:attr="data-filter=${biayaProvisi.tenor3_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor3Persen}" th:attr="data-filter=${biayaProvisi.tenor3Persen}"></td>
                                 <td th:text="${biayaProvisi.tenor4}" th:attr="data-filter=${biayaProvisi.tenor4}"></td>
-                                <td th:text="${biayaProvisi.tenor4_persen}" th:attr="data-filter=${biayaProvisi.tenor4_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor4Persen}" th:attr="data-filter=${biayaProvisi.tenor4Persen}"></td>
                                 <td th:text="${biayaProvisi.tenor5}" th:attr="data-filter=${biayaProvisi.tenor5}"></td>
-                                <td th:text="${biayaProvisi.tenor5_persen}" th:attr="data-filter=${biayaProvisi.tenor5_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor5Persen}" th:attr="data-filter=${biayaProvisi.tenor5Persen}"></td>
                                 <td th:text="${biayaProvisi.tenor6}" th:attr="data-filter=${biayaProvisi.tenor6}"></td>
-                                <td th:text="${biayaProvisi.tenor6_persen}" th:attr="data-filter=${biayaProvisi.tenor6_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor6Persen}" th:attr="data-filter=${biayaProvisi.tenor6Persen}"></td>
                                 <td th:text="${biayaProvisi.tenor7}" th:attr="data-filter=${biayaProvisi.tenor7}"></td>
-                                <td th:text="${biayaProvisi.tenor7_persen}" th:attr="data-filter=${biayaProvisi.tenor7_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor7Persen}" th:attr="data-filter=${biayaProvisi.tenor7Persen}"></td>
                                 <td th:text="${biayaProvisi.tenor8}" th:attr="data-filter=${biayaProvisi.tenor8}"></td>
-                                <td th:text="${biayaProvisi.tenor8_persen}" th:attr="data-filter=${biayaProvisi.tenor8_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor8Persen}" th:attr="data-filter=${biayaProvisi.tenor8Persen}"></td>
                                 <td th:text="${biayaProvisi.tenor9}" th:attr="data-filter=${biayaProvisi.tenor9}"></td>
-                                <td th:text="${biayaProvisi.tenor9_persen}" th:attr="data-filter=${biayaProvisi.tenor9_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor9Persen}" th:attr="data-filter=${biayaProvisi.tenor9Persen}"></td>
                                 <td th:text="${biayaProvisi.tenor10}" th:attr="data-filter=${biayaProvisi.tenor10}"></td>
-                                <td th:text="${biayaProvisi.tenor10_persen}" th:attr="data-filter=${biayaProvisi.tenor10_persen}"></td>
+                                <td th:text="${biayaProvisi.tenor10Persen}" th:attr="data-filter=${biayaProvisi.tenor10Persen}"></td>
                                 
                                 <td th:text="${#dates.format(biayaProvisi.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${biayaProvisi.startBerlaku}"></td>
                                 <td th:text="${#dates.format(biayaProvisi.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${biayaProvisi.endBerlaku}"></td>
                                 
-                                <td th:if="${biayaProvisi.statusApproved == null or biayaProvisi.statusApproved == 0}" data-filter="Draft">
+                                <td th:if="${biayaAdmin.statusApproval == null or biayaAdmin.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${biayaProvisi.statusApproved == 1}" data-filter="Submitted">
+                                <td th:if="${biayaAdmin.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${biayaProvisi.statusApproved == 2 and biayaProvisi.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${biayaAdmin.statusApproval == 2 and biayaAdmin.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${biayaProvisi.statusApproved == 2 and biayaProvisi.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${biayaAdmin.statusApproval == 2 and biayaAdmin.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 

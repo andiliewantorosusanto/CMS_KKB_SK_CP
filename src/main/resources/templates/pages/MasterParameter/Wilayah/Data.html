@@ -14,10 +14,10 @@
                 <div class="row"> 
                   <div class="col-12">
                     <div class="card">
-                      <div class="card-header"> Data - Tipe Asuransi
+                      <div class="card-header"> Data - Tujuan Penggunaan
                         <a href="/Wilayah/InputData"><button class="btn btn-sm btn-ghost-success" type="button">Input Data</button></a>
                         <a href="/Wilayah/Export/Excel" target="_blank"><button class="btn btn-sm btn-ghost-success" type="button">Export Data</button></a>
-                        <!-- <a href="/WilayahImportData"><button class="btn btn-sm btn-ghost-success" type="button">Import Data</button></a> -->
+                        <!-- <a href="/Wilayah/ImportData"><button class="btn btn-sm btn-ghost-success" type="button">Import Data</button></a> -->
                       </div>
                       <div class="card-body" id="body" style="overflow-x:auto;">
                         <table id="table" class="table table-striped table-bordered datatables" style="width:100%;">
@@ -25,7 +25,7 @@
                             <tr role="row">
                               <th><input type="checkbox" id="check-all"></th>
                               <th></th>
-                              <th id="fil-namaWilayah"></th>
+                              <th id="fil-nama"></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -35,7 +35,7 @@
                             <tr role="filter">
                               <th data-value="checkbox"></th>
                               <th data-value="actions">Actions</th>
-                              <th data-value="namaWilayah">Nama Wilayah</th>
+                              <th data-value="nama">Nama</th>
                               <th data-value="deskripsi">Deskripsi</th>
                               <th data-value="start_date">Start Date</th>
                               <th data-value="end_date">End Date</th>
@@ -44,14 +44,14 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="wilayah :${listDataWilayah}">
+                            <tr th:each="wilayah :${listWilayah}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${wilayah.id}">
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/WilayahEditData/{id}(id=${wilayah.id})}">
+                                <a class="btn btn-success" th:href="@{/Wilayah/EditData/{id}(id=${wilayah.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
@@ -69,14 +69,13 @@
                                 <td th:if="${wilayah.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${wilayah.statusApproval == 2 and wilayah.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${wilayah.statusApproval == 2 and wilayah.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${wilayah.statusApproval == 2 and wilayah.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${wilayah.statusApproval == 2 and wilayah.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 
-                                
                                 <td th:text="${wilayah.remarks}"></td>
                             </tr>
                           </tbody>
@@ -103,7 +102,7 @@
     </div>
     <div th:replace="fragments/common :: scripts"></div>
     <script>
-      let _FILTER_COLUMN = ['status'];
+      let _FILTER_COLUMN = ['nama','status'];
       let selectedIds = [];
       let table = $('#table').DataTable( {
           "scrollX": true,

@@ -22,36 +22,36 @@
                 <div class="row"> 
                   <div class="col-12">
                     <div class="card">
-                      <div class="card-header"> Data - Rate Asuransi</div>
+                      <div class="card-header"> Data - Perluasan Asuransi</div>
                       <div class="card-body" id="body" style="overflow-x:auto;">
                         <table id="table" class="table table-striped table-bordered datatables" style="width:100%;">
                           <thead>
                             <tr role="row">
                               <th><input type="checkbox" id="check-all"></th>
-                              <th></th>
-                              <th></th>
-                              <th id="fil-wilayah"></th>
-                              <th id="fil-jenis_kendaraan"></th>
-                              <th id="fil-tipe_asuransi"></th>
-                              <th id="fil-jenis_perluasan"></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th id="fil-status"></th>
-                              <th></th>
+                              <th id="fil-actions">Actions</th>
+                              <th id="fil-nama_skema">Skema</th>
+                              <th id="fil-wilayah">Wilayah</th>
+                              <th id="fil-Jenis_kendaraan">Jenis Kendaraan</th>
+                              <th id="fil-tipe_asuransi">Tipe Asuransi</th>
+                              <th id="fil-jenis_perluasan">Jenis Perluasan</th>
+                              <th id="fil-start_otr">Start Otr</th>
+                              <th id="fil-end_otr">End Otr</th>
+                              <th id="fil-start_year">Start Year</th>
+                              <th id="fil-end_year">End Year</th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th id="fil-status">Status</th>
+                              <th id="fil-remarks"></th>
                             </tr>
                             <tr role="filter">
                               <th data-value="checkbox"></th>
@@ -61,20 +61,20 @@
                               <th data-value="Jenis_kendaraan">Jenis Kendaraan</th>
                               <th data-value="tipe_asuransi">Tipe Asuransi</th>
                               <th data-value="jenis_perluasan">Jenis Perluasan</th>
-                              <th data-value="otr_start">Range OTR Start (RP)</th>
-                              <th data-value="otr_start">Range OTR End (RP)</th>
-                              <th data-value="otr_start">Tahun Kendaraan Start</th>
-                              <th data-value="otr_start">Tahun Kendaraan End</th>
-                              <th data-value="otr_start">Tenor 1 (%)</th>
-                              <th data-value="otr_start">Tenor 2 (%)</th>
-                              <th data-value="otr_start">Tenor 3 (%)</th>
-                              <th data-value="otr_start">Tenor 4 (%)</th>
-                              <th data-value="otr_start">Tenor 5 (%)</th>
-                              <th data-value="otr_start">Tenor 6 (%)</th>
-                              <th data-value="otr_start">Tenor 7 (%)</th>
-                              <th data-value="otr_start">Tenor 8 (%)</th>
-                              <th data-value="otr_start">Tenor 9 (%)</th>
-                              <th data-value="otr_start">Tenor 10 (%)</th>
+                              <th data-value="start_otr">Start Otr</th>
+                              <th data-value="end_otr">End Otr</th>
+                              <th data-value="start_year">Start Year</th>
+                              <th data-value="end_year">End Year</th>
+                              <th data-value="otr_start">Tenor 1 (Rp)</th>
+                              <th data-value="otr_start">Tenor 2 (Rp)</th>
+                              <th data-value="otr_start">Tenor 3 (Rp)</th>
+                              <th data-value="otr_start">Tenor 4 (Rp)</th>
+                              <th data-value="otr_start">Tenor 5 (Rp)</th>
+                              <th data-value="otr_start">Tenor 6 (Rp)</th>
+                              <th data-value="otr_start">Tenor 7 (Rp)</th>
+                              <th data-value="otr_start">Tenor 8 (Rp)</th>
+                              <th data-value="otr_start">Tenor 9 (Rp)</th>
+                              <th data-value="otr_start">Tenor 10 (Rp)</th>
                               <th data-value="otr_start">Masa Berlaku Start</th>
                               <th data-value="otr_start">Masa Berlaku End</th>
                               <th data-value="status">Status</th>
@@ -82,29 +82,31 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="perluasanAsuransi :${listDataPerluasanAsuransi}">
+                            <tr th:each="perluasanAsuransi :${listPerluasanAsuransi}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${perluasanAsuransi.id}">
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/PerluasanAsuransiEditData/{id}(id=${perluasanAsuransi.id})}">
+                                <a class="btn btn-success" th:href="@{/PerluasanAsuransi/EditData/{id}(id=${perluasanAsuransi.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
                                 </svg></a>
                                 </td>
                                 
-                                <td th:text="${perluasanAsuransi.nama_skema}" th:attr="data-filter=${perluasanAsuransi.nama_skema}"></td>
-                                <td th:text="${perluasanAsuransi.wilayahObject.namaWilayah}" th:attr="data-filter=${perluasanAsuransi.wilayahObject.namaWilayah}"></td>
-                                <td th:text="${perluasanAsuransi.jenis_kendaraanObject.jenis_kendaraan}" th:attr="data-filter=${perluasanAsuransi.jenis_kendaraanObject.jenis_kendaraan}"></td>
-                                <td th:text="${perluasanAsuransi.tipe_asuransiObject.namaAsuransi}" th:attr="data-filter=${perluasanAsuransi.tipe_asuransiObject.namaAsuransi}"></td>
-                                <td th:text="${perluasanAsuransi.jenis_perluasanObject.nama}" th:attr="data-filter=${perluasanAsuransi.jenis_perluasanObject.nama}"></td>
-                                <td th:text="${perluasanAsuransi.startOTR}" th:attr="data-filter=${perluasanAsuransi.startOTR}"></td>
-                                <td th:text="${perluasanAsuransi.endOTR}" th:attr="data-filter=${perluasanAsuransi.endOTR}"></td>
+                                <td th:text="${perluasanAsuransi.namaSkema}" th:attr="data-filter=${perluasanAsuransi.namaSkema}"></td>
+                                <td th:text="${perluasanAsuransi.jenisKendaraanName}" th:attr="data-filter=${perluasanAsuransi.jenisKendaraanName}"></td>
+                                <td th:text="${perluasanAsuransi.wilayahName}" th:attr="data-filter=${perluasanAsuransi.wilayahName}"></td>
+                                <td th:text="${perluasanAsuransi.tipeAsuransiName}" th:attr="data-filter=${perluasanAsuransi.tipeAsuransiName}"></td>
+                                <td th:text="${perluasanAsuransi.jenisPerluasanName}" th:attr="data-filter=${perluasanAsuransi.jenisPerluasanName}"></td>
+
+                                <td th:text="${perluasanAsuransi.startOtr}" th:attr="data-filter=${perluasanAsuransi.startOtr}"></td>
+                                <td th:text="${perluasanAsuransi.endOtr}" th:attr="data-filter=${perluasanAsuransi.endOtr}"></td>
                                 <td th:text="${perluasanAsuransi.startYear}" th:attr="data-filter=${perluasanAsuransi.startYear}"></td>
                                 <td th:text="${perluasanAsuransi.endYear}" th:attr="data-filter=${perluasanAsuransi.endYear}"></td>
+
                                 <td th:text="${perluasanAsuransi.tenor1}" th:attr="data-filter=${perluasanAsuransi.tenor1}"></td>
                                 <td th:text="${perluasanAsuransi.tenor2}" th:attr="data-filter=${perluasanAsuransi.tenor2}"></td>
                                 <td th:text="${perluasanAsuransi.tenor3}" th:attr="data-filter=${perluasanAsuransi.tenor3}"></td>
@@ -115,19 +117,20 @@
                                 <td th:text="${perluasanAsuransi.tenor8}" th:attr="data-filter=${perluasanAsuransi.tenor8}"></td>
                                 <td th:text="${perluasanAsuransi.tenor9}" th:attr="data-filter=${perluasanAsuransi.tenor9}"></td>
                                 <td th:text="${perluasanAsuransi.tenor10}" th:attr="data-filter=${perluasanAsuransi.tenor10}"></td>
+                                
                                 <td th:text="${#dates.format(perluasanAsuransi.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${perluasanAsuransi.startBerlaku}"></td>
                                 <td th:text="${#dates.format(perluasanAsuransi.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${perluasanAsuransi.endBerlaku}"></td>
                                 
-                                <td th:if="${perluasanAsuransi.statusApproved == null or perluasanAsuransi.statusApproved == 0}" data-filter="Draft">
+                                <td th:if="${perluasanAsuransi.statusApproval == null or perluasanAsuransi.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${perluasanAsuransi.statusApproved == 1}" data-filter="Submitted">
+                                <td th:if="${perluasanAsuransi.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${perluasanAsuransi.statusApproved == 2 and perluasanAsuransi.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${perluasanAsuransi.statusApproval == 2 and perluasanAsuransi.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${perluasanAsuransi.statusApproved == 2 and perluasanAsuransi.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${perluasanAsuransi.statusApproval == 2 and perluasanAsuransi.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 
@@ -135,6 +138,7 @@
                             </tr>
                           </tbody>
                         </table>
+                          
                         <div class="row">
                           <div class="col-auto">
                             <form id="mass-action-form" th:action="@{/PerluasanAsuransi/ActionApproval}"  method="post">
@@ -157,7 +161,7 @@
     </div>
     <div th:replace="fragments/common :: scripts"></div>
     <script>
-      let _FILTER_COLUMN = ['wilayah','jenis_pembiayaan','jenis_kendaraan','tipe_asuransi','status'];
+      let _FILTER_COLUMN = ['nama_skema','wilayah','Jenis_kendaraan','jenis_perluasan','tipe_asuransi','status'];
       let selectedIds = [];
       let table = $('#table').DataTable( {
           "scrollX": true,
@@ -182,8 +186,6 @@
                   $.map(column.nodes(), function (item) {
                     filters.push($(item).data('filter'));
                   })
-                  
-                  filters = [...new Set(filters)];
                   
                   filters = [...new Set(filters)];
                   

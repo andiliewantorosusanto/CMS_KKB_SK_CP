@@ -18,11 +18,11 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <form id="signupForm" th:action="@{/Wilayah/ActionInputData}"  th:object="${dataWilayah}" method="post" novalidate="novalidate">
+                                                    <form id="signupForm" th:action="@{/Wilayah/ActionInputData}"  th:object="${wilayah}" method="post" novalidate="novalidate">
                                                         <div class="form-group">
                                                             <label class="col-form-label" for="namaWilayah">Nama Wilayah</label>
                                                             <input class="form-control" id="namaWilayah" type="text" name="namaWilayah" th:field="*{namaWilayah}"
-                                                                placeholder="namaWilayah" th:classappend="${#fields.hasErrors('namaWilayah')} ?  is-invalid">
+                                                                placeholder="Wilayah" th:classappend="${#fields.hasErrors('namaWilayah')} ?  is-invalid">
                                                             <div class="invalid-feedback" th:if="${#fields.hasErrors('namaWilayah')}" th:errors="*{namaWilayah}"></div>
                                                         </div>
                                                         <div class="form-group">

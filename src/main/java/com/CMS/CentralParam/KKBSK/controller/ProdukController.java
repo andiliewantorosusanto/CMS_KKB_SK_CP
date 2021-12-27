@@ -47,9 +47,11 @@ public class ProdukController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/Produk/InputData", method = RequestMethod.GET)
-	public String ProdukInputData(Produk dataProduk) {
+	public String ProdukInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
+			
+			model.addAttribute("produk", new Produk());
 			
 			return "/pages/MasterParameter/Produk/InputData";
 		} catch (Exception e) {
@@ -80,20 +82,53 @@ public class ProdukController {
     }  
 	
 	@PostMapping(value = "/Produk/ActionInputData")
-	public String ProdukActionInputData(@Valid Produk dataProduk, BindingResult result,String action) {
-		if(dataProduk.getEndBerlaku().before(dataProduk.getStartBerlaku())) {
-			result.rejectValue("endBerlaku", "error.dataProduk", "End date must be greater than start date");
+	public String ProdukActionInputData(@Valid Produk produk, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(produk.getEndBerlaku().before(produk.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.produk", "End date must be greater than start date");
+			}
 		}
-		
+
 		if (result.hasErrors()) {
+			model.addAttribute("produk", produk);
             return "/pages/MasterParameter/Produk/InputData";
         }
+
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/produk/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataProduk)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(produk)), 
+				String.class
+			);
+			
+			return "redirect:/Produk/Data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/Produk/ActionEditData")
+	public String ProdukActionEditData(@Valid Produk produk, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(produk.getEndBerlaku().before(produk.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.produk", "End date must be greater than start date");
+			}
+		}
+
+		if (result.hasErrors()) {
+			model.addAttribute("produk", produk);
+            return "/pages/MasterParameter/Produk/EditData";
+        }
+
+
+		try {
+			restTemplate.exchange(
+				apiBaseUrl+"/api/produk/"+HelperConf.getAction(action), 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(produk)), 
 				String.class
 			);
 			
@@ -105,20 +140,16 @@ public class ProdukController {
 	}
 
 	@PostMapping(value = "/Produk/ActionApprovalData")
-	public String ProdukActionApprovalData(@Valid Produk dataProduk, BindingResult result,String action) {
-		if (result.hasErrors()) {
-            return "/pages/MasterParameter/Produk/ApprovalData";
-        }
-
+	public String ProdukActionApprovalData(Produk produk, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/produk/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataProduk)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(produk)), 
 				String.class
 			);
-			
-			return "redirect:/Produk/Data";
+
+			return "redirect:/Produk/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
@@ -141,6 +172,7 @@ public class ProdukController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/Produk/ActionApproval")
 	public String ProdukActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
@@ -157,6 +189,7 @@ public class ProdukController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/Produk/EditData/{id}", method = RequestMethod.GET)
 	public String ProdukEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
@@ -167,7 +200,8 @@ public class ProdukController {
 				ResponProduk.class
 			);
 
-			model.addAttribute("dataProduk",respon.getBody().getProduk());
+			model.addAttribute("produk",respon.getBody().getProduk());
+			
 			return "/pages/MasterParameter/Produk/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -182,7 +216,8 @@ public class ProdukController {
 					apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponProduk.class);
 
-			model.addAttribute("listDataProduk", respon.getBody().getDataProduk());
+			model.addAttribute("listProduk", respon.getBody().getDataProduk());
+
 			return "/pages/MasterParameter/Produk/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -197,7 +232,8 @@ public class ProdukController {
 					apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponProduk.class);
 
-			model.addAttribute("listDataProduk", respon.getBody().getDataProduk());
+			model.addAttribute("listProduk", respon.getBody().getDataProduk());
+			
 			return "/pages/MasterParameter/Produk/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -214,8 +250,8 @@ public class ProdukController {
 				HelperConf.getHeader(), 
 				ResponProduk.class
 			);
+			model.addAttribute("produk",respon.getBody().getProduk());
 
-			model.addAttribute("dataProduk",respon.getBody().getProduk());
 			return "/pages/MasterParameter/Produk/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

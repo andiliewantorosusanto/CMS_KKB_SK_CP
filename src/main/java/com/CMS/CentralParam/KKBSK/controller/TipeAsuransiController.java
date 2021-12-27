@@ -47,9 +47,11 @@ public class TipeAsuransiController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/TipeAsuransi/InputData", method = RequestMethod.GET)
-	public String TipeAsuransiInputData(TipeAsuransi dataTipeAsuransi) {
+	public String TipeAsuransiInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
+			
+			model.addAttribute("tipeAsuransi", new TipeAsuransi());
 			
 			return "/pages/MasterParameter/TipeAsuransi/InputData";
 		} catch (Exception e) {
@@ -65,7 +67,7 @@ public class TipeAsuransiController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=TipeAsuransi_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponTipeAsuransi> respon = restTemplate.exchange(
@@ -80,19 +82,53 @@ public class TipeAsuransiController {
     }  
 	
 	@PostMapping(value = "/TipeAsuransi/ActionInputData")
-	public String TipeAsuransiActionInputData(@Valid TipeAsuransi dataTipeAsuransi, BindingResult result,String action) {
-		if(dataTipeAsuransi.getEndBerlaku().before(dataTipeAsuransi.getStartBerlaku())) {
-			result.rejectValue("endBerlaku", "error.dataTipeAsuransi", "End date must be greater than start date");
+	public String TipeAsuransiActionInputData(@Valid TipeAsuransi tipeAsuransi, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(tipeAsuransi.getEndBerlaku().before(tipeAsuransi.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.tipeAsuransi", "End date must be greater than start date");
+			}
 		}
+
 		if (result.hasErrors()) {
+			model.addAttribute("tipeAsuransi", tipeAsuransi);
             return "/pages/MasterParameter/TipeAsuransi/InputData";
         }
+
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/tipeasuransi/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataTipeAsuransi)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(tipeAsuransi)), 
+				String.class
+			);
+			
+			return "redirect:/TipeAsuransi/Data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/TipeAsuransi/ActionEditData")
+	public String TipeAsuransiActionEditData(@Valid TipeAsuransi tipeAsuransi, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(tipeAsuransi.getEndBerlaku().before(tipeAsuransi.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.tipeAsuransi", "End date must be greater than start date");
+			}
+		}
+
+		if (result.hasErrors()) {
+			model.addAttribute("tipeAsuransi", tipeAsuransi);
+            return "/pages/MasterParameter/TipeAsuransi/EditData";
+        }
+
+
+		try {
+			restTemplate.exchange(
+				apiBaseUrl+"/api/tipeasuransi/"+HelperConf.getAction(action), 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(tipeAsuransi)), 
 				String.class
 			);
 			
@@ -104,20 +140,16 @@ public class TipeAsuransiController {
 	}
 
 	@PostMapping(value = "/TipeAsuransi/ActionApprovalData")
-	public String TipeAsuransiActionApprovalData(@Valid TipeAsuransi dataTipeAsuransi, BindingResult result,String action) {
-		if (result.hasErrors()) {
-            return "/pages/MasterParameter/TipeAsuransi/ApprovalData";
-        }
-
+	public String TipeAsuransiActionApprovalData(TipeAsuransi tipeAsuransi, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/tipeasuransi/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataTipeAsuransi)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(tipeAsuransi)), 
 				String.class
 			);
-			
-			return "redirect:/TipeAsuransi/Data";
+
+			return "redirect:/TipeAsuransi/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
@@ -140,6 +172,7 @@ public class TipeAsuransiController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/TipeAsuransi/ActionApproval")
 	public String TipeAsuransiActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
@@ -156,6 +189,7 @@ public class TipeAsuransiController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/TipeAsuransi/EditData/{id}", method = RequestMethod.GET)
 	public String TipeAsuransiEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
@@ -166,7 +200,8 @@ public class TipeAsuransiController {
 				ResponTipeAsuransi.class
 			);
 
-			model.addAttribute("dataTipeAsuransi",respon.getBody().getTipeAsuransi());
+			model.addAttribute("tipeAsuransi",respon.getBody().getTipeAsuransi());
+			
 			return "/pages/MasterParameter/TipeAsuransi/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -181,12 +216,10 @@ public class TipeAsuransiController {
 					apiBaseUrl+"api/tipeasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponTipeAsuransi.class);
 
-			model.addAttribute("listDataTipeAsuransi", respon.getBody().getDataTipeAsuransi());
-			System.out.println("data :"+respon.getBody().getDataTipeAsuransi().get(1).toString());
+			model.addAttribute("listTipeAsuransi", respon.getBody().getDataTipeAsuransi());
 
 			return "/pages/MasterParameter/TipeAsuransi/Data";
 		} catch (Exception e) {
-			System.out.println("error :"+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -199,7 +232,8 @@ public class TipeAsuransiController {
 					apiBaseUrl+"api/tipeasuransi/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponTipeAsuransi.class);
 
-			model.addAttribute("listDataTipeAsuransi", respon.getBody().getDataTipeAsuransi());
+			model.addAttribute("listTipeAsuransi", respon.getBody().getDataTipeAsuransi());
+			
 			return "/pages/MasterParameter/TipeAsuransi/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -216,8 +250,8 @@ public class TipeAsuransiController {
 				HelperConf.getHeader(), 
 				ResponTipeAsuransi.class
 			);
+			model.addAttribute("tipeAsuransi",respon.getBody().getTipeAsuransi());
 
-			model.addAttribute("dataTipeAsuransi",respon.getBody().getTipeAsuransi());
 			return "/pages/MasterParameter/TipeAsuransi/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

@@ -47,9 +47,11 @@ public class WilayahController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/Wilayah/InputData", method = RequestMethod.GET)
-	public String WilayahInputData(Wilayah dataWilayah) {
+	public String WilayahInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
+			
+			model.addAttribute("wilayah", new Wilayah());
 			
 			return "/pages/MasterParameter/Wilayah/InputData";
 		} catch (Exception e) {
@@ -80,16 +82,53 @@ public class WilayahController {
     }  
 	
 	@PostMapping(value = "/Wilayah/ActionInputData")
-	public String WilayahActionInputData(@Valid Wilayah dataWilayah, BindingResult result,String action) {
+	public String WilayahActionInputData(@Valid Wilayah wilayah, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(wilayah.getEndBerlaku().before(wilayah.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.wilayah", "End date must be greater than start date");
+			}
+		}
+
 		if (result.hasErrors()) {
+			model.addAttribute("wilayah", wilayah);
             return "/pages/MasterParameter/Wilayah/InputData";
         }
+
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/wilayah/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataWilayah)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(wilayah)), 
+				String.class
+			);
+			
+			return "redirect:/Wilayah/Data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/Wilayah/ActionEditData")
+	public String WilayahActionEditData(@Valid Wilayah wilayah, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(wilayah.getEndBerlaku().before(wilayah.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.wilayah", "End date must be greater than start date");
+			}
+		}
+
+		if (result.hasErrors()) {
+			model.addAttribute("wilayah", wilayah);
+            return "/pages/MasterParameter/Wilayah/EditData";
+        }
+
+
+		try {
+			restTemplate.exchange(
+				apiBaseUrl+"/api/wilayah/"+HelperConf.getAction(action), 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(wilayah)), 
 				String.class
 			);
 			
@@ -101,24 +140,16 @@ public class WilayahController {
 	}
 
 	@PostMapping(value = "/Wilayah/ActionApprovalData")
-	public String WilayahActionApprovalData(@Valid Wilayah dataWilayah, BindingResult result,String action) {
-		if(dataWilayah.getEndBerlaku().before(dataWilayah.getStartBerlaku())) {
-			result.rejectValue("endBerlaku", "error.dataWilayah", "End date must be greater than start date");
-		}
-
-		if (result.hasErrors()) {
-            return "/pages/MasterParameter/Wilayah/ApprovalData";
-        }
-
+	public String WilayahActionApprovalData(Wilayah wilayah, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/wilayah/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataWilayah)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(wilayah)), 
 				String.class
 			);
-			
-			return "redirect:/Wilayah/Data";
+
+			return "redirect:/Wilayah/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
@@ -141,6 +172,7 @@ public class WilayahController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/Wilayah/ActionApproval")
 	public String WilayahActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
@@ -157,6 +189,7 @@ public class WilayahController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/Wilayah/EditData/{id}", method = RequestMethod.GET)
 	public String WilayahEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
@@ -167,7 +200,8 @@ public class WilayahController {
 				ResponWilayah.class
 			);
 
-			model.addAttribute("dataWilayah",respon.getBody().getWilayah());
+			model.addAttribute("wilayah",respon.getBody().getWilayah());
+			
 			return "/pages/MasterParameter/Wilayah/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -182,7 +216,8 @@ public class WilayahController {
 					apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponWilayah.class);
 
-			model.addAttribute("listDataWilayah", respon.getBody().getDataWilayah());
+			model.addAttribute("listWilayah", respon.getBody().getDataWilayah());
+
 			return "/pages/MasterParameter/Wilayah/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -197,7 +232,8 @@ public class WilayahController {
 					apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponWilayah.class);
 
-			model.addAttribute("listDataWilayah", respon.getBody().getDataWilayah());
+			model.addAttribute("listWilayah", respon.getBody().getDataWilayah());
+			
 			return "/pages/MasterParameter/Wilayah/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -214,8 +250,8 @@ public class WilayahController {
 				HelperConf.getHeader(), 
 				ResponWilayah.class
 			);
+			model.addAttribute("wilayah",respon.getBody().getWilayah());
 
-			model.addAttribute("dataWilayah",respon.getBody().getWilayah());
 			return "/pages/MasterParameter/Wilayah/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

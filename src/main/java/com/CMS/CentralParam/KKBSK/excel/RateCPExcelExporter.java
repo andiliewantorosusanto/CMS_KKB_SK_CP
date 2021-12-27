@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.data.RateCP;
+import com.CMS.CentralParam.KKBSK.view.vwRateCP;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,16 +18,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class RateCPExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<RateCP> listCluster;
+    private List<vwRateCP> listRateCP;
      
-    public RateCPExcelExporter(List<RateCP> listCluster) {
-        this.listCluster = listCluster;
+    public RateCPExcelExporter(List<vwRateCP> listRateCP) {
+        this.listRateCP = listRateCP;
         workbook = new XSSFWorkbook();
     }
  
  
     private void writeHeaderLine() {
-        sheet = workbook.createSheet("Cluster");
+        sheet = workbook.createSheet("RateCP");
          
         Row row = sheet.createRow(0);
          
@@ -37,11 +37,21 @@ public class RateCPExcelExporter {
         font.setFontHeight(16);
         style.setFont(font);
          
-        createCell(row, 0, "User ID", style);      
-        createCell(row, 1, "E-mail", style);       
-        createCell(row, 2, "Full Name", style);    
-        createCell(row, 3, "Roles", style);
-        createCell(row, 4, "Enabled", style);
+        int rowCount = 0;
+        createCell(row, rowCount++, "Skema", style);      
+        createCell(row, rowCount++, "Tipe Konsumen", style);       
+        createCell(row, rowCount++, "Tahun 1 (%)", style);
+        createCell(row, rowCount++, "Tahun 2 (%)", style);
+        createCell(row, rowCount++, "Tahun 3 (%)", style);
+        createCell(row, rowCount++, "Tahun 4 (%)", style);
+        createCell(row, rowCount++, "Tahun 5 (%)", style);
+        createCell(row, rowCount++, "Tahun 6 (%)", style);
+        createCell(row, rowCount++, "Tahun 7 (%)", style);
+        createCell(row, rowCount++, "Tahun 8 (%)", style);
+        createCell(row, rowCount++, "Tahun 9 (%)", style);
+        createCell(row, rowCount++, "Tahun 10 (%)", style);
+        createCell(row, rowCount++, "Masa Berlaku Start", style);
+        createCell(row, rowCount++, "Masa Berlaku End", style);
     }
      
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -65,15 +75,24 @@ public class RateCPExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (RateCP Cluster : listCluster) {
+        for (vwRateCP rateCP : listRateCP) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            // createCell(row, columnCount++, Cluster.getId(), style);
-            // createCell(row, columnCount++, Cluster.getNama(), style);
-            // createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-            // createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
-            // createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
+            createCell(row, columnCount++, rateCP.getNamaSkema(), style);
+            createCell(row, columnCount++, rateCP.getTipeKonsumenName(), style);
+            createCell(row, columnCount++, rateCP.getTenor1().toString(), style);
+            createCell(row, columnCount++, rateCP.getTenor2().toString(), style);
+            createCell(row, columnCount++, rateCP.getTenor3().toString(), style);
+            createCell(row, columnCount++, rateCP.getTenor4().toString(), style);
+            createCell(row, columnCount++, rateCP.getTenor5().toString(), style);
+            createCell(row, columnCount++, rateCP.getTenor6().toString(), style);
+            createCell(row, columnCount++, rateCP.getTenor7().toString(), style);
+            createCell(row, columnCount++, rateCP.getTenor8().toString(), style);
+            createCell(row, columnCount++, rateCP.getTenor9().toString(), style);
+            createCell(row, columnCount++, rateCP.getTenor10().toString(), style);
+            createCell(row, columnCount++, rateCP.getStartBerlaku().toString(), style);
+            createCell(row, columnCount++, rateCP.getEndBerlaku().toString(), style);
              
         }
     }

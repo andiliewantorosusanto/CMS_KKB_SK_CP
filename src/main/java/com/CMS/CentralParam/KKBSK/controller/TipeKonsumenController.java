@@ -122,12 +122,42 @@ public class TipeKonsumenController {
 		return "/pages/expired/token";
 	}
 
-	@PostMapping(value = "/TipeKonsumen/ActionApprovalData")
-	public String TipeKonsumenActionApprovalData(@Valid TipeKonsumen tipeKonsumen, BindingResult result,String action) {
+	@PostMapping(value = "/TipeKonsumen/ActionEditData")
+	public String TipeKonsumenActionEditData(@Valid TipeKonsumen tipeKonsumen, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(tipeKonsumen.getEndBerlaku().before(tipeKonsumen.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.tipeKonsumen", "End date must be greater than start date");
+			}
+		}
+
 		if (result.hasErrors()) {
-            return "/pages/MasterParameter/TipeKonsumen/ApprovalData";
+			ResponseEntity<ResponProduk> respon = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+
+			model.addAttribute("listProduk",respon.getBody().getDataProduk());
+			model.addAttribute("tipeKonsumen", tipeKonsumen);
+            return "/pages/MasterParameter/TipeKonsumen/EditData";
         }
 
+
+		try {
+			restTemplate.exchange(
+				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(tipeKonsumen)), 
+				String.class
+			);
+			
+			return "redirect:/TipeKonsumen/Data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/TipeKonsumen/ActionApprovalData")
+	public String TipeKonsumenActionApprovalData(TipeKonsumen tipeKonsumen, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/tipekonsumen/"+action+"Data", 
@@ -136,7 +166,7 @@ public class TipeKonsumenController {
 				String.class
 			);
 
-			return "redirect:/TipeKonsumen/Data";
+			return "redirect:/TipeKonsumen/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}

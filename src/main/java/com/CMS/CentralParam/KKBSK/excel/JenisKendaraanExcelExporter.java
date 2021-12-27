@@ -18,10 +18,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class JenisKendaraanExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<JenisKendaraan> listCluster;
+    private List<JenisKendaraan> listJenisKendaraan;
      
-    public JenisKendaraanExcelExporter(List<JenisKendaraan> listCluster) {
-        this.listCluster = listCluster;
+    public JenisKendaraanExcelExporter(List<JenisKendaraan> listJenisKendaraan) {
+        this.listJenisKendaraan = listJenisKendaraan;
         workbook = new XSSFWorkbook();
     }
  
@@ -64,14 +64,14 @@ public class JenisKendaraanExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (JenisKendaraan Cluster : listCluster) {
+        for (JenisKendaraan jenisKendaraan : listJenisKendaraan) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            // createCell(row, columnCount++, Cluster.getJenis_kendaraan(), style);
-            // createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-            // createCell(row, columnCount++, Cluster.getStartBerlaku().toString(), style);
-            // createCell(row, columnCount++, Cluster.getEndBerlaku().toString(), style);
+            createCell(row, columnCount++, jenisKendaraan.getJenisKendaraan(), style);
+            createCell(row, columnCount++, jenisKendaraan.getDeskripsi(), style);
+            createCell(row, columnCount++, jenisKendaraan.getStartBerlaku().toString(), style);
+            createCell(row, columnCount++, jenisKendaraan.getEndBerlaku().toString(), style);
              
         }
     }

@@ -17,8 +17,8 @@ import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
 import com.CMS.CentralParam.KKBSK.model.response.ResponRateCP;
 import com.CMS.CentralParam.KKBSK.model.response.ResponTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.view.vwRateCP;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+
 @Controller
 public class RateCPController {
 
@@ -48,15 +49,19 @@ public class RateCPController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/RateCP/InputData", method = RequestMethod.GET)
-	public String RateCPInputData(RateCP dataRateCP,Model model) {
+	public String RateCPInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
 			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
-				apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponTipeKonsumen.class);
-			model.addAttribute("listDataTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
 
+			RateCP rateCPForm = new RateCP();
+			rateCPForm.setTipeKonsumen(0);
+
+			model.addAttribute("rateCP", rateCPForm);
 
 			return "/pages/MasterParameter/RateCP/InputData";
 		} catch (Exception e) {
@@ -79,7 +84,7 @@ public class RateCPController {
 			apiBaseUrl+"api/ratecp/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponRateCP.class);
 
-        List<RateCP> listRateCP = respon.getBody().getDataRateCP();
+        List<vwRateCP> listRateCP = respon.getBody().getDataRateCP();
          
         RateCPExcelExporter excelExporter = new RateCPExcelExporter(listRateCP);
          
@@ -87,24 +92,61 @@ public class RateCPController {
     }  
 	
 	@PostMapping(value = "/RateCP/ActionInputData")
-	public String RateCPActionInputData(@Valid RateCP dataRateCP, BindingResult result,String action,Model model) {
-		if(dataRateCP.getEndBerlaku().before(dataRateCP.getStartBerlaku())) {
-			result.rejectValue("endBerlaku", "error.dataRateCP", "End date must be greater than start date");
+	public String RateCPActionInputData(@Valid RateCP rateCP, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(rateCP.getEndBerlaku().before(rateCP.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.rateCP", "End date must be greater than start date");
+			}
 		}
-		
+
 		if (result.hasErrors()) {
 			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
-				apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponTipeKonsumen.class);
-			model.addAttribute("listDataTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+			model.addAttribute("rateCP", rateCP);
             return "/pages/MasterParameter/RateCP/InputData";
         }
+
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/ratecp/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataRateCP)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(rateCP)), 
+				String.class
+			);
+			return "redirect:/RateCP/Data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/RateCP/ActionEditData")
+	public String RateCPActionEditData(@Valid RateCP rateCP, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(rateCP.getEndBerlaku().before(rateCP.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.rateCP", "End date must be greater than start date");
+			}
+		}
+
+		if (result.hasErrors()) {
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			model.addAttribute("rateCP", rateCP);
+            return "/pages/MasterParameter/RateCP/EditData";
+        }
+
+
+		try {
+			restTemplate.exchange(
+				apiBaseUrl+"/api/ratecp/"+HelperConf.getAction(action), 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(rateCP)), 
 				String.class
 			);
 			
@@ -116,20 +158,16 @@ public class RateCPController {
 	}
 
 	@PostMapping(value = "/RateCP/ActionApprovalData")
-	public String RateCPActionApprovalData(@Valid RateCP dataRateCP, BindingResult result,String action) {
-		if (result.hasErrors()) {
-            return "/pages/MasterParameter/RateCP/ApprovalData";
-        }
-
+	public String RateCPActionApprovalData(RateCP rateCP, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/ratecp/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataRateCP)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(rateCP)), 
 				String.class
 			);
-			
-			return "redirect:/RateCP/Data";
+
+			return "redirect:/RateCP/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
@@ -152,6 +190,7 @@ public class RateCPController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/RateCP/ActionApproval")
 	public String RateCPActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
@@ -168,6 +207,7 @@ public class RateCPController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/RateCP/EditData/{id}", method = RequestMethod.GET)
 	public String RateCPEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
@@ -178,13 +218,13 @@ public class RateCPController {
 				ResponRateCP.class
 			);
 
-			model.addAttribute("dataRateCP",respon.getBody().getDataRateCP());
-			
-			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
-				apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
-				ResponTipeKonsumen.class);
-			model.addAttribute("listDataTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+			model.addAttribute("rateCP",respon.getBody().getRateCP());
 
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+			
 			return "/pages/MasterParameter/RateCP/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -199,10 +239,10 @@ public class RateCPController {
 					apiBaseUrl+"api/ratecp/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponRateCP.class);
 
-			model.addAttribute("listDataRateCP", respon.getBody().getDataRateCP());
+			model.addAttribute("listRateCP", respon.getBody().getDataRateCP());
+
 			return "/pages/MasterParameter/RateCP/Data";
 		} catch (Exception e) {
-			System.out.println(e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -215,7 +255,8 @@ public class RateCPController {
 					apiBaseUrl+"api/ratecp/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponRateCP.class);
 
-			model.addAttribute("listDataRateCP", respon.getBody().getDataRateCP());
+			model.addAttribute("listRateCP", respon.getBody().getDataRateCP());
+			
 			return "/pages/MasterParameter/RateCP/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -224,7 +265,7 @@ public class RateCPController {
 	}
 
 	@RequestMapping(value = "/RateCP/FormApprovalData/{id}", method = RequestMethod.GET)
-	public String RateCPFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
+	public String RateCPApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponRateCP> respon = restTemplate.exchange(
 				apiBaseUrl+"/api/ratecp/"+id, 
@@ -232,14 +273,13 @@ public class RateCPController {
 				HelperConf.getHeader(), 
 				ResponRateCP.class
 			);
-
-			model.addAttribute("dataRateCP",respon.getBody().getDataRateCP());
+			model.addAttribute("rateCP",respon.getBody().getRateCP());
 
 			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
-				apiBaseUrl+"api/wilayah/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponTipeKonsumen.class);
-			model.addAttribute("listDataTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
-			
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
 			return "/pages/MasterParameter/RateCP/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

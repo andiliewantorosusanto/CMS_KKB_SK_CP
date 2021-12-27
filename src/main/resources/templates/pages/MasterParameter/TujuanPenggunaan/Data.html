@@ -46,7 +46,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="tujuanPenggunaan :${listDataTujuanPenggunaan}">
+                            <tr th:each="tujuanPenggunaan :${listTujuanPenggunaan}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${tujuanPenggunaan.id}">
@@ -61,10 +61,10 @@
                                 </td>
                                 
                                 <td th:text="${tujuanPenggunaan.nama}" th:attr="data-filter=${tujuanPenggunaan.nama}"></td>
-                                <td th:text="${tujuanPenggunaan.produkObject.produk}" th:attr="data-filter=${tujuanPenggunaan.produkObject.produk}"></td>
+                                <td th:text="${tujuanPenggunaan.produkName}" th:attr="data-filter=${tujuanPenggunaan.produkName}"></td>
                                 <td th:text="${tujuanPenggunaan.deskripsi}" th:attr="data-filter=${tujuanPenggunaan.deskripsi}"></td>
-                                <td th:text="${#dates.format(tujuanPenggunaan.start_date,'dd-MM-yyyy')}" th:attr="data-filter=${tujuanPenggunaan.start_date}"></td>
-                                <td th:text="${#dates.format(tujuanPenggunaan.end_date,'dd-MM-yyyy')}" th:attr="data-filter=${tujuanPenggunaan.end_date}"></td>
+                                <td th:text="${#dates.format(tujuanPenggunaan.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${tujuanPenggunaan.startBerlaku}"></td>
+                                <td th:text="${#dates.format(tujuanPenggunaan.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${tujuanPenggunaan.endBerlaku}"></td>
 
                                 <td th:if="${tujuanPenggunaan.statusApproval == null or tujuanPenggunaan.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
@@ -72,10 +72,10 @@
                                 <td th:if="${tujuanPenggunaan.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${tujuanPenggunaan.statusApproval == 2 and tujuanPenggunaan.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${tujuanPenggunaan.statusApproval == 2 and tujuanPenggunaan.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${tujuanPenggunaan.statusApproval == 2 and tujuanPenggunaan.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${tujuanPenggunaan.statusApproval == 2 and tujuanPenggunaan.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 

@@ -13,11 +13,16 @@ import javax.validation.constraints.NotNull;
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.RateBungaExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.data.RateBunga;
+import com.CMS.CentralParam.KKBSK.model.form.RateBungaForm;
 import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCluster;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisKendaraan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPembiayaan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponTipeKonsumen;
 import com.CMS.CentralParam.KKBSK.model.response.ResponRateBunga;
+import com.CMS.CentralParam.KKBSK.view.vwRateBunga;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+
 @Controller
 public class RateBungaController {
 
@@ -47,10 +53,36 @@ public class RateBungaController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/RateBunga/InputData", method = RequestMethod.GET)
-	public String RateBungaInputData(RateBunga dataRateBunga) {
+	public String RateBungaInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
+				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponCluster.class);
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+
+			RateBungaForm rateBungaForm = new RateBungaForm();
+			rateBungaForm.setLoanType(0);
+			rateBungaForm.setJenisKendaraan(0);
+
+			model.addAttribute("rateBunga", rateBungaForm);
+
 			return "/pages/MasterParameter/RateBunga/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -65,14 +97,14 @@ public class RateBungaController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=RateBunga_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponRateBunga> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/ratebunga/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponRateBunga.class);
 
-        List<RateBunga> listRateBunga = respon.getBody().getDataRateBunga();
+        List<vwRateBunga> listRateBunga = respon.getBody().getDataRateBunga();
          
         RateBungaExcelExporter excelExporter = new RateBungaExcelExporter(listRateBunga);
          
@@ -80,20 +112,112 @@ public class RateBungaController {
     }  
 	
 	@PostMapping(value = "/RateBunga/ActionInputData")
-	public String RateBungaActionInputData(@Valid RateBunga dataRateBunga, BindingResult result,String action) {
-		// if(dataRateBunga.getEndBerlaku().before(dataRateBunga.getStartBerlaku())) {
-		// 	result.rejectValue("endBerlaku", "error.dataRateBunga", "End date must be greater than start date");
-		// }
+	public String RateBungaActionInputData(@Valid RateBungaForm rateBunga, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(rateBunga.getEndBerlaku().before(rateBunga.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.rateBunga", "End date must be greater than start date");
+			}
+			if(rateBunga.getCluster().size() == 0) {
+				result.rejectValue("cluster", "error.rateBunga", "You must choose Cluster");
+			}
+			if(rateBunga.getJenisPembiayaan().size() == 0) {
+				result.rejectValue("jenisPembiayaan", "error.rateBunga", "You must choose Jenis Pembiayaan");
+			}
+		}
 
 		if (result.hasErrors()) {
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
+				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponCluster.class);
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+			model.addAttribute("rateBunga", rateBunga);
             return "/pages/MasterParameter/RateBunga/InputData";
         }
 
+
+		try {
+			rateBunga.getCluster().forEach((cluster) -> {
+				rateBunga.getJenisPembiayaan().forEach((jenisPembiayaan) -> {
+					// RateBunga temp = new RateBunga(null, 
+					// rateBunga.getNamaSkema(), rateBunga.getTipeKonsumen(), rateBunga.getJenisKendaraan(), jenisPembiayaan, cluster, rateBunga.getDiskonNpwp(), 
+					// rateBunga.getTenor1(), rateBunga.getTenor2(), rateBunga.getTenor3(), rateBunga.getTenor4(), rateBunga.getTenor5(), rateBunga.getTenor6(), rateBunga.getTenor7(), rateBunga.getTenor8(), rateBunga.getTenor9(), rateBunga.getTenor10(),
+					// rateBunga.getStartBerlaku(), rateBunga.getEndBerlaku(), null, null, null, null, null, null, null, null);
+
+					// try {
+					// 	restTemplate.exchange(
+					// 		apiBaseUrl+"/api/ratebunga/"+HelperConf.getAction(action), 
+					// 		HttpMethod.POST, 
+					// 		HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
+					// 		String.class
+					// 	);
+					// } catch (Exception e) {
+						
+					// }
+
+				});
+			});
+
+			
+			return "redirect:/RateBunga/Data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/RateBunga/ActionEditData")
+	public String RateBungaActionEditData(@Valid RateBunga rateBunga, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(rateBunga.getEndBerlaku().before(rateBunga.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.rateBunga", "End date must be greater than start date");
+			}
+		}
+
+		if (result.hasErrors()) {
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
+				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponCluster.class);
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+			model.addAttribute("rateBunga", rateBunga);
+            return "/pages/MasterParameter/RateBunga/EditData";
+        }
+
+
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/ratebunga/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataRateBunga)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(rateBunga)), 
 				String.class
 			);
 			
@@ -105,20 +229,16 @@ public class RateBungaController {
 	}
 
 	@PostMapping(value = "/RateBunga/ActionApprovalData")
-	public String RateBungaActionApprovalData(@Valid RateBunga dataRateBunga, BindingResult result,String action) {
-		if (result.hasErrors()) {
-            return "/pages/MasterParameter/RateBunga/ApprovalData";
-        }
-
+	public String RateBungaActionApprovalData(RateBunga rateBunga, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action+"Data", 
+				apiBaseUrl+"/api/ratebunga/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataRateBunga)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(rateBunga)), 
 				String.class
 			);
-			
-			return "redirect:/RateBunga/Data";
+
+			return "redirect:/RateBunga/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
@@ -130,7 +250,7 @@ public class RateBungaController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/ratebunga/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -141,12 +261,13 @@ public class RateBungaController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/RateBunga/ActionApproval")
 	public String RateBungaActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/ratebunga/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -157,17 +278,39 @@ public class RateBungaController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/RateBunga/EditData/{id}", method = RequestMethod.GET)
 	public String RateBungaEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponRateBunga> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/ratebunga/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponRateBunga.class
 			);
 
-			model.addAttribute("dataRateBunga",respon.getBody().getDataRateBunga());
+			model.addAttribute("rateBunga",respon.getBody().getRateBunga());
+
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
+				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponCluster.class);
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+			
 			return "/pages/MasterParameter/RateBunga/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -179,10 +322,11 @@ public class RateBungaController {
 	public String getListRateBunga(Model model) {
 		try {
 			ResponseEntity<ResponRateBunga> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/ratebunga/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponRateBunga.class);
 
-			model.addAttribute("listDataRateBunga", respon.getBody().getDataRateBunga());
+			model.addAttribute("listRateBunga", respon.getBody().getDataRateBunga());
+
 			return "/pages/MasterParameter/RateBunga/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -194,10 +338,11 @@ public class RateBungaController {
 	public String getListApprovalRateBunga(Model model) {
 		try {
 			ResponseEntity<ResponRateBunga> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/ratebunga/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponRateBunga.class);
 
-			model.addAttribute("listDataRateBunga", respon.getBody().getDataRateBunga());
+			model.addAttribute("listRateBunga", respon.getBody().getDataRateBunga());
+			
 			return "/pages/MasterParameter/RateBunga/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -209,13 +354,33 @@ public class RateBungaController {
 	public String RateBungaFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponRateBunga> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/ratebunga/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponRateBunga.class
 			);
+			model.addAttribute("rateBunga",respon.getBody().getRateBunga());
 
-			model.addAttribute("dataRateBunga",respon.getBody().getDataRateBunga());
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
+				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponCluster.class);
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+
 			return "/pages/MasterParameter/RateBunga/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

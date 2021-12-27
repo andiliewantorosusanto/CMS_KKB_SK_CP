@@ -44,16 +44,16 @@ public class BiayaAdminExcelExporter {
         createCell(row, rowCount++, "Jenis Pembiayaan", style);
         createCell(row, rowCount++, "Cluster", style);
         createCell(row, rowCount++, "NPWP", style);
-        createCell(row, rowCount++, "Tahun 1 (%)", style);
-        createCell(row, rowCount++, "Tahun 2 (%)", style);
-        createCell(row, rowCount++, "Tahun 3 (%)", style);
-        createCell(row, rowCount++, "Tahun 4 (%)", style);
-        createCell(row, rowCount++, "Tahun 5 (%)", style);
-        createCell(row, rowCount++, "Tahun 6 (%)", style);
-        createCell(row, rowCount++, "Tahun 7 (%)", style);
-        createCell(row, rowCount++, "Tahun 8 (%)", style);
-        createCell(row, rowCount++, "Tahun 9 (%)", style);
-        createCell(row, rowCount++, "Tahun 10 (%)", style);
+        createCell(row, rowCount++, "Tahun 1 (Rp)", style);
+        createCell(row, rowCount++, "Tahun 2 (Rp)", style);
+        createCell(row, rowCount++, "Tahun 3 (Rp)", style);
+        createCell(row, rowCount++, "Tahun 4 (Rp)", style);
+        createCell(row, rowCount++, "Tahun 5 (Rp)", style);
+        createCell(row, rowCount++, "Tahun 6 (Rp)", style);
+        createCell(row, rowCount++, "Tahun 7 (Rp)", style);
+        createCell(row, rowCount++, "Tahun 8 (Rp)", style);
+        createCell(row, rowCount++, "Tahun 9 (Rp)", style);
+        createCell(row, rowCount++, "Tahun 10 (Rp)", style);
         createCell(row, rowCount++, "Masa Berlaku Start", style);
         createCell(row, rowCount++, "Masa Berlaku End", style);
     }

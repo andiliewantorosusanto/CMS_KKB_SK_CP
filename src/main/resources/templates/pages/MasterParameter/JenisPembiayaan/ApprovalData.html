@@ -14,16 +14,16 @@
                 <div class="row"> 
                   <div class="col-12">
                     <div class="card">
-                      <div class="card-header"> Data - Tujuan Penggunaan</div>
+                      <div class="card-header"> Data - Jenis Pembiayaan</div>
                       <div class="card-body" id="body" style="overflow-x:auto;">
                         <table id="table" class="table table-striped table-bordered datatables" style="width:100%;">
                           <thead>
                             <tr role="row">
                               <th><input type="checkbox" id="check-all"></th>
                               <th></th>
-                              <th id="fil-jenis_pembiayaan"></th>
+                              <th id="fil-nama"></th>
                               <th id="fil-produk"></th>
-                              <th id="fil-is_refinancing"></th>
+                              <th></th>
                               <th></th>
                               <th></th>
                               <th id="fil-status"></th>
@@ -32,9 +32,9 @@
                             <tr role="filter">
                               <th data-value="checkbox"></th>
                               <th data-value="actions">Actions</th>
-                              <th data-value="jenis_pembiayaan">Jenis Pembiayaan</th>
+                              <th data-value="nama">Nama</th>
                               <th data-value="produk">Produk</th>
-                              <th data-value="is_refinancing">Is Refinancing</th>
+                              <th data-value="deskripsi">Is Refinancing</th>
                               <th data-value="start_date">Start Date</th>
                               <th data-value="end_date">End Date</th>
                               <th data-value="status">Status</th>
@@ -42,38 +42,39 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="jenisPembiayaan :${listDataJenisPembiayaan}">
+                            <tr th:each="jenisPembiayaan :${listJenisPembiayaan}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${jenisPembiayaan.id}">
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/JenisPembiayaan/EditData/{id}(id=${jenisPembiayaan.id})}">
+                                <a class="btn btn-success" th:href="@{/JenisPembiayaan/FormApprovalData/{id}(id=${jenisPembiayaan.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
                                 </svg></a>
                                 </td>
                                 
-                                <td th:text="${jenisPembiayaan.jenis_pembiayaan}" th:attr="data-filter=${jenisPembiayaan.jenis_pembiayaan}"></td>
-                                <td th:text="${jenisPembiayaan.produk}" th:attr="data-filter=${jenisPembiayaan.produk}"></td>
-                                <td th:text="${jenisPembiayaan.is_refinancing}" th:attr="data-filter=${jenisPembiayaan.is_refinancing}"></td>
-                                <td th:text="${#dates.format(jenisPembiayaan.start_date,'dd-MM-yyyy')}" th:attr="data-filter=${jenisPembiayaan.start_date}"></td>
-                                <td th:text="${#dates.format(jenisPembiayaan.end_date,'dd-MM-yyyy')}" th:attr="data-filter=${jenisPembiayaan.end_date}"></td>
-                                
+                                <td th:text="${jenisPembiayaan.jenisPembiayaan}" th:attr="data-filter=${jenisPembiayaan.jenisPembiayaan}"></td>
+                                <td th:text="${jenisPembiayaan.produkName}" th:attr="data-filter=${jenisPembiayaan.produkName}"></td>
+                                <td th:text="${jenisPembiayaan.isRefinancing}" th:attr="data-filter=${jenisPembiayaan.isRefinancing}"></td>
+                                <td th:text="${#dates.format(jenisPembiayaan.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${jenisPembiayaan.startBerlaku}"></td>
+                                <td th:text="${#dates.format(jenisPembiayaan.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${jenisPembiayaan.endBerlaku}"></td>
+
                                 <td th:if="${jenisPembiayaan.statusApproval == null or jenisPembiayaan.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
                                 <td th:if="${jenisPembiayaan.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${jenisPembiayaan.statusApproval == 2 and jenisPembiayaan.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${jenisPembiayaan.statusApproval == 2 and jenisPembiayaan.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${jenisPembiayaan.statusApproval == 2 and jenisPembiayaan.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${jenisPembiayaan.statusApproval == 2 and jenisPembiayaan.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
+
 
                                 <td th:text="${jenisPembiayaan.remarks}"></td>
                             </tr>
@@ -101,7 +102,7 @@
     </div>
     <div th:replace="fragments/common :: scripts"></div>
     <script>
-      let _FILTER_COLUMN = ['produk','status'];
+      let _FILTER_COLUMN = ['nama','produk','status'];
       let selectedIds = [];
       let table = $('#table').DataTable( {
           "scrollX": true,

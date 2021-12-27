@@ -13,36 +13,40 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
-                                    <div class="card-header"> Form Input - Tipe Konsumen
+                                    <div class="card-header"> Form Input - Jenis Kendaraan
                                         <div class="card-header-actions"></div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <form id="signupForm" th:action="@{/JenisKendaraan/ActionApprovalData}"  th:object="${dataJenisKendaraan}" method="post" novalidate="novalidate">
-                                                    <input type="hidden" th:field="*{id}" id="id" name="id">
+                                                <form id="signupForm" th:action="@{/JenisKendaraan/ActionApprovalData}"  th:object="${jenisKendaraan}" method="post" novalidate="novalidate">
+                                                    <input readonly type="hidden" th:field="*{id}" id="id" nama="id">
                                                     <div class="form-group">
-                                                        <label class="col-form-label" for="jenis_kendaraan">Jenis Kendaraan</label>
-                                                        <input class="form-control" id="jenis_kendaraan" type="text" name="jenis_kendaraan" th:field="*{jenis_kendaraan}"
-                                                            placeholder="jenis_kendaraan" readonly>
+                                                        <label class="col-form-label" for="jenisKendaraan">Jenis Kendaraan</label>
+                                                        <input class="form-control" id="jenisKendaraan" type="text" name="jenisKendaraan" th:field="*{jenisKendaraan}"
+                                                            placeholder="Jenis Kendaraan" th:classappend="${#fields.hasErrors('jenisKendaraan')} ?  is-invalid">
+                                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('jenisKendaraan')}" th:errors="*{jenisKendaraan}"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="firstname">Deskripsi</label>
                                                         <input class="form-control" id="deskripsi" type="text" name="deskripsi" th:field="*{deskripsi}"
-                                                            placeholder="deskripsi" readonly>
+                                                            placeholder="deskripsi" th:classappend="${#fields.hasErrors('deskripsi')} ?  is-invalid">
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('deskripsi')}" th:errors="*{deskripsi}"></div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Masa Berlaku
                                                                 Start</label>
                                                             <input class="form-control" id="startBerlaku" type="date" th:field="*{startBerlaku}"
-                                                                name="startBerlaku" readonly>
+                                                                name="startBerlaku" th:classappend="${#fields.hasErrors('startBerlaku')} ?  is-invalid">
+                                                                <div class="invalid-feedback" th:if="${#fields.hasErrors('startBerlaku')}" th:errors="*{startBerlaku}"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="confirm_password">Masa Berlaku
                                                                 End</label>
                                                             <input class="form-control" id="endBerlaku" type="date" th:field="*{endBerlaku}"
-                                                                name="endBerlaku" readonly>
+                                                                name="endBerlaku" th:classappend="${#fields.hasErrors('endBerlaku')} ?  is-invalid">
+                                                                <div class="invalid-feedback" th:if="${#fields.hasErrors('endBerlaku')}" th:errors="*{endBerlaku}"></div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -50,7 +54,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                             value="approve">Approve</button>
                                                         <button class="btn btn-danger" type="submit" name="action"
                                                             value="decline">Decline</button>
-                                                        <a href="/JenisKendaraan/Data"><button class="btn btn-secondary" type="button">Cancel</button></a>
+                                                        <a href="/JenisKendaraan/ApprovalData"><button class="btn btn-secondary" type="button">Cancel</button></a>
                                                     </div>
                                                 </form>
                                             </div>

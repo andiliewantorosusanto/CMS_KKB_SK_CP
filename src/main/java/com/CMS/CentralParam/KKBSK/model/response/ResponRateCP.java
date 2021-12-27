@@ -4,6 +4,7 @@ package com.CMS.CentralParam.KKBSK.model.response;
 import java.util.List;
 
 import com.CMS.CentralParam.KKBSK.model.data.RateCP;
+import com.CMS.CentralParam.KKBSK.view.vwRateCP;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ResponRateCP {
 
     @JsonProperty("dataRateCP")
-    private List<RateCP> dataRateCP = null;
+    private List<vwRateCP> dataRateCP = null;
     @JsonProperty("rateCP")
     private RateCP rateCP = null;
     @JsonProperty("code")
@@ -35,7 +36,7 @@ public class ResponRateCP {
      * @param dataRateCP
      * @param code
      */
-    public ResponRateCP(List<RateCP> dataRateCP,RateCP rateCP,String code) {
+    public ResponRateCP(List<vwRateCP> dataRateCP,RateCP rateCP,String code) {
         super();
         this.dataRateCP = dataRateCP;
         this.rateCP = rateCP;
@@ -43,12 +44,12 @@ public class ResponRateCP {
     }
 
     @JsonProperty("dataRateCP")
-    public List<RateCP> getDataRateCP() {
+    public List<vwRateCP> getDataRateCP() {
         return dataRateCP;
     }
 
     @JsonProperty("dataRateCP")
-    public void setDataRateCP(List<RateCP> dataRateCP) {
+    public void setDataRateCP(List<vwRateCP> dataRateCP) {
         this.dataRateCP = dataRateCP;
     }
 

@@ -4,6 +4,7 @@ package com.CMS.CentralParam.KKBSK.model.response;
 import java.util.List;
 
 import com.CMS.CentralParam.KKBSK.model.data.JenisPembiayaan;
+import com.CMS.CentralParam.KKBSK.view.vwJenisPembiayaan;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ResponJenisPembiayaan {
 
     @JsonProperty("dataJenisPembiayaan")
-    private List<JenisPembiayaan> dataJenisPembiayaan = null;
+    private List<vwJenisPembiayaan> dataJenisPembiayaan = null;
     @JsonProperty("jenisPembiayaan")
     private JenisPembiayaan jenisPembiayaan = null;
     @JsonProperty("code")
@@ -35,7 +36,7 @@ public class ResponJenisPembiayaan {
      * @param dataJenisPembiayaan
      * @param code
      */
-    public ResponJenisPembiayaan(List<JenisPembiayaan> dataJenisPembiayaan,JenisPembiayaan jenisPembiayaan,String code) {
+    public ResponJenisPembiayaan(List<vwJenisPembiayaan> dataJenisPembiayaan,JenisPembiayaan jenisPembiayaan,String code) {
         super();
         this.dataJenisPembiayaan = dataJenisPembiayaan;
         this.jenisPembiayaan = jenisPembiayaan;
@@ -43,12 +44,12 @@ public class ResponJenisPembiayaan {
     }
 
     @JsonProperty("dataJenisPembiayaan")
-    public List<JenisPembiayaan> getDataJenisPembiayaan() {
+    public List<vwJenisPembiayaan> getDataJenisPembiayaan() {
         return dataJenisPembiayaan;
     }
 
     @JsonProperty("dataJenisPembiayaan")
-    public void setDataJenisPembiayaan(List<JenisPembiayaan> dataJenisPembiayaan) {
+    public void setDataJenisPembiayaan(List<vwJenisPembiayaan> dataJenisPembiayaan) {
         this.dataJenisPembiayaan = dataJenisPembiayaan;
     }
 

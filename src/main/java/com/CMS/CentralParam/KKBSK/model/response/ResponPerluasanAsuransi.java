@@ -4,6 +4,7 @@ package com.CMS.CentralParam.KKBSK.model.response;
 import java.util.List;
 
 import com.CMS.CentralParam.KKBSK.model.data.PerluasanAsuransi;
+import com.CMS.CentralParam.KKBSK.view.vwPerluasanAsuransi;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ResponPerluasanAsuransi {
 
     @JsonProperty("dataPerluasanAsuransi")
-    private List<PerluasanAsuransi> dataPerluasanAsuransi = null;
+    private List<vwPerluasanAsuransi> dataPerluasanAsuransi = null;
     @JsonProperty("perluasanAsuransi")
     private PerluasanAsuransi perluasanAsuransi = null;
     @JsonProperty("code")
@@ -35,7 +36,7 @@ public class ResponPerluasanAsuransi {
      * @param dataPerluasanAsuransi
      * @param code
      */
-    public ResponPerluasanAsuransi(List<PerluasanAsuransi> dataPerluasanAsuransi,PerluasanAsuransi perluasanAsuransi,String code) {
+    public ResponPerluasanAsuransi(List<vwPerluasanAsuransi> dataPerluasanAsuransi,PerluasanAsuransi perluasanAsuransi,String code) {
         super();
         this.dataPerluasanAsuransi = dataPerluasanAsuransi;
         this.perluasanAsuransi = perluasanAsuransi;
@@ -43,12 +44,12 @@ public class ResponPerluasanAsuransi {
     }
 
     @JsonProperty("dataPerluasanAsuransi")
-    public List<PerluasanAsuransi> getDataPerluasanAsuransi() {
+    public List<vwPerluasanAsuransi> getDataPerluasanAsuransi() {
         return dataPerluasanAsuransi;
     }
 
     @JsonProperty("dataPerluasanAsuransi")
-    public void setDataPerluasanAsuransi(List<PerluasanAsuransi> dataPerluasanAsuransi) {
+    public void setDataPerluasanAsuransi(List<vwPerluasanAsuransi> dataPerluasanAsuransi) {
         this.dataPerluasanAsuransi = dataPerluasanAsuransi;
     }
 

@@ -12,18 +12,18 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card">
-                                        <div class="card-header"> Form Input - Jenis Kendaraan
+                                        <div class="card-header"> Form Input - Tipe Asuransi
                                             <div class="card-header-actions"></div>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <form id="signupForm" th:action="@{/TipeAsuransi/ActionInputData}"  th:object="${dataTipeAsuransi}" method="post" novalidate="novalidate">
+                                                    <form id="signupForm" th:action="@{/TipeAsuransi/ActionEditData}"  th:object="${tipeAsuransi}" method="post">
                                                         <input type="hidden" th:field="*{id}" id="id" nama="id">
                                                         <div class="form-group">
                                                             <label class="col-form-label" for="namaAsuransi">Nama Asuransi</label>
                                                             <input class="form-control" id="namaAsuransi" type="text" name="namaAsuransi" th:field="*{namaAsuransi}"
-                                                                placeholder="namaAsuransi" th:classappend="${#fields.hasErrors('namaAsuransi')} ?  is-invalid">
+                                                                placeholder="Tipe Asuransi" th:classappend="${#fields.hasErrors('namaAsuransi')} ?  is-invalid">
                                                             <div class="invalid-feedback" th:if="${#fields.hasErrors('namaAsuransi')}" th:errors="*{namaAsuransi}"></div>
                                                         </div>
                                                         <div class="form-group">

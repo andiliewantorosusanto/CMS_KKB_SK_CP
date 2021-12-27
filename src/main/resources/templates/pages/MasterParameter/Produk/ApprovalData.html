@@ -21,7 +21,7 @@
                             <tr role="row">
                               <th><input type="checkbox" id="check-all"></th>
                               <th></th>
-                              <th id="fil-produk"></th>
+                              <th id="fil-nama"></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -31,7 +31,7 @@
                             <tr role="filter">
                               <th data-value="checkbox"></th>
                               <th data-value="actions">Actions</th>
-                              <th data-value="produk">Nama Produk</th>
+                              <th data-value="nama">Nama</th>
                               <th data-value="deskripsi">Deskripsi</th>
                               <th data-value="start_date">Start Date</th>
                               <th data-value="end_date">End Date</th>
@@ -40,14 +40,14 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="produk :${listDataProduk}">
+                            <tr th:each="produk :${listProduk}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${produk.id}">
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/ProdukEditData/{id}(id=${produk.id})}">
+                                <a class="btn btn-success" th:href="@{/Produk/FormApprovalData/{id}(id=${produk.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
@@ -65,14 +65,14 @@
                                 <td th:if="${produk.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${produk.statusApproval == 2 and produk.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${produk.statusApproval == 2 and produk.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${produk.statusApproval == 2 and produk.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${produk.statusApproval == 2 and produk.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 
-                                
+
                                 <td th:text="${produk.remarks}"></td>
                             </tr>
                           </tbody>
@@ -99,7 +99,7 @@
     </div>
     <div th:replace="fragments/common :: scripts"></div>
     <script>
-      let _FILTER_COLUMN = ['status'];
+      let _FILTER_COLUMN = ['nama','status'];
       let selectedIds = [];
       let table = $('#table').DataTable( {
           "scrollX": true,

@@ -14,14 +14,14 @@
                 <div class="row"> 
                   <div class="col-12">
                     <div class="card">
-                      <div class="card-header"> Data - Tujuan Penggunaan</div>
+                      <div class="card-header"> Data - Tipe Asuransi</div>
                       <div class="card-body" id="body" style="overflow-x:auto;">
                         <table id="table" class="table table-striped table-bordered datatables" style="width:100%;">
                           <thead>
                             <tr role="row">
                               <th><input type="checkbox" id="check-all"></th>
                               <th></th>
-                              <th id="fil-namaAsuransi"></th>
+                              <th id="fil-nama"></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -31,7 +31,7 @@
                             <tr role="filter">
                               <th data-value="checkbox"></th>
                               <th data-value="actions">Actions</th>
-                              <th data-value="namaAsuransi">Nama Asuransi</th>
+                              <th data-value="nama">Nama</th>
                               <th data-value="deskripsi">Deskripsi</th>
                               <th data-value="start_date">Start Date</th>
                               <th data-value="end_date">End Date</th>
@@ -40,14 +40,14 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="tipeAsuransi :${listDataTipeAsuransi}">
+                            <tr th:each="tipeAsuransi :${listTipeAsuransi}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${tipeAsuransi.id}">
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/TipeAsuransiEditData/{id}(id=${tipeAsuransi.id})}">
+                                <a class="btn btn-success" th:href="@{/TipeAsuransi/FormApprovalData/{id}(id=${tipeAsuransi.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
@@ -65,10 +65,10 @@
                                 <td th:if="${tipeAsuransi.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${tipeAsuransi.statusApproval == 2 and tipeAsuransi.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${tipeAsuransi.statusApproval == 2 and tipeAsuransi.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${tipeAsuransi.statusApproval == 2 and tipeAsuransi.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${tipeAsuransi.statusApproval == 2 and tipeAsuransi.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 
@@ -99,7 +99,7 @@
     </div>
     <div th:replace="fragments/common :: scripts"></div>
     <script>
-      let _FILTER_COLUMN = ['status'];
+      let _FILTER_COLUMN = ['nama','status'];
       let selectedIds = [];
       let table = $('#table').DataTable( {
           "scrollX": true,
@@ -108,7 +108,7 @@
                 if(_FILTER_COLUMN.includes($(this.header()).data('value'))) {
                   var header = $(this.header()).data('value');
                   var column = this;
-                  var select = $('<select ><option value=""></option></select>')
+                  var select = $('<select class="form-control" style="width:auto;"><option value=""></option></select>')
                       .appendTo( $("#"+"fil-"+header).empty() )
                       .on( 'change', function () {
                           var val = $.fn.dataTable.util.escapeRegex(

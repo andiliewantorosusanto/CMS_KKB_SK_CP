@@ -12,47 +12,47 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card">
-                                        <div class="card-header"> Form Input - JenisPembiayaan
+                                        <div class="card-header"> Form Input - Jenis Pembiayaan
                                             <div class="card-header-actions"></div>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <form id="signupForm" th:action="@{/JenisPembiayaan/ActionInputData}"  th:object="${dataJenisPembiayaan}" method="post" novalidate="novalidate">
+                                                    <form id="signupForm" th:action="@{/JenisPembiayaan/ActionInputData}"  th:object="${jenisPembiayaan}" method="post" novalidate="novalidate">
                                                         <div class="form-group">
-                                                            <label class="col-form-label" for="jenis_pembiayaan">Jenis Pembiayaan</label>
-                                                            <input class="form-control" id="jenis_pembiayaan" type="text" name="jenis_pembiayaan" th:field="*{jenis_pembiayaan}"
-                                                                placeholder="jenis_pembiayaan" th:classappend="${#fields.hasErrors('jenis_pembiayaan')} ?  is-invalid">
-                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('jenis_pembiayaan')}" th:errors="*{jenis_pembiayaan}"></div>
+                                                            <label class="col-form-label" for="jenisPembiayaan">Jenis Pembiayaan</label>
+                                                            <input class="form-control" id="jenisPembiayaan" type="text" name="jenisPembiayaan" th:field="*{jenisPembiayaan}"
+                                                                placeholder="jenisPembiayaan" th:classappend="${#fields.hasErrors('jenisPembiayaan')} ?  is-invalid">
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('jenisPembiayaan')}" th:errors="*{jenisPembiayaan}"></div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-form-label" for="firstname">Produk</label>
                                                             <select class="form-control" id="produk" type="text" name="produk" th:field="*{produk}"
                                                             placeholder="produk" th:classappend="${#fields.hasErrors('produk')} ?  is-invalid">
-                                                                <option th:each="dataProduk :${listDataProduk}" th:value="${dataProduk.id}" th:text="${dataProduk.produk}"></option>
+                                                                <option th:each="dataProduk :${listProduk}" th:value="${dataProduk.id}" th:text="${dataProduk.produk}"></option>
                                                             </select>
                                                             <div class="invalid-feedback" th:if="${#fields.hasErrors('produk')}" th:errors="*{produk}"></div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-form-label" for="firstname">Is Refinancing</label>
-                                                            <input class="form-control" id="is_refinancing" type="text" name="is_refinancing" th:field="*{is_refinancing}"
-                                                                placeholder="is_refinancing" th:classappend="${#fields.hasErrors('is_refinancing')} ?  is-invalid">
-                                                                <div class="invalid-feedback" th:if="${#fields.hasErrors('is_refinancing')}" th:errors="*{is_refinancing}"></div>
+                                                            <input class="form-control" id="isRefinancing" type="text" name="isRefinancing" th:field="*{isRefinancing}"
+                                                                placeholder="isRefinancing" th:classappend="${#fields.hasErrors('isRefinancing')} ?  is-invalid">
+                                                                <div class="invalid-feedback" th:if="${#fields.hasErrors('isRefinancing')}" th:errors="*{isRefinancing}"></div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
                                                                 <label class="col-form-label" for="password">Masa Berlaku
                                                                     Start</label>
-                                                                <input class="form-control" id="start_date" type="date" th:field="*{start_date}"
-                                                                    name="start_date" th:classappend="${#fields.hasErrors('start_date')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('start_date')}" th:errors="*{start_date}"></div>
+                                                                <input class="form-control" id="startBerlaku" type="date" th:field="*{startBerlaku}"
+                                                                    name="startBerlaku" th:classappend="${#fields.hasErrors('startBerlaku')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('startBerlaku')}" th:errors="*{startBerlaku}"></div>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label class="col-form-label" for="confirm_password">Masa Berlaku
                                                                     End</label>
-                                                                <input class="form-control" id="end_date" type="date" th:field="*{end_date}"
-                                                                    name="end_date" th:classappend="${#fields.hasErrors('end_date')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('end_date')}" th:errors="*{end_date}"></div>
+                                                                <input class="form-control" id="endBerlaku" type="date" th:field="*{endBerlaku}"
+                                                                    name="endBerlaku" th:classappend="${#fields.hasErrors('endBerlaku')} ?  is-invalid">
+                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('endBerlaku')}" th:errors="*{endBerlaku}"></div>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">

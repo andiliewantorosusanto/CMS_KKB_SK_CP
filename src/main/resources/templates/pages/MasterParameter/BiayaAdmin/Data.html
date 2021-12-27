@@ -36,11 +36,11 @@
                               <th></th>
                               <th id="fil-nama_skema"></th>
                               <th id="fil-tipe_konsumen"></th>
-                              <th id="fil-tipe_asuransi"></th>
                               <th id="fil-Jenis_kendaraan"></th>
                               <th id="fil-jenis_pembiayaan"></th>
                               <th id="fil-cluster"></th>
                               <th id="fil-npwp"></th>
+                              <th></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -64,16 +64,16 @@
                               <th data-value="jenis_pembiayaan">Jenis Pembiayaan</th>
                               <th data-value="cluster">Cluster</th>
                               <th data-value="npwp">NPWP</th>
-                              <th data-value="otr_start">Tenor 1 (%)</th>
-                              <th data-value="otr_start">Tenor 2 (%)</th>
-                              <th data-value="otr_start">Tenor 3 (%)</th>
-                              <th data-value="otr_start">Tenor 4 (%)</th>
-                              <th data-value="otr_start">Tenor 5 (%)</th>
-                              <th data-value="otr_start">Tenor 6 (%)</th>
-                              <th data-value="otr_start">Tenor 7 (%)</th>
-                              <th data-value="otr_start">Tenor 8 (%)</th>
-                              <th data-value="otr_start">Tenor 9 (%)</th>
-                              <th data-value="otr_start">Tenor 10 (%)</th>
+                              <th data-value="otr_start">Tenor 1 (Rp)</th>
+                              <th data-value="otr_start">Tenor 2 (Rp)</th>
+                              <th data-value="otr_start">Tenor 3 (Rp)</th>
+                              <th data-value="otr_start">Tenor 4 (Rp)</th>
+                              <th data-value="otr_start">Tenor 5 (Rp)</th>
+                              <th data-value="otr_start">Tenor 6 (Rp)</th>
+                              <th data-value="otr_start">Tenor 7 (Rp)</th>
+                              <th data-value="otr_start">Tenor 8 (Rp)</th>
+                              <th data-value="otr_start">Tenor 9 (Rp)</th>
+                              <th data-value="otr_start">Tenor 10 (Rp)</th>
                               <th data-value="otr_start">Masa Berlaku Start</th>
                               <th data-value="otr_start">Masa Berlaku End</th>
                               <th data-value="status">Status</th>
@@ -81,14 +81,14 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="biayaAdmin :${listDataBiayaAdmin}">
+                            <tr th:each="biayaAdmin :${listBiayaAdmin}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${biayaAdmin.id}">
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/BiayaAdminEditData/{id}(id=${biayaAdmin.id})}">
+                                <a class="btn btn-success" th:href="@{/BiayaAdmin/EditData/{id}(id=${biayaAdmin.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
@@ -100,7 +100,7 @@
                                 <td th:text="${biayaAdmin.jenisKendaraanName}" th:attr="data-filter=${biayaAdmin.jenisKendaraanName}"></td>
                                 <td th:text="${biayaAdmin.jenisPembiayaanName}" th:attr="data-filter=${biayaAdmin.jenisPembiayaanName}"></td>
                                 <td th:text="${biayaAdmin.clusterName}" th:attr="data-filter=${biayaAdmin.clusterName}"></td>
-                                <td th:text="${biayaAdmin.diskonNpwp}" th:attr="data-filter=${biayaAdmin.diskonNpwp}"></td>
+                                <td th:text="${biayaAdmin.diskonNpwpName}" th:attr="data-filter=${biayaAdmin.diskonNpwpName}"></td>
 
                                 <td th:text="${biayaAdmin.tenor1}" th:attr="data-filter=${biayaAdmin.tenor1}"></td>
                                 <td th:text="${biayaAdmin.tenor2}" th:attr="data-filter=${biayaAdmin.tenor2}"></td>
@@ -155,7 +155,7 @@
     </div>
     <div th:replace="fragments/common :: scripts"></div>
     <script>
-      let _FILTER_COLUMN = ['status'];
+      let _FILTER_COLUMN = ['nama_skema','tipe_konsumen','Jenis_kendaraan','jenis_pembiayaan','cluster','npwp','status'];
       let selectedIds = [];
       let table = $('#table').DataTable( {
           "scrollX": true,

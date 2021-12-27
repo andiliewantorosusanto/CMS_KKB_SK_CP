@@ -21,7 +21,8 @@ public class vwBiayaAdmin {
     private String clusterName;
 
     private Integer diskonNpwp;
-
+    private String diskonNpwpName;
+    
     private Integer tenor1;
     private Integer tenor2;
     private Integer tenor3;
@@ -40,17 +41,12 @@ public class vwBiayaAdmin {
     private String remarks;
     private Integer isRejected;
     private Integer isApproved;
+    
 
     public vwBiayaAdmin() {
-        
     }
 
-    public vwBiayaAdmin(Integer id, String namaSkema, Integer loanType, Integer tipeKonsumen,
-            String tipeKonsumenName, Integer jenisKendaraan, String jenisKendaraanName, Integer jenisPembiayaan,
-            String jenisPembiayaanName, Integer cluster, String clusterName, Integer diskonNpwp, Integer tenor1,
-            Integer tenor2, Integer tenor3, Integer tenor4, Integer tenor5, Integer tenor6, Integer tenor7,
-            Integer tenor8, Integer tenor9, Integer tenor10, Date startBerlaku, Date endBerlaku, Integer statusApproval,
-            String remarks, Integer isRejected, Integer isApproved) {
+    public vwBiayaAdmin(Integer id, String namaSkema, Integer loanType, Integer tipeKonsumen, String tipeKonsumenName, Integer jenisKendaraan, String jenisKendaraanName, Integer jenisPembiayaan, String jenisPembiayaanName, Integer cluster, String clusterName, Integer diskonNpwp, String diskonNpwpName, Integer tenor1, Integer tenor2, Integer tenor3, Integer tenor4, Integer tenor5, Integer tenor6, Integer tenor7, Integer tenor8, Integer tenor9, Integer tenor10, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved) {
         this.id = id;
         this.namaSkema = namaSkema;
         this.loanType = loanType;
@@ -63,6 +59,7 @@ public class vwBiayaAdmin {
         this.cluster = cluster;
         this.clusterName = clusterName;
         this.diskonNpwp = diskonNpwp;
+        this.diskonNpwpName = diskonNpwpName;
         this.tenor1 = tenor1;
         this.tenor2 = tenor2;
         this.tenor3 = tenor3;
@@ -82,7 +79,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -90,7 +87,7 @@ public class vwBiayaAdmin {
     }
 
     public String getNamaSkema() {
-        return namaSkema;
+        return this.namaSkema;
     }
 
     public void setNamaSkema(String namaSkema) {
@@ -98,7 +95,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getLoanType() {
-        return loanType;
+        return this.loanType;
     }
 
     public void setLoanType(Integer loanType) {
@@ -106,7 +103,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getTipeKonsumen() {
-        return tipeKonsumen;
+        return this.tipeKonsumen;
     }
 
     public void setTipeKonsumen(Integer tipeKonsumen) {
@@ -114,7 +111,7 @@ public class vwBiayaAdmin {
     }
 
     public String getTipeKonsumenName() {
-        return tipeKonsumenName;
+        return this.tipeKonsumenName;
     }
 
     public void setTipeKonsumenName(String tipeKonsumenName) {
@@ -122,7 +119,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getJenisKendaraan() {
-        return jenisKendaraan;
+        return this.jenisKendaraan;
     }
 
     public void setJenisKendaraan(Integer jenisKendaraan) {
@@ -130,7 +127,7 @@ public class vwBiayaAdmin {
     }
 
     public String getJenisKendaraanName() {
-        return jenisKendaraanName;
+        return this.jenisKendaraanName;
     }
 
     public void setJenisKendaraanName(String jenisKendaraanName) {
@@ -138,7 +135,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getJenisPembiayaan() {
-        return jenisPembiayaan;
+        return this.jenisPembiayaan;
     }
 
     public void setJenisPembiayaan(Integer jenisPembiayaan) {
@@ -146,7 +143,7 @@ public class vwBiayaAdmin {
     }
 
     public String getJenisPembiayaanName() {
-        return jenisPembiayaanName;
+        return this.jenisPembiayaanName;
     }
 
     public void setJenisPembiayaanName(String jenisPembiayaanName) {
@@ -154,7 +151,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getCluster() {
-        return cluster;
+        return this.cluster;
     }
 
     public void setCluster(Integer cluster) {
@@ -162,7 +159,7 @@ public class vwBiayaAdmin {
     }
 
     public String getClusterName() {
-        return clusterName;
+        return this.clusterName;
     }
 
     public void setClusterName(String clusterName) {
@@ -170,15 +167,23 @@ public class vwBiayaAdmin {
     }
 
     public Integer getDiskonNpwp() {
-        return diskonNpwp;
+        return this.diskonNpwp;
     }
 
     public void setDiskonNpwp(Integer diskonNpwp) {
         this.diskonNpwp = diskonNpwp;
     }
 
+    public String getDiskonNpwpName() {
+        return this.diskonNpwpName;
+    }
+
+    public void setDiskonNpwpName(String diskonNpwpName) {
+        this.diskonNpwpName = diskonNpwpName;
+    }
+
     public Integer getTenor1() {
-        return tenor1;
+        return this.tenor1;
     }
 
     public void setTenor1(Integer tenor1) {
@@ -186,7 +191,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getTenor2() {
-        return tenor2;
+        return this.tenor2;
     }
 
     public void setTenor2(Integer tenor2) {
@@ -194,7 +199,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getTenor3() {
-        return tenor3;
+        return this.tenor3;
     }
 
     public void setTenor3(Integer tenor3) {
@@ -202,7 +207,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getTenor4() {
-        return tenor4;
+        return this.tenor4;
     }
 
     public void setTenor4(Integer tenor4) {
@@ -210,7 +215,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getTenor5() {
-        return tenor5;
+        return this.tenor5;
     }
 
     public void setTenor5(Integer tenor5) {
@@ -218,7 +223,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getTenor6() {
-        return tenor6;
+        return this.tenor6;
     }
 
     public void setTenor6(Integer tenor6) {
@@ -226,7 +231,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getTenor7() {
-        return tenor7;
+        return this.tenor7;
     }
 
     public void setTenor7(Integer tenor7) {
@@ -234,7 +239,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getTenor8() {
-        return tenor8;
+        return this.tenor8;
     }
 
     public void setTenor8(Integer tenor8) {
@@ -242,7 +247,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getTenor9() {
-        return tenor9;
+        return this.tenor9;
     }
 
     public void setTenor9(Integer tenor9) {
@@ -250,7 +255,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getTenor10() {
-        return tenor10;
+        return this.tenor10;
     }
 
     public void setTenor10(Integer tenor10) {
@@ -258,7 +263,7 @@ public class vwBiayaAdmin {
     }
 
     public Date getStartBerlaku() {
-        return startBerlaku;
+        return this.startBerlaku;
     }
 
     public void setStartBerlaku(Date startBerlaku) {
@@ -266,7 +271,7 @@ public class vwBiayaAdmin {
     }
 
     public Date getEndBerlaku() {
-        return endBerlaku;
+        return this.endBerlaku;
     }
 
     public void setEndBerlaku(Date endBerlaku) {
@@ -274,7 +279,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getStatusApproval() {
-        return statusApproval;
+        return this.statusApproval;
     }
 
     public void setStatusApproval(Integer statusApproval) {
@@ -282,7 +287,7 @@ public class vwBiayaAdmin {
     }
 
     public String getRemarks() {
-        return remarks;
+        return this.remarks;
     }
 
     public void setRemarks(String remarks) {
@@ -290,7 +295,7 @@ public class vwBiayaAdmin {
     }
 
     public Integer getIsRejected() {
-        return isRejected;
+        return this.isRejected;
     }
 
     public void setIsRejected(Integer isRejected) {
@@ -298,11 +303,193 @@ public class vwBiayaAdmin {
     }
 
     public Integer getIsApproved() {
-        return isApproved;
+        return this.isApproved;
     }
 
     public void setIsApproved(Integer isApproved) {
         this.isApproved = isApproved;
     }
+
+    public vwBiayaAdmin id(Integer id) {
+        setId(id);
+        return this;
+    }
+
+    public vwBiayaAdmin namaSkema(String namaSkema) {
+        setNamaSkema(namaSkema);
+        return this;
+    }
+
+    public vwBiayaAdmin loanType(Integer loanType) {
+        setLoanType(loanType);
+        return this;
+    }
+
+    public vwBiayaAdmin tipeKonsumen(Integer tipeKonsumen) {
+        setTipeKonsumen(tipeKonsumen);
+        return this;
+    }
+
+    public vwBiayaAdmin tipeKonsumenName(String tipeKonsumenName) {
+        setTipeKonsumenName(tipeKonsumenName);
+        return this;
+    }
+
+    public vwBiayaAdmin jenisKendaraan(Integer jenisKendaraan) {
+        setJenisKendaraan(jenisKendaraan);
+        return this;
+    }
+
+    public vwBiayaAdmin jenisKendaraanName(String jenisKendaraanName) {
+        setJenisKendaraanName(jenisKendaraanName);
+        return this;
+    }
+
+    public vwBiayaAdmin jenisPembiayaan(Integer jenisPembiayaan) {
+        setJenisPembiayaan(jenisPembiayaan);
+        return this;
+    }
+
+    public vwBiayaAdmin jenisPembiayaanName(String jenisPembiayaanName) {
+        setJenisPembiayaanName(jenisPembiayaanName);
+        return this;
+    }
+
+    public vwBiayaAdmin cluster(Integer cluster) {
+        setCluster(cluster);
+        return this;
+    }
+
+    public vwBiayaAdmin clusterName(String clusterName) {
+        setClusterName(clusterName);
+        return this;
+    }
+
+    public vwBiayaAdmin diskonNpwp(Integer diskonNpwp) {
+        setDiskonNpwp(diskonNpwp);
+        return this;
+    }
+
+    public vwBiayaAdmin diskonNpwpName(String diskonNpwpName) {
+        setDiskonNpwpName(diskonNpwpName);
+        return this;
+    }
+
+    public vwBiayaAdmin tenor1(Integer tenor1) {
+        setTenor1(tenor1);
+        return this;
+    }
+
+    public vwBiayaAdmin tenor2(Integer tenor2) {
+        setTenor2(tenor2);
+        return this;
+    }
+
+    public vwBiayaAdmin tenor3(Integer tenor3) {
+        setTenor3(tenor3);
+        return this;
+    }
+
+    public vwBiayaAdmin tenor4(Integer tenor4) {
+        setTenor4(tenor4);
+        return this;
+    }
+
+    public vwBiayaAdmin tenor5(Integer tenor5) {
+        setTenor5(tenor5);
+        return this;
+    }
+
+    public vwBiayaAdmin tenor6(Integer tenor6) {
+        setTenor6(tenor6);
+        return this;
+    }
+
+    public vwBiayaAdmin tenor7(Integer tenor7) {
+        setTenor7(tenor7);
+        return this;
+    }
+
+    public vwBiayaAdmin tenor8(Integer tenor8) {
+        setTenor8(tenor8);
+        return this;
+    }
+
+    public vwBiayaAdmin tenor9(Integer tenor9) {
+        setTenor9(tenor9);
+        return this;
+    }
+
+    public vwBiayaAdmin tenor10(Integer tenor10) {
+        setTenor10(tenor10);
+        return this;
+    }
+
+    public vwBiayaAdmin startBerlaku(Date startBerlaku) {
+        setStartBerlaku(startBerlaku);
+        return this;
+    }
+
+    public vwBiayaAdmin endBerlaku(Date endBerlaku) {
+        setEndBerlaku(endBerlaku);
+        return this;
+    }
+
+    public vwBiayaAdmin statusApproval(Integer statusApproval) {
+        setStatusApproval(statusApproval);
+        return this;
+    }
+
+    public vwBiayaAdmin remarks(String remarks) {
+        setRemarks(remarks);
+        return this;
+    }
+
+    public vwBiayaAdmin isRejected(Integer isRejected) {
+        setIsRejected(isRejected);
+        return this;
+    }
+
+    public vwBiayaAdmin isApproved(Integer isApproved) {
+        setIsApproved(isApproved);
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", namaSkema='" + getNamaSkema() + "'" +
+            ", loanType='" + getLoanType() + "'" +
+            ", tipeKonsumen='" + getTipeKonsumen() + "'" +
+            ", tipeKonsumenName='" + getTipeKonsumenName() + "'" +
+            ", jenisKendaraan='" + getJenisKendaraan() + "'" +
+            ", jenisKendaraanName='" + getJenisKendaraanName() + "'" +
+            ", jenisPembiayaan='" + getJenisPembiayaan() + "'" +
+            ", jenisPembiayaanName='" + getJenisPembiayaanName() + "'" +
+            ", cluster='" + getCluster() + "'" +
+            ", clusterName='" + getClusterName() + "'" +
+            ", diskonNpwp='" + getDiskonNpwp() + "'" +
+            ", diskonNpwpName='" + getDiskonNpwpName() + "'" +
+            ", tenor1='" + getTenor1() + "'" +
+            ", tenor2='" + getTenor2() + "'" +
+            ", tenor3='" + getTenor3() + "'" +
+            ", tenor4='" + getTenor4() + "'" +
+            ", tenor5='" + getTenor5() + "'" +
+            ", tenor6='" + getTenor6() + "'" +
+            ", tenor7='" + getTenor7() + "'" +
+            ", tenor8='" + getTenor8() + "'" +
+            ", tenor9='" + getTenor9() + "'" +
+            ", tenor10='" + getTenor10() + "'" +
+            ", startBerlaku='" + getStartBerlaku() + "'" +
+            ", endBerlaku='" + getEndBerlaku() + "'" +
+            ", statusApproval='" + getStatusApproval() + "'" +
+            ", remarks='" + getRemarks() + "'" +
+            ", isRejected='" + getIsRejected() + "'" +
+            ", isApproved='" + getIsApproved() + "'" +
+            "}";
+    }
+    
+    
 
 }

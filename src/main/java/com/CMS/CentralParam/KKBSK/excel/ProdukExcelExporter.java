@@ -18,16 +18,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ProdukExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<Produk> listCluster;
+    private List<Produk> listProduk;
      
-    public ProdukExcelExporter(List<Produk> listCluster) {
-        this.listCluster = listCluster;
+    public ProdukExcelExporter(List<Produk> listProduk) {
+        this.listProduk = listProduk;
         workbook = new XSSFWorkbook();
     }
  
  
     private void writeHeaderLine() {
-        sheet = workbook.createSheet("Cluster");
+        sheet = workbook.createSheet("Produk");
          
         Row row = sheet.createRow(0);
          
@@ -37,10 +37,10 @@ public class ProdukExcelExporter {
         font.setFontHeight(16);
         style.setFont(font);
          
-        createCell(row, 0, "Nama Produk", style);      
+        createCell(row, 0, "Jenis Kendaraan", style);      
         createCell(row, 1, "Deskripsi", style);       
-        createCell(row, 2, "Start Date", style);    
-        createCell(row, 3, "End Date", style);
+        createCell(row, 2, "Start Berlaku", style);    
+        createCell(row, 3, "End Berlaku", style);
     }
      
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -64,14 +64,15 @@ public class ProdukExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (Produk Cluster : listCluster) {
+        for (Produk produk : listProduk) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            createCell(row, columnCount++, Cluster.getProduk(), style);
-            createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-            createCell(row, columnCount++, Cluster.getStartBerlaku().toString(), style);
-            createCell(row, columnCount++, Cluster.getEndBerlaku().toString(), style);
+            createCell(row, columnCount++, produk.getProduk(), style);
+            createCell(row, columnCount++, produk.getDeskripsi(), style);
+            createCell(row, columnCount++, produk.getStartBerlaku().toString(), style);
+            createCell(row, columnCount++, produk.getEndBerlaku().toString(), style);
+             
         }
     }
      

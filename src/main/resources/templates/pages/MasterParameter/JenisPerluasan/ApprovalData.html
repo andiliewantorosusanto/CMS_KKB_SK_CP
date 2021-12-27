@@ -14,14 +14,14 @@
                 <div class="row"> 
                   <div class="col-12">
                     <div class="card">
-                      <div class="card-header"> Data - JenisPerluasan</div>
+                      <div class="card-header"> Data - Jenis Perluasan</div>
                       <div class="card-body" id="body" style="overflow-x:auto;">
                         <table id="table" class="table table-striped table-bordered datatables" style="width:100%;">
                           <thead>
                             <tr role="row">
                               <th><input type="checkbox" id="check-all"></th>
                               <th></th>
-                              <th id="fil-jenisPerluasan"></th>
+                              <th id="fil-nama"></th>
                               <th id="fil-produk"></th>
                               <th></th>
                               <th></th>
@@ -32,7 +32,7 @@
                             <tr role="filter">
                               <th data-value="checkbox"></th>
                               <th data-value="actions">Actions</th>
-                              <th data-value="jenisPerluasan">JenisPerluasan</th>
+                              <th data-value="nama">Nama</th>
                               <th data-value="produk">Produk</th>
                               <th data-value="deskripsi">Deskripsi</th>
                               <th data-value="start_date">Start Date</th>
@@ -42,7 +42,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="jenisPerluasan :${listDataJenisPerluasan}">
+                            <tr th:each="jenisPerluasan :${listJenisPerluasan}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${jenisPerluasan.id}">
@@ -57,10 +57,10 @@
                                 </td>
                                 
                                 <td th:text="${jenisPerluasan.nama}" th:attr="data-filter=${jenisPerluasan.nama}"></td>
-                                <td th:text="${jenisPerluasan.produkObject.produk}" th:attr="data-filter=${jenisPerluasan.produkObject.produk}"></td>
+                                <td th:text="${jenisPerluasan.produkName}" th:attr="data-filter=${jenisPerluasan.produkName}"></td>
                                 <td th:text="${jenisPerluasan.deskripsi}" th:attr="data-filter=${jenisPerluasan.deskripsi}"></td>
-                                <td th:text="${#dates.format(jenisPerluasan.start_date,'dd-MM-yyyy')}" th:attr="data-filter=${jenisPerluasan.start_date}"></td>
-                                <td th:text="${#dates.format(jenisPerluasan.end_date,'dd-MM-yyyy')}" th:attr="data-filter=${jenisPerluasan.end_date}"></td>
+                                <td th:text="${#dates.format(jenisPerluasan.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${jenisPerluasan.startBerlaku}"></td>
+                                <td th:text="${#dates.format(jenisPerluasan.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${jenisPerluasan.endBerlaku}"></td>
 
                                 <td th:if="${jenisPerluasan.statusApproval == null or jenisPerluasan.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
@@ -68,10 +68,10 @@
                                 <td th:if="${jenisPerluasan.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${jenisPerluasan.statusApproval == 2 and jenisPerluasan.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${jenisPerluasan.statusApproval == 2 and jenisPerluasan.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${jenisPerluasan.statusApproval == 2 and jenisPerluasan.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${jenisPerluasan.statusApproval == 2 and jenisPerluasan.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 

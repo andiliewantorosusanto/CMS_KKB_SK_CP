@@ -27,7 +27,6 @@
                       <div class="card-header"> Data - Rate Asuransi
                         <a href="/RateAsuransi/InputData"><button class="btn btn-sm btn-ghost-success" type="button">Input Data</button></a>
                         <a href="/RateAsuransi/Export/Excel" target="_blank"><button class="btn btn-sm btn-ghost-success" type="button">Export Data</button></a>
-                        <!-- <a href="/RateAsuransiImportData"><button class="btn btn-sm btn-ghost-success" type="button">Import Data</button></a> -->
                       </div>
                       <div class="card-body" id="body" style="overflow-x:auto;">
                         <table id="table" class="table table-striped table-bordered datatables" style="width:100%;">
@@ -35,10 +34,10 @@
                             <tr role="row">
                               <th><input type="checkbox" id="check-all"></th>
                               <th></th>
-                              <th></th>
+                              <th id="fil-nama_skema"></th>
                               <th id="fil-wilayah"></th>
+                              <th id="fil-Jenis_kendaraan"></th>
                               <th id="fil-jenis_pembiayaan"></th>
-                              <th id="fil-jenis_kendaraan"></th>
                               <th id="fil-tipe_asuransi"></th>
                               <th></th>
                               <th></th>
@@ -63,14 +62,14 @@
                               <th data-value="checkbox"></th>
                               <th data-value="actions">Actions</th>
                               <th data-value="nama_skema">Skema</th>
-                              <th data-value="wilayah">Wilayah</th>
-                              <th data-value="jenis_pembiayaan">Jenis Pembiayaan</th>
+                              <th data-value="wilayah">wilayah</th>
                               <th data-value="Jenis_kendaraan">Jenis Kendaraan</th>
+                              <th data-value="jenis_pembiayaan">Jenis Pembiayaan</th>
                               <th data-value="tipe_asuransi">Tipe Asuransi</th>
-                              <th data-value="otr_start">Range OTR Start (RP)</th>
-                              <th data-value="otr_start">Range OTR End (RP)</th>
-                              <th data-value="otr_start">Tahun Kendaraan Start</th>
-                              <th data-value="otr_start">Tahun Kendaraan End</th>
+                              <th data-value="start_otr">Start Otr</th>
+                              <th data-value="end_otr">End Otr</th>
+                              <th data-value="start_year">Start Year</th>
+                              <th data-value="end_year">End Year</th>
                               <th data-value="otr_start">Tenor 1 (%)</th>
                               <th data-value="otr_start">Tenor 2 (%)</th>
                               <th data-value="otr_start">Tenor 3 (%)</th>
@@ -88,29 +87,30 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="rateAsuransi :${listDataRateAsuransi}">
+                            <tr th:each="rateAsuransi :${listRateAsuransi}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${rateAsuransi.id}">
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/RateAsuransiEditData/{id}(id=${rateAsuransi.id})}">
+                                <a class="btn btn-success" th:href="@{/RateAsuransi/EditData/{id}(id=${rateAsuransi.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
                                 </svg></a>
                                 </td>
                                 
-                                <td th:text="${rateAsuransi.nama_skema}" th:attr="data-filter=${rateAsuransi.nama_skema}"></td>
-                                <td th:text="${rateAsuransi.wilayahObject.namaWilayah}" th:attr="data-filter=${rateAsuransi.wilayahObject.namaWilayah}"></td>
-                                <td th:text="${rateAsuransi.jenis_pembiayaanObject.jenis_pembiayaan}" th:attr="data-filter=${rateAsuransi.jenis_pembiayaanObject.jenis_pembiayaan}"></td>
-                                <td th:text="${rateAsuransi.jenis_kendaraanObject.jenis_kendaraan}" th:attr="data-filter=${rateAsuransi.jenis_kendaraanObject.jenis_kendaraan}"></td>
-                                <td th:text="${rateAsuransi.tipeAsuransiObject.namaAsuransi}" th:attr="data-filter=${rateAsuransi.tipeAsuransiObject.namaAsuransi}"></td>
-                                <td th:text="${rateAsuransi.startOTR}" th:attr="data-filter=${rateAsuransi.startOTR}"></td>
-                                <td th:text="${rateAsuransi.endOTR}" th:attr="data-filter=${rateAsuransi.endOTR}"></td>
+                                <td th:text="${rateAsuransi.namaSkema}" th:attr="data-filter=${rateAsuransi.namaSkema}"></td>
+                                <td th:text="${rateAsuransi.wilayahName}" th:attr="data-filter=${rateAsuransi.wilayahName}"></td>
+                                <td th:text="${rateAsuransi.jenisKendaraanName}" th:attr="data-filter=${rateAsuransi.jenisKendaraanName}"></td>
+                                <td th:text="${rateAsuransi.jenisPembiayaanName}" th:attr="data-filter=${rateAsuransi.jenisPembiayaanName}"></td>
+                                <td th:text="${rateAsuransi.tipeAsuransiName}" th:attr="data-filter=${rateAsuransi.tipeAsuransiName}"></td>
+                                <td th:text="${rateAsuransi.startOtr}" th:attr="data-filter=${rateAsuransi.startOtr}"></td>
+                                <td th:text="${rateAsuransi.endOtr}" th:attr="data-filter=${rateAsuransi.endOtr}"></td>
                                 <td th:text="${rateAsuransi.startYear}" th:attr="data-filter=${rateAsuransi.startYear}"></td>
                                 <td th:text="${rateAsuransi.endYear}" th:attr="data-filter=${rateAsuransi.endYear}"></td>
+                                
                                 <td th:text="${rateAsuransi.tenor1}" th:attr="data-filter=${rateAsuransi.tenor1}"></td>
                                 <td th:text="${rateAsuransi.tenor2}" th:attr="data-filter=${rateAsuransi.tenor2}"></td>
                                 <td th:text="${rateAsuransi.tenor3}" th:attr="data-filter=${rateAsuransi.tenor3}"></td>
@@ -121,19 +121,20 @@
                                 <td th:text="${rateAsuransi.tenor8}" th:attr="data-filter=${rateAsuransi.tenor8}"></td>
                                 <td th:text="${rateAsuransi.tenor9}" th:attr="data-filter=${rateAsuransi.tenor9}"></td>
                                 <td th:text="${rateAsuransi.tenor10}" th:attr="data-filter=${rateAsuransi.tenor10}"></td>
+                                
                                 <td th:text="${#dates.format(rateAsuransi.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${rateAsuransi.startBerlaku}"></td>
                                 <td th:text="${#dates.format(rateAsuransi.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${rateAsuransi.endBerlaku}"></td>
                                 
-                                <td th:if="${rateAsuransi.statusApproved == null or rateAsuransi.statusApproved == 0}" data-filter="Draft">
+                                <td th:if="${rateAsuransi.statusApproval == null or rateAsuransi.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${rateAsuransi.statusApproved == 1}" data-filter="Submitted">
+                                <td th:if="${rateAsuransi.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${rateAsuransi.statusApproved == 2 and rateAsuransi.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${rateAsuransi.statusApproval == 2 and rateAsuransi.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${rateAsuransi.statusApproved == 2 and rateAsuransi.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${rateAsuransi.statusApproval == 2 and rateAsuransi.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 
@@ -163,7 +164,7 @@
     </div>
     <div th:replace="fragments/common :: scripts"></div>
     <script>
-      let _FILTER_COLUMN = ['wilayah','jenis_pembiayaan','jenis_kendaraan','tipe_asuransi','status'];
+      let _FILTER_COLUMN = ['nama_skema','wilayah','Jenis_kendaraan','jenis_pembiayaan','tipe_asuransi','status'];
       let selectedIds = [];
       let table = $('#table').DataTable( {
           "scrollX": true,
@@ -188,8 +189,6 @@
                   $.map(column.nodes(), function (item) {
                     filters.push($(item).data('filter'));
                   })
-                  
-                  filters = [...new Set(filters)];
                   
                   filters = [...new Set(filters)];
                   
