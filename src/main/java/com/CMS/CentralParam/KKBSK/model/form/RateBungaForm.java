@@ -15,19 +15,12 @@ public class RateBungaForm {
     private String namaSkema;
     private Integer loanType;
 
-    private Integer produk;
     private Integer jenisKendaraan;
-    private Integer kondisiKendaraan;
     private ArrayList<Integer> jenisPembiayaan;
-    private Integer tujuanPenggunaan;
-
     private ArrayList<Integer> cluster;
-    private Integer program;
-    private Integer tipeKonsumen;
 
     private Integer startTahunKendaraan;
     private Integer endTahun;
-
 
     private Float tenor1;
     private Float tenor2;
@@ -77,22 +70,16 @@ public class RateBungaForm {
     @DateTimeFormat (pattern="yyyy-MM-dd")
     private Date endBerlaku;
 
-
     public RateBungaForm() {
     }
 
-    public RateBungaForm(Integer id, String namaSkema, Integer loanType, Integer produk, Integer jenisKendaraan, Integer kondisiKendaraan, ArrayList<Integer> jenisPembiayaan, Integer tujuanPenggunaan, ArrayList<Integer> cluster, Integer program, Integer tipeKonsumen, Integer startTahunKendaraan, Integer endTahun, Float tenor1, Float tenor2, Float tenor3, Float tenor4, Integer tenor5Periode1, Integer tenor5Periode2, Float tenor5Rate1, Float tenor5Rate2, Integer tenor6Periode1, Integer tenor6Periode2, Float tenor6Rate1, Float tenor6Rate2, Integer tenor7Periode1, Integer tenor7Periode2, Float tenor7Rate1, Float tenor7Rate2, Integer tenor8Periode1, Integer tenor8Periode2, Float tenor8Rate1, Float tenor8Rate2, Integer tenor9Periode1, Integer tenor9Periode2, Float tenor9Rate1, Float tenor9Rate2, Integer tenor10Periode1, Integer tenor10Periode2, Float tenor10Rate1, Float tenor10Rate2, Date startBerlaku, Date endBerlaku) {
+    public RateBungaForm(Integer id, String namaSkema, Integer loanType, Integer jenisKendaraan, ArrayList<Integer> jenisPembiayaan, ArrayList<Integer> cluster, Integer startTahunKendaraan, Integer endTahun, Float tenor1, Float tenor2, Float tenor3, Float tenor4, Integer tenor5Periode1, Integer tenor5Periode2, Float tenor5Rate1, Float tenor5Rate2, Integer tenor6Periode1, Integer tenor6Periode2, Float tenor6Rate1, Float tenor6Rate2, Integer tenor7Periode1, Integer tenor7Periode2, Float tenor7Rate1, Float tenor7Rate2, Integer tenor8Periode1, Integer tenor8Periode2, Float tenor8Rate1, Float tenor8Rate2, Integer tenor9Periode1, Integer tenor9Periode2, Float tenor9Rate1, Float tenor9Rate2, Integer tenor10Periode1, Integer tenor10Periode2, Float tenor10Rate1, Float tenor10Rate2, Date startBerlaku, Date endBerlaku) {
         this.id = id;
         this.namaSkema = namaSkema;
         this.loanType = loanType;
-        this.produk = produk;
         this.jenisKendaraan = jenisKendaraan;
-        this.kondisiKendaraan = kondisiKendaraan;
         this.jenisPembiayaan = jenisPembiayaan;
-        this.tujuanPenggunaan = tujuanPenggunaan;
         this.cluster = cluster;
-        this.program = program;
-        this.tipeKonsumen = tipeKonsumen;
         this.startTahunKendaraan = startTahunKendaraan;
         this.endTahun = endTahun;
         this.tenor1 = tenor1;
@@ -151,28 +138,12 @@ public class RateBungaForm {
         this.loanType = loanType;
     }
 
-    public Integer getProduk() {
-        return this.produk;
-    }
-
-    public void setProduk(Integer produk) {
-        this.produk = produk;
-    }
-
     public Integer getJenisKendaraan() {
         return this.jenisKendaraan;
     }
 
     public void setJenisKendaraan(Integer jenisKendaraan) {
         this.jenisKendaraan = jenisKendaraan;
-    }
-
-    public Integer getKondisiKendaraan() {
-        return this.kondisiKendaraan;
-    }
-
-    public void setKondisiKendaraan(Integer kondisiKendaraan) {
-        this.kondisiKendaraan = kondisiKendaraan;
     }
 
     public ArrayList<Integer> getJenisPembiayaan() {
@@ -183,36 +154,12 @@ public class RateBungaForm {
         this.jenisPembiayaan = jenisPembiayaan;
     }
 
-    public Integer getTujuanPenggunaan() {
-        return this.tujuanPenggunaan;
-    }
-
-    public void setTujuanPenggunaan(Integer tujuanPenggunaan) {
-        this.tujuanPenggunaan = tujuanPenggunaan;
-    }
-
     public ArrayList<Integer> getCluster() {
         return this.cluster;
     }
 
     public void setCluster(ArrayList<Integer> cluster) {
         this.cluster = cluster;
-    }
-
-    public Integer getProgram() {
-        return this.program;
-    }
-
-    public void setProgram(Integer program) {
-        this.program = program;
-    }
-
-    public Integer getTipeKonsumen() {
-        return this.tipeKonsumen;
-    }
-
-    public void setTipeKonsumen(Integer tipeKonsumen) {
-        this.tipeKonsumen = tipeKonsumen;
     }
 
     public Integer getStartTahunKendaraan() {
@@ -486,18 +433,8 @@ public class RateBungaForm {
         return this;
     }
 
-    public RateBungaForm produk(Integer produk) {
-        setProduk(produk);
-        return this;
-    }
-
     public RateBungaForm jenisKendaraan(Integer jenisKendaraan) {
         setJenisKendaraan(jenisKendaraan);
-        return this;
-    }
-
-    public RateBungaForm kondisiKendaraan(Integer kondisiKendaraan) {
-        setKondisiKendaraan(kondisiKendaraan);
         return this;
     }
 
@@ -506,23 +443,8 @@ public class RateBungaForm {
         return this;
     }
 
-    public RateBungaForm tujuanPenggunaan(Integer tujuanPenggunaan) {
-        setTujuanPenggunaan(tujuanPenggunaan);
-        return this;
-    }
-
     public RateBungaForm cluster(ArrayList<Integer> cluster) {
         setCluster(cluster);
-        return this;
-    }
-
-    public RateBungaForm program(Integer program) {
-        setProgram(program);
-        return this;
-    }
-
-    public RateBungaForm tipeKonsumen(Integer tipeKonsumen) {
-        setTipeKonsumen(tipeKonsumen);
         return this;
     }
 
@@ -692,14 +614,9 @@ public class RateBungaForm {
             " id='" + getId() + "'" +
             ", namaSkema='" + getNamaSkema() + "'" +
             ", loanType='" + getLoanType() + "'" +
-            ", produk='" + getProduk() + "'" +
             ", jenisKendaraan='" + getJenisKendaraan() + "'" +
-            ", kondisiKendaraan='" + getKondisiKendaraan() + "'" +
             ", jenisPembiayaan='" + getJenisPembiayaan() + "'" +
-            ", tujuanPenggunaan='" + getTujuanPenggunaan() + "'" +
             ", cluster='" + getCluster() + "'" +
-            ", program='" + getProgram() + "'" +
-            ", tipeKonsumen='" + getTipeKonsumen() + "'" +
             ", startTahunKendaraan='" + getStartTahunKendaraan() + "'" +
             ", endTahun='" + getEndTahun() + "'" +
             ", tenor1='" + getTenor1() + "'" +
@@ -734,5 +651,6 @@ public class RateBungaForm {
             ", endBerlaku='" + getEndBerlaku() + "'" +
             "}";
     }
+
 
 }
