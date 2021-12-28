@@ -1,4 +1,4 @@
-package com.CMS.CentralParam.KKBSK.model.request;
+package com.CMS.CentralParam.KKBSK.model.REQUESTa;
 
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonInclude;
