@@ -62,7 +62,7 @@
 
                                                         
                                                         <div class="form-group">
-                                                            <label class="col-form-label" for="firstname">Jenis Pembiayaan</label>
+                                                            <label class="col-form-label" for="firstname">Cluster</label>
                                                             <select class="form-control" id="cluster" type="text" name="cluster" th:field="*{cluster}"
                                                             placeholder="cluster" th:classappend="${#fields.hasErrors('cluster')} ?  is-invalid">
                                                                 <option th:each="dataCluster :${listCluster}" th:value="${dataCluster.id}" th:text="${dataCluster.cluster}"></option>

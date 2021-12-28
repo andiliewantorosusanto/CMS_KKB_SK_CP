@@ -319,6 +319,7 @@ public class MinimalDPController {
 				ResponMinimalDP.class
 			);
 
+			System.out.println(respon.getBody().getMinimalDP().toString());
 			model.addAttribute("minimalDP",respon.getBody().getMinimalDP());
 
 			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
@@ -353,6 +354,7 @@ public class MinimalDPController {
 			
 			return "/pages/MasterParameter/MinimalDP/EditData";
 		} catch (Exception e) {
+			System.out.println("err"+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
