@@ -4,6 +4,7 @@ package com.CMS.CentralParam.KKBSK.model.response;
 import java.util.List;
 
 import com.CMS.CentralParam.KKBSK.model.data.BiayaProvisi;
+import com.CMS.CentralParam.KKBSK.view.vwBiayaProvisi;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ResponBiayaProvisi {
 
     @JsonProperty("dataBiayaProvisi")
-    private List<BiayaProvisi> dataBiayaProvisi = null;
+    private List<vwBiayaProvisi> dataBiayaProvisi = null;
     @JsonProperty("biayaProvisi")
     private BiayaProvisi biayaProvisi = null;
     @JsonProperty("code")
@@ -35,7 +36,7 @@ public class ResponBiayaProvisi {
      * @param dataBiayaProvisi
      * @param code
      */
-    public ResponBiayaProvisi(List<BiayaProvisi> dataBiayaProvisi,BiayaProvisi biayaProvisi,String code) {
+    public ResponBiayaProvisi(List<vwBiayaProvisi> dataBiayaProvisi,BiayaProvisi biayaProvisi,String code) {
         super();
         this.dataBiayaProvisi = dataBiayaProvisi;
         this.biayaProvisi = biayaProvisi;
@@ -43,12 +44,12 @@ public class ResponBiayaProvisi {
     }
 
     @JsonProperty("dataBiayaProvisi")
-    public List<BiayaProvisi> getDataBiayaProvisi() {
+    public List<vwBiayaProvisi> getDataBiayaProvisi() {
         return dataBiayaProvisi;
     }
 
     @JsonProperty("dataBiayaProvisi")
-    public void setDataBiayaProvisi(List<BiayaProvisi> dataBiayaProvisi) {
+    public void setDataBiayaProvisi(List<vwBiayaProvisi> dataBiayaProvisi) {
         this.dataBiayaProvisi = dataBiayaProvisi;
     }
 

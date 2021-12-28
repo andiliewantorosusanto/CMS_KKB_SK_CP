@@ -42,64 +42,64 @@ public class RateBunga {
     @JsonProperty("tenor4")
     private Float tenor4;
 
-    @JsonProperty("tenor5periode1")
+    @JsonProperty("tenor5Periode1")
     private Integer tenor5Periode1;
-    @JsonProperty("tenor5periode2")
+    @JsonProperty("tenor5Periode2")
     private Integer tenor5Periode2;
 
-    @JsonProperty("tenor5rate1")
+    @JsonProperty("tenor5Rate1")
     private Float tenor5Rate1;
-    @JsonProperty("tenor5rate2")
+    @JsonProperty("tenor5Rate2")
     private Float tenor5Rate2;
 
-    @JsonProperty("tenor6periode1")
+    @JsonProperty("tenor6Periode1")
     private Integer tenor6Periode1;
-    @JsonProperty("tenor6periode2")
+    @JsonProperty("tenor6Periode2")
     private Integer tenor6Periode2;
 
-    @JsonProperty("tenor6rate1")
+    @JsonProperty("tenor6Rate1")
     private Float tenor6Rate1;
-    @JsonProperty("tenor6rate2")
+    @JsonProperty("tenor6Rate2")
     private Float tenor6Rate2;
 
-    @JsonProperty("tenor7periode1")
+    @JsonProperty("tenor7Periode1")
     private Integer tenor7Periode1;
-    @JsonProperty("tenor7periode2")
+    @JsonProperty("tenor7Periode2")
     private Integer tenor7Periode2;
 
-    @JsonProperty("tenor7rate1")
+    @JsonProperty("tenor7Rate1")
     private Float tenor7Rate1;
-    @JsonProperty("tenor7rate2")
+    @JsonProperty("tenor7Rate2")
     private Float tenor7Rate2;
 
-    @JsonProperty("tenor8periode1")
+    @JsonProperty("tenor8Periode1")
     private Integer tenor8Periode1;
-    @JsonProperty("tenor8periode2")
+    @JsonProperty("tenor8Periode2")
     private Integer tenor8Periode2;
 
-    @JsonProperty("tenor8rate1")
+    @JsonProperty("tenor8Rate1")
     private Float tenor8Rate1;
-    @JsonProperty("tenor8rate2")
+    @JsonProperty("tenor8Rate2")
     private Float tenor8Rate2;
 
-    @JsonProperty("tenor9periode1")
+    @JsonProperty("tenor9Periode1")
     private Integer tenor9Periode1;
-    @JsonProperty("tenor9periode2")
+    @JsonProperty("tenor9Periode2")
     private Integer tenor9Periode2;
 
-    @JsonProperty("tenor9rate1")
+    @JsonProperty("tenor9Rate1")
     private Float tenor9Rate1;
-    @JsonProperty("tenor9rate2")
+    @JsonProperty("tenor9Rate2")
     private Float tenor9Rate2;
 
-    @JsonProperty("tenor10periode1")
+    @JsonProperty("tenor10Periode1")
     private Integer tenor10Periode1;
-    @JsonProperty("tenor10periode2")
+    @JsonProperty("tenor10Periode2")
     private Integer tenor10Periode2;
 
-    @JsonProperty("tenor10rate1")
+    @JsonProperty("tenor10Rate1")
     private Float tenor10Rate1;
-    @JsonProperty("tenor10rate2")
+    @JsonProperty("tenor10Rate2")
     private Float tenor10Rate2;
 
     @JsonProperty("startBerlaku")

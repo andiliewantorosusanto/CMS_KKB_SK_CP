@@ -58,41 +58,41 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr th:each="minimalDp :${listDataMinimalDP}">
+                            <tr th:each="minimalDp :${listMinimalDP}">
                               <td>
                                 <div class="form-check">
                                   <input class="form-check-input checkbox" type="checkbox" th:attr="data-checkbox=${minimalDp.id}">
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/MinimalDPEditData/{id}(id=${minimalDp.id})}">
+                                <a class="btn btn-success" th:href="@{/MinimalDP/EditData/{id}(id=${minimalDp.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
                                 </svg></a>
                                 </td>
                                 
-                                <td th:text="${minimalDp.nama_skema}" th:attr="data-filter=${minimalDp.nama_skema}"></td>
-                                <td th:text="${minimalDp.loanType}" th:attr="data-filter=${minimalDp.loanType}"></td>
-                                <td th:text="${minimalDp.produkObject.produk}" th:attr="data-filter=${minimalDp.produkObject.produk}"></td>
-                                <td th:text="${minimalDp.tujuan_penggunaanObject.nama}" th:attr="data-filter=${minimalDp.tujuan_penggunaanObject.nama}"></td>
-                                <td th:text="${minimalDp.tipe_konsumenObject.nama}" th:attr="data-filter=${minimalDp.tipe_konsumenObject.nama}"></td>
-                                <td th:text="${minimalDp.jenis_kendaraanObject.jenis_kendaraan}" th:attr="data-filter=${minimalDp.jenis_kendaraanObject.jenis_kendaraan}"></td>
-                                <td th:text="${minimalDp.jenis_pembiayaanObject.jenis_pembiayaan}" th:attr="data-filter=${minimalDp.jenis_pembiayaanObject.jenis_pembiayaan}"></td>
-                                <td th:text="${minimalDp.clusterObject.cluster}" th:attr="data-filter=${minimalDp.clusterObject.cluster}"></td>
-                                <td th:text="${minimalDp.minimalDP}" th:attr="data-filter=${minimalDp.minimalDP}"></td>
+                                <td th:text="${minimalDp.namaSkema}" th:attr="data-filter=${minimalDp.namaSkema}"></td>
+                                <td th:text="${minimalDp.loanTypeName}" th:attr="data-filter=${minimalDp.loanTypeName}"></td>
+                                <td th:text="${minimalDp.produkName}" th:attr="data-filter=${minimalDp.produkName}"></td>
+                                <td th:text="${minimalDp.tujuanPenggunaanName}" th:attr="data-filter=${minimalDp.tujuanPenggunaanName}"></td>
+                                <td th:text="${minimalDp.tipeKonsumenName}" th:attr="data-filter=${minimalDp.tipeKonsumenName}"></td>
+                                <td th:text="${minimalDp.jenisKendaraanName}" th:attr="data-filter=${minimalDp.jenisKendaraanName}"></td>
+                                <td th:text="${minimalDp.jenisPembiayaanName}" th:attr="data-filter=${minimalDp.jenisPembiayaanName}"></td>
+                                <td th:text="${minimalDp.clusterName}" th:attr="data-filter=${minimalDp.clusterName}"></td>
+                                <td th:text="${minimalDp.minimalDp}" th:attr="data-filter=${minimalDp.minimalDp}"></td>
 
                                 
-                                <td th:if="${minimalDp.statusApproved == null or minimalDp.statusApproved == 0}" data-filter="Draft">
+                                <td th:if="${minimalDp.statusApproval == null or minimalDp.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${minimalDp.statusApproved == 1}" data-filter="Submitted">
+                                <td th:if="${minimalDp.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${minimalDp.statusApproved == 2 and minimalDp.is_approved == 1}"  data-filter="Approved">
+                                <td th:if="${minimalDp.statusApproval == 2 and minimalDp.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${minimalDp.statusApproved == 2 and minimalDp.is_rejected == 1}" data-filter="Rejected">
+                                <td th:if="${minimalDp.statusApproval == 2 and minimalDp.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 
@@ -103,7 +103,7 @@
                           
                         <div class="row">
                           <div class="col-auto">
-                            <form id="mass-action-form" th:action="@{/BiayaAdmin/ActionApproval}"  method="post">
+                            <form id="mass-action-form" th:action="@{/MinimalDP/ActionApproval}"  method="post">
                               <button class="btn btn-primary" name="action"
                                 value="approve">Approve</button>
                               <button class="btn btn-danger" name="action"

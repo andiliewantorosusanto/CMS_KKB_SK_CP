@@ -19,7 +19,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <form id="signupForm" th:action="@{/BiayaProvisi/ActionApprovalData}"  th:object="${dataBiayaProvisi}" method="post" novalidate="novalidate">
+                                                <form id="signupForm" th:action="@{/BiayaProvisi/ActionApprovalData}"  th:object="${biayaProvisi}" method="post" novalidate="novalidate">
                                                     <input type="hidden" th:field="*{id}" id="id" name="id">
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="namaSkema">Nama Skema</label>

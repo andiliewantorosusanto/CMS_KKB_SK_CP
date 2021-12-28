@@ -106,7 +106,7 @@
                                 </div>
                               </td>
                               <td>
-                                <a class="btn btn-success" th:href="@{/BiayaProvisiEditData/{id}(id=${biayaProvisi.id})}">
+                                <a class="btn btn-success" th:href="@{/BiayaProvisi/EditData/{id}(id=${biayaProvisi.id})}">
                                 <svg class="c-icon">
                                   <use xlink:href="../vendors/@coreui/icons/svg/free.svg#cil-pen">
                                   </use>
@@ -116,7 +116,7 @@
                                 <td th:text="${biayaProvisi.namaSkema}" th:attr="data-filter=${biayaProvisi.namaSkema}"></td>
                                 <td th:text="${biayaProvisi.loanType}" th:attr="data-filter=${biayaProvisi.loanType}"></td>
                                 <td th:text="${biayaProvisi.jenisKendaraanName}" th:attr="data-filter=${biayaProvisi.jenisKendaraanName}"></td>
-                                <td th:text="${biayaProvisi.jenisPembiayaanname}" th:attr="data-filter=${biayaProvisi.jenisPembiayaanname}"></td>
+                                <td th:text="${biayaProvisi.jenisPembiayaanName}" th:attr="data-filter=${biayaProvisi.jenisPembiayaanName}"></td>
 
                                 <td th:text="${biayaProvisi.tenor1}" th:attr="data-filter=${biayaProvisi.tenor1}"></td>
                                 <td th:text="${biayaProvisi.tenor1Persen}" th:attr="data-filter=${biayaProvisi.tenor1Persen}"></td>
@@ -142,16 +142,16 @@
                                 <td th:text="${#dates.format(biayaProvisi.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${biayaProvisi.startBerlaku}"></td>
                                 <td th:text="${#dates.format(biayaProvisi.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${biayaProvisi.endBerlaku}"></td>
                                 
-                                <td th:if="${biayaAdmin.statusApproval == null or biayaAdmin.statusApproval == 0}" data-filter="Draft">
+                                <td th:if="${biayaProvisi.statusApproval == null or biayaProvisi.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
                                 </td>
-                                <td th:if="${biayaAdmin.statusApproval == 1}" data-filter="Submitted">
+                                <td th:if="${biayaProvisi.statusApproval == 1}" data-filter="Submitted">
                                   <span class="badge badge-warning">Submitted</span>
                                 </td>
-                                <td th:if="${biayaAdmin.statusApproval == 2 and biayaAdmin.isApproved == 1}"  data-filter="Approved">
+                                <td th:if="${biayaProvisi.statusApproval == 2 and biayaProvisi.isApproved == 1}"  data-filter="Approved">
                                   <span class="badge badge-success">Approved</span>
                                 </td>
-                                <td th:if="${biayaAdmin.statusApproval == 2 and biayaAdmin.isRejected == 1}" data-filter="Rejected">
+                                <td th:if="${biayaProvisi.statusApproval == 2 and biayaProvisi.isRejected == 1}" data-filter="Rejected">
                                   <span class="badge badge-danger">Rejected</span>
                                 </td>
 

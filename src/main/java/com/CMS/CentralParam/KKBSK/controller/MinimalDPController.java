@@ -13,11 +13,18 @@ import javax.validation.constraints.NotNull;
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.MinimalDPExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.data.MinimalDP;
+import com.CMS.CentralParam.KKBSK.model.form.MinimalDPForm;
 import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCluster;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisKendaraan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPembiayaan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.model.response.ResponTujuanPenggunaan;
 import com.CMS.CentralParam.KKBSK.model.response.ResponMinimalDP;
+import com.CMS.CentralParam.KKBSK.model.response.ResponProduk;
+import com.CMS.CentralParam.KKBSK.view.vwMinimalDP;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +42,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+
 @Controller
 public class MinimalDPController {
 
@@ -47,10 +55,49 @@ public class MinimalDPController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/MinimalDP/InputData", method = RequestMethod.GET)
-	public String MinimalDPInputData(MinimalDP dataMinimalDP) {
+	public String MinimalDPInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+
+			ResponseEntity<ResponTujuanPenggunaan> responTujuanPenggunaan = restTemplate.exchange(
+				apiBaseUrl+"api/tujuanpenggunaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTujuanPenggunaan.class);
+			model.addAttribute("listTujuanPenggunaan",responTujuanPenggunaan.getBody().getDataTujuanPenggunaan());
+
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
+				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponCluster.class);
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+
+			MinimalDPForm minimalDPForm = new MinimalDPForm();
+			minimalDPForm.setTipeKonsumen(0);
+			minimalDPForm.setJenisKendaraan(0);
+			minimalDPForm.setLoanType(0);
+			minimalDPForm.setTujuanPenggunaan(0);
+			
+
+			model.addAttribute("minimalDP", minimalDPForm);
+
 			return "/pages/MasterParameter/MinimalDP/InputData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -65,14 +112,14 @@ public class MinimalDPController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=MinimalDP_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponMinimalDP> respon = restTemplate.exchange(
 			apiBaseUrl+"api/minimaldp/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponMinimalDP.class);
 
-        List<MinimalDP> listMinimalDP = respon.getBody().getDataMinimalDP();
+        List<vwMinimalDP> listMinimalDP = respon.getBody().getDataMinimalDP();
          
         MinimalDPExcelExporter excelExporter = new MinimalDPExcelExporter(listMinimalDP);
          
@@ -80,16 +127,127 @@ public class MinimalDPController {
     }  
 	
 	@PostMapping(value = "/MinimalDP/ActionInputData")
-	public String MinimalDPActionInputData(@Valid MinimalDP dataMinimalDP, BindingResult result,String action) {
+	public String MinimalDPActionInputData(@Valid MinimalDPForm minimalDP, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(minimalDP.getCluster().size() == 0) {
+				result.rejectValue("cluster", "error.minimalDP", "You must choose Cluster");
+			}
+			if(minimalDP.getJenisPembiayaan().size() == 0) {
+				result.rejectValue("jenisPembiayaan", "error.minimalDP", "You must choose Jenis Pembiayaan");
+			}
+		}
+
 		if (result.hasErrors()) {
+			System.out.print(result.hasErrors());
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+
+			ResponseEntity<ResponTujuanPenggunaan> responTujuanPenggunaan = restTemplate.exchange(
+				apiBaseUrl+"api/tujuanpenggunaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTujuanPenggunaan.class);
+			model.addAttribute("listTujuanPenggunaan",responTujuanPenggunaan.getBody().getDataTujuanPenggunaan());
+
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
+				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponCluster.class);
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+			model.addAttribute("minimalDP", minimalDP);
             return "/pages/MasterParameter/MinimalDP/InputData";
         }
+
+
+		try {
+			minimalDP.getCluster().forEach((cluster) -> {
+				minimalDP.getJenisPembiayaan().forEach((jenisPembiayaan) -> {
+					minimalDP.getProduk().forEach((produk) -> {
+						MinimalDP temp = new MinimalDP(null, 
+						minimalDP.getNamaSkema(), minimalDP.getLoanType(), produk, minimalDP.getTujuanPenggunaan(), minimalDP.getTipeKonsumen(), minimalDP.getJenisKendaraan(), jenisPembiayaan, cluster,minimalDP.getMinimalDp(), 
+						null, null, null, null, null, null, null, null);
+						try {
+							restTemplate.exchange(
+								apiBaseUrl+"/api/minimaldp/"+HelperConf.getAction(action), 
+								HttpMethod.POST, 
+								HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
+								String.class
+							);
+						} catch (Exception e) {
+							
+						}
+					});
+				});
+			});
+
+			
+			return "redirect:/MinimalDP/Data";
+		} catch (Exception e) {
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/MinimalDP/ActionEditData")
+	public String MinimalDPActionEditData(@Valid MinimalDP minimalDP, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+
+		}
+
+		if (result.hasErrors()) {
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+
+			ResponseEntity<ResponTujuanPenggunaan> responTujuanPenggunaan = restTemplate.exchange(
+				apiBaseUrl+"api/tujuanpenggunaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTujuanPenggunaan.class);
+			model.addAttribute("listTujuanPenggunaan",responTujuanPenggunaan.getBody().getDataTujuanPenggunaan());
+
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
+				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponCluster.class);
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+			model.addAttribute("minimalDP", minimalDP);
+            return "/pages/MasterParameter/MinimalDP/EditData";
+        }
+
 
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/minimaldp/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataMinimalDP)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(minimalDP)), 
 				String.class
 			);
 			
@@ -101,20 +259,16 @@ public class MinimalDPController {
 	}
 
 	@PostMapping(value = "/MinimalDP/ActionApprovalData")
-	public String MinimalDPActionApprovalData(@Valid MinimalDP dataMinimalDP, BindingResult result,String action) {
-		if (result.hasErrors()) {
-            return "/pages/MasterParameter/MinimalDP/ApprovalData";
-        }
-
+	public String MinimalDPActionApprovalData(MinimalDP minimalDP, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
 				apiBaseUrl+"/api/minimaldp/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataMinimalDP)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(minimalDP)), 
 				String.class
 			);
-			
-			return "redirect:/MinimalDP/Data";
+
+			return "redirect:/MinimalDP/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
@@ -137,6 +291,7 @@ public class MinimalDPController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/MinimalDP/ActionApproval")
 	public String MinimalDPActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
@@ -153,6 +308,7 @@ public class MinimalDPController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/MinimalDP/EditData/{id}", method = RequestMethod.GET)
 	public String MinimalDPEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
@@ -163,7 +319,38 @@ public class MinimalDPController {
 				ResponMinimalDP.class
 			);
 
-			model.addAttribute("dataMinimalDP",respon.getBody().getDataMinimalDP());
+			model.addAttribute("minimalDP",respon.getBody().getMinimalDP());
+
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+				apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponProduk.class);
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+
+			ResponseEntity<ResponTujuanPenggunaan> responTujuanPenggunaan = restTemplate.exchange(
+				apiBaseUrl+"api/tujuanpenggunaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTujuanPenggunaan.class);
+			model.addAttribute("listTujuanPenggunaan",responTujuanPenggunaan.getBody().getDataTujuanPenggunaan());
+			
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
+				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponCluster.class);
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+			
 			return "/pages/MasterParameter/MinimalDP/EditData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -178,7 +365,8 @@ public class MinimalDPController {
 					apiBaseUrl+"api/minimaldp/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponMinimalDP.class);
 
-			model.addAttribute("listDataMinimalDP", respon.getBody().getDataMinimalDP());
+			model.addAttribute("listMinimalDP", respon.getBody().getDataMinimalDP());
+
 			return "/pages/MasterParameter/MinimalDP/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -193,7 +381,8 @@ public class MinimalDPController {
 					apiBaseUrl+"api/minimaldp/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponMinimalDP.class);
 
-			model.addAttribute("listDataMinimalDP", respon.getBody().getDataMinimalDP());
+			model.addAttribute("listMinimalDP", respon.getBody().getDataMinimalDP());
+			
 			return "/pages/MasterParameter/MinimalDP/ApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -210,8 +399,28 @@ public class MinimalDPController {
 				HelperConf.getHeader(), 
 				ResponMinimalDP.class
 			);
+			model.addAttribute("minimalDP",respon.getBody().getMinimalDP());
 
-			model.addAttribute("dataMinimalDP",respon.getBody().getDataMinimalDP());
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			ResponseEntity<ResponJenisKendaraan> responJenisKendaraan = restTemplate.exchange(
+				apiBaseUrl+"api/jeniskendaraan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisKendaraan.class);
+			model.addAttribute("listJenisKendaraan",responJenisKendaraan.getBody().getDataJenisKendaraan());
+
+			ResponseEntity<ResponCluster> responCluster = restTemplate.exchange(
+				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponCluster.class);
+			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
+
 			return "/pages/MasterParameter/MinimalDP/FormApprovalData";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

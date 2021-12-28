@@ -18,7 +18,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <form id="signupForm" th:action="@{/BiayaProvisi/ActionInputData}"  th:object="${dataBiayaProvisi}" method="post" novalidate="novalidate">
+                                                    <form id="signupForm" th:action="@{/BiayaProvisi/ActionInputData}"  th:object="${biayaProvisi}" method="post" novalidate="novalidate">
                                                         <div class="form-group">
                                                             <label class="col-form-label" for="namaSkema">Nama Skema</label>
                                                             <input class="form-control" id="namaSkema" type="text" name="namaSkema" th:field="*{namaSkema}"
@@ -253,5 +253,15 @@
             <div th:replace="fragments/common :: footer"></div>
         </div>
         <div th:replace="fragments/common :: scripts"></div>
+        <script>
+            $(document).ready(function(){
+               $("#check-jenis-pembiayaan").click(function(event) {
+                   let check = this.checked;
+                   $('.jenis-pembiayaan').each(function() {
+                       this.checked = check;
+                   });
+               });
+           });
+       </script>
     </body>
 </html>

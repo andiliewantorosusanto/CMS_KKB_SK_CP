@@ -3,12 +3,9 @@ package com.CMS.CentralParam.KKBSK.model.data;
 import java.util.Date;
 
 import javax.annotation.Generated;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("jsonschema2pojo")
@@ -43,15 +40,6 @@ public class MinimalDP {
     @JsonProperty("minimalDp")
     private Float minimalDp;
 
-    @JsonProperty("startBerlaku")
-    @NotNull(message = "Start Date Tidak Boleh Kosong")
-    @DateTimeFormat (pattern="yyyy-MM-dd")
-    private Date startBerlaku;
-    @JsonProperty("endBerlaku")
-    @NotNull(message = "End Date Tidak Boleh Kosong")
-    @DateTimeFormat (pattern="yyyy-MM-dd")
-    private Date endBerlaku;
-
     @JsonProperty("statusApproval")
     private Integer statusApproval;
     @JsonProperty("remarks")
@@ -74,7 +62,7 @@ public class MinimalDP {
     public MinimalDP() {
     }
 
-    public MinimalDP(Integer id, String namaSkema, Integer loanType, Integer produk, Integer tujuanPenggunaan, Integer tipeKonsumen, Integer jenisKendaraan, Integer jenisPembiayaan, Integer cluster, Float minimalDp, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
+    public MinimalDP(Integer id, String namaSkema, Integer loanType, Integer produk, Integer tujuanPenggunaan, Integer tipeKonsumen, Integer jenisKendaraan, Integer jenisPembiayaan, Integer cluster, Float minimalDp, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
         this.id = id;
         this.namaSkema = namaSkema;
         this.loanType = loanType;
@@ -85,8 +73,6 @@ public class MinimalDP {
         this.jenisPembiayaan = jenisPembiayaan;
         this.cluster = cluster;
         this.minimalDp = minimalDp;
-        this.startBerlaku = startBerlaku;
-        this.endBerlaku = endBerlaku;
         this.statusApproval = statusApproval;
         this.remarks = remarks;
         this.isRejected = isRejected;
@@ -175,22 +161,6 @@ public class MinimalDP {
 
     public void setMinimalDp(Float minimalDp) {
         this.minimalDp = minimalDp;
-    }
-
-    public Date getStartBerlaku() {
-        return this.startBerlaku;
-    }
-
-    public void setStartBerlaku(Date startBerlaku) {
-        this.startBerlaku = startBerlaku;
-    }
-
-    public Date getEndBerlaku() {
-        return this.endBerlaku;
-    }
-
-    public void setEndBerlaku(Date endBerlaku) {
-        this.endBerlaku = endBerlaku;
     }
 
     public Integer getStatusApproval() {
@@ -307,16 +277,6 @@ public class MinimalDP {
         return this;
     }
 
-    public MinimalDP startBerlaku(Date startBerlaku) {
-        setStartBerlaku(startBerlaku);
-        return this;
-    }
-
-    public MinimalDP endBerlaku(Date endBerlaku) {
-        setEndBerlaku(endBerlaku);
-        return this;
-    }
-
     public MinimalDP statusApproval(Integer statusApproval) {
         setStatusApproval(statusApproval);
         return this;
@@ -370,8 +330,6 @@ public class MinimalDP {
             ", jenisPembiayaan='" + getJenisPembiayaan() + "'" +
             ", cluster='" + getCluster() + "'" +
             ", minimalDp='" + getMinimalDp() + "'" +
-            ", startBerlaku='" + getStartBerlaku() + "'" +
-            ", endBerlaku='" + getEndBerlaku() + "'" +
             ", statusApproval='" + getStatusApproval() + "'" +
             ", remarks='" + getRemarks() + "'" +
             ", isRejected='" + getIsRejected() + "'" +
@@ -382,6 +340,7 @@ public class MinimalDP {
             ", updatedDate='" + getUpdatedDate() + "'" +
             "}";
     }
+
 
 
 }

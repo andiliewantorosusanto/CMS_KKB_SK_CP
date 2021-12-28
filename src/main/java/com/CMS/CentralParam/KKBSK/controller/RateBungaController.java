@@ -140,7 +140,6 @@ public class RateBungaController {
             return "/pages/MasterParameter/RateBunga/InputData";
         }
 
-		System.out.println(rateBunga.toString());
 		try {
 			rateBunga.getCluster().forEach((cluster) -> {
 				rateBunga.getJenisPembiayaan().forEach((jenisPembiayaan) -> {
@@ -156,7 +155,7 @@ public class RateBungaController {
 					rateBunga.getTenor10Periode1(), rateBunga.getTenor10Periode2(), rateBunga.getTenor10Rate1(), rateBunga.getTenor10Rate2(), 
 					rateBunga.getStartBerlaku(), rateBunga.getEndBerlaku(), 
 					null, null, null, null, null, null, null, null);
-					System.out.println(temp.toString());
+					
 					try {
 						restTemplate.exchange(
 							apiBaseUrl+"/api/ratebunga/"+HelperConf.getAction(action), 
@@ -320,7 +319,6 @@ public class RateBungaController {
 
 			model.addAttribute("listRateBunga", respon.getBody().getDataRateBunga());
 
-			System.out.println(respon.getBody().getDataRateBunga().get(10).toString());
 			return "/pages/MasterParameter/RateBunga/Data";
 		} catch (Exception e) {
 			SecurityContextHolder.getContext().setAuthentication(null);

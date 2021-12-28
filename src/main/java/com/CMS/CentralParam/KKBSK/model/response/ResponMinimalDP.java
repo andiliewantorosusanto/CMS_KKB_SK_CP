@@ -4,6 +4,7 @@ package com.CMS.CentralParam.KKBSK.model.response;
 import java.util.List;
 
 import com.CMS.CentralParam.KKBSK.model.data.MinimalDP;
+import com.CMS.CentralParam.KKBSK.view.vwMinimalDP;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ResponMinimalDP {
 
     @JsonProperty("dataMinimalDP")
-    private List<MinimalDP> dataMinimalDP = null;
+    private List<vwMinimalDP> dataMinimalDP = null;
     @JsonProperty("minimalDP")
     private MinimalDP minimalDP = null;
     @JsonProperty("code")
@@ -35,7 +36,7 @@ public class ResponMinimalDP {
      * @param dataMinimalDP
      * @param code
      */
-    public ResponMinimalDP(List<MinimalDP> dataMinimalDP,MinimalDP minimalDP,String code) {
+    public ResponMinimalDP(List<vwMinimalDP> dataMinimalDP,MinimalDP minimalDP,String code) {
         super();
         this.dataMinimalDP = dataMinimalDP;
         this.minimalDP = minimalDP;
@@ -43,12 +44,12 @@ public class ResponMinimalDP {
     }
 
     @JsonProperty("dataMinimalDP")
-    public List<MinimalDP> getDataMinimalDP() {
+    public List<vwMinimalDP> getDataMinimalDP() {
         return dataMinimalDP;
     }
 
     @JsonProperty("dataMinimalDP")
-    public void setDataMinimalDP(List<MinimalDP> dataMinimalDP) {
+    public void setDataMinimalDP(List<vwMinimalDP> dataMinimalDP) {
         this.dataMinimalDP = dataMinimalDP;
     }
 
