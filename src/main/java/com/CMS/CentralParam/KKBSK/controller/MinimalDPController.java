@@ -100,6 +100,7 @@ public class MinimalDPController {
 
 			return "/pages/MasterParameter/MinimalDP/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -197,6 +198,7 @@ public class MinimalDPController {
 			
 			return "redirect:/MinimalDP/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -253,6 +255,7 @@ public class MinimalDPController {
 			
 			return "redirect:/MinimalDP/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -270,6 +273,7 @@ public class MinimalDPController {
 
 			return "redirect:/MinimalDP/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -287,6 +291,7 @@ public class MinimalDPController {
 			);
 			return "redirect:/MinimalDP/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -304,6 +309,7 @@ public class MinimalDPController {
 			);
 			return "redirect:/MinimalDP/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -371,6 +377,7 @@ public class MinimalDPController {
 
 			return "/pages/MasterParameter/MinimalDP/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -387,6 +394,7 @@ public class MinimalDPController {
 			
 			return "/pages/MasterParameter/MinimalDP/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -425,6 +433,7 @@ public class MinimalDPController {
 
 			return "/pages/MasterParameter/MinimalDP/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

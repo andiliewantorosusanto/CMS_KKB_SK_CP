@@ -13,11 +13,14 @@ import javax.validation.constraints.NotNull;
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.KomponenPHExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.data.KomponenPH;
+import com.CMS.CentralParam.KKBSK.model.form.KomponenPHForm;
 import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPembiayaan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponTipeKonsumen;
 import com.CMS.CentralParam.KKBSK.model.response.ResponKomponenPH;
+import com.CMS.CentralParam.KKBSK.view.vwKomponenPH;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+
 @Controller
 public class KomponenPHController {
 
@@ -47,12 +51,28 @@ public class KomponenPHController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/KomponenPH/InputData", method = RequestMethod.GET)
-	public String KomponenPHInputData(KomponenPH dataKomponenPH) {
+	public String KomponenPHInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			KomponenPHForm komponenPHForm = new KomponenPHForm();
+			komponenPHForm.setTipeKonsumen(0);
+
+			model.addAttribute("komponenPH", komponenPHForm);
+
 			return "/pages/MasterParameter/KomponenPH/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -65,14 +85,14 @@ public class KomponenPHController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=KomponenPH_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponKomponenPH> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/komponenph/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponKomponenPH.class);
 
-        List<KomponenPH> listKomponenPH = respon.getBody().getDataKomponenPH();
+        List<vwKomponenPH> listKomponenPH = respon.getBody().getDataKomponenPH();
          
         KomponenPHExcelExporter excelExporter = new KomponenPHExcelExporter(listKomponenPH);
          
@@ -80,46 +100,107 @@ public class KomponenPHController {
     }  
 	
 	@PostMapping(value = "/KomponenPH/ActionInputData")
-	public String KomponenPHActionInputData(@Valid KomponenPH dataKomponenPH, BindingResult result,String action) {
-		// if(dataKomponenPH.getEndBerlaku().before(dataKomponenPH.getStartBerlaku())) {
-		// 	result.rejectValue("endBerlaku", "error.dataKomponenPH", "End date must be greater than start date");
-		// }
+	public String KomponenPHActionInputData(@Valid KomponenPHForm komponenPH, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(komponenPH.getJenisPembiayaan().size() == 0) {
+				result.rejectValue("jenisPembiayaan", "error.komponenPH", "You must choose Jenis Pembiayaan");
+			}
+		}
 
 		if (result.hasErrors()) {
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			model.addAttribute("komponenPH", komponenPH);
             return "/pages/MasterParameter/KomponenPH/InputData";
         }
 
+
+		try {
+			komponenPH.getJenisPembiayaan().forEach((jenisPembiayaan) -> {
+				KomponenPH temp = new KomponenPH(null, 
+				komponenPH.getNamaSkema(), komponenPH.getJenis(), komponenPH.getAddm(), komponenPH.getAddb(), komponenPH.getTipeKonsumen(), jenisPembiayaan, 
+				null, null, null, null, null, null, null, null);
+				try {
+					restTemplate.exchange(
+						apiBaseUrl+"/api/komponenph/"+HelperConf.getAction(action), 
+						HttpMethod.POST, 
+						HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
+						String.class
+					);
+				} catch (Exception e) {
+					
+				}
+
+			});
+
+			
+			return "redirect:/KomponenPH/Data";
+		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/KomponenPH/ActionEditData")
+	public String KomponenPHActionEditData(@Valid KomponenPH komponenPH, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+
+		}
+
+		if (result.hasErrors()) {
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
+			model.addAttribute("komponenPH", komponenPH);
+            return "/pages/MasterParameter/KomponenPH/EditData";
+        }
+
+
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/komponenph/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataKomponenPH)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(komponenPH)), 
 				String.class
 			);
 			
 			return "redirect:/KomponenPH/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
 	@PostMapping(value = "/KomponenPH/ActionApprovalData")
-	public String KomponenPHActionApprovalData(@Valid KomponenPH dataKomponenPH, BindingResult result,String action) {
-		if (result.hasErrors()) {
-            return "/pages/MasterParameter/KomponenPH/ApprovalData";
-        }
-
+	public String KomponenPHActionApprovalData(KomponenPH komponenPH, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action+"Data", 
+				apiBaseUrl+"/api/komponenph/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataKomponenPH)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(komponenPH)), 
 				String.class
 			);
-			
-			return "redirect:/KomponenPH/Data";
+
+			return "redirect:/KomponenPH/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -130,46 +211,62 @@ public class KomponenPHController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/komponenph/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
 			);
 			return "redirect:/KomponenPH/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/KomponenPH/ActionApproval")
 	public String KomponenPHActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/komponenph/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
 			);
 			return "redirect:/KomponenPH/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/KomponenPH/EditData/{id}", method = RequestMethod.GET)
 	public String KomponenPHEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponKomponenPH> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/komponenph/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponKomponenPH.class
 			);
 
-			model.addAttribute("dataKomponenPH",respon.getBody().getDataKomponenPH());
+			model.addAttribute("komponenPH",respon.getBody().getKomponenPH());
+
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+			
 			return "/pages/MasterParameter/KomponenPH/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -179,12 +276,14 @@ public class KomponenPHController {
 	public String getListKomponenPH(Model model) {
 		try {
 			ResponseEntity<ResponKomponenPH> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/komponenph/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponKomponenPH.class);
 
-			model.addAttribute("listDataKomponenPH", respon.getBody().getDataKomponenPH());
+			model.addAttribute("listKomponenPH", respon.getBody().getDataKomponenPH());
+
 			return "/pages/MasterParameter/KomponenPH/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -194,12 +293,14 @@ public class KomponenPHController {
 	public String getListApprovalKomponenPH(Model model) {
 		try {
 			ResponseEntity<ResponKomponenPH> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/komponenph/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponKomponenPH.class);
 
-			model.addAttribute("listDataKomponenPH", respon.getBody().getDataKomponenPH());
+			model.addAttribute("listKomponenPH", respon.getBody().getDataKomponenPH());
+			
 			return "/pages/MasterParameter/KomponenPH/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -209,15 +310,26 @@ public class KomponenPHController {
 	public String KomponenPHFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponKomponenPH> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/komponenph/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponKomponenPH.class
 			);
+			model.addAttribute("komponenPH",respon.getBody().getKomponenPH());
 
-			model.addAttribute("dataKomponenPH",respon.getBody().getDataKomponenPH());
+			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
+				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponTipeKonsumen.class);
+			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
+
+			ResponseEntity<ResponJenisPembiayaan> responJenisPembiayaan = restTemplate.exchange(
+				apiBaseUrl+"api/jenispembiayaan/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+				ResponJenisPembiayaan.class);
+			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
+
 			return "/pages/MasterParameter/KomponenPH/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

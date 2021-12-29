@@ -3,12 +3,10 @@ package com.CMS.CentralParam.KKBSK.model.data;
 import java.util.Date;
 
 import javax.annotation.Generated;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("jsonschema2pojo")
@@ -20,9 +18,6 @@ public class KomponenPH {
     @JsonProperty("namaSkema")
     private String namaSkema;
 
-    @JsonProperty("idKompPh")
-    private Integer idKompPh;
-
     @JsonProperty("jenis")
     private String jenis;
 
@@ -32,32 +27,11 @@ public class KomponenPH {
     private Integer addb;
 
 
-    @JsonProperty("group_id")
-    private String group_id;
-    @JsonProperty("kondisiKendaraan")
-    private Integer kondisiKendaraan;
-    @JsonProperty("produk")
-    private Integer produk;
     @JsonProperty("tipeKonsumen")
     private Integer tipeKonsumen;
     @JsonProperty("jenisPembiayaan")
     private Integer jenisPembiayaan;
-    @JsonProperty("jenisKendaraan")
-    private Integer jenisKendaraan;
-    @JsonProperty("program")
-    private Integer program;
-    @JsonProperty("cluster")
-    private Integer cluster;
     
-    @JsonProperty("startBerlaku")
-    @NotNull(message = "Start Date Tidak Boleh Kosong")
-    @DateTimeFormat (pattern="yyyy-MM-dd")
-    private Date startBerlaku;
-    @JsonProperty("endBerlaku")
-    @NotNull(message = "End Date Tidak Boleh Kosong")
-    @DateTimeFormat (pattern="yyyy-MM-dd")
-    private Date endBerlaku;
-
     @JsonProperty("statusApproval")
     private Integer statusApproval;
     @JsonProperty("remarks")
@@ -80,23 +54,14 @@ public class KomponenPH {
     public KomponenPH() {
     }
 
-    public KomponenPH(Integer id, String namaSkema, Integer idKompPh, String jenis, Integer addm, Integer addb, String group_id, Integer kondisiKendaraan, Integer produk, Integer tipeKonsumen, Integer jenisPembiayaan, Integer jenisKendaraan, Integer program, Integer cluster, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
+    public KomponenPH(Integer id, String namaSkema, String jenis, Integer addm, Integer addb, Integer tipeKonsumen, Integer jenisPembiayaan, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
         this.id = id;
         this.namaSkema = namaSkema;
-        this.idKompPh = idKompPh;
         this.jenis = jenis;
         this.addm = addm;
         this.addb = addb;
-        this.group_id = group_id;
-        this.kondisiKendaraan = kondisiKendaraan;
-        this.produk = produk;
         this.tipeKonsumen = tipeKonsumen;
         this.jenisPembiayaan = jenisPembiayaan;
-        this.jenisKendaraan = jenisKendaraan;
-        this.program = program;
-        this.cluster = cluster;
-        this.startBerlaku = startBerlaku;
-        this.endBerlaku = endBerlaku;
         this.statusApproval = statusApproval;
         this.remarks = remarks;
         this.isRejected = isRejected;
@@ -123,14 +88,6 @@ public class KomponenPH {
         this.namaSkema = namaSkema;
     }
 
-    public Integer getIdKompPh() {
-        return this.idKompPh;
-    }
-
-    public void setIdKompPh(Integer idKompPh) {
-        this.idKompPh = idKompPh;
-    }
-
     public String getJenis() {
         return this.jenis;
     }
@@ -155,30 +112,6 @@ public class KomponenPH {
         this.addb = addb;
     }
 
-    public String getGroup_id() {
-        return this.group_id;
-    }
-
-    public void setGroup_id(String group_id) {
-        this.group_id = group_id;
-    }
-
-    public Integer getKondisiKendaraan() {
-        return this.kondisiKendaraan;
-    }
-
-    public void setKondisiKendaraan(Integer kondisiKendaraan) {
-        this.kondisiKendaraan = kondisiKendaraan;
-    }
-
-    public Integer getProduk() {
-        return this.produk;
-    }
-
-    public void setProduk(Integer produk) {
-        this.produk = produk;
-    }
-
     public Integer getTipeKonsumen() {
         return this.tipeKonsumen;
     }
@@ -193,46 +126,6 @@ public class KomponenPH {
 
     public void setJenisPembiayaan(Integer jenisPembiayaan) {
         this.jenisPembiayaan = jenisPembiayaan;
-    }
-
-    public Integer getJenisKendaraan() {
-        return this.jenisKendaraan;
-    }
-
-    public void setJenisKendaraan(Integer jenisKendaraan) {
-        this.jenisKendaraan = jenisKendaraan;
-    }
-
-    public Integer getProgram() {
-        return this.program;
-    }
-
-    public void setProgram(Integer program) {
-        this.program = program;
-    }
-
-    public Integer getCluster() {
-        return this.cluster;
-    }
-
-    public void setCluster(Integer cluster) {
-        this.cluster = cluster;
-    }
-
-    public Date getStartBerlaku() {
-        return this.startBerlaku;
-    }
-
-    public void setStartBerlaku(Date startBerlaku) {
-        this.startBerlaku = startBerlaku;
-    }
-
-    public Date getEndBerlaku() {
-        return this.endBerlaku;
-    }
-
-    public void setEndBerlaku(Date endBerlaku) {
-        this.endBerlaku = endBerlaku;
     }
 
     public Integer getStatusApproval() {
@@ -309,11 +202,6 @@ public class KomponenPH {
         return this;
     }
 
-    public KomponenPH idKompPh(Integer idKompPh) {
-        setIdKompPh(idKompPh);
-        return this;
-    }
-
     public KomponenPH jenis(String jenis) {
         setJenis(jenis);
         return this;
@@ -329,21 +217,6 @@ public class KomponenPH {
         return this;
     }
 
-    public KomponenPH group_id(String group_id) {
-        setGroup_id(group_id);
-        return this;
-    }
-
-    public KomponenPH kondisiKendaraan(Integer kondisiKendaraan) {
-        setKondisiKendaraan(kondisiKendaraan);
-        return this;
-    }
-
-    public KomponenPH produk(Integer produk) {
-        setProduk(produk);
-        return this;
-    }
-
     public KomponenPH tipeKonsumen(Integer tipeKonsumen) {
         setTipeKonsumen(tipeKonsumen);
         return this;
@@ -351,31 +224,6 @@ public class KomponenPH {
 
     public KomponenPH jenisPembiayaan(Integer jenisPembiayaan) {
         setJenisPembiayaan(jenisPembiayaan);
-        return this;
-    }
-
-    public KomponenPH jenisKendaraan(Integer jenisKendaraan) {
-        setJenisKendaraan(jenisKendaraan);
-        return this;
-    }
-
-    public KomponenPH program(Integer program) {
-        setProgram(program);
-        return this;
-    }
-
-    public KomponenPH cluster(Integer cluster) {
-        setCluster(cluster);
-        return this;
-    }
-
-    public KomponenPH startBerlaku(Date startBerlaku) {
-        setStartBerlaku(startBerlaku);
-        return this;
-    }
-
-    public KomponenPH endBerlaku(Date endBerlaku) {
-        setEndBerlaku(endBerlaku);
         return this;
     }
 
@@ -424,20 +272,11 @@ public class KomponenPH {
         return "{" +
             " id='" + getId() + "'" +
             ", namaSkema='" + getNamaSkema() + "'" +
-            ", idKompPh='" + getIdKompPh() + "'" +
             ", jenis='" + getJenis() + "'" +
             ", addm='" + getAddm() + "'" +
             ", addb='" + getAddb() + "'" +
-            ", group_id='" + getGroup_id() + "'" +
-            ", kondisiKendaraan='" + getKondisiKendaraan() + "'" +
-            ", produk='" + getProduk() + "'" +
             ", tipeKonsumen='" + getTipeKonsumen() + "'" +
             ", jenisPembiayaan='" + getJenisPembiayaan() + "'" +
-            ", jenisKendaraan='" + getJenisKendaraan() + "'" +
-            ", program='" + getProgram() + "'" +
-            ", cluster='" + getCluster() + "'" +
-            ", startBerlaku='" + getStartBerlaku() + "'" +
-            ", endBerlaku='" + getEndBerlaku() + "'" +
             ", statusApproval='" + getStatusApproval() + "'" +
             ", remarks='" + getRemarks() + "'" +
             ", isRejected='" + getIsRejected() + "'" +
@@ -448,6 +287,5 @@ public class KomponenPH {
             ", updatedDate='" + getUpdatedDate() + "'" +
             "}";
     }
-    
 
 }

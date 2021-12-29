@@ -62,6 +62,7 @@ public class JenisPembiayaanController {
 			
 			return "/pages/MasterParameter/JenisPembiayaan/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -117,6 +118,7 @@ public class JenisPembiayaanController {
 			
 			return "redirect:/JenisPembiayaan/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -151,6 +153,7 @@ public class JenisPembiayaanController {
 			
 			return "redirect:/JenisPembiayaan/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -168,6 +171,7 @@ public class JenisPembiayaanController {
 
 			return "redirect:/JenisPembiayaan/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -185,6 +189,7 @@ public class JenisPembiayaanController {
 			);
 			return "redirect:/JenisPembiayaan/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -202,6 +207,7 @@ public class JenisPembiayaanController {
 			);
 			return "redirect:/JenisPembiayaan/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -226,6 +232,7 @@ public class JenisPembiayaanController {
 			
 			return "/pages/MasterParameter/JenisPembiayaan/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -259,6 +266,7 @@ public class JenisPembiayaanController {
 			
 			return "/pages/MasterParameter/JenisPembiayaan/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -282,6 +290,7 @@ public class JenisPembiayaanController {
 
 			return "/pages/MasterParameter/JenisPembiayaan/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

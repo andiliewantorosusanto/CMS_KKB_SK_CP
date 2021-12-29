@@ -155,6 +155,7 @@ public class PerluasanAsuransiController {
 			);
 			return "redirect:/PerluasanAsuransi/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -203,6 +204,7 @@ public class PerluasanAsuransiController {
 			
 			return "redirect:/PerluasanAsuransi/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -220,6 +222,7 @@ public class PerluasanAsuransiController {
 
 			return "redirect:/PerluasanAsuransi/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -237,6 +240,7 @@ public class PerluasanAsuransiController {
 			);
 			return "redirect:/PerluasanAsuransi/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -254,6 +258,7 @@ public class PerluasanAsuransiController {
 			);
 			return "redirect:/PerluasanAsuransi/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -294,6 +299,7 @@ public class PerluasanAsuransiController {
 			
 			return "/pages/MasterParameter/PerluasanAsuransi/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -310,6 +316,7 @@ public class PerluasanAsuransiController {
 
 			return "/pages/MasterParameter/PerluasanAsuransi/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -326,6 +333,7 @@ public class PerluasanAsuransiController {
 			
 			return "/pages/MasterParameter/PerluasanAsuransi/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -364,6 +372,7 @@ public class PerluasanAsuransiController {
 
 			return "/pages/MasterParameter/PerluasanAsuransi/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

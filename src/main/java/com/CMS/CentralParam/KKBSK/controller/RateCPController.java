@@ -65,6 +65,7 @@ public class RateCPController {
 
 			return "/pages/MasterParameter/RateCP/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -118,6 +119,7 @@ public class RateCPController {
 			);
 			return "redirect:/RateCP/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -152,6 +154,7 @@ public class RateCPController {
 			
 			return "redirect:/RateCP/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -169,6 +172,7 @@ public class RateCPController {
 
 			return "redirect:/RateCP/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -186,6 +190,7 @@ public class RateCPController {
 			);
 			return "redirect:/RateCP/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -203,6 +208,7 @@ public class RateCPController {
 			);
 			return "redirect:/RateCP/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -227,6 +233,7 @@ public class RateCPController {
 			
 			return "/pages/MasterParameter/RateCP/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -243,6 +250,7 @@ public class RateCPController {
 
 			return "/pages/MasterParameter/RateCP/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -259,6 +267,7 @@ public class RateCPController {
 			
 			return "/pages/MasterParameter/RateCP/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -282,6 +291,7 @@ public class RateCPController {
 
 			return "/pages/MasterParameter/RateCP/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

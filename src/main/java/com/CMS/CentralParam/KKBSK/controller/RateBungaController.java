@@ -79,6 +79,7 @@ public class RateBungaController {
 
 			return "/pages/MasterParameter/RateBunga/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -173,6 +174,7 @@ public class RateBungaController {
 			
 			return "redirect:/RateBunga/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -218,6 +220,7 @@ public class RateBungaController {
 			
 			return "redirect:/RateBunga/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -235,6 +238,7 @@ public class RateBungaController {
 
 			return "redirect:/RateBunga/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -252,6 +256,7 @@ public class RateBungaController {
 			);
 			return "redirect:/RateBunga/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -269,6 +274,7 @@ public class RateBungaController {
 			);
 			return "redirect:/RateBunga/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -305,6 +311,7 @@ public class RateBungaController {
 			
 			return "/pages/MasterParameter/RateBunga/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -321,6 +328,7 @@ public class RateBungaController {
 
 			return "/pages/MasterParameter/RateBunga/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -337,6 +345,7 @@ public class RateBungaController {
 			
 			return "/pages/MasterParameter/RateBunga/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -372,6 +381,7 @@ public class RateBungaController {
 
 			return "/pages/MasterParameter/RateBunga/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

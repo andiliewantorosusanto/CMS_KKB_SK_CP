@@ -86,6 +86,7 @@ public class RateAsuransiController {
 
 			return "/pages/MasterParameter/RateAsuransi/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -170,6 +171,7 @@ public class RateAsuransiController {
 			
 			return "redirect:/RateAsuransi/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -218,6 +220,7 @@ public class RateAsuransiController {
 			
 			return "redirect:/RateAsuransi/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -235,6 +238,7 @@ public class RateAsuransiController {
 
 			return "redirect:/RateAsuransi/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -252,6 +256,7 @@ public class RateAsuransiController {
 			);
 			return "redirect:/RateAsuransi/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -269,6 +274,7 @@ public class RateAsuransiController {
 			);
 			return "redirect:/RateAsuransi/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -308,6 +314,7 @@ public class RateAsuransiController {
 			
 			return "/pages/MasterParameter/RateAsuransi/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -325,6 +332,7 @@ public class RateAsuransiController {
 			System.out.println(respon.getBody().getDataRateAsuransi());
 			return "/pages/MasterParameter/RateAsuransi/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -341,6 +349,7 @@ public class RateAsuransiController {
 			
 			return "/pages/MasterParameter/RateAsuransi/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -379,6 +388,7 @@ public class RateAsuransiController {
 
 			return "/pages/MasterParameter/RateAsuransi/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

@@ -18,16 +18,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class BiayaFidusiaExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<BiayaFidusia> listCluster;
+    private List<BiayaFidusia> listBiayaFidusia;
      
-    public BiayaFidusiaExcelExporter(List<BiayaFidusia> listCluster) {
-        this.listCluster = listCluster;
+    public BiayaFidusiaExcelExporter(List<BiayaFidusia> listBiayaFidusia) {
+        this.listBiayaFidusia = listBiayaFidusia;
         workbook = new XSSFWorkbook();
     }
  
  
     private void writeHeaderLine() {
-        sheet = workbook.createSheet("Cluster");
+        sheet = workbook.createSheet("BiayaFidusia");
          
         Row row = sheet.createRow(0);
          
@@ -37,11 +37,10 @@ public class BiayaFidusiaExcelExporter {
         font.setFontHeight(16);
         style.setFont(font);
          
-        createCell(row, 0, "User ID", style);      
-        createCell(row, 1, "E-mail", style);       
-        createCell(row, 2, "Full Name", style);    
-        createCell(row, 3, "Roles", style);
-        createCell(row, 4, "Enabled", style);
+        createCell(row, 0, "Nama Skema", style);      
+        createCell(row, 1, "Start PH (Rp)", style);       
+        createCell(row, 2, "End PH (Rp)", style);    
+        createCell(row, 3, "Biaya Fidusia (Rp)", style);
     }
      
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -65,15 +64,14 @@ public class BiayaFidusiaExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (BiayaFidusia Cluster : listCluster) {
+        for (BiayaFidusia biayaFidusia : listBiayaFidusia) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            // createCell(row, columnCount++, Cluster.getId(), style);
-            // createCell(row, columnCount++, Cluster.getNama(), style);
-            // createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-            // createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
-            // createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
+            createCell(row, columnCount++, biayaFidusia.getNamaSkema(), style);
+            createCell(row, columnCount++, biayaFidusia.getStartPh(), style);
+            createCell(row, columnCount++, biayaFidusia.getEndPh(), style);
+            createCell(row, columnCount++, biayaFidusia.getBiaya(), style);
              
         }
     }

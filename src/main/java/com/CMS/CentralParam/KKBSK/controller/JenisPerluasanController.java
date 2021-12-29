@@ -62,6 +62,7 @@ public class JenisPerluasanController {
 			
 			return "/pages/MasterParameter/JenisPerluasan/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -117,6 +118,7 @@ public class JenisPerluasanController {
 			
 			return "redirect:/JenisPerluasan/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -151,6 +153,7 @@ public class JenisPerluasanController {
 			
 			return "redirect:/JenisPerluasan/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -168,6 +171,7 @@ public class JenisPerluasanController {
 
 			return "redirect:/JenisPerluasan/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -185,6 +189,7 @@ public class JenisPerluasanController {
 			);
 			return "redirect:/JenisPerluasan/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -202,6 +207,7 @@ public class JenisPerluasanController {
 			);
 			return "redirect:/JenisPerluasan/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -226,6 +232,7 @@ public class JenisPerluasanController {
 			
 			return "/pages/MasterParameter/JenisPerluasan/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -242,6 +249,7 @@ public class JenisPerluasanController {
 
 			return "/pages/MasterParameter/JenisPerluasan/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -258,6 +266,7 @@ public class JenisPerluasanController {
 			
 			return "/pages/MasterParameter/JenisPerluasan/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -281,6 +290,7 @@ public class JenisPerluasanController {
 
 			return "/pages/MasterParameter/JenisPerluasan/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

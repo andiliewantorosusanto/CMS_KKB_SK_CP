@@ -53,6 +53,7 @@ public class ProgramController {
 			
 			return "/pages/MasterParameter/Program/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -99,6 +100,7 @@ public class ProgramController {
 			
 			return "redirect:/Program/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -120,6 +122,7 @@ public class ProgramController {
 			
 			return "redirect:/Program/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -137,6 +140,7 @@ public class ProgramController {
 			);
 			return "redirect:/Program/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -153,6 +157,7 @@ public class ProgramController {
 			);
 			return "redirect:/Program/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -170,6 +175,7 @@ public class ProgramController {
 			model.addAttribute("dataProgram",respon.getBody().getDataProgram());
 			return "/pages/MasterParameter/Program/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -185,6 +191,7 @@ public class ProgramController {
 			model.addAttribute("listDataProgram", respon.getBody().getDataProgram());
 			return "/pages/MasterParameter/Program/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -200,6 +207,7 @@ public class ProgramController {
 			model.addAttribute("listDataProgram", respon.getBody().getDataProgram());
 			return "/pages/MasterParameter/Program/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -218,6 +226,7 @@ public class ProgramController {
 			model.addAttribute("dataProgram",respon.getBody().getDataProgram());
 			return "/pages/MasterParameter/Program/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

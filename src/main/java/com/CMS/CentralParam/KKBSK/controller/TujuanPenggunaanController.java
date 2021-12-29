@@ -62,6 +62,7 @@ public class TujuanPenggunaanController {
 			
 			return "/pages/MasterParameter/TujuanPenggunaan/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -117,6 +118,7 @@ public class TujuanPenggunaanController {
 			
 			return "redirect:/TujuanPenggunaan/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -151,6 +153,7 @@ public class TujuanPenggunaanController {
 			
 			return "redirect:/TujuanPenggunaan/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -168,6 +171,7 @@ public class TujuanPenggunaanController {
 
 			return "redirect:/TujuanPenggunaan/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -185,6 +189,7 @@ public class TujuanPenggunaanController {
 			);
 			return "redirect:/TujuanPenggunaan/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -202,6 +207,7 @@ public class TujuanPenggunaanController {
 			);
 			return "redirect:/TujuanPenggunaan/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -226,6 +232,7 @@ public class TujuanPenggunaanController {
 			
 			return "/pages/MasterParameter/TujuanPenggunaan/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -241,6 +248,7 @@ public class TujuanPenggunaanController {
 			model.addAttribute("listTujuanPenggunaan", respon.getBody().getDataTujuanPenggunaan());
 			return "/pages/MasterParameter/TujuanPenggunaan/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -257,6 +265,7 @@ public class TujuanPenggunaanController {
 			
 			return "/pages/MasterParameter/TujuanPenggunaan/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -280,6 +289,7 @@ public class TujuanPenggunaanController {
 
 			return "/pages/MasterParameter/TujuanPenggunaan/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

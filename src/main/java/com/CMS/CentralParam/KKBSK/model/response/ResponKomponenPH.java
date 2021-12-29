@@ -4,6 +4,7 @@ package com.CMS.CentralParam.KKBSK.model.response;
 import java.util.List;
 
 import com.CMS.CentralParam.KKBSK.model.data.KomponenPH;
+import com.CMS.CentralParam.KKBSK.view.vwKomponenPH;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ResponKomponenPH {
 
     @JsonProperty("dataKomponenPH")
-    private List<KomponenPH> dataKomponenPH = null;
+    private List<vwKomponenPH> dataKomponenPH = null;
     @JsonProperty("komponenPH")
     private KomponenPH komponenPH = null;
     @JsonProperty("code")
@@ -35,7 +36,7 @@ public class ResponKomponenPH {
      * @param dataKomponenPH
      * @param code
      */
-    public ResponKomponenPH(List<KomponenPH> dataKomponenPH,KomponenPH komponenPH,String code) {
+    public ResponKomponenPH(List<vwKomponenPH> dataKomponenPH,KomponenPH komponenPH,String code) {
         super();
         this.dataKomponenPH = dataKomponenPH;
         this.komponenPH = komponenPH;
@@ -43,12 +44,12 @@ public class ResponKomponenPH {
     }
 
     @JsonProperty("dataKomponenPH")
-    public List<KomponenPH> getDataKomponenPH() {
+    public List<vwKomponenPH> getDataKomponenPH() {
         return dataKomponenPH;
     }
 
     @JsonProperty("dataKomponenPH")
-    public void setDataKomponenPH(List<KomponenPH> dataKomponenPH) {
+    public void setDataKomponenPH(List<vwKomponenPH> dataKomponenPH) {
         this.dataKomponenPH = dataKomponenPH;
     }
 

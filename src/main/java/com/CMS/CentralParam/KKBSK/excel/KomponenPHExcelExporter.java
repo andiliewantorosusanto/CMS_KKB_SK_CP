@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.data.KomponenPH;
+import com.CMS.CentralParam.KKBSK.view.vwKomponenPH;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -18,16 +18,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class KomponenPHExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<KomponenPH> listCluster;
+    private List<vwKomponenPH> listKomponenPH;
      
-    public KomponenPHExcelExporter(List<KomponenPH> listCluster) {
-        this.listCluster = listCluster;
+    public KomponenPHExcelExporter(List<vwKomponenPH> listKomponenPH) {
+        this.listKomponenPH = listKomponenPH;
         workbook = new XSSFWorkbook();
     }
  
  
     private void writeHeaderLine() {
-        sheet = workbook.createSheet("Cluster");
+        sheet = workbook.createSheet("KomponenPH");
          
         Row row = sheet.createRow(0);
          
@@ -37,11 +37,13 @@ public class KomponenPHExcelExporter {
         font.setFontHeight(16);
         style.setFont(font);
          
-        createCell(row, 0, "User ID", style);      
-        createCell(row, 1, "E-mail", style);       
-        createCell(row, 2, "Full Name", style);    
-        createCell(row, 3, "Roles", style);
-        createCell(row, 4, "Enabled", style);
+        int rowCount = 0;
+        createCell(row, rowCount++, "Skema", style);      
+        createCell(row, rowCount++, "Tipe Konsumen", style);       
+        createCell(row, rowCount++, "Jenis Pembiayaan", style);
+        createCell(row, rowCount++, "Komponen PH", style);
+        createCell(row, rowCount++, "ADDM", style);
+        createCell(row, rowCount++, "ADDB", style);
     }
      
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -65,15 +67,16 @@ public class KomponenPHExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
                  
-        for (KomponenPH Cluster : listCluster) {
+        for (vwKomponenPH komponenPh : listKomponenPH) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
              
-            // createCell(row, columnCount++, Cluster.getId(), style);
-            // createCell(row, columnCount++, Cluster.getNama(), style);
-            // createCell(row, columnCount++, Cluster.getDeskripsi(), style);
-            // createCell(row, columnCount++, Cluster.getStart_date().toString(), style);
-            // createCell(row, columnCount++, Cluster.getEnd_date().toString(), style);
+            createCell(row, columnCount++, komponenPh.getNamaSkema(), style);
+            createCell(row, columnCount++, komponenPh.getTipeKonsumenName(), style);
+            createCell(row, columnCount++, komponenPh.getJenisPembiayaanName(), style);
+            createCell(row, columnCount++, komponenPh.getJenis(), style);
+            createCell(row, columnCount++, komponenPh.getAddb(), style);
+            createCell(row, columnCount++, komponenPh.getAddm(), style);
              
         }
     }

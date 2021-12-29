@@ -74,6 +74,7 @@ public class BiayaProvisiController {
 
 			return "/pages/MasterParameter/BiayaProvisi/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -152,6 +153,7 @@ public class BiayaProvisiController {
 			
 			return "redirect:/BiayaProvisi/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -192,6 +194,7 @@ public class BiayaProvisiController {
 			
 			return "redirect:/BiayaProvisi/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -209,6 +212,7 @@ public class BiayaProvisiController {
 
 			return "redirect:/BiayaProvisi/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -226,6 +230,7 @@ public class BiayaProvisiController {
 			);
 			return "redirect:/BiayaProvisi/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -243,6 +248,7 @@ public class BiayaProvisiController {
 			);
 			return "redirect:/BiayaProvisi/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -274,6 +280,7 @@ public class BiayaProvisiController {
 			
 			return "/pages/MasterParameter/BiayaProvisi/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -290,6 +297,7 @@ public class BiayaProvisiController {
 
 			return "/pages/MasterParameter/BiayaProvisi/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -306,6 +314,7 @@ public class BiayaProvisiController {
 			
 			return "/pages/MasterParameter/BiayaProvisi/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -336,6 +345,7 @@ public class BiayaProvisiController {
 
 			return "/pages/MasterParameter/BiayaProvisi/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

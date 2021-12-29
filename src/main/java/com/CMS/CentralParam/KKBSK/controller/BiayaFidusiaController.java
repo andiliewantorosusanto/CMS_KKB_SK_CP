@@ -14,8 +14,8 @@ import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.BiayaFidusiaExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.data.BiayaFidusia;
 import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
-import com.CMS.CentralParam.KKBSK.model.response.ResponBiayaFidusia;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponBiayaFidusia;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -47,12 +47,15 @@ public class BiayaFidusiaController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/BiayaFidusia/InputData", method = RequestMethod.GET)
-	public String BiayaFidusiaInputData(BiayaFidusia dataBiayaFidusia) {
+	public String BiayaFidusiaInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 			
+			model.addAttribute("biayaFidusia", new BiayaFidusia());
+			
 			return "/pages/MasterParameter/BiayaFidusia/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -65,11 +68,11 @@ public class BiayaFidusiaController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=BiayaFidusia_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponBiayaFidusia> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/biayafidusia/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponBiayaFidusia.class);
 
         List<BiayaFidusia> listBiayaFidusia = respon.getBody().getDataBiayaFidusia();
@@ -80,46 +83,78 @@ public class BiayaFidusiaController {
     }  
 	
 	@PostMapping(value = "/BiayaFidusia/ActionInputData")
-	public String BiayaFidusiaActionInputData(@Valid BiayaFidusia dataBiayaFidusia, BindingResult result,String action) {
-		// if(dataBiayaFidusia.getEndBerlaku().before(dataBiayaFidusia.getStartBerlaku())) {
-		// 	result.rejectValue("endBerlaku", "error.dataBiayaFidusia", "End date must be greater than start date");
-		// }
+	public String BiayaFidusiaActionInputData(@Valid BiayaFidusia biayaFidusia, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(biayaFidusia.getEndPh() < biayaFidusia.getStartPh() ) {
+				result.rejectValue("endPh", "error.biayaFidusia", "End Ph must be greater than start ph");
+			}
+		}
 
 		if (result.hasErrors()) {
+			model.addAttribute("biayaFidusia", biayaFidusia);
             return "/pages/MasterParameter/BiayaFidusia/InputData";
         }
 
+
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/biayafidusia/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataBiayaFidusia)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(biayaFidusia)), 
 				String.class
 			);
 			
 			return "redirect:/BiayaFidusia/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/BiayaFidusia/ActionEditData")
+	public String BiayaFidusiaActionEditData(@Valid BiayaFidusia biayaFidusia, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(biayaFidusia.getEndPh() < biayaFidusia.getStartPh() ) {
+				result.rejectValue("endPh", "error.biayaFidusia", "End Ph must be greater than start ph");
+			}
+		}
+
+		if (result.hasErrors()) {
+			model.addAttribute("biayaFidusia", biayaFidusia);
+            return "/pages/MasterParameter/BiayaFidusia/EditData";
+        }
+
+
+		try {
+			restTemplate.exchange(
+				apiBaseUrl+"/api/biayafidusia/"+HelperConf.getAction(action), 
+				HttpMethod.POST, 
+				HelperConf.getHeader(objectMapper.writeValueAsString(biayaFidusia)), 
+				String.class
+			);
+			
+			return "redirect:/BiayaFidusia/Data";
+		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
 
 	@PostMapping(value = "/BiayaFidusia/ActionApprovalData")
-	public String BiayaFidusiaActionApprovalData(@Valid BiayaFidusia dataBiayaFidusia, BindingResult result,String action) {
-		if (result.hasErrors()) {
-            return "/pages/MasterParameter/BiayaFidusia/ApprovalData";
-        }
-
+	public String BiayaFidusiaActionApprovalData(BiayaFidusia biayaFidusia, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action+"Data", 
+				apiBaseUrl+"/api/biayafidusia/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataBiayaFidusia)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(biayaFidusia)), 
 				String.class
 			);
-			
-			return "redirect:/BiayaFidusia/Data";
+
+			return "redirect:/BiayaFidusia/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -130,46 +165,52 @@ public class BiayaFidusiaController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/biayafidusia/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
 			);
 			return "redirect:/BiayaFidusia/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/BiayaFidusia/ActionApproval")
 	public String BiayaFidusiaActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/biayafidusia/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
 			);
 			return "redirect:/BiayaFidusia/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/BiayaFidusia/EditData/{id}", method = RequestMethod.GET)
 	public String BiayaFidusiaEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponBiayaFidusia> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/biayafidusia/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponBiayaFidusia.class
 			);
 
-			model.addAttribute("dataBiayaFidusia",respon.getBody().getDataBiayaFidusia());
+			model.addAttribute("biayaFidusia",respon.getBody().getBiayaFidusia());
+			
 			return "/pages/MasterParameter/BiayaFidusia/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -179,12 +220,14 @@ public class BiayaFidusiaController {
 	public String getListBiayaFidusia(Model model) {
 		try {
 			ResponseEntity<ResponBiayaFidusia> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/biayafidusia/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponBiayaFidusia.class);
 
-			model.addAttribute("listDataBiayaFidusia", respon.getBody().getDataBiayaFidusia());
+			model.addAttribute("listBiayaFidusia", respon.getBody().getDataBiayaFidusia());
+
 			return "/pages/MasterParameter/BiayaFidusia/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -194,12 +237,14 @@ public class BiayaFidusiaController {
 	public String getListApprovalBiayaFidusia(Model model) {
 		try {
 			ResponseEntity<ResponBiayaFidusia> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/biayafidusia/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponBiayaFidusia.class);
 
-			model.addAttribute("listDataBiayaFidusia", respon.getBody().getDataBiayaFidusia());
+			model.addAttribute("listBiayaFidusia", respon.getBody().getDataBiayaFidusia());
+			
 			return "/pages/MasterParameter/BiayaFidusia/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -209,15 +254,16 @@ public class BiayaFidusiaController {
 	public String BiayaFidusiaFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponBiayaFidusia> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/biayafidusia/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponBiayaFidusia.class
 			);
+			model.addAttribute("biayaFidusia",respon.getBody().getBiayaFidusia());
 
-			model.addAttribute("dataBiayaFidusia",respon.getBody().getDataBiayaFidusia());
 			return "/pages/MasterParameter/BiayaFidusia/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

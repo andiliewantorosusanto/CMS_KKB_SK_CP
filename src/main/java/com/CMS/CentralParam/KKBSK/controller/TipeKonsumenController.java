@@ -62,6 +62,7 @@ public class TipeKonsumenController {
 			
 			return "/pages/MasterParameter/TipeKonsumen/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -117,6 +118,7 @@ public class TipeKonsumenController {
 			
 			return "redirect:/TipeKonsumen/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -151,6 +153,7 @@ public class TipeKonsumenController {
 			
 			return "redirect:/TipeKonsumen/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -168,6 +171,7 @@ public class TipeKonsumenController {
 
 			return "redirect:/TipeKonsumen/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -185,6 +189,7 @@ public class TipeKonsumenController {
 			);
 			return "redirect:/TipeKonsumen/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -202,6 +207,7 @@ public class TipeKonsumenController {
 			);
 			return "redirect:/TipeKonsumen/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -226,6 +232,7 @@ public class TipeKonsumenController {
 			
 			return "/pages/MasterParameter/TipeKonsumen/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -242,6 +249,7 @@ public class TipeKonsumenController {
 
 			return "/pages/MasterParameter/TipeKonsumen/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -258,6 +266,7 @@ public class TipeKonsumenController {
 			
 			return "/pages/MasterParameter/TipeKonsumen/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -281,6 +290,7 @@ public class TipeKonsumenController {
 
 			return "/pages/MasterParameter/TipeKonsumen/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";

@@ -5,12 +5,9 @@ package com.CMS.CentralParam.KKBSK.model.data;
 import java.util.Date;
 
 import javax.annotation.Generated;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("jsonschema2pojo")
@@ -27,15 +24,6 @@ public class BiayaFidusia {
     private Integer endPh;
     @JsonProperty("biaya")
     private Integer biaya;
-
-    @JsonProperty("startBerlaku")
-    @NotNull(message = "Start Date Tidak Boleh Kosong")
-    @DateTimeFormat (pattern="yyyy-MM-dd")
-    private Date startBerlaku;
-    @JsonProperty("endBerlaku")
-    @NotNull(message = "End Date Tidak Boleh Kosong")
-    @DateTimeFormat (pattern="yyyy-MM-dd")
-    private Date endBerlaku;
     
     @JsonProperty("statusApproval")
     private Integer statusApproval;
@@ -59,14 +47,12 @@ public class BiayaFidusia {
     public BiayaFidusia() {
     }
 
-    public BiayaFidusia(Integer id, String namaSkema, Integer startPh, Integer endPh, Integer biaya, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
+    public BiayaFidusia(Integer id, String namaSkema, Integer startPh, Integer endPh, Integer biaya, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
         this.id = id;
         this.namaSkema = namaSkema;
         this.startPh = startPh;
         this.endPh = endPh;
         this.biaya = biaya;
-        this.startBerlaku = startBerlaku;
-        this.endBerlaku = endBerlaku;
         this.statusApproval = statusApproval;
         this.remarks = remarks;
         this.isRejected = isRejected;
@@ -115,22 +101,6 @@ public class BiayaFidusia {
 
     public void setBiaya(Integer biaya) {
         this.biaya = biaya;
-    }
-
-    public Date getStartBerlaku() {
-        return this.startBerlaku;
-    }
-
-    public void setStartBerlaku(Date startBerlaku) {
-        this.startBerlaku = startBerlaku;
-    }
-
-    public Date getEndBerlaku() {
-        return this.endBerlaku;
-    }
-
-    public void setEndBerlaku(Date endBerlaku) {
-        this.endBerlaku = endBerlaku;
     }
 
     public Integer getStatusApproval() {
@@ -222,16 +192,6 @@ public class BiayaFidusia {
         return this;
     }
 
-    public BiayaFidusia startBerlaku(Date startBerlaku) {
-        setStartBerlaku(startBerlaku);
-        return this;
-    }
-
-    public BiayaFidusia endBerlaku(Date endBerlaku) {
-        setEndBerlaku(endBerlaku);
-        return this;
-    }
-
     public BiayaFidusia statusApproval(Integer statusApproval) {
         setStatusApproval(statusApproval);
         return this;
@@ -280,8 +240,6 @@ public class BiayaFidusia {
             ", startPh='" + getStartPh() + "'" +
             ", endPh='" + getEndPh() + "'" +
             ", biaya='" + getBiaya() + "'" +
-            ", startBerlaku='" + getStartBerlaku() + "'" +
-            ", endBerlaku='" + getEndBerlaku() + "'" +
             ", statusApproval='" + getStatusApproval() + "'" +
             ", remarks='" + getRemarks() + "'" +
             ", isRejected='" + getIsRejected() + "'" +

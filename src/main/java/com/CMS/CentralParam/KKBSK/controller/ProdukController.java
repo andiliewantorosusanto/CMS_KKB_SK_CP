@@ -55,6 +55,7 @@ public class ProdukController {
 			
 			return "/pages/MasterParameter/Produk/InputData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -105,6 +106,7 @@ public class ProdukController {
 			
 			return "redirect:/Produk/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -134,6 +136,7 @@ public class ProdukController {
 			
 			return "redirect:/Produk/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -151,6 +154,7 @@ public class ProdukController {
 
 			return "redirect:/Produk/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -168,6 +172,7 @@ public class ProdukController {
 			);
 			return "redirect:/Produk/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -185,6 +190,7 @@ public class ProdukController {
 			);
 			return "redirect:/Produk/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -204,6 +210,7 @@ public class ProdukController {
 			
 			return "/pages/MasterParameter/Produk/EditData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -220,6 +227,7 @@ public class ProdukController {
 
 			return "/pages/MasterParameter/Produk/Data";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -236,6 +244,7 @@ public class ProdukController {
 			
 			return "/pages/MasterParameter/Produk/ApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
@@ -254,6 +263,7 @@ public class ProdukController {
 
 			return "/pages/MasterParameter/Produk/FormApprovalData";
 		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
 		return "/pages/expired/token";
