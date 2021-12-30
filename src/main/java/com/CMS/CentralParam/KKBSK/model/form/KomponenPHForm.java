@@ -8,12 +8,7 @@ public class KomponenPHForm {
 
     private String namaSkema;
 
-    private String jenis;
-
-    private Integer addm;
-    private Integer addb;
-
-
+    private ArrayList<JenisKomponenForm> jenisKomponenForms;
     private Integer tipeKonsumen;
     private ArrayList<Integer> jenisPembiayaan;
 
@@ -21,12 +16,10 @@ public class KomponenPHForm {
     public KomponenPHForm() {
     }
 
-    public KomponenPHForm(Integer id, String namaSkema, String jenis, Integer addm, Integer addb, Integer tipeKonsumen, ArrayList<Integer> jenisPembiayaan) {
+    public KomponenPHForm(Integer id, String namaSkema, ArrayList<JenisKomponenForm> jenisKomponenForms, Integer tipeKonsumen, ArrayList<Integer> jenisPembiayaan) {
         this.id = id;
         this.namaSkema = namaSkema;
-        this.jenis = jenis;
-        this.addm = addm;
-        this.addb = addb;
+        this.jenisKomponenForms = jenisKomponenForms;
         this.tipeKonsumen = tipeKonsumen;
         this.jenisPembiayaan = jenisPembiayaan;
     }
@@ -47,28 +40,12 @@ public class KomponenPHForm {
         this.namaSkema = namaSkema;
     }
 
-    public String getJenis() {
-        return this.jenis;
+    public ArrayList<JenisKomponenForm> getJenisKomponenForms() {
+        return this.jenisKomponenForms;
     }
 
-    public void setJenis(String jenis) {
-        this.jenis = jenis;
-    }
-
-    public Integer getAddm() {
-        return this.addm;
-    }
-
-    public void setAddm(Integer addm) {
-        this.addm = addm;
-    }
-
-    public Integer getAddb() {
-        return this.addb;
-    }
-
-    public void setAddb(Integer addb) {
-        this.addb = addb;
+    public void setJenisKomponenForms(ArrayList<JenisKomponenForm> jenisKomponenForms) {
+        this.jenisKomponenForms = jenisKomponenForms;
     }
 
     public Integer getTipeKonsumen() {
@@ -97,18 +74,8 @@ public class KomponenPHForm {
         return this;
     }
 
-    public KomponenPHForm jenis(String jenis) {
-        setJenis(jenis);
-        return this;
-    }
-
-    public KomponenPHForm addm(Integer addm) {
-        setAddm(addm);
-        return this;
-    }
-
-    public KomponenPHForm addb(Integer addb) {
-        setAddb(addb);
+    public KomponenPHForm jenisKomponenForms(ArrayList<JenisKomponenForm> jenisKomponenForms) {
+        setJenisKomponenForms(jenisKomponenForms);
         return this;
     }
 
@@ -127,9 +94,7 @@ public class KomponenPHForm {
         return "{" +
             " id='" + getId() + "'" +
             ", namaSkema='" + getNamaSkema() + "'" +
-            ", jenis='" + getJenis() + "'" +
-            ", addm='" + getAddm() + "'" +
-            ", addb='" + getAddb() + "'" +
+            ", jenisKomponenForms='" + getJenisKomponenForms() + "'" +
             ", tipeKonsumen='" + getTipeKonsumen() + "'" +
             ", jenisPembiayaan='" + getJenisPembiayaan() + "'" +
             "}";

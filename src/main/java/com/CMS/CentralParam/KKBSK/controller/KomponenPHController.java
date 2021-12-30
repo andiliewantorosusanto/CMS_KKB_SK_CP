@@ -3,6 +3,7 @@ package com.CMS.CentralParam.KKBSK.controller;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.KomponenPHExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.data.KomponenPH;
+import com.CMS.CentralParam.KKBSK.model.form.JenisKomponenForm;
 import com.CMS.CentralParam.KKBSK.model.form.KomponenPHForm;
 import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
@@ -67,6 +69,24 @@ public class KomponenPHController {
 
 			KomponenPHForm komponenPHForm = new KomponenPHForm();
 			komponenPHForm.setTipeKonsumen(0);
+
+			ArrayList<String> jenises = new ArrayList<String>();
+			jenises.add("Biaya Admin");
+			jenises.add("Biaya Asuransi");
+			jenises.add("Biaya CP");
+			jenises.add("Biaya Fidusia");
+			jenises.add("Biaya Polis Asuransi Kendaraan");
+			jenises.add("Biaya Polis CP");
+			jenises.add("Biaya Provisi");
+
+			int id = 1;
+			ArrayList<JenisKomponenForm> jenisKomponenForms = new ArrayList<JenisKomponenForm>();
+			for (String jen : jenises) {
+				JenisKomponenForm jenisKomponenForm = new JenisKomponenForm(id++, jen, 0, 0);
+				jenisKomponenForms.add(jenisKomponenForm);
+			}
+			komponenPHForm.setJenisKomponenForms(jenisKomponenForms);
+
 
 			model.addAttribute("komponenPH", komponenPHForm);
 
@@ -125,16 +145,16 @@ public class KomponenPHController {
 
 		try {
 			komponenPH.getJenisPembiayaan().forEach((jenisPembiayaan) -> {
-				KomponenPH temp = new KomponenPH(null, 
-				komponenPH.getNamaSkema(), komponenPH.getJenis(), komponenPH.getAddm(), komponenPH.getAddb(), komponenPH.getTipeKonsumen(), jenisPembiayaan, 
-				null, null, null, null, null, null, null, null);
+				// KomponenPH temp = new KomponenPH(null, 
+				// komponenPH.getNamaSkema(), komponenPH.getJenis(), komponenPH.getAddm(), komponenPH.getAddb(), komponenPH.getTipeKonsumen(), jenisPembiayaan, 
+				// null, null, null, null, null, null, null, null);
 				try {
-					restTemplate.exchange(
-						apiBaseUrl+"/api/komponenph/"+HelperConf.getAction(action), 
-						HttpMethod.POST, 
-						HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
-						String.class
-					);
+					// restTemplate.exchange(
+					// 	apiBaseUrl+"/api/komponenph/"+HelperConf.getAction(action), 
+					// 	HttpMethod.POST, 
+					// 	HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
+					// 	String.class
+					// );
 				} catch (Exception e) {
 					
 				}
