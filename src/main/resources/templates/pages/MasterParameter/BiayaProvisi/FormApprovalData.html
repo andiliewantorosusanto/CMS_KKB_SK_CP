@@ -20,10 +20,10 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <form id="signupForm" th:action="@{/BiayaProvisi/ActionApprovalData}"  th:object="${biayaProvisi}" method="post" novalidate="novalidate">
-                                                    <input type="hidden" th:field="*{id}" id="id" name="id">
+                                                    <input disabled="" type="hidden" th:field="*{id}" id="id" name="id">
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="namaSkema">Nama Skema</label>
-                                                        <input class="form-control" id="namaSkema" type="text" name="namaSkema" th:field="*{namaSkema}"
+                                                        <input disabled="" class="form-control" id="namaSkema" type="text" name="namaSkema" th:field="*{namaSkema}"
                                                             placeholder="namaSkema" th:classappend="${#fields.hasErrors('namaSkema')} ?  is-invalid">
                                                         <div class="invalid-feedback" th:if="${#fields.hasErrors('namaSkema')}" th:errors="*{namaSkema}"></div>
                                                     </div>
@@ -31,15 +31,15 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="loanType">Loan Type</label>
                                                         <div class="form-check ml-2">
-                                                            <input class="form-check-input" type="radio" id="loanType0" name="loanType" th:field="*{loanType}" value="0" checked="checked">
+                                                            <input disabled="" class="form-check-input" type="radio" id="loanType0" name="loanType" th:field="*{loanType}" value="0" checked="checked">
                                                             <label class="form-check-label" for="loanType0">All</label>
                                                         </div>
                                                         <div class="form-check ml-2">
-                                                            <input class="form-check-input" type="radio" id="loanType1" name="loanType" th:field="*{loanType}" value="1" checked="checked">
+                                                            <input disabled="" class="form-check-input" type="radio" id="loanType1" name="loanType" th:field="*{loanType}" value="1" checked="checked">
                                                             <label class="form-check-label" for="loanType1">ADDM</label>
                                                         </div>
                                                         <div class="form-check ml-2">
-                                                            <input class="form-check-input" type="radio" id="loanType2" name="loanType" th:field="*{loanType}" value="2" checked="checked">
+                                                            <input disabled="" class="form-check-input" type="radio" id="loanType2" name="loanType" th:field="*{loanType}" value="2" checked="checked">
                                                             <label class="form-check-label" for="loanType2">ADDB</label>
                                                         </div>
                                                     </div>
@@ -47,19 +47,19 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="jenisKendaraan">Jenis Kendaraan</label>
                                                         <div class="form-check ml-2">
-                                                            <input class="form-check-input" type="radio" id="jenisKendaraan0" name="jenisKendaraan" th:field="*{jenisKendaraan}" value="0" checked="checked">
+                                                            <input disabled="" class="form-check-input" type="radio" id="jenisKendaraan0" name="jenisKendaraan" th:field="*{jenisKendaraan}" value="0" checked="checked">
                                                             <label class="form-check-label" for="jenisKendaraan0">All</label>
                                                         </div>
                                                         <div class="form-check ml-2" th:each="dataJenisKendaraan :${listJenisKendaraan}">
-                                                            <input class="form-check-input" type="radio" name="jenisKendaraan" th:id="'jenisKendaraan' + ${dataJenisKendaraan.id}" th:field="*{jenisKendaraan}" th:value="${dataJenisKendaraan.id}">
+                                                            <input disabled="" class="form-check-input" type="radio" name="jenisKendaraan" th:id="'jenisKendaraan' + ${dataJenisKendaraan.id}" th:field="*{jenisKendaraan}" th:value="${dataJenisKendaraan.id}">
                                                             <label class="form-check-label" th:for="'jenisKendaraan' + ${dataJenisKendaraan.id}" th:text="${dataJenisKendaraan.jenisKendaraan}"></label>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="col-form-label" for="jenisPembiayaan">Jenis Pembiayaan <input id="check-jenis-pembiayaan" type="checkbox"> </label> 
+                                                        <label class="col-form-label" for="jenisPembiayaan">Jenis Pembiayaan <input disabled="" id="check-jenis-pembiayaan" type="checkbox"> </label> 
                                                         <div class="form-check ml-2" th:each="dataJenisPembiayaan :${listJenisPembiayaan}">
-                                                            <input class="form-check-input jenis-pembiayaan" type="checkbox" th:value="${dataJenisPembiayaan.id}" th:id="'jenisKendaraan' + ${dataJenisPembiayaan.id}" th:field="*{jenisPembiayaan}">
+                                                            <input disabled="" class="form-check-input jenis-pembiayaan" type="checkbox" th:value="${dataJenisPembiayaan.id}" th:id="'jenisKendaraan' + ${dataJenisPembiayaan.id}" th:field="*{jenisPembiayaan}">
                                                             <label class="form-check-label" th:for="'jenisKendaraan' + ${dataJenisPembiayaan.id}" th:text="${dataJenisPembiayaan.jenisPembiayaan}">
                                                                 
                                                             </label>
@@ -69,13 +69,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 1 (Rp)</label>
-                                                            <input class="form-control" id="tenor1" type="text" th:field="*{tenor1}"
+                                                            <input disabled="" class="form-control" id="tenor1" type="text" th:field="*{tenor1}"
                                                                 name="tenor1" th:classappend="${#fields.hasErrors('tenor1')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor1')}" th:errors="*{tenor1}"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 1 (%)</label>
-                                                            <input class="form-control" id="tenor1Persen" type="text" th:field="*{tenor1Persen}"
+                                                            <input disabled="" class="form-control" id="tenor1Persen" type="text" th:field="*{tenor1Persen}"
                                                                 name="tenor1Persen" th:classappend="${#fields.hasErrors('tenor1Persen')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor1Persen')}" th:errors="*{tenor1Persen}"></div>
                                                         </div>
@@ -84,13 +84,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 2 (Rp)</label>
-                                                            <input class="form-control" id="tenor2" type="text" th:field="*{tenor2}"
+                                                            <input disabled="" class="form-control" id="tenor2" type="text" th:field="*{tenor2}"
                                                                 name="tenor2" th:classappend="${#fields.hasErrors('tenor2')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor2')}" th:errors="*{tenor2}"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 2 (%)</label>
-                                                            <input class="form-control" id="tenor2Persen" type="text" th:field="*{tenor2Persen}"
+                                                            <input disabled="" class="form-control" id="tenor2Persen" type="text" th:field="*{tenor2Persen}"
                                                                 name="tenor2Persen" th:classappend="${#fields.hasErrors('tenor2Persen')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor2Persen')}" th:errors="*{tenor2Persen}"></div>
                                                         </div>
@@ -99,13 +99,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 3 (Rp)</label>
-                                                            <input class="form-control" id="tenor3" type="text" th:field="*{tenor3}"
+                                                            <input disabled="" class="form-control" id="tenor3" type="text" th:field="*{tenor3}"
                                                                 name="tenor3" th:classappend="${#fields.hasErrors('tenor3')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor3')}" th:errors="*{tenor3}"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 3 (%)</label>
-                                                            <input class="form-control" id="tenor3Persen" type="text" th:field="*{tenor3Persen}"
+                                                            <input disabled="" class="form-control" id="tenor3Persen" type="text" th:field="*{tenor3Persen}"
                                                                 name="tenor3Persen" th:classappend="${#fields.hasErrors('tenor3Persen')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor3Persen')}" th:errors="*{tenor3Persen}"></div>
                                                         </div>
@@ -114,13 +114,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 4 (Rp)</label>
-                                                            <input class="form-control" id="tenor4" type="text" th:field="*{tenor4}"
+                                                            <input disabled="" class="form-control" id="tenor4" type="text" th:field="*{tenor4}"
                                                                 name="tenor4" th:classappend="${#fields.hasErrors('tenor4')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor4')}" th:errors="*{tenor4}"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 4 (%)</label>
-                                                            <input class="form-control" id="tenor4Persen" type="text" th:field="*{tenor4Persen}"
+                                                            <input disabled="" class="form-control" id="tenor4Persen" type="text" th:field="*{tenor4Persen}"
                                                                 name="tenor4Persen" th:classappend="${#fields.hasErrors('tenor4Persen')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor4Persen')}" th:errors="*{tenor4Persen}"></div>
                                                         </div>
@@ -129,13 +129,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 5 (Rp)</label>
-                                                            <input class="form-control" id="tenor5" type="text" th:field="*{tenor5}"
+                                                            <input disabled="" class="form-control" id="tenor5" type="text" th:field="*{tenor5}"
                                                                 name="tenor5" th:classappend="${#fields.hasErrors('tenor5')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor5')}" th:errors="*{tenor5}"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 5 (%)</label>
-                                                            <input class="form-control" id="tenor5Persen" type="text" th:field="*{tenor5Persen}"
+                                                            <input disabled="" class="form-control" id="tenor5Persen" type="text" th:field="*{tenor5Persen}"
                                                                 name="tenor5Persen" th:classappend="${#fields.hasErrors('tenor5Persen')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor5Persen')}" th:errors="*{tenor5Persen}"></div>
                                                         </div>
@@ -144,13 +144,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 6 (Rp)</label>
-                                                            <input class="form-control" id="tenor6" type="text" th:field="*{tenor6}"
+                                                            <input disabled="" class="form-control" id="tenor6" type="text" th:field="*{tenor6}"
                                                                 name="tenor6" th:classappend="${#fields.hasErrors('tenor6')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor6')}" th:errors="*{tenor6}"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 6 (%)</label>
-                                                            <input class="form-control" id="tenor6Persen" type="text" th:field="*{tenor6Persen}"
+                                                            <input disabled="" class="form-control" id="tenor6Persen" type="text" th:field="*{tenor6Persen}"
                                                                 name="tenor6Persen" th:classappend="${#fields.hasErrors('tenor6Persen')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor6Persen')}" th:errors="*{tenor6Persen}"></div>
                                                         </div>
@@ -159,13 +159,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 7 (Rp)</label>
-                                                            <input class="form-control" id="tenor7" type="text" th:field="*{tenor7}"
+                                                            <input disabled="" class="form-control" id="tenor7" type="text" th:field="*{tenor7}"
                                                                 name="tenor7" th:classappend="${#fields.hasErrors('tenor7')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor7')}" th:errors="*{tenor7}"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 7 (%)</label>
-                                                            <input class="form-control" id="tenor7Persen" type="text" th:field="*{tenor7Persen}"
+                                                            <input disabled="" class="form-control" id="tenor7Persen" type="text" th:field="*{tenor7Persen}"
                                                                 name="tenor7Persen" th:classappend="${#fields.hasErrors('tenor7Persen')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor7Persen')}" th:errors="*{tenor7Persen}"></div>
                                                         </div>
@@ -174,13 +174,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 8 (Rp)</label>
-                                                            <input class="form-control" id="tenor8" type="text" th:field="*{tenor8}"
+                                                            <input disabled="" class="form-control" id="tenor8" type="text" th:field="*{tenor8}"
                                                                 name="tenor8" th:classappend="${#fields.hasErrors('tenor8')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor8')}" th:errors="*{tenor8}"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 8 (%)</label>
-                                                            <input class="form-control" id="tenor8Persen" type="text" th:field="*{tenor8Persen}"
+                                                            <input disabled="" class="form-control" id="tenor8Persen" type="text" th:field="*{tenor8Persen}"
                                                                 name="tenor8Persen" th:classappend="${#fields.hasErrors('tenor8Persen')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor8Persen')}" th:errors="*{tenor8Persen}"></div>
                                                         </div>
@@ -189,13 +189,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 9 (Rp)</label>
-                                                            <input class="form-control" id="tenor9" type="text" th:field="*{tenor9}"
+                                                            <input disabled="" class="form-control" id="tenor9" type="text" th:field="*{tenor9}"
                                                                 name="tenor9" th:classappend="${#fields.hasErrors('tenor9')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor9')}" th:errors="*{tenor9}"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 9 (%)</label>
-                                                            <input class="form-control" id="tenor9Persen" type="text" th:field="*{tenor9Persen}"
+                                                            <input disabled="" class="form-control" id="tenor9Persen" type="text" th:field="*{tenor9Persen}"
                                                                 name="tenor9Persen" th:classappend="${#fields.hasErrors('tenor9Persen')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor9Persen')}" th:errors="*{tenor9Persen}"></div>
                                                         </div>
@@ -204,13 +204,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 10 (Rp)</label>
-                                                            <input class="form-control" id="tenor10" type="text" th:field="*{tenor10}"
+                                                            <input disabled="" class="form-control" id="tenor10" type="text" th:field="*{tenor10}"
                                                                 name="tenor10" th:classappend="${#fields.hasErrors('tenor10')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor10')}" th:errors="*{tenor10}"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Tenor 10 (%)</label>
-                                                            <input class="form-control" id="tenor10Persen" type="text" th:field="*{tenor10Persen}"
+                                                            <input disabled="" class="form-control" id="tenor10Persen" type="text" th:field="*{tenor10Persen}"
                                                                 name="tenor10Persen" th:classappend="${#fields.hasErrors('tenor10Persen')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor10Persen')}" th:errors="*{tenor10Persen}"></div>
                                                         </div>
@@ -221,14 +221,14 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="password">Masa Berlaku
                                                                 Start</label>
-                                                            <input class="form-control" id="startBerlaku" type="date" th:field="*{startBerlaku}"
+                                                            <input disabled="" class="form-control" id="startBerlaku" type="date" th:field="*{startBerlaku}"
                                                                 name="startBerlaku" th:classappend="${#fields.hasErrors('startBerlaku')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('startBerlaku')}" th:errors="*{startBerlaku}"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="col-form-label" for="confirmPassword">Masa Berlaku
                                                                 End</label>
-                                                            <input class="form-control" id="endBerlaku" type="date" th:field="*{endBerlaku}"
+                                                            <input disabled="" class="form-control" id="endBerlaku" type="date" th:field="*{endBerlaku}"
                                                                 name="endBerlaku" th:classappend="${#fields.hasErrors('endBerlaku')} ?  is-invalid">
                                                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('endBerlaku')}" th:errors="*{endBerlaku}"></div>
                                                         </div>

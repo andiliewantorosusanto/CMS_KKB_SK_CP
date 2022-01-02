@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("jsonschema2pojo")
 public class KomponenPH {
 
-    @JsonProperty("ID")
+    @JsonProperty("id")
     private Integer id;
 
     @JsonProperty("namaSkema")

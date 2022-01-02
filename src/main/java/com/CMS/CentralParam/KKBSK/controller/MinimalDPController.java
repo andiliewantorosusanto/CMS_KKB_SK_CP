@@ -169,7 +169,7 @@ public class MinimalDPController {
 				apiBaseUrl+"api/cluster/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
-			model.addAttribute("minimalDP", minimalDP);
+			model.addAttribute("f", minimalDP);
             return "/pages/MasterParameter/MinimalDP/InputData";
         }
 

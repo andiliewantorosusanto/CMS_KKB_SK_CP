@@ -13,11 +13,16 @@ import javax.validation.constraints.NotNull;
 import com.CMS.CentralParam.KKBSK.config.HelperConf;
 import com.CMS.CentralParam.KKBSK.excel.ProgramExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.data.Program;
+import com.CMS.CentralParam.KKBSK.model.form.ProgramForm;
 import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
+import com.CMS.CentralParam.KKBSK.model.response.ResponCluster;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisKendaraan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPembiayaan;
+import com.CMS.CentralParam.KKBSK.model.response.ResponTipeKonsumen;
 import com.CMS.CentralParam.KKBSK.model.response.ResponProgram;
+import com.CMS.CentralParam.KKBSK.view.vwProgram;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+
 @Controller
 public class ProgramController {
 
@@ -47,10 +53,17 @@ public class ProgramController {
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/Program/InputData", method = RequestMethod.GET)
-	public String ProgramInputData(Program dataProgram) {
+	public String ProgramInputData(Model model) {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
-			
+
+			ProgramForm ProgramForm = new ProgramForm();
+			ProgramForm.setTipeKonsumen(0);
+			ProgramForm.setJenisKendaraan(0);
+			ProgramForm.setDiskonNpwp(0);
+
+			model.addAttribute("Program", ProgramForm);
+
 			return "/pages/MasterParameter/Program/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
@@ -66,14 +79,14 @@ public class ProgramController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=Program_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponProgram> respon = restTemplate.exchange(
-			apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/Program/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponProgram.class);
 
-        List<Program> listProgram = respon.getBody().getDataProgram();
+        List<vwProgram> listProgram = respon.getBody().getDataProgram();
          
         ProgramExcelExporter excelExporter = new ProgramExcelExporter(listProgram);
          
@@ -81,20 +94,77 @@ public class ProgramController {
     }  
 	
 	@PostMapping(value = "/Program/ActionInputData")
-	public String ProgramActionInputData(@Valid Program dataProgram, BindingResult result,String action) {
-		// if(dataProgram.getEndDate().before(dataProgram.getStartDate())) {
-		// 	result.rejectValue("endBerlaku", "error.dataProgram", "End date must be greater than start date");
-		// }
+	public String ProgramActionInputData(@Valid ProgramForm Program, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(Program.getEndBerlaku().before(Program.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.Program", "End date must be greater than start date");
+			}
+			if(Program.getCluster().size() == 0) {
+				result.rejectValue("cluster", "error.Program", "You must choose Cluster");
+			}
+			if(Program.getJenisPembiayaan().size() == 0) {
+				result.rejectValue("jenisPembiayaan", "error.Program", "You must choose Jenis Pembiayaan");
+			}
+		}
 
 		if (result.hasErrors()) {
+
+			model.addAttribute("Program", Program);
             return "/pages/MasterParameter/Program/InputData";
         }
 
+
+		try {
+			Program.getCluster().forEach((cluster) -> {
+				Program.getJenisPembiayaan().forEach((jenisPembiayaan) -> {
+					Program temp = new Program(null, 
+					Program.getNamaSkema(), Program.getTipeKonsumen(), Program.getJenisKendaraan(), jenisPembiayaan, cluster, Program.getDiskonNpwp(), 
+					Program.getTenor1(), Program.getTenor2(), Program.getTenor3(), Program.getTenor4(), Program.getTenor5(), Program.getTenor6(), Program.getTenor7(), Program.getTenor8(), Program.getTenor9(), Program.getTenor10(),
+					Program.getStartBerlaku(), Program.getEndBerlaku(), null, null, null, null, null, null, null, null);
+
+					try {
+						restTemplate.exchange(
+							apiBaseUrl+"/api/Program/"+HelperConf.getAction(action), 
+							HttpMethod.POST, 
+							HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
+							String.class
+						);
+					} catch (Exception e) {
+						
+					}
+
+				});
+			});
+
+			
+			return "redirect:/Program/Data";
+		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "/pages/expired/token";
+	}
+
+	@PostMapping(value = "/Program/ActionEditData")
+	public String ProgramActionEditData(@Valid Program Program, BindingResult result,String action,Model model) {
+		if(!result.hasErrors()) {
+			if(Program.getEndBerlaku().before(Program.getStartBerlaku())) {
+				result.rejectValue("endBerlaku", "error.Program", "End date must be greater than start date");
+			}
+		}
+
+		if (result.hasErrors()) {
+
+			model.addAttribute("Program", Program);
+            return "/pages/MasterParameter/Program/EditData";
+        }
+
+
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/Program/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataProgram)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(Program)), 
 				String.class
 			);
 			
@@ -107,20 +177,16 @@ public class ProgramController {
 	}
 
 	@PostMapping(value = "/Program/ActionApprovalData")
-	public String ProgramActionApprovalData(@Valid Program dataProgram, BindingResult result,String action) {
-		if (result.hasErrors()) {
-            return "/pages/MasterParameter/Program/ApprovalData";
-        }
-
+	public String ProgramActionApprovalData(Program Program, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action+"Data", 
+				apiBaseUrl+"/api/Program/"+action+"Data", 
 				HttpMethod.POST, 
-				HelperConf.getHeader(objectMapper.writeValueAsString(dataProgram)), 
+				HelperConf.getHeader(objectMapper.writeValueAsString(Program)), 
 				String.class
 			);
-			
-			return "redirect:/Program/Data";
+
+			return "redirect:/Program/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -133,7 +199,7 @@ public class ProgramController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/Program/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -145,12 +211,13 @@ public class ProgramController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@PostMapping(value = "/Program/ActionApproval")
 	public String ProgramActionApproval(@RequestParam("ids") String ids,String action) {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+action, 
+				apiBaseUrl+"/api/Program/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -162,17 +229,19 @@ public class ProgramController {
 		}
 		return "/pages/expired/token";
 	}
+
 	@RequestMapping(value = "/Program/EditData/{id}", method = RequestMethod.GET)
 	public String ProgramEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponProgram> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/Program/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponProgram.class
 			);
 
-			model.addAttribute("dataProgram",respon.getBody().getDataProgram());
+			model.addAttribute("Program",respon.getBody().getProgram());
+			
 			return "/pages/MasterParameter/Program/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
@@ -185,10 +254,11 @@ public class ProgramController {
 	public String getListProgram(Model model) {
 		try {
 			ResponseEntity<ResponProgram> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/Program/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponProgram.class);
 
-			model.addAttribute("listDataProgram", respon.getBody().getDataProgram());
+			model.addAttribute("listProgram", respon.getBody().getDataProgram());
+
 			return "/pages/MasterParameter/Program/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
@@ -201,10 +271,11 @@ public class ProgramController {
 	public String getListApprovalProgram(Model model) {
 		try {
 			ResponseEntity<ResponProgram> respon = restTemplate.exchange(
-					apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/Program/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponProgram.class);
 
-			model.addAttribute("listDataProgram", respon.getBody().getDataProgram());
+			model.addAttribute("listProgram", respon.getBody().getDataProgram());
+			
 			return "/pages/MasterParameter/Program/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
@@ -217,13 +288,13 @@ public class ProgramController {
 	public String ProgramFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
 			ResponseEntity<ResponProgram> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/tipekonsumen/"+id, 
+				apiBaseUrl+"/api/Program/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponProgram.class
 			);
+			model.addAttribute("Program",respon.getBody().getProgram());
 
-			model.addAttribute("dataProgram",respon.getBody().getDataProgram());
 			return "/pages/MasterParameter/Program/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());

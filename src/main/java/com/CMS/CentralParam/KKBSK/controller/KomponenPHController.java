@@ -144,22 +144,25 @@ public class KomponenPHController {
 
 
 		try {
-			komponenPH.getJenisPembiayaan().forEach((jenisPembiayaan) -> {
-				// KomponenPH temp = new KomponenPH(null, 
-				// komponenPH.getNamaSkema(), komponenPH.getJenis(), komponenPH.getAddm(), komponenPH.getAddb(), komponenPH.getTipeKonsumen(), jenisPembiayaan, 
-				// null, null, null, null, null, null, null, null);
-				try {
-					// restTemplate.exchange(
-					// 	apiBaseUrl+"/api/komponenph/"+HelperConf.getAction(action), 
-					// 	HttpMethod.POST, 
-					// 	HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
-					// 	String.class
-					// );
-				} catch (Exception e) {
-					
-				}
-
+			komponenPH.getJenisKomponenForms().forEach( (jenisKomponen) -> {
+				komponenPH.getJenisPembiayaan().forEach((jenisPembiayaan) -> {
+					KomponenPH temp = new KomponenPH(null, 
+					komponenPH.getNamaSkema(), jenisKomponen.getJenis(), jenisKomponen.getAddm(), jenisKomponen.getAddb(), komponenPH.getTipeKonsumen(), jenisPembiayaan, 
+					null, null, null, null, null, null, null, null);
+					try {
+						restTemplate.exchange(
+							apiBaseUrl+"/api/komponenph/"+HelperConf.getAction(action), 
+							HttpMethod.POST, 
+							HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
+							String.class
+						);
+					} catch (Exception e) {
+						
+					}
+	
+				});
 			});
+			
 
 			
 			return "redirect:/KomponenPH/Data";
@@ -273,6 +276,8 @@ public class KomponenPHController {
 			);
 
 			model.addAttribute("komponenPH",respon.getBody().getKomponenPH());
+
+			System.out.println("Komponen-PH : "+respon.getBody().getKomponenPH());
 
 			ResponseEntity<ResponTipeKonsumen> responTipeKonsumen = restTemplate.exchange(
 				apiBaseUrl+"api/tipekonsumen/getalldata", HttpMethod.POST, HelperConf.getHeader(),

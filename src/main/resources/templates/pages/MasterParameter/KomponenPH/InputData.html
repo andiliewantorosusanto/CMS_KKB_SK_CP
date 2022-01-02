@@ -53,9 +53,9 @@
                                                         <div class="row" th:each="jenisKomponen, itemStat :*{jenisKomponenForms}">
                                                             <div class="form-group col-md-6">
                                                                 <label class="col-form-label" for="password">Komponen PH </label>
-                                                                <input disabled="disabled" class="form-control" id="jenisKomponenForms[__${itemStat.index}__].jenis" type="text"  th:field="*{jenisKomponenForms[__${itemStat.index}__].jenis}"
-                                                                    name="jenisKomponenForms[__${itemStat.index}__].jenis" th:classappend="${#fields.hasErrors('jenisKomponenForms[__${itemStat.index}__].jenis')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('jenisKomponenForms[__${itemStat.index}__].jenis')}" th:errors="*{jenisKomponenForms[__${itemStat.index}__].jenis}"></div>
+                                                                <input class="form-control" id="jenisKomponenForms[__${itemStat.index}__].jenis" type="hidden"  th:field="*{jenisKomponenForms[__${itemStat.index}__].jenis}"
+                                                                    name="jenisKomponenForms[__${itemStat.index}__].jenis">
+                                                                <input disabled="disabled" class="form-control" type="text"  th:value="*{jenisKomponenForms[__${itemStat.index}__].jenis}">
                                                             </div>
                                                             <div class="form-group col-md-3">
                                                                 <div class="form-group">

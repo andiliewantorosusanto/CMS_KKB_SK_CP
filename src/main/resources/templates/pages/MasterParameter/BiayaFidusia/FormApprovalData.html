@@ -23,25 +23,25 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
                                                     <input readonly type="hidden" th:field="*{id}" id="id" nama="id">
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="namaSkema">Nama Skema</label>
-                                                        <input class="form-control" id="namaSkema" type="text" name="namaSkema" th:field="*{namaSkema}"
+                                                        <input disabled="" class="form-control" id="namaSkema" type="text" name="namaSkema" th:field="*{namaSkema}"
                                                             placeholder="Nama Skema" th:classappend="${#fields.hasErrors('namaSkema')} ?  is-invalid">
                                                         <div class="invalid-feedback" th:if="${#fields.hasErrors('namaSkema')}" th:errors="*{namaSkema}"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="startPh">Start PH (Rp)</label>
-                                                        <input class="form-control" id="startPh" type="text" name="startPh" th:field="*{startPh}"
+                                                        <input disabled="" class="form-control" id="startPh" type="text" name="startPh" th:field="*{startPh}"
                                                             placeholder="startPh" th:classappend="${#fields.hasErrors('startPh')} ?  is-invalid">
                                                             <div class="invalid-feedback" th:if="${#fields.hasErrors('startPh')}" th:errors="*{startPh}"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="endPh">End PH (Rp)</label>
-                                                        <input class="form-control" id="endPh" type="text" name="endPh" th:field="*{endPh}"
+                                                        <input disabled="" class="form-control" id="endPh" type="text" name="endPh" th:field="*{endPh}"
                                                             placeholder="endPh" th:classappend="${#fields.hasErrors('endPh')} ?  is-invalid">
                                                             <div class="invalid-feedback" th:if="${#fields.hasErrors('endPh')}" th:errors="*{endPh}"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="biaya">Biaya Fidusia (Rp)</label>
-                                                        <input class="form-control" id="biaya" type="text" name="biaya" th:field="*{biaya}"
+                                                        <input disabled="" class="form-control" id="biaya" type="text" name="biaya" th:field="*{biaya}"
                                                             placeholder="biaya" th:classappend="${#fields.hasErrors('biaya')} ?  is-invalid">
                                                             <div class="invalid-feedback" th:if="${#fields.hasErrors('biaya')}" th:errors="*{biaya}"></div>
                                                     </div>

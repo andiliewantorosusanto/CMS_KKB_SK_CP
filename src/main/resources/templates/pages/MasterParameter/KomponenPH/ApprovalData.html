@@ -31,19 +31,7 @@
                               <th></th>
                               <th id="fil-nama_skema"></th>
                               <th id="fil-tipe_konsumen"></th>
-                              <th id="fil-tipe_asuransi"></th>
-                              <th id="fil-Jenis_kendaraan"></th>
                               <th id="fil-jenis_pembiayaan"></th>
-                              <th id="fil-cluster"></th>
-                              <th id="fil-npwp"></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
-                              <th></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -55,22 +43,10 @@
                               <th data-value="actions">Actions</th>
                               <th data-value="nama_skema">Skema</th>
                               <th data-value="tipe_konsumen">Tipe Konsumen</th>
-                              <th data-value="Jenis_kendaraan">Jenis Kendaraan</th>
                               <th data-value="jenis_pembiayaan">Jenis Pembiayaan</th>
-                              <th data-value="cluster">Cluster</th>
-                              <th data-value="npwp">NPWP</th>
-                              <th data-value="otr_start">Tenor 1 (Rp)</th>
-                              <th data-value="otr_start">Tenor 2 (Rp)</th>
-                              <th data-value="otr_start">Tenor 3 (Rp)</th>
-                              <th data-value="otr_start">Tenor 4 (Rp)</th>
-                              <th data-value="otr_start">Tenor 5 (Rp)</th>
-                              <th data-value="otr_start">Tenor 6 (Rp)</th>
-                              <th data-value="otr_start">Tenor 7 (Rp)</th>
-                              <th data-value="otr_start">Tenor 8 (Rp)</th>
-                              <th data-value="otr_start">Tenor 9 (Rp)</th>
-                              <th data-value="otr_start">Tenor 10 (Rp)</th>
-                              <th data-value="otr_start">Masa Berlaku Start</th>
-                              <th data-value="otr_start">Masa Berlaku End</th>
+                              <th data-value="otr_start">Jenis</th>
+                              <th data-value="otr_start">ADDB</th>
+                              <th data-value="otr_start">ADDM</th>
                               <th data-value="status">Status</th>
                               <th data-value="remarks">Remarks</th>
                             </tr>
@@ -92,24 +68,11 @@
                                 
                                 <td th:text="${komponenPH.namaSkema}" th:attr="data-filter=${komponenPH.namaSkema}"></td>
                                 <td th:text="${komponenPH.tipeKonsumenName}" th:attr="data-filter=${komponenPH.tipeKonsumenName}"></td>
-                                <td th:text="${komponenPH.jenisKendaraanName}" th:attr="data-filter=${komponenPH.jenisKendaraanName}"></td>
                                 <td th:text="${komponenPH.jenisPembiayaanName}" th:attr="data-filter=${komponenPH.jenisPembiayaanName}"></td>
-                                <td th:text="${komponenPH.clusterName}" th:attr="data-filter=${komponenPH.clusterName}"></td>
-                                <td th:text="${komponenPH.diskonNpwpName}" th:attr="data-filter=${komponenPH.diskonNpwpName}"></td>
 
-                                <td th:text="${komponenPH.tenor1}" th:attr="data-filter=${komponenPH.tenor1}"></td>
-                                <td th:text="${komponenPH.tenor2}" th:attr="data-filter=${komponenPH.tenor2}"></td>
-                                <td th:text="${komponenPH.tenor3}" th:attr="data-filter=${komponenPH.tenor3}"></td>
-                                <td th:text="${komponenPH.tenor4}" th:attr="data-filter=${komponenPH.tenor4}"></td>
-                                <td th:text="${komponenPH.tenor5}" th:attr="data-filter=${komponenPH.tenor5}"></td>
-                                <td th:text="${komponenPH.tenor6}" th:attr="data-filter=${komponenPH.tenor6}"></td>
-                                <td th:text="${komponenPH.tenor7}" th:attr="data-filter=${komponenPH.tenor7}"></td>
-                                <td th:text="${komponenPH.tenor8}" th:attr="data-filter=${komponenPH.tenor8}"></td>
-                                <td th:text="${komponenPH.tenor9}" th:attr="data-filter=${komponenPH.tenor9}"></td>
-                                <td th:text="${komponenPH.tenor10}" th:attr="data-filter=${komponenPH.tenor10}"></td>
-                                
-                                <td th:text="${#dates.format(komponenPH.startBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${komponenPH.startBerlaku}"></td>
-                                <td th:text="${#dates.format(komponenPH.endBerlaku,'dd-MM-yyyy')}" th:attr="data-filter=${komponenPH.endBerlaku}"></td>
+                                <td th:text="${komponenPH.jenis}" th:attr="data-filter=${komponenPH.jenis}"></td>
+                                <td th:text="${komponenPH.addb}" th:attr="data-filter=${komponenPH.addb}"></td>
+                                <td th:text="${komponenPH.addm}" th:attr="data-filter=${komponenPH.addm}"></td>
                                 
                                 <td th:if="${komponenPH.statusApproval == null or komponenPH.statusApproval == 0}" data-filter="Draft">
                                   <span class="badge badge-primary">Draft</span>
