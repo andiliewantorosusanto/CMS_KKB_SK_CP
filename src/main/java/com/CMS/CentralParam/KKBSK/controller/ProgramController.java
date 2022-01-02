@@ -58,9 +58,6 @@ public class ProgramController {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 
 			ProgramForm ProgramForm = new ProgramForm();
-			ProgramForm.setTipeKonsumen(0);
-			ProgramForm.setJenisKendaraan(0);
-			ProgramForm.setDiskonNpwp(0);
 
 			model.addAttribute("Program", ProgramForm);
 
@@ -99,12 +96,6 @@ public class ProgramController {
 			if(Program.getEndBerlaku().before(Program.getStartBerlaku())) {
 				result.rejectValue("endBerlaku", "error.Program", "End date must be greater than start date");
 			}
-			if(Program.getCluster().size() == 0) {
-				result.rejectValue("cluster", "error.Program", "You must choose Cluster");
-			}
-			if(Program.getJenisPembiayaan().size() == 0) {
-				result.rejectValue("jenisPembiayaan", "error.Program", "You must choose Jenis Pembiayaan");
-			}
 		}
 
 		if (result.hasErrors()) {
@@ -115,26 +106,21 @@ public class ProgramController {
 
 
 		try {
-			Program.getCluster().forEach((cluster) -> {
-				Program.getJenisPembiayaan().forEach((jenisPembiayaan) -> {
-					Program temp = new Program(null, 
-					Program.getNamaSkema(), Program.getTipeKonsumen(), Program.getJenisKendaraan(), jenisPembiayaan, cluster, Program.getDiskonNpwp(), 
-					Program.getTenor1(), Program.getTenor2(), Program.getTenor3(), Program.getTenor4(), Program.getTenor5(), Program.getTenor6(), Program.getTenor7(), Program.getTenor8(), Program.getTenor9(), Program.getTenor10(),
-					Program.getStartBerlaku(), Program.getEndBerlaku(), null, null, null, null, null, null, null, null);
+			// Program temp = new Program(null, 
+			// Program.getNamaSkema(), Program.getTipeKonsumen(), Program.getJenisKendaraan(), jenisPembiayaan, cluster, Program.getDiskonNpwp(), 
+			// Program.getTenor1(), Program.getTenor2(), Program.getTenor3(), Program.getTenor4(), Program.getTenor5(), Program.getTenor6(), Program.getTenor7(), Program.getTenor8(), Program.getTenor9(), Program.getTenor10(),
+			// Program.getStartBerlaku(), Program.getEndBerlaku(), null, null, null, null, null, null, null, null);
 
-					try {
-						restTemplate.exchange(
-							apiBaseUrl+"/api/Program/"+HelperConf.getAction(action), 
-							HttpMethod.POST, 
-							HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
-							String.class
-						);
-					} catch (Exception e) {
-						
-					}
-
-				});
-			});
+			// try {
+			// 	restTemplate.exchange(
+			// 		apiBaseUrl+"/api/Program/"+HelperConf.getAction(action), 
+			// 		HttpMethod.POST, 
+			// 		HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
+			// 		String.class
+			// 	);
+			// } catch (Exception e) {
+				
+			// }
 
 			
 			return "redirect:/Program/Data";

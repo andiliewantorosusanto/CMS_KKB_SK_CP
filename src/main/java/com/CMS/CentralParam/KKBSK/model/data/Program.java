@@ -25,8 +25,8 @@ public class Program {
     @JsonProperty("deskripsi")
     private String deskripsi;
 
-    @JsonProperty("branchid")
-    private String BranchId;
+    @JsonProperty("branch")
+    private String branch;
     @JsonProperty("biayaAdmin")
     private Integer biayaAdmin;
     @JsonProperty("rateAsuransi")
@@ -79,12 +79,12 @@ public class Program {
     public Program() {
     }
 
-    public Program(Integer id, String program, Integer produk, String deskripsi, String BranchId, Integer biayaAdmin, Integer rateAsuransi, Integer rateBunga, Integer rateCp, Integer minmalDp, Integer komponenph, Integer ratePerluasan, Integer biayaProvisi, Integer biayaFidusia, Integer usiaKendaraanLunas, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
+    public Program(Integer id, String program, Integer produk, String deskripsi, String branch, Integer biayaAdmin, Integer rateAsuransi, Integer rateBunga, Integer rateCp, Integer minmalDp, Integer komponenph, Integer ratePerluasan, Integer biayaProvisi, Integer biayaFidusia, Integer usiaKendaraanLunas, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
         this.id = id;
         this.program = program;
         this.produk = produk;
         this.deskripsi = deskripsi;
-        this.BranchId = BranchId;
+        this.branch = branch;
         this.biayaAdmin = biayaAdmin;
         this.rateAsuransi = rateAsuransi;
         this.rateBunga = rateBunga;
@@ -139,12 +139,12 @@ public class Program {
         this.deskripsi = deskripsi;
     }
 
-    public String getBranchId() {
-        return this.BranchId;
+    public String getBranch() {
+        return this.branch;
     }
 
-    public void setBranchId(String BranchId) {
-        this.BranchId = BranchId;
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 
     public Integer getBiayaAdmin() {
@@ -327,8 +327,8 @@ public class Program {
         return this;
     }
 
-    public Program BranchId(String BranchId) {
-        setBranchId(BranchId);
+    public Program branch(String branch) {
+        setBranch(branch);
         return this;
     }
 
@@ -439,7 +439,7 @@ public class Program {
             ", program='" + getProgram() + "'" +
             ", produk='" + getProduk() + "'" +
             ", deskripsi='" + getDeskripsi() + "'" +
-            ", BranchId='" + getBranchId() + "'" +
+            ", branch='" + getBranch() + "'" +
             ", biayaAdmin='" + getBiayaAdmin() + "'" +
             ", rateAsuransi='" + getRateAsuransi() + "'" +
             ", rateBunga='" + getRateBunga() + "'" +

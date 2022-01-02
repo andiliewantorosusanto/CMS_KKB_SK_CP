@@ -17,7 +17,7 @@ public class ProgramForm {
     private Integer produk;
     private String deskripsi;
 
-    private String branchId;
+    private String branch;
     private Integer biayaAdmin;
     private Integer rateAsuransi;
     private Integer rateBunga;
@@ -50,12 +50,12 @@ public class ProgramForm {
     public ProgramForm() {
     }
 
-    public ProgramForm(Integer id, String program, Integer produk, String deskripsi, String branchId, Integer biayaAdmin, Integer rateAsuransi, Integer rateBunga, Integer rateCp, Integer minmalDp, Integer komponenph, Integer ratePerluasan, Integer biayaProvisi, Integer biayaFidusia, Integer usiaKendaraanLunas, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
+    public ProgramForm(Integer id, String program, Integer produk, String deskripsi, String branch, Integer biayaAdmin, Integer rateAsuransi, Integer rateBunga, Integer rateCp, Integer minmalDp, Integer komponenph, Integer ratePerluasan, Integer biayaProvisi, Integer biayaFidusia, Integer usiaKendaraanLunas, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
         this.id = id;
         this.program = program;
         this.produk = produk;
         this.deskripsi = deskripsi;
-        this.branchId = branchId;
+        this.branch = branch;
         this.biayaAdmin = biayaAdmin;
         this.rateAsuransi = rateAsuransi;
         this.rateBunga = rateBunga;
@@ -110,12 +110,12 @@ public class ProgramForm {
         this.deskripsi = deskripsi;
     }
 
-    public String getBranchId() {
-        return this.branchId;
+    public String getBranch() {
+        return this.branch;
     }
 
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 
     public Integer getBiayaAdmin() {
@@ -298,8 +298,8 @@ public class ProgramForm {
         return this;
     }
 
-    public ProgramForm branchId(String branchId) {
-        setBranchId(branchId);
+    public ProgramForm branch(String branch) {
+        setBranch(branch);
         return this;
     }
 
@@ -410,7 +410,7 @@ public class ProgramForm {
             ", program='" + getProgram() + "'" +
             ", produk='" + getProduk() + "'" +
             ", deskripsi='" + getDeskripsi() + "'" +
-            ", branchId='" + getBranchId() + "'" +
+            ", branch='" + getBranch() + "'" +
             ", biayaAdmin='" + getBiayaAdmin() + "'" +
             ", rateAsuransi='" + getRateAsuransi() + "'" +
             ", rateBunga='" + getRateBunga() + "'" +

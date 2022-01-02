@@ -4,6 +4,7 @@ package com.CMS.CentralParam.KKBSK.model.response;
 import java.util.List;
 
 import com.CMS.CentralParam.KKBSK.model.data.Program;
+import com.CMS.CentralParam.KKBSK.view.vwProgram;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ResponProgram {
 
     @JsonProperty("dataProgram")
-    private List<Program> dataProgram = null;
+    private List<vwProgram> dataProgram = null;
     @JsonProperty("program")
     private Program program = null;
     @JsonProperty("code")
@@ -35,7 +36,7 @@ public class ResponProgram {
      * @param dataProgram
      * @param code
      */
-    public ResponProgram(List<Program> dataProgram,Program program,String code) {
+    public ResponProgram(List<vwProgram> dataProgram,Program program,String code) {
         super();
         this.dataProgram = dataProgram;
         this.program = program;
@@ -43,12 +44,12 @@ public class ResponProgram {
     }
 
     @JsonProperty("dataProgram")
-    public List<Program> getDataProgram() {
+    public List<vwProgram> getDataProgram() {
         return dataProgram;
     }
 
     @JsonProperty("dataProgram")
-    public void setDataProgram(List<Program> dataProgram) {
+    public void setDataProgram(List<vwProgram> dataProgram) {
         this.dataProgram = dataProgram;
     }
 
