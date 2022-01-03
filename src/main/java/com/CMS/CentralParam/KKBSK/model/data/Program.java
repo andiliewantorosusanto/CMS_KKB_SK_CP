@@ -35,12 +35,12 @@ public class Program {
     private Integer rateBunga;
     @JsonProperty("rateCp")
     private Integer rateCp;
-    @JsonProperty("minmalDp")
-    private Integer minmalDp;
-    @JsonProperty("komponenph")
-    private Integer komponenph;
-    @JsonProperty("ratePerluasan")
-    private Integer ratePerluasan;
+    @JsonProperty("minimalDp")
+    private Integer minimalDp;
+    @JsonProperty("komponenPh")
+    private Integer komponenPh;
+    @JsonProperty("perluasanAsuransi")
+    private Integer perluasanAsuransi;
     @JsonProperty("biayaProvisi")
     private Integer biayaProvisi;
     @JsonProperty("biayaFidusia")
@@ -79,7 +79,7 @@ public class Program {
     public Program() {
     }
 
-    public Program(Integer id, String program, Integer produk, String deskripsi, String branch, Integer biayaAdmin, Integer rateAsuransi, Integer rateBunga, Integer rateCp, Integer minmalDp, Integer komponenph, Integer ratePerluasan, Integer biayaProvisi, Integer biayaFidusia, Integer usiaKendaraanLunas, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
+    public Program(Integer id, String program, Integer produk, String deskripsi, String branch, Integer biayaAdmin, Integer rateAsuransi, Integer rateBunga, Integer rateCp, Integer minimalDp, Integer komponenPh, Integer perluasanAsuransi, Integer biayaProvisi, Integer biayaFidusia, Integer usiaKendaraanLunas, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved, Long createdBy, Date createdDate, Long updatedBy, Date updatedDate) {
         this.id = id;
         this.program = program;
         this.produk = produk;
@@ -89,9 +89,9 @@ public class Program {
         this.rateAsuransi = rateAsuransi;
         this.rateBunga = rateBunga;
         this.rateCp = rateCp;
-        this.minmalDp = minmalDp;
-        this.komponenph = komponenph;
-        this.ratePerluasan = ratePerluasan;
+        this.minimalDp = minimalDp;
+        this.komponenPh = komponenPh;
+        this.perluasanAsuransi = perluasanAsuransi;
         this.biayaProvisi = biayaProvisi;
         this.biayaFidusia = biayaFidusia;
         this.usiaKendaraanLunas = usiaKendaraanLunas;
@@ -179,28 +179,28 @@ public class Program {
         this.rateCp = rateCp;
     }
 
-    public Integer getMinmalDp() {
-        return this.minmalDp;
+    public Integer getMinimalDp() {
+        return this.minimalDp;
     }
 
-    public void setMinmalDp(Integer minmalDp) {
-        this.minmalDp = minmalDp;
+    public void setMinimalDp(Integer minimalDp) {
+        this.minimalDp = minimalDp;
     }
 
-    public Integer getKomponenph() {
-        return this.komponenph;
+    public Integer getKomponenPh() {
+        return this.komponenPh;
     }
 
-    public void setKomponenph(Integer komponenph) {
-        this.komponenph = komponenph;
+    public void setKomponenPh(Integer komponenPh) {
+        this.komponenPh = komponenPh;
     }
 
-    public Integer getRatePerluasan() {
-        return this.ratePerluasan;
+    public Integer getPerluasanAsuransi() {
+        return this.perluasanAsuransi;
     }
 
-    public void setRatePerluasan(Integer ratePerluasan) {
-        this.ratePerluasan = ratePerluasan;
+    public void setPerluasanAsuransi(Integer perluasanAsuransi) {
+        this.perluasanAsuransi = perluasanAsuransi;
     }
 
     public Integer getBiayaProvisi() {
@@ -352,18 +352,18 @@ public class Program {
         return this;
     }
 
-    public Program minmalDp(Integer minmalDp) {
-        setMinmalDp(minmalDp);
+    public Program minimalDp(Integer minimalDp) {
+        setMinimalDp(minimalDp);
         return this;
     }
 
-    public Program komponenph(Integer komponenph) {
-        setKomponenph(komponenph);
+    public Program komponenPh(Integer komponenPh) {
+        setKomponenPh(komponenPh);
         return this;
     }
 
-    public Program ratePerluasan(Integer ratePerluasan) {
-        setRatePerluasan(ratePerluasan);
+    public Program perluasanAsuransi(Integer perluasanAsuransi) {
+        setPerluasanAsuransi(perluasanAsuransi);
         return this;
     }
 
@@ -444,9 +444,9 @@ public class Program {
             ", rateAsuransi='" + getRateAsuransi() + "'" +
             ", rateBunga='" + getRateBunga() + "'" +
             ", rateCp='" + getRateCp() + "'" +
-            ", minmalDp='" + getMinmalDp() + "'" +
-            ", komponenph='" + getKomponenph() + "'" +
-            ", ratePerluasan='" + getRatePerluasan() + "'" +
+            ", minimalDp='" + getMinimalDp() + "'" +
+            ", komponenPh='" + getKomponenPh() + "'" +
+            ", perluasanAsuransi='" + getPerluasanAsuransi() + "'" +
             ", biayaProvisi='" + getBiayaProvisi() + "'" +
             ", biayaFidusia='" + getBiayaFidusia() + "'" +
             ", usiaKendaraanLunas='" + getUsiaKendaraanLunas() + "'" +
@@ -462,5 +462,6 @@ public class Program {
             ", updatedDate='" + getUpdatedDate() + "'" +
             "}";
     }
+
 
 }

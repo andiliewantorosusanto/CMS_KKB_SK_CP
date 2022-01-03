@@ -15,12 +15,11 @@ import com.CMS.CentralParam.KKBSK.excel.ProgramExcelExporter;
 import com.CMS.CentralParam.KKBSK.model.data.Program;
 import com.CMS.CentralParam.KKBSK.model.form.ProgramForm;
 import com.CMS.CentralParam.KKBSK.model.request.RequestMassSubmit;
+import com.CMS.CentralParam.KKBSK.model.response.ResponBranch;
 import com.CMS.CentralParam.KKBSK.model.response.ResponCekToken;
-import com.CMS.CentralParam.KKBSK.model.response.ResponCluster;
-import com.CMS.CentralParam.KKBSK.model.response.ResponJenisKendaraan;
-import com.CMS.CentralParam.KKBSK.model.response.ResponJenisPembiayaan;
-import com.CMS.CentralParam.KKBSK.model.response.ResponTipeKonsumen;
+import com.CMS.CentralParam.KKBSK.model.response.ResponProduk;
 import com.CMS.CentralParam.KKBSK.model.response.ResponProgram;
+import com.CMS.CentralParam.KKBSK.model.response.ResponSkemaProgram;
 import com.CMS.CentralParam.KKBSK.view.vwProgram;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -57,9 +56,34 @@ public class ProgramController {
 		try {
 			restTemplate.exchange(apiBaseUrl+"api/helper/cekToken",HttpMethod.POST, HelperConf.getHeader(), ResponCekToken.class);
 
-			ProgramForm ProgramForm = new ProgramForm();
+			ResponseEntity<ResponSkemaProgram> responSkemaProgram = restTemplate.exchange(
+				apiBaseUrl+"api/program/getallskema", HttpMethod.GET, HelperConf.getHeader(),
+				ResponSkemaProgram.class);
+			model.addAttribute("skemaRateAsuransi",responSkemaProgram.getBody().getSkemaRateAsuransi());
+			model.addAttribute("skemaPerluasanAsuransi",responSkemaProgram.getBody().getSkemaPerluasanAsuransi());
+			model.addAttribute("skemaRateCP",responSkemaProgram.getBody().getSkemaRateCP());
+			model.addAttribute("skemaRateBunga",responSkemaProgram.getBody().getSkemaRateBunga());
+			model.addAttribute("skemaBiayaAdmin",responSkemaProgram.getBody().getSkemaBiayaAdmin());
+			model.addAttribute("skemaBiayaProvisi",responSkemaProgram.getBody().getSkemaBiayaProvisi());
+			model.addAttribute("skemaMinimalDP",responSkemaProgram.getBody().getSkemaMinimalDP());
+			model.addAttribute("skemaBiayaFidusia",responSkemaProgram.getBody().getSkemaBiayaFidusia());
+			model.addAttribute("skemaKomponenPH",responSkemaProgram.getBody().getSkemaKomponenPH());
+			model.addAttribute("skemaUsiaKendaraanLunas",responSkemaProgram.getBody().getSkemaUsiaKendaraanLunas());
 
-			model.addAttribute("Program", ProgramForm);
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+					apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponProduk.class);
+
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+			
+			ResponseEntity<ResponBranch> responBranch = restTemplate.exchange( 
+					apiBaseUrl+"api/branch/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponBranch.class);
+
+			model.addAttribute("listBranch",responBranch.getBody().getDataBranch());
+
+			ProgramForm ProgramForm = new ProgramForm();
+			model.addAttribute("program", ProgramForm);
 
 			return "/pages/MasterParameter/Program/InputData";
 		} catch (Exception e) {
@@ -80,7 +104,7 @@ public class ProgramController {
         response.setHeader(headerKey, headerValue);
          
 		ResponseEntity<ResponProgram> respon = restTemplate.exchange(
-			apiBaseUrl+"api/Program/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+			apiBaseUrl+"api/program/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 			ResponProgram.class);
 
         List<vwProgram> listProgram = respon.getBody().getDataProgram();
@@ -91,37 +115,69 @@ public class ProgramController {
     }  
 	
 	@PostMapping(value = "/Program/ActionInputData")
-	public String ProgramActionInputData(@Valid ProgramForm Program, BindingResult result,String action,Model model) {
+	public String ProgramActionInputData(@Valid ProgramForm program, BindingResult result,String action,Model model) {
 		if(!result.hasErrors()) {
-			if(Program.getEndBerlaku().before(Program.getStartBerlaku())) {
+			if(program.getEndBerlaku().before(program.getStartBerlaku())) {
 				result.rejectValue("endBerlaku", "error.Program", "End date must be greater than start date");
 			}
 		}
 
 		if (result.hasErrors()) {
+			ResponseEntity<ResponSkemaProgram> responSkemaProgram = restTemplate.exchange(
+				apiBaseUrl+"api/program/getallskema", HttpMethod.GET, HelperConf.getHeader(),
+				ResponSkemaProgram.class);
+			model.addAttribute("skemaRateAsuransi",responSkemaProgram.getBody().getSkemaRateAsuransi());
+			model.addAttribute("skemaPerluasanAsuransi",responSkemaProgram.getBody().getSkemaPerluasanAsuransi());
+			model.addAttribute("skemaRateCP",responSkemaProgram.getBody().getSkemaRateCP());
+			model.addAttribute("skemaRateBunga",responSkemaProgram.getBody().getSkemaRateBunga());
+			model.addAttribute("skemaBiayaAdmin",responSkemaProgram.getBody().getSkemaBiayaAdmin());
+			model.addAttribute("skemaBiayaProvisi",responSkemaProgram.getBody().getSkemaBiayaProvisi());
+			model.addAttribute("skemaMinimalDP",responSkemaProgram.getBody().getSkemaMinimalDP());
+			model.addAttribute("skemaBiayaFidusia",responSkemaProgram.getBody().getSkemaBiayaFidusia());
+			model.addAttribute("skemaKomponenPH",responSkemaProgram.getBody().getSkemaKomponenPH());
+			model.addAttribute("skemaUsiaKendaraanLunas",responSkemaProgram.getBody().getSkemaUsiaKendaraanLunas());
 
-			model.addAttribute("Program", Program);
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+					apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponProduk.class);
+
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+			
+			ResponseEntity<ResponBranch> responBranch = restTemplate.exchange( 
+					apiBaseUrl+"api/branch/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponBranch.class);
+
+			model.addAttribute("listBranch",responBranch.getBody().getDataBranch());
+
+			model.addAttribute("Program", program);
             return "/pages/MasterParameter/Program/InputData";
         }
 
 
 		try {
-			// Program temp = new Program(null, 
-			// Program.getNamaSkema(), Program.getTipeKonsumen(), Program.getJenisKendaraan(), jenisPembiayaan, cluster, Program.getDiskonNpwp(), 
-			// Program.getTenor1(), Program.getTenor2(), Program.getTenor3(), Program.getTenor4(), Program.getTenor5(), Program.getTenor6(), Program.getTenor7(), Program.getTenor8(), Program.getTenor9(), Program.getTenor10(),
-			// Program.getStartBerlaku(), Program.getEndBerlaku(), null, null, null, null, null, null, null, null);
-
-			// try {
-			// 	restTemplate.exchange(
-			// 		apiBaseUrl+"/api/Program/"+HelperConf.getAction(action), 
-			// 		HttpMethod.POST, 
-			// 		HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
-			// 		String.class
-			// 	);
-			// } catch (Exception e) {
-				
-			// }
-
+			program.getBranch().forEach((branch) -> {
+				program.getProduk().forEach((produk) -> {
+					Program temp = new Program(null, 
+					program.getProgram(), produk, program.getDeskripsi(), branch, 
+					program.getBiayaAdmin(), program.getRateAsuransi(), program.getRateBunga(), program.getRateCp(), program.getMinimalDp(), 
+					program.getKomponenPh(), program.getPerluasanAsuransi(), program.getBiayaProvisi(), program.getBiayaFidusia(), program.getUsiaKendaraanLunas(), 
+					program.getStartBerlaku(), program.getEndBerlaku(), 
+					null, null, null, null, null, null, null, null);
+					try {
+						restTemplate.exchange(
+							apiBaseUrl+"/api/program/"+HelperConf.getAction(action), 
+							HttpMethod.POST, 
+							HelperConf.getHeader(objectMapper.writeValueAsString(temp)), 
+							String.class
+						);
+					} catch (Exception e) {
+						
+					}
+		
+				});
+			});
+			
+			
 			
 			return "redirect:/Program/Data";
 		} catch (Exception e) {
@@ -140,6 +196,31 @@ public class ProgramController {
 		}
 
 		if (result.hasErrors()) {
+			ResponseEntity<ResponSkemaProgram> responSkemaProgram = restTemplate.exchange(
+				apiBaseUrl+"api/program/getallskema", HttpMethod.GET, HelperConf.getHeader(),
+				ResponSkemaProgram.class);
+			model.addAttribute("skemaRateAsuransi",responSkemaProgram.getBody().getSkemaRateAsuransi());
+			model.addAttribute("skemaPerluasanAsuransi",responSkemaProgram.getBody().getSkemaPerluasanAsuransi());
+			model.addAttribute("skemaRateCP",responSkemaProgram.getBody().getSkemaRateCP());
+			model.addAttribute("skemaRateBunga",responSkemaProgram.getBody().getSkemaRateBunga());
+			model.addAttribute("skemaBiayaAdmin",responSkemaProgram.getBody().getSkemaBiayaAdmin());
+			model.addAttribute("skemaBiayaProvisi",responSkemaProgram.getBody().getSkemaBiayaProvisi());
+			model.addAttribute("skemaMinimalDP",responSkemaProgram.getBody().getSkemaMinimalDP());
+			model.addAttribute("skemaBiayaFidusia",responSkemaProgram.getBody().getSkemaBiayaFidusia());
+			model.addAttribute("skemaKomponenPH",responSkemaProgram.getBody().getSkemaKomponenPH());
+			model.addAttribute("skemaUsiaKendaraanLunas",responSkemaProgram.getBody().getSkemaUsiaKendaraanLunas());
+
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+					apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponProduk.class);
+
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+			
+			ResponseEntity<ResponBranch> responBranch = restTemplate.exchange( 
+					apiBaseUrl+"api/branch/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponBranch.class);
+
+			model.addAttribute("listBranch",responBranch.getBody().getDataBranch());
 
 			model.addAttribute("Program", Program);
             return "/pages/MasterParameter/Program/EditData";
@@ -148,7 +229,7 @@ public class ProgramController {
 
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/Program/"+HelperConf.getAction(action), 
+				apiBaseUrl+"/api/program/"+HelperConf.getAction(action), 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(Program)), 
 				String.class
@@ -166,7 +247,7 @@ public class ProgramController {
 	public String ProgramActionApprovalData(Program Program, BindingResult result,String action) {
 		try {
 			restTemplate.exchange(
-				apiBaseUrl+"/api/Program/"+action+"Data", 
+				apiBaseUrl+"/api/program/"+action+"Data", 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(Program)), 
 				String.class
@@ -185,7 +266,7 @@ public class ProgramController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/Program/"+action, 
+				apiBaseUrl+"/api/program/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -203,7 +284,7 @@ public class ProgramController {
 		try {			
 			RequestMassSubmit requestMassSubmit = new RequestMassSubmit(ids);
 			restTemplate.exchange(
-				apiBaseUrl+"/api/Program/"+action, 
+				apiBaseUrl+"/api/program/"+action, 
 				HttpMethod.POST, 
 				HelperConf.getHeader(objectMapper.writeValueAsString(requestMassSubmit)), 
 				String.class
@@ -219,14 +300,40 @@ public class ProgramController {
 	@RequestMapping(value = "/Program/EditData/{id}", method = RequestMethod.GET)
 	public String ProgramEditData(@PathVariable @NotNull Integer id,Model model) {
 		try {
+			ResponseEntity<ResponSkemaProgram> responSkemaProgram = restTemplate.exchange(
+				apiBaseUrl+"api/program/getallskema", HttpMethod.GET, HelperConf.getHeader(),
+				ResponSkemaProgram.class);
+			model.addAttribute("skemaRateAsuransi",responSkemaProgram.getBody().getSkemaRateAsuransi());
+			model.addAttribute("skemaPerluasanAsuransi",responSkemaProgram.getBody().getSkemaPerluasanAsuransi());
+			model.addAttribute("skemaRateCP",responSkemaProgram.getBody().getSkemaRateCP());
+			model.addAttribute("skemaRateBunga",responSkemaProgram.getBody().getSkemaRateBunga());
+			model.addAttribute("skemaBiayaAdmin",responSkemaProgram.getBody().getSkemaBiayaAdmin());
+			model.addAttribute("skemaBiayaProvisi",responSkemaProgram.getBody().getSkemaBiayaProvisi());
+			model.addAttribute("skemaMinimalDP",responSkemaProgram.getBody().getSkemaMinimalDP());
+			model.addAttribute("skemaBiayaFidusia",responSkemaProgram.getBody().getSkemaBiayaFidusia());
+			model.addAttribute("skemaKomponenPH",responSkemaProgram.getBody().getSkemaKomponenPH());
+			model.addAttribute("skemaUsiaKendaraanLunas",responSkemaProgram.getBody().getSkemaUsiaKendaraanLunas());
+
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+					apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponProduk.class);
+
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+			
+			ResponseEntity<ResponBranch> responBranch = restTemplate.exchange( 
+					apiBaseUrl+"api/branch/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponBranch.class);
+
+			model.addAttribute("listBranch",responBranch.getBody().getDataBranch());
+			
 			ResponseEntity<ResponProgram> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/Program/"+id, 
+				apiBaseUrl+"/api/program/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponProgram.class
 			);
 
-			model.addAttribute("Program",respon.getBody().getProgram());
+			model.addAttribute("program",respon.getBody().getProgram());
 			
 			return "/pages/MasterParameter/Program/EditData";
 		} catch (Exception e) {
@@ -240,7 +347,7 @@ public class ProgramController {
 	public String getListProgram(Model model) {
 		try {
 			ResponseEntity<ResponProgram> respon = restTemplate.exchange(
-					apiBaseUrl+"api/Program/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/program/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponProgram.class);
 
 			model.addAttribute("listProgram", respon.getBody().getDataProgram());
@@ -257,7 +364,7 @@ public class ProgramController {
 	public String getListApprovalProgram(Model model) {
 		try {
 			ResponseEntity<ResponProgram> respon = restTemplate.exchange(
-					apiBaseUrl+"api/Program/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					apiBaseUrl+"api/program/getalldata", HttpMethod.POST, HelperConf.getHeader(),
 					ResponProgram.class);
 
 			model.addAttribute("listProgram", respon.getBody().getDataProgram());
@@ -273,13 +380,39 @@ public class ProgramController {
 	@RequestMapping(value = "/Program/FormApprovalData/{id}", method = RequestMethod.GET)
 	public String ProgramFormApprovalData(@PathVariable @NotNull Integer id,Model model) {
 		try {
+			ResponseEntity<ResponSkemaProgram> responSkemaProgram = restTemplate.exchange(
+				apiBaseUrl+"api/program/getallskema", HttpMethod.GET, HelperConf.getHeader(),
+				ResponSkemaProgram.class);
+			model.addAttribute("skemaRateAsuransi",responSkemaProgram.getBody().getSkemaRateAsuransi());
+			model.addAttribute("skemaPerluasanAsuransi",responSkemaProgram.getBody().getSkemaPerluasanAsuransi());
+			model.addAttribute("skemaRateCP",responSkemaProgram.getBody().getSkemaRateCP());
+			model.addAttribute("skemaRateBunga",responSkemaProgram.getBody().getSkemaRateBunga());
+			model.addAttribute("skemaBiayaAdmin",responSkemaProgram.getBody().getSkemaBiayaAdmin());
+			model.addAttribute("skemaBiayaProvisi",responSkemaProgram.getBody().getSkemaBiayaProvisi());
+			model.addAttribute("skemaMinimalDP",responSkemaProgram.getBody().getSkemaMinimalDP());
+			model.addAttribute("skemaBiayaFidusia",responSkemaProgram.getBody().getSkemaBiayaFidusia());
+			model.addAttribute("skemaKomponenPH",responSkemaProgram.getBody().getSkemaKomponenPH());
+			model.addAttribute("skemaUsiaKendaraanLunas",responSkemaProgram.getBody().getSkemaUsiaKendaraanLunas());
+
+			ResponseEntity<ResponProduk> responProduk = restTemplate.exchange(
+					apiBaseUrl+"api/produk/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponProduk.class);
+
+			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
+			
+			ResponseEntity<ResponBranch> responBranch = restTemplate.exchange( 
+					apiBaseUrl+"api/branch/getalldata", HttpMethod.POST, HelperConf.getHeader(),
+					ResponBranch.class);
+
+			model.addAttribute("listBranch",responBranch.getBody().getDataBranch());
+			
 			ResponseEntity<ResponProgram> respon = restTemplate.exchange(
-				apiBaseUrl+"/api/Program/"+id, 
+				apiBaseUrl+"/api/program/"+id, 
 				HttpMethod.GET,
 				HelperConf.getHeader(), 
 				ResponProgram.class
 			);
-			model.addAttribute("Program",respon.getBody().getProgram());
+			model.addAttribute("program",respon.getBody().getProgram());
 
 			return "/pages/MasterParameter/Program/FormApprovalData";
 		} catch (Exception e) {

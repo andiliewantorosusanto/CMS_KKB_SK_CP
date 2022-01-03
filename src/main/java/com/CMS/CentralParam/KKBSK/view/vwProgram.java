@@ -55,6 +55,7 @@ public class vwProgram {
     
 
     public vwProgram() {
+        
     }
 
     public vwProgram(Integer id, String program, String deskripsi, Integer produk, String produkName, String branch, String branchName, Integer rateAsuransi, String rateAsuransiName, Integer ratePerluasan, String ratePerluasanName, Integer rateCp, String rateCpName, Integer rateBunga, String rateBungaName, Integer biayaAdmin, String BiayaAdminName, Integer biayaProvisi, String biayaProvisiName, Integer minmalDp, String minimalDpName, Integer biayaFidusia, String biayaFidusiaName, Integer komponenPh, String komponenPhName, Integer usiaKendaraanLunas, String usiaKendaraanLunasName, Date startBerlaku, Date endBerlaku, Integer statusApproval, String remarks, Integer isRejected, Integer isApproved) {

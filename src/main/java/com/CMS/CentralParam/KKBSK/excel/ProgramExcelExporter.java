@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.CMS.CentralParam.KKBSK.model.data.Program;
 import com.CMS.CentralParam.KKBSK.view.vwProgram;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -41,7 +40,6 @@ public class ProgramExcelExporter {
         int rowCount = 0;
         createCell(row, rowCount++, "Program", style);      
         createCell(row, rowCount++, "Produk", style);       
-        createCell(row, rowCount++, "Regional", style);    
         createCell(row, rowCount++, "Branch", style);
         createCell(row, rowCount++, "Skema Rate Asuransi", style);
         createCell(row, rowCount++, "Skema Rate Perluasan Asuransi", style);
@@ -86,7 +84,6 @@ public class ProgramExcelExporter {
              
             createCell(row, columnCount++, program.getProgram(), style);
             createCell(row, columnCount++, program.getProdukName(), style);
-            createCell(row, columnCount++, program.getRegionalName(), style);
             createCell(row, columnCount++, program.getBranchName(), style);
             createCell(row, columnCount++, program.getRateAsuransiName(), style);
             createCell(row, columnCount++, program.getRatePerluasanName(), style);

@@ -12,197 +12,136 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card">
-                                        <div class="card-header"> Form Input - Biaya Provisi
+                                        <div class="card-header"> Form Input - Program
                                             <div class="card-header-actions"></div>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <form id="signupForm" th:action="@{/BiayaProvisi/ActionInputData}"  th:object="${dataBiayaProvisi}" method="post" novalidate="novalidate">
+                                                    <form id="signupForm" th:action="@{/Program/ActionInputData}"  th:object="${program}" method="post" novalidate="novalidate">
                                                         <div class="form-group">
-                                                            <label class="col-form-label" for="nama_skema">Nama Skema</label>
-                                                            <input class="form-control" id="nama_skema" type="text" name="nama_skema" th:field="*{nama_skema}"
-                                                                placeholder="nama_skema" th:classappend="${#fields.hasErrors('nama_skema')} ?  is-invalid">
-                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('nama_skema')}" th:errors="*{nama_skema}"></div>
+                                                            <label class="col-form-label" for="program">Program</label>
+                                                            <input class="form-control" id="program" type="text" name="program" th:field="*{program}"
+                                                                placeholder="Nama Skema" th:classappend="${#fields.hasErrors('program')} ?  is-invalid">
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('program')}" th:errors="*{program}"></div>
                                                         </div>
                                                         
                                                         <div class="form-group">
-                                                            <label class="col-form-label" for="firstname">Jenis Kendaraan</label>
-                                                            <select class="form-control" id="jenis_kendaraan" type="text" name="jenis_kendaraan" th:field="*{jenis_kendaraan}"
-                                                            placeholder="jenis_kendaraan" th:classappend="${#fields.hasErrors('jenis_kendaraan')} ?  is-invalid">
-                                                                <option th:each="dataJenisKendaraan :${listDataJenisKendaraan}" th:value="${dataJenisKendaraan.id}" th:text="${dataJenisKendaraan.jenis_kendaraan}"></option>
-                                                            </select>
-                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('jenis_kendaraan')}" th:errors="*{jenis_kendaraan}"></div>
+                                                            <label class="col-form-label" for="produk">Produk <input id="check-produk" type="checkbox"> </label> 
+                                                            <div class="form-check ml-2" th:each="dataProduk :${listProduk}">
+                                                                <input class="form-check-input produk" type="checkbox" th:value="${dataProduk.id}" th:id="'produk' + ${dataProduk.id}" th:field="*{produk}">
+                                                                <label class="form-check-label" th:for="'produk' + ${dataProduk.id}" th:text="${dataProduk.produk}">
+                                                                    
+                                                                </label>
+                                                            </div>
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label class="col-form-label" for="firstname">Jenis Pembiayaan</label>
-                                                            <select class="form-control" id="jenis_pembiayaan" type="text" name="jenis_pembiayaan" th:field="*{jenis_pembiayaan}"
-                                                            placeholder="jenis_pembiayaan" th:classappend="${#fields.hasErrors('jenis_pembiayaan')} ?  is-invalid">
-                                                                <option th:each="dataJenisPembiayaan :${listDataJenisPembiayaan}" th:value="${dataJenisPembiayaan.id}" th:text="${dataJenisPembiayaan.jenis_pembiayaan}"></option>
+                                                            <label class="col-form-label" for="branch">Branch <input id="check-branch" type="checkbox"> </label> 
+                                                            <div style="overflow-y: auto;max-height: 10rem;">
+                                                                <div class="form-check ml-2" th:each="dataBranch :${listBranch}">
+                                                                    <input class="form-check-input branch" type="checkbox" th:value="${dataBranch.id}" th:id="'branch' + ${dataBranch.id}" th:field="*{branch}">
+                                                                    <label class="form-check-label" th:for="'branch' + ${dataBranch.id}" th:text="${dataBranch.name}">
+                                                                        
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="rateAsuransi">Skema Rate Asuransi</label>
+                                                            <select class="form-control" id="rateAsuransi" type="text" name="rateAsuransi" th:field="*{rateAsuransi}"
+                                                            placeholder="rateAsuransi" th:classappend="${#fields.hasErrors('rateAsuransi')} ?  is-invalid">
+                                                                <option th:each="sRateAsuransi :${skemaRateAsuransi}" th:value="${sRateAsuransi.id}" th:text="${sRateAsuransi.namaSkema}"></option>
                                                             </select>
-                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('jenis_pembiayaan')}" th:errors="*{jenis_pembiayaan}"></div>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('rateAsuransi')}" th:errors="*{rateAsuransi}"></div>
                                                         </div>
 
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Loan Type</label>
-                                                                <input class="form-control" id="loanType" th:field="*{loanType}"
-                                                                    name="loanType" th:classappend="${#fields.hasErrors('loanType')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('loanType')}" th:errors="*{loanType}"></div>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="perluasanAsuransi">Skema Perluasan Asuransi</label>
+                                                            <select class="form-control" id="perluasanAsuransi" type="text" name="perluasanAsuransi" th:field="*{perluasanAsuransi}"
+                                                            placeholder="perluasanAsuransi" th:classappend="${#fields.hasErrors('perluasanAsuransi')} ?  is-invalid">
+                                                                <option th:each="sPerluasanAsuransi :${skemaPerluasanAsuransi}" th:value="${sPerluasanAsuransi.id}" th:text="${sPerluasanAsuransi.namaSkema}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('perluasanAsuransi')}" th:errors="*{perluasanAsuransi}"></div>
                                                         </div>
 
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 1 (Rp)</label>
-                                                                <input class="form-control" id="tenor1" type="text" th:field="*{tenor1}"
-                                                                    name="tenor1" th:classappend="${#fields.hasErrors('tenor1')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor1')}" th:errors="*{tenor1}"></div>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 1 (%)</label>
-                                                                <input class="form-control" id="tenor1_persen" type="text" th:field="*{tenor1_persen}"
-                                                                    name="tenor1_persen" th:classappend="${#fields.hasErrors('tenor1_persen')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor1_persen')}" th:errors="*{tenor1_persen}"></div>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="rateCp">Skema Rate CP</label>
+                                                            <select class="form-control" id="rateCp" type="text" name="rateCp" th:field="*{rateCp}"
+                                                            placeholder="rateCp" th:classappend="${#fields.hasErrors('rateCp')} ?  is-invalid">
+                                                                <option th:each="sRateCP :${skemaRateCP}" th:value="${sRateCP.id}" th:text="${sRateCP.namaSkema}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('rateCp')}" th:errors="*{rateCp}"></div>
                                                         </div>
 
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 2 (Rp)</label>
-                                                                <input class="form-control" id="tenor2" type="text" th:field="*{tenor2}"
-                                                                    name="tenor2" th:classappend="${#fields.hasErrors('tenor2')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor2')}" th:errors="*{tenor2}"></div>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 2 (%)</label>
-                                                                <input class="form-control" id="tenor2_persen" type="text" th:field="*{tenor2_persen}"
-                                                                    name="tenor2_persen" th:classappend="${#fields.hasErrors('tenor2_persen')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor2_persen')}" th:errors="*{tenor2_persen}"></div>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="rateBunga">Skema Rate Bunga</label>
+                                                            <select class="form-control" id="rateBunga" type="text" name="rateBunga" th:field="*{rateBunga}"
+                                                            placeholder="rateBunga" th:classappend="${#fields.hasErrors('rateBunga')} ?  is-invalid">
+                                                                <option th:each="sRateBunga :${skemaRateBunga}" th:value="${sRateBunga.id}" th:text="${sRateBunga.namaSkema}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('rateBunga')}" th:errors="*{rateBunga}"></div>
                                                         </div>
 
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 3 (Rp)</label>
-                                                                <input class="form-control" id="tenor3" type="text" th:field="*{tenor3}"
-                                                                    name="tenor3" th:classappend="${#fields.hasErrors('tenor3')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor3')}" th:errors="*{tenor3}"></div>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 3 (%)</label>
-                                                                <input class="form-control" id="tenor3_persen" type="text" th:field="*{tenor3_persen}"
-                                                                    name="tenor3_persen" th:classappend="${#fields.hasErrors('tenor3_persen')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor3_persen')}" th:errors="*{tenor3_persen}"></div>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="biayaAdmin">Skema Biaya Admin</label>
+                                                            <select class="form-control" id="biayaAdmin" type="text" name="biayaAdmin" th:field="*{biayaAdmin}"
+                                                            placeholder="biayaAdmin" th:classappend="${#fields.hasErrors('biayaAdmin')} ?  is-invalid">
+                                                                <option th:each="sBiayaAdmin :${skemaBiayaAdmin}" th:value="${sBiayaAdmin.id}" th:text="${sBiayaAdmin.namaSkema}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('biayaAdmin')}" th:errors="*{biayaAdmin}"></div>
                                                         </div>
 
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 4 (Rp)</label>
-                                                                <input class="form-control" id="tenor4" type="text" th:field="*{tenor4}"
-                                                                    name="tenor4" th:classappend="${#fields.hasErrors('tenor4')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor4')}" th:errors="*{tenor4}"></div>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 4 (%)</label>
-                                                                <input class="form-control" id="tenor4_persen" type="text" th:field="*{tenor4_persen}"
-                                                                    name="tenor4_persen" th:classappend="${#fields.hasErrors('tenor4_persen')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor4_persen')}" th:errors="*{tenor4_persen}"></div>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="biayaProvisi">Skema Biaya Provisi</label>
+                                                            <select class="form-control" id="biayaProvisi" type="text" name="biayaProvisi" th:field="*{biayaProvisi}"
+                                                            placeholder="biayaProvisi" th:classappend="${#fields.hasErrors('biayaProvisi')} ?  is-invalid">
+                                                                <option th:each="sBiayaProvisi :${skemaBiayaProvisi}" th:value="${sBiayaProvisi.id}" th:text="${sBiayaProvisi.namaSkema}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('biayaProvisi')}" th:errors="*{biayaProvisi}"></div>
                                                         </div>
 
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 5 (Rp)</label>
-                                                                <input class="form-control" id="tenor5" type="text" th:field="*{tenor5}"
-                                                                    name="tenor5" th:classappend="${#fields.hasErrors('tenor5')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor5')}" th:errors="*{tenor5}"></div>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 5 (%)</label>
-                                                                <input class="form-control" id="tenor5_persen" type="text" th:field="*{tenor5_persen}"
-                                                                    name="tenor5_persen" th:classappend="${#fields.hasErrors('tenor5_persen')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor5_persen')}" th:errors="*{tenor5_persen}"></div>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="minimalDp">Skema Minimal DP</label>
+                                                            <select class="form-control" id="minimalDp" type="text" name="minimalDp" th:field="*{minimalDp}"
+                                                            placeholder="minimalDp" th:classappend="${#fields.hasErrors('minimalDp')} ?  is-invalid">
+                                                                <option th:each="sMinimalDP :${skemaMinimalDP}" th:value="${sMinimalDP.id}" th:text="${sMinimalDP.namaSkema}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('minimalDp')}" th:errors="*{minimalDp}"></div>
                                                         </div>
 
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 6 (Rp)</label>
-                                                                <input class="form-control" id="tenor6" type="text" th:field="*{tenor6}"
-                                                                    name="tenor6" th:classappend="${#fields.hasErrors('tenor6')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor6')}" th:errors="*{tenor6}"></div>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 6 (%)</label>
-                                                                <input class="form-control" id="tenor6_persen" type="text" th:field="*{tenor6_persen}"
-                                                                    name="tenor6_persen" th:classappend="${#fields.hasErrors('tenor6_persen')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor6_persen')}" th:errors="*{tenor6_persen}"></div>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="biayaFidusia">Skema Biaya Fidusia</label>
+                                                            <select class="form-control" id="biayaFidusia" type="text" name="biayaFidusia" th:field="*{biayaFidusia}"
+                                                            placeholder="biayaFidusia" th:classappend="${#fields.hasErrors('biayaFidusia')} ?  is-invalid">
+                                                                <option th:each="sBiayaFidusia :${skemaBiayaFidusia}" th:value="${sBiayaFidusia.id}" th:text="${sBiayaFidusia.namaSkema}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('biayaFidusia')}" th:errors="*{biayaFidusia}"></div>
                                                         </div>
 
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 7 (Rp)</label>
-                                                                <input class="form-control" id="tenor7" type="text" th:field="*{tenor7}"
-                                                                    name="tenor7" th:classappend="${#fields.hasErrors('tenor7')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor7')}" th:errors="*{tenor7}"></div>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 7 (%)</label>
-                                                                <input class="form-control" id="tenor7_persen" type="text" th:field="*{tenor7_persen}"
-                                                                    name="tenor7_persen" th:classappend="${#fields.hasErrors('tenor7_persen')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor7_persen')}" th:errors="*{tenor7_persen}"></div>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="komponenPh">Skema Komponen PH</label>
+                                                            <select class="form-control" id="komponenPh" type="text" name="komponenPh" th:field="*{komponenPh}"
+                                                            placeholder="komponenPh" th:classappend="${#fields.hasErrors('komponenPh')} ?  is-invalid">
+                                                                <option th:each="sKomponenPH :${skemaKomponenPH}" th:value="${sKomponenPH.id}" th:text="${sKomponenPH.namaSkema}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('komponenPh')}" th:errors="*{komponenPh}"></div>
                                                         </div>
 
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 8 (Rp)</label>
-                                                                <input class="form-control" id="tenor8" type="text" th:field="*{tenor8}"
-                                                                    name="tenor8" th:classappend="${#fields.hasErrors('tenor8')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor8')}" th:errors="*{tenor8}"></div>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 8 (%)</label>
-                                                                <input class="form-control" id="tenor8_persen" type="text" th:field="*{tenor8_persen}"
-                                                                    name="tenor8_persen" th:classappend="${#fields.hasErrors('tenor8_persen')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor8_persen')}" th:errors="*{tenor8_persen}"></div>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" for="usiaKendaraanLunas">Skema Usia Kendaraan Lunas</label>
+                                                            <select class="form-control" id="usiaKendaraanLunas" type="text" name="usiaKendaraanLunas" th:field="*{usiaKendaraanLunas}"
+                                                            placeholder="usiaKendaraanLunas" th:classappend="${#fields.hasErrors('usiaKendaraanLunas')} ?  is-invalid">
+                                                                <option th:each="sUsiaKendaraanLunas :${skemaUsiaKendaraanLunas}" th:value="${sUsiaKendaraanLunas.id}" th:text="${sUsiaKendaraanLunas.namaSkema}"></option>
+                                                            </select>
+                                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usiaKendaraanLunas')}" th:errors="*{usiaKendaraanLunas}"></div>
                                                         </div>
 
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 9 (Rp)</label>
-                                                                <input class="form-control" id="tenor9" type="text" th:field="*{tenor9}"
-                                                                    name="tenor9" th:classappend="${#fields.hasErrors('tenor9')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor9')}" th:errors="*{tenor9}"></div>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 9 (%)</label>
-                                                                <input class="form-control" id="tenor9_persen" type="text" th:field="*{tenor9_persen}"
-                                                                    name="tenor9_persen" th:classappend="${#fields.hasErrors('tenor9_persen')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor9_persen')}" th:errors="*{tenor9_persen}"></div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 10 (Rp)</label>
-                                                                <input class="form-control" id="tenor10" type="text" th:field="*{tenor10}"
-                                                                    name="tenor10" th:classappend="${#fields.hasErrors('tenor10')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor10')}" th:errors="*{tenor10}"></div>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label class="col-form-label" for="password">Tenor 10 (%)</label>
-                                                                <input class="form-control" id="tenor10_persen" type="text" th:field="*{tenor10_persen}"
-                                                                    name="tenor10_persen" th:classappend="${#fields.hasErrors('tenor10_persen')} ?  is-invalid">
-                                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('tenor10_persen')}" th:errors="*{tenor10_persen}"></div>
-                                                            </div>
-                                                        </div>
-
+                                                        <div class="form-group">
+                                                            <label for="deskripsi">Deskripsi</label>
+                                                            <textarea class="form-control" id="deskripsi" rows="3" th:field="*{deskripsi}"></textarea>
+                                                          </div>
 
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
@@ -226,7 +165,7 @@
                                                                 value="save">Save</button>
                                                             <button class="btn btn-primary" type="submit" name="action"
                                                                 value="submit">Submit</button>
-                                                            <a href="/BiayaProvisi/Data"><button class="btn btn-secondary" type="button">Cancel</button></a>
+                                                            <a href="/Program/Data"><button class="btn btn-secondary" type="button">Cancel</button></a>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -242,5 +181,21 @@
             <div th:replace="fragments/common :: footer"></div>
         </div>
         <div th:replace="fragments/common :: scripts"></div>
+        <script>
+             $(document).ready(function(){
+                $("#check-produk").click(function(event) {
+                    let check = this.checked;
+                    $('.produk').each(function() {
+                        this.checked = check;
+                    });
+                });
+                $("#check-branch").click(function(event) {
+                    let check = this.checked;
+                    $('.branch').each(function() {
+                        this.checked = check;
+                    });
+                });
+            });
+        </script>
     </body>
 </html>
