@@ -60,12 +60,12 @@ public class TujuanPenggunaanController {
 			model.addAttribute("listProduk",respon.getBody().getDataProduk());
 			model.addAttribute("tujuanPenggunaan", new TujuanPenggunaan());
 			
-			return "/pages/MasterParameter/TujuanPenggunaan/InputData";
+			return "pages/MasterParameter/TujuanPenggunaan/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/TujuanPenggunaan/Export/Excel")
@@ -104,7 +104,7 @@ public class TujuanPenggunaanController {
 
 			model.addAttribute("listProduk",respon.getBody().getDataProduk());
 			model.addAttribute("tujuanPenggunaan", tujuanPenggunaan);
-            return "/pages/MasterParameter/TujuanPenggunaan/InputData";
+            return "pages/MasterParameter/TujuanPenggunaan/InputData";
         }
 
 
@@ -121,7 +121,7 @@ public class TujuanPenggunaanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/TujuanPenggunaan/ActionEditData")
@@ -139,7 +139,7 @@ public class TujuanPenggunaanController {
 
 			model.addAttribute("listProduk",respon.getBody().getDataProduk());
 			model.addAttribute("tujuanPenggunaan", tujuanPenggunaan);
-            return "/pages/MasterParameter/TujuanPenggunaan/EditData";
+            return "pages/MasterParameter/TujuanPenggunaan/EditData";
         }
 
 
@@ -156,7 +156,7 @@ public class TujuanPenggunaanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/TujuanPenggunaan/ActionApprovalData")
@@ -174,7 +174,7 @@ public class TujuanPenggunaanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/TujuanPenggunaan/ActionData")
@@ -192,7 +192,7 @@ public class TujuanPenggunaanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/TujuanPenggunaan/ActionApproval")
@@ -210,7 +210,7 @@ public class TujuanPenggunaanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/TujuanPenggunaan/EditData/{id}", method = RequestMethod.GET)
@@ -230,12 +230,12 @@ public class TujuanPenggunaanController {
 				ResponProduk.class);
 			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
 			
-			return "/pages/MasterParameter/TujuanPenggunaan/EditData";
+			return "pages/MasterParameter/TujuanPenggunaan/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/TujuanPenggunaan/Data" })
@@ -246,12 +246,12 @@ public class TujuanPenggunaanController {
 					ResponTujuanPenggunaan.class);
 
 			model.addAttribute("listTujuanPenggunaan", respon.getBody().getDataTujuanPenggunaan());
-			return "/pages/MasterParameter/TujuanPenggunaan/Data";
+			return "pages/MasterParameter/TujuanPenggunaan/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/TujuanPenggunaan/ApprovalData" })
@@ -263,12 +263,12 @@ public class TujuanPenggunaanController {
 
 			model.addAttribute("listTujuanPenggunaan", respon.getBody().getDataTujuanPenggunaan());
 			
-			return "/pages/MasterParameter/TujuanPenggunaan/ApprovalData";
+			return "pages/MasterParameter/TujuanPenggunaan/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/TujuanPenggunaan/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -287,12 +287,12 @@ public class TujuanPenggunaanController {
 				ResponProduk.class);
 			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
 
-			return "/pages/MasterParameter/TujuanPenggunaan/FormApprovalData";
+			return "pages/MasterParameter/TujuanPenggunaan/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

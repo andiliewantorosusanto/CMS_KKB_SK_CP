@@ -53,12 +53,12 @@ public class BiayaFidusiaController {
 			
 			model.addAttribute("biayaFidusia", new BiayaFidusia());
 			
-			return "/pages/MasterParameter/BiayaFidusia/InputData";
+			return "pages/MasterParameter/BiayaFidusia/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/BiayaFidusia/Export/Excel")
@@ -92,7 +92,7 @@ public class BiayaFidusiaController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("biayaFidusia", biayaFidusia);
-            return "/pages/MasterParameter/BiayaFidusia/InputData";
+            return "pages/MasterParameter/BiayaFidusia/InputData";
         }
 
 
@@ -109,7 +109,7 @@ public class BiayaFidusiaController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/BiayaFidusia/ActionEditData")
@@ -122,7 +122,7 @@ public class BiayaFidusiaController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("biayaFidusia", biayaFidusia);
-            return "/pages/MasterParameter/BiayaFidusia/EditData";
+            return "pages/MasterParameter/BiayaFidusia/EditData";
         }
 
 
@@ -139,7 +139,7 @@ public class BiayaFidusiaController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/BiayaFidusia/ActionApprovalData")
@@ -157,7 +157,7 @@ public class BiayaFidusiaController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/BiayaFidusia/ActionData")
@@ -175,7 +175,7 @@ public class BiayaFidusiaController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/BiayaFidusia/ActionApproval")
@@ -193,7 +193,7 @@ public class BiayaFidusiaController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/BiayaFidusia/EditData/{id}", method = RequestMethod.GET)
@@ -208,12 +208,12 @@ public class BiayaFidusiaController {
 
 			model.addAttribute("biayaFidusia",respon.getBody().getBiayaFidusia());
 			
-			return "/pages/MasterParameter/BiayaFidusia/EditData";
+			return "pages/MasterParameter/BiayaFidusia/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/BiayaFidusia/Data" })
@@ -225,12 +225,12 @@ public class BiayaFidusiaController {
 
 			model.addAttribute("listBiayaFidusia", respon.getBody().getDataBiayaFidusia());
 
-			return "/pages/MasterParameter/BiayaFidusia/Data";
+			return "pages/MasterParameter/BiayaFidusia/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/BiayaFidusia/ApprovalData" })
@@ -242,12 +242,12 @@ public class BiayaFidusiaController {
 
 			model.addAttribute("listBiayaFidusia", respon.getBody().getDataBiayaFidusia());
 			
-			return "/pages/MasterParameter/BiayaFidusia/ApprovalData";
+			return "pages/MasterParameter/BiayaFidusia/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/BiayaFidusia/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -261,12 +261,12 @@ public class BiayaFidusiaController {
 			);
 			model.addAttribute("biayaFidusia",respon.getBody().getBiayaFidusia());
 
-			return "/pages/MasterParameter/BiayaFidusia/FormApprovalData";
+			return "pages/MasterParameter/BiayaFidusia/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

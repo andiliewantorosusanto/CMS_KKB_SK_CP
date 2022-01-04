@@ -53,12 +53,12 @@ public class JenisKendaraanController {
 			
 			model.addAttribute("jenisKendaraan", new JenisKendaraan());
 			
-			return "/pages/MasterParameter/JenisKendaraan/InputData";
+			return "pages/MasterParameter/JenisKendaraan/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/JenisKendaraan/Export/Excel")
@@ -92,7 +92,7 @@ public class JenisKendaraanController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("jenisKendaraan", jenisKendaraan);
-            return "/pages/MasterParameter/JenisKendaraan/InputData";
+            return "pages/MasterParameter/JenisKendaraan/InputData";
         }
 
 
@@ -109,7 +109,7 @@ public class JenisKendaraanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/JenisKendaraan/ActionEditData")
@@ -122,7 +122,7 @@ public class JenisKendaraanController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("jenisKendaraan", jenisKendaraan);
-            return "/pages/MasterParameter/JenisKendaraan/EditData";
+            return "pages/MasterParameter/JenisKendaraan/EditData";
         }
 
 
@@ -139,7 +139,7 @@ public class JenisKendaraanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/JenisKendaraan/ActionApprovalData")
@@ -157,7 +157,7 @@ public class JenisKendaraanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/JenisKendaraan/ActionData")
@@ -175,7 +175,7 @@ public class JenisKendaraanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/JenisKendaraan/ActionApproval")
@@ -193,7 +193,7 @@ public class JenisKendaraanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/JenisKendaraan/EditData/{id}", method = RequestMethod.GET)
@@ -208,12 +208,12 @@ public class JenisKendaraanController {
 
 			model.addAttribute("jenisKendaraan",respon.getBody().getJenisKendaraan());
 			
-			return "/pages/MasterParameter/JenisKendaraan/EditData";
+			return "pages/MasterParameter/JenisKendaraan/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/JenisKendaraan/Data" })
@@ -225,12 +225,12 @@ public class JenisKendaraanController {
 
 			model.addAttribute("listJenisKendaraan", respon.getBody().getDataJenisKendaraan());
 
-			return "/pages/MasterParameter/JenisKendaraan/Data";
+			return "pages/MasterParameter/JenisKendaraan/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/JenisKendaraan/ApprovalData" })
@@ -242,12 +242,12 @@ public class JenisKendaraanController {
 
 			model.addAttribute("listJenisKendaraan", respon.getBody().getDataJenisKendaraan());
 			
-			return "/pages/MasterParameter/JenisKendaraan/ApprovalData";
+			return "pages/MasterParameter/JenisKendaraan/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/JenisKendaraan/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -261,12 +261,12 @@ public class JenisKendaraanController {
 			);
 			model.addAttribute("jenisKendaraan",respon.getBody().getJenisKendaraan());
 
-			return "/pages/MasterParameter/JenisKendaraan/FormApprovalData";
+			return "pages/MasterParameter/JenisKendaraan/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

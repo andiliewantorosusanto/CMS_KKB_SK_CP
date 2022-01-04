@@ -77,12 +77,12 @@ public class RateBungaController {
 
 			model.addAttribute("rateBunga", rateBungaForm);
 
-			return "/pages/MasterParameter/RateBunga/InputData";
+			return "pages/MasterParameter/RateBunga/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/RateBunga/Export/Excel")
@@ -138,7 +138,7 @@ public class RateBungaController {
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 			model.addAttribute("rateBunga", rateBunga);
-            return "/pages/MasterParameter/RateBunga/InputData";
+            return "pages/MasterParameter/RateBunga/InputData";
         }
 
 		try {
@@ -177,7 +177,7 @@ public class RateBungaController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/RateBunga/ActionEditData")
@@ -206,7 +206,7 @@ public class RateBungaController {
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 			model.addAttribute("rateBunga", rateBunga);
-            return "/pages/MasterParameter/RateBunga/EditData";
+            return "pages/MasterParameter/RateBunga/EditData";
         }
 
 
@@ -223,7 +223,7 @@ public class RateBungaController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/RateBunga/ActionApprovalData")
@@ -241,7 +241,7 @@ public class RateBungaController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/RateBunga/ActionData")
@@ -259,7 +259,7 @@ public class RateBungaController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/RateBunga/ActionApproval")
@@ -277,7 +277,7 @@ public class RateBungaController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/RateBunga/EditData/{id}", method = RequestMethod.GET)
@@ -309,12 +309,12 @@ public class RateBungaController {
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 			
-			return "/pages/MasterParameter/RateBunga/EditData";
+			return "pages/MasterParameter/RateBunga/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/RateBunga/Data" })
@@ -326,12 +326,12 @@ public class RateBungaController {
 
 			model.addAttribute("listRateBunga", respon.getBody().getDataRateBunga());
 
-			return "/pages/MasterParameter/RateBunga/Data";
+			return "pages/MasterParameter/RateBunga/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/RateBunga/ApprovalData" })
@@ -343,12 +343,12 @@ public class RateBungaController {
 
 			model.addAttribute("listRateBunga", respon.getBody().getDataRateBunga());
 			
-			return "/pages/MasterParameter/RateBunga/ApprovalData";
+			return "pages/MasterParameter/RateBunga/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/RateBunga/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -379,12 +379,12 @@ public class RateBungaController {
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 
-			return "/pages/MasterParameter/RateBunga/FormApprovalData";
+			return "pages/MasterParameter/RateBunga/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

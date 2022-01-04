@@ -60,12 +60,12 @@ public class TipeKonsumenController {
 			model.addAttribute("listProduk",respon.getBody().getDataProduk());
 			model.addAttribute("tipeKonsumen", new TipeKonsumen());
 			
-			return "/pages/MasterParameter/TipeKonsumen/InputData";
+			return "pages/MasterParameter/TipeKonsumen/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/TipeKonsumen/Export/Excel")
@@ -104,7 +104,7 @@ public class TipeKonsumenController {
 
 			model.addAttribute("listProduk",respon.getBody().getDataProduk());
 			model.addAttribute("tipeKonsumen", tipeKonsumen);
-            return "/pages/MasterParameter/TipeKonsumen/InputData";
+            return "pages/MasterParameter/TipeKonsumen/InputData";
         }
 
 
@@ -121,7 +121,7 @@ public class TipeKonsumenController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/TipeKonsumen/ActionEditData")
@@ -139,7 +139,7 @@ public class TipeKonsumenController {
 
 			model.addAttribute("listProduk",respon.getBody().getDataProduk());
 			model.addAttribute("tipeKonsumen", tipeKonsumen);
-            return "/pages/MasterParameter/TipeKonsumen/EditData";
+            return "pages/MasterParameter/TipeKonsumen/EditData";
         }
 
 
@@ -156,7 +156,7 @@ public class TipeKonsumenController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/TipeKonsumen/ActionApprovalData")
@@ -174,7 +174,7 @@ public class TipeKonsumenController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/TipeKonsumen/ActionData")
@@ -192,7 +192,7 @@ public class TipeKonsumenController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/TipeKonsumen/ActionApproval")
@@ -210,7 +210,7 @@ public class TipeKonsumenController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/TipeKonsumen/EditData/{id}", method = RequestMethod.GET)
@@ -230,12 +230,12 @@ public class TipeKonsumenController {
 				ResponProduk.class);
 			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
 			
-			return "/pages/MasterParameter/TipeKonsumen/EditData";
+			return "pages/MasterParameter/TipeKonsumen/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/TipeKonsumen/Data" })
@@ -247,12 +247,12 @@ public class TipeKonsumenController {
 
 			model.addAttribute("listTipeKonsumen", respon.getBody().getDataTipeKonsumen());
 
-			return "/pages/MasterParameter/TipeKonsumen/Data";
+			return "pages/MasterParameter/TipeKonsumen/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/TipeKonsumen/ApprovalData" })
@@ -264,12 +264,12 @@ public class TipeKonsumenController {
 
 			model.addAttribute("listTipeKonsumen", respon.getBody().getDataTipeKonsumen());
 			
-			return "/pages/MasterParameter/TipeKonsumen/ApprovalData";
+			return "pages/MasterParameter/TipeKonsumen/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/TipeKonsumen/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -288,12 +288,12 @@ public class TipeKonsumenController {
 				ResponProduk.class);
 			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
 
-			return "/pages/MasterParameter/TipeKonsumen/FormApprovalData";
+			return "pages/MasterParameter/TipeKonsumen/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

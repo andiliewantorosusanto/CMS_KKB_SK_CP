@@ -84,12 +84,12 @@ public class BiayaAdminController {
 
 			model.addAttribute("biayaAdmin", biayaAdminForm);
 
-			return "/pages/MasterParameter/BiayaAdmin/InputData";
+			return "pages/MasterParameter/BiayaAdmin/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/BiayaAdmin/Export/Excel")
@@ -148,7 +148,7 @@ public class BiayaAdminController {
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 			model.addAttribute("biayaAdmin", biayaAdmin);
-            return "/pages/MasterParameter/BiayaAdmin/InputData";
+            return "pages/MasterParameter/BiayaAdmin/InputData";
         }
 
 
@@ -180,7 +180,7 @@ public class BiayaAdminController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/BiayaAdmin/ActionEditData")
@@ -212,7 +212,7 @@ public class BiayaAdminController {
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 			model.addAttribute("biayaAdmin", biayaAdmin);
-            return "/pages/MasterParameter/BiayaAdmin/EditData";
+            return "pages/MasterParameter/BiayaAdmin/EditData";
         }
 
 
@@ -229,7 +229,7 @@ public class BiayaAdminController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/BiayaAdmin/ActionApprovalData")
@@ -247,7 +247,7 @@ public class BiayaAdminController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/BiayaAdmin/ActionData")
@@ -265,7 +265,7 @@ public class BiayaAdminController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/BiayaAdmin/ActionApproval")
@@ -283,7 +283,7 @@ public class BiayaAdminController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/BiayaAdmin/EditData/{id}", method = RequestMethod.GET)
@@ -318,12 +318,12 @@ public class BiayaAdminController {
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 			
-			return "/pages/MasterParameter/BiayaAdmin/EditData";
+			return "pages/MasterParameter/BiayaAdmin/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/BiayaAdmin/Data" })
@@ -335,12 +335,12 @@ public class BiayaAdminController {
 
 			model.addAttribute("listBiayaAdmin", respon.getBody().getDataBiayaAdmin());
 
-			return "/pages/MasterParameter/BiayaAdmin/Data";
+			return "pages/MasterParameter/BiayaAdmin/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/BiayaAdmin/ApprovalData" })
@@ -352,12 +352,12 @@ public class BiayaAdminController {
 
 			model.addAttribute("listBiayaAdmin", respon.getBody().getDataBiayaAdmin());
 			
-			return "/pages/MasterParameter/BiayaAdmin/ApprovalData";
+			return "pages/MasterParameter/BiayaAdmin/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/BiayaAdmin/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -391,12 +391,12 @@ public class BiayaAdminController {
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 
-			return "/pages/MasterParameter/BiayaAdmin/FormApprovalData";
+			return "pages/MasterParameter/BiayaAdmin/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

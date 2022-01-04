@@ -90,12 +90,12 @@ public class KomponenPHController {
 
 			model.addAttribute("komponenPH", komponenPHForm);
 
-			return "/pages/MasterParameter/KomponenPH/InputData";
+			return "pages/MasterParameter/KomponenPH/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/KomponenPH/Export/Excel")
@@ -139,7 +139,7 @@ public class KomponenPHController {
 			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
 
 			model.addAttribute("komponenPH", komponenPH);
-            return "/pages/MasterParameter/KomponenPH/InputData";
+            return "pages/MasterParameter/KomponenPH/InputData";
         }
 
 
@@ -170,7 +170,7 @@ public class KomponenPHController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/KomponenPH/ActionEditData")
@@ -191,7 +191,7 @@ public class KomponenPHController {
 			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
 
 			model.addAttribute("komponenPH", komponenPH);
-            return "/pages/MasterParameter/KomponenPH/EditData";
+            return "pages/MasterParameter/KomponenPH/EditData";
         }
 
 
@@ -208,7 +208,7 @@ public class KomponenPHController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/KomponenPH/ActionApprovalData")
@@ -226,7 +226,7 @@ public class KomponenPHController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/KomponenPH/ActionData")
@@ -244,7 +244,7 @@ public class KomponenPHController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/KomponenPH/ActionApproval")
@@ -262,7 +262,7 @@ public class KomponenPHController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/KomponenPH/EditData/{id}", method = RequestMethod.GET)
@@ -289,12 +289,12 @@ public class KomponenPHController {
 				ResponJenisPembiayaan.class);
 			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
 			
-			return "/pages/MasterParameter/KomponenPH/EditData";
+			return "pages/MasterParameter/KomponenPH/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/KomponenPH/Data" })
@@ -306,12 +306,12 @@ public class KomponenPHController {
 
 			model.addAttribute("listKomponenPH", respon.getBody().getDataKomponenPH());
 
-			return "/pages/MasterParameter/KomponenPH/Data";
+			return "pages/MasterParameter/KomponenPH/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/KomponenPH/ApprovalData" })
@@ -323,12 +323,12 @@ public class KomponenPHController {
 
 			model.addAttribute("listKomponenPH", respon.getBody().getDataKomponenPH());
 			
-			return "/pages/MasterParameter/KomponenPH/ApprovalData";
+			return "pages/MasterParameter/KomponenPH/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/KomponenPH/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -352,12 +352,12 @@ public class KomponenPHController {
 				ResponJenisPembiayaan.class);
 			model.addAttribute("listJenisPembiayaan",responJenisPembiayaan.getBody().getDataJenisPembiayaan());
 
-			return "/pages/MasterParameter/KomponenPH/FormApprovalData";
+			return "pages/MasterParameter/KomponenPH/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

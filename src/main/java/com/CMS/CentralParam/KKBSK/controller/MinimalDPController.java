@@ -98,12 +98,12 @@ public class MinimalDPController {
 
 			model.addAttribute("minimalDP", minimalDPForm);
 
-			return "/pages/MasterParameter/MinimalDP/InputData";
+			return "pages/MasterParameter/MinimalDP/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/MinimalDP/Export/Excel")
@@ -170,7 +170,7 @@ public class MinimalDPController {
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 			model.addAttribute("f", minimalDP);
-            return "/pages/MasterParameter/MinimalDP/InputData";
+            return "pages/MasterParameter/MinimalDP/InputData";
         }
 
 
@@ -201,7 +201,7 @@ public class MinimalDPController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/MinimalDP/ActionEditData")
@@ -241,7 +241,7 @@ public class MinimalDPController {
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 			model.addAttribute("minimalDP", minimalDP);
-            return "/pages/MasterParameter/MinimalDP/EditData";
+            return "pages/MasterParameter/MinimalDP/EditData";
         }
 
 
@@ -258,7 +258,7 @@ public class MinimalDPController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/MinimalDP/ActionApprovalData")
@@ -276,7 +276,7 @@ public class MinimalDPController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/MinimalDP/ActionData")
@@ -294,7 +294,7 @@ public class MinimalDPController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/MinimalDP/ActionApproval")
@@ -312,7 +312,7 @@ public class MinimalDPController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/MinimalDP/EditData/{id}", method = RequestMethod.GET)
@@ -358,12 +358,12 @@ public class MinimalDPController {
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 			
-			return "/pages/MasterParameter/MinimalDP/EditData";
+			return "pages/MasterParameter/MinimalDP/EditData";
 		} catch (Exception e) {
 			System.out.println("err"+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/MinimalDP/Data" })
@@ -375,12 +375,12 @@ public class MinimalDPController {
 
 			model.addAttribute("listMinimalDP", respon.getBody().getDataMinimalDP());
 
-			return "/pages/MasterParameter/MinimalDP/Data";
+			return "pages/MasterParameter/MinimalDP/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/MinimalDP/ApprovalData" })
@@ -392,12 +392,12 @@ public class MinimalDPController {
 
 			model.addAttribute("listMinimalDP", respon.getBody().getDataMinimalDP());
 			
-			return "/pages/MasterParameter/MinimalDP/ApprovalData";
+			return "pages/MasterParameter/MinimalDP/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/MinimalDP/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -431,12 +431,12 @@ public class MinimalDPController {
 				ResponCluster.class);
 			model.addAttribute("listCluster",responCluster.getBody().getDataCluster());
 
-			return "/pages/MasterParameter/MinimalDP/FormApprovalData";
+			return "pages/MasterParameter/MinimalDP/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

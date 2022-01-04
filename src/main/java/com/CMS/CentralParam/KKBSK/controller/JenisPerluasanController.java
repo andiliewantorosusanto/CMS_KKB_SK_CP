@@ -60,12 +60,12 @@ public class JenisPerluasanController {
 			model.addAttribute("listProduk",respon.getBody().getDataProduk());
 			model.addAttribute("jenisPerluasan", new JenisPerluasan());
 			
-			return "/pages/MasterParameter/JenisPerluasan/InputData";
+			return "pages/MasterParameter/JenisPerluasan/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/JenisPerluasan/Export/Excel")
@@ -104,7 +104,7 @@ public class JenisPerluasanController {
 
 			model.addAttribute("listProduk",respon.getBody().getDataProduk());
 			model.addAttribute("jenisPerluasan", jenisPerluasan);
-            return "/pages/MasterParameter/JenisPerluasan/InputData";
+            return "pages/MasterParameter/JenisPerluasan/InputData";
         }
 
 
@@ -121,7 +121,7 @@ public class JenisPerluasanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/JenisPerluasan/ActionEditData")
@@ -139,7 +139,7 @@ public class JenisPerluasanController {
 
 			model.addAttribute("listProduk",respon.getBody().getDataProduk());
 			model.addAttribute("jenisPerluasan", jenisPerluasan);
-            return "/pages/MasterParameter/JenisPerluasan/EditData";
+            return "pages/MasterParameter/JenisPerluasan/EditData";
         }
 
 
@@ -156,7 +156,7 @@ public class JenisPerluasanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/JenisPerluasan/ActionApprovalData")
@@ -174,7 +174,7 @@ public class JenisPerluasanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/JenisPerluasan/ActionData")
@@ -192,7 +192,7 @@ public class JenisPerluasanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/JenisPerluasan/ActionApproval")
@@ -210,7 +210,7 @@ public class JenisPerluasanController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/JenisPerluasan/EditData/{id}", method = RequestMethod.GET)
@@ -230,12 +230,12 @@ public class JenisPerluasanController {
 				ResponProduk.class);
 			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
 			
-			return "/pages/MasterParameter/JenisPerluasan/EditData";
+			return "pages/MasterParameter/JenisPerluasan/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/JenisPerluasan/Data" })
@@ -247,12 +247,12 @@ public class JenisPerluasanController {
 
 			model.addAttribute("listJenisPerluasan", respon.getBody().getDataJenisPerluasan());
 
-			return "/pages/MasterParameter/JenisPerluasan/Data";
+			return "pages/MasterParameter/JenisPerluasan/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/JenisPerluasan/ApprovalData" })
@@ -264,12 +264,12 @@ public class JenisPerluasanController {
 
 			model.addAttribute("listJenisPerluasan", respon.getBody().getDataJenisPerluasan());
 			
-			return "/pages/MasterParameter/JenisPerluasan/ApprovalData";
+			return "pages/MasterParameter/JenisPerluasan/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/JenisPerluasan/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -288,12 +288,12 @@ public class JenisPerluasanController {
 				ResponProduk.class);
 			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
 
-			return "/pages/MasterParameter/JenisPerluasan/FormApprovalData";
+			return "pages/MasterParameter/JenisPerluasan/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

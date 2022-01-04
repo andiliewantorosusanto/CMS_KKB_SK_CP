@@ -60,12 +60,12 @@ public class ClusterController {
 			model.addAttribute("listProduk",respon.getBody().getDataProduk());
 			model.addAttribute("cluster", new Cluster());
 			
-			return "/pages/MasterParameter/Cluster/InputData";
+			return "pages/MasterParameter/Cluster/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/Cluster/Export/Excel")
@@ -104,7 +104,7 @@ public class ClusterController {
 
 			model.addAttribute("listProduk",respon.getBody().getDataProduk());
 			model.addAttribute("cluster", cluster);
-            return "/pages/MasterParameter/Cluster/InputData";
+            return "pages/MasterParameter/Cluster/InputData";
         }
 
 
@@ -121,7 +121,7 @@ public class ClusterController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Cluster/ActionEditData")
@@ -139,7 +139,7 @@ public class ClusterController {
 
 			model.addAttribute("listProduk",respon.getBody().getDataProduk());
 			model.addAttribute("cluster", cluster);
-            return "/pages/MasterParameter/Cluster/EditData";
+            return "pages/MasterParameter/Cluster/EditData";
         }
 
 
@@ -156,7 +156,7 @@ public class ClusterController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Cluster/ActionApprovalData")
@@ -174,7 +174,7 @@ public class ClusterController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Cluster/ActionData")
@@ -192,7 +192,7 @@ public class ClusterController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Cluster/ActionApproval")
@@ -210,7 +210,7 @@ public class ClusterController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/Cluster/EditData/{id}", method = RequestMethod.GET)
@@ -230,12 +230,12 @@ public class ClusterController {
 				ResponProduk.class);
 			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
 			
-			return "/pages/MasterParameter/Cluster/EditData";
+			return "pages/MasterParameter/Cluster/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/Cluster/Data" })
@@ -247,12 +247,12 @@ public class ClusterController {
 
 			model.addAttribute("listCluster", respon.getBody().getDataCluster());
 
-			return "/pages/MasterParameter/Cluster/Data";
+			return "pages/MasterParameter/Cluster/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/Cluster/ApprovalData" })
@@ -264,12 +264,12 @@ public class ClusterController {
 
 			model.addAttribute("listCluster", respon.getBody().getDataCluster());
 			
-			return "/pages/MasterParameter/Cluster/ApprovalData";
+			return "pages/MasterParameter/Cluster/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/Cluster/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -288,12 +288,12 @@ public class ClusterController {
 				ResponProduk.class);
 			model.addAttribute("listProduk",responProduk.getBody().getDataProduk());
 
-			return "/pages/MasterParameter/Cluster/FormApprovalData";
+			return "pages/MasterParameter/Cluster/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

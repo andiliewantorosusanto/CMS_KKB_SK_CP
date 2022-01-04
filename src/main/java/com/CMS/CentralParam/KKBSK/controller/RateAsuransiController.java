@@ -84,12 +84,12 @@ public class RateAsuransiController {
 
 			model.addAttribute("rateAsuransi", rateAsuransiForm);
 
-			return "/pages/MasterParameter/RateAsuransi/InputData";
+			return "pages/MasterParameter/RateAsuransi/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/RateAsuransi/Export/Excel")
@@ -145,7 +145,7 @@ public class RateAsuransiController {
 				ResponTipeAsuransi.class);
 			model.addAttribute("listTipeAsuransi",responTipeAsuransi.getBody().getDataTipeAsuransi());
 			model.addAttribute("rateAsuransi", rateAsuransi);
-            return "/pages/MasterParameter/RateAsuransi/InputData";
+            return "pages/MasterParameter/RateAsuransi/InputData";
         }
 
 
@@ -174,7 +174,7 @@ public class RateAsuransiController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/RateAsuransi/ActionEditData")
@@ -206,7 +206,7 @@ public class RateAsuransiController {
 				ResponTipeAsuransi.class);
 			model.addAttribute("listTipeAsuransi",responTipeAsuransi.getBody().getDataTipeAsuransi());
 			model.addAttribute("rateAsuransi", rateAsuransi);
-            return "/pages/MasterParameter/RateAsuransi/EditData";
+            return "pages/MasterParameter/RateAsuransi/EditData";
         }
 
 
@@ -223,7 +223,7 @@ public class RateAsuransiController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/RateAsuransi/ActionApprovalData")
@@ -241,7 +241,7 @@ public class RateAsuransiController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/RateAsuransi/ActionData")
@@ -259,7 +259,7 @@ public class RateAsuransiController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/RateAsuransi/ActionApproval")
@@ -277,7 +277,7 @@ public class RateAsuransiController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/RateAsuransi/EditData/{id}", method = RequestMethod.GET)
@@ -312,12 +312,12 @@ public class RateAsuransiController {
 				ResponTipeAsuransi.class);
 			model.addAttribute("listTipeAsuransi",responTipeAsuransi.getBody().getDataTipeAsuransi());
 			
-			return "/pages/MasterParameter/RateAsuransi/EditData";
+			return "pages/MasterParameter/RateAsuransi/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/RateAsuransi/Data" })
@@ -330,12 +330,12 @@ public class RateAsuransiController {
 			model.addAttribute("listRateAsuransi", respon.getBody().getDataRateAsuransi());
 
 			System.out.println(respon.getBody().getDataRateAsuransi());
-			return "/pages/MasterParameter/RateAsuransi/Data";
+			return "pages/MasterParameter/RateAsuransi/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/RateAsuransi/ApprovalData" })
@@ -347,12 +347,12 @@ public class RateAsuransiController {
 
 			model.addAttribute("listRateAsuransi", respon.getBody().getDataRateAsuransi());
 			
-			return "/pages/MasterParameter/RateAsuransi/ApprovalData";
+			return "pages/MasterParameter/RateAsuransi/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/RateAsuransi/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -386,12 +386,12 @@ public class RateAsuransiController {
 				ResponTipeAsuransi.class);
 			model.addAttribute("listTipeAsuransi",responTipeAsuransi.getBody().getDataTipeAsuransi());
 
-			return "/pages/MasterParameter/RateAsuransi/FormApprovalData";
+			return "pages/MasterParameter/RateAsuransi/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

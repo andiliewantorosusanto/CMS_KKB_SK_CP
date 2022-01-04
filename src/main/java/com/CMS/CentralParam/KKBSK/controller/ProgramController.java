@@ -85,12 +85,12 @@ public class ProgramController {
 			ProgramForm ProgramForm = new ProgramForm();
 			model.addAttribute("program", ProgramForm);
 
-			return "/pages/MasterParameter/Program/InputData";
+			return "pages/MasterParameter/Program/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/Program/Export/Excel")
@@ -150,7 +150,7 @@ public class ProgramController {
 			model.addAttribute("listBranch",responBranch.getBody().getDataBranch());
 
 			model.addAttribute("Program", program);
-            return "/pages/MasterParameter/Program/InputData";
+            return "pages/MasterParameter/Program/InputData";
         }
 
 
@@ -184,7 +184,7 @@ public class ProgramController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Program/ActionEditData")
@@ -223,7 +223,7 @@ public class ProgramController {
 			model.addAttribute("listBranch",responBranch.getBody().getDataBranch());
 
 			model.addAttribute("Program", Program);
-            return "/pages/MasterParameter/Program/EditData";
+            return "pages/MasterParameter/Program/EditData";
         }
 
 
@@ -240,7 +240,7 @@ public class ProgramController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Program/ActionApprovalData")
@@ -258,7 +258,7 @@ public class ProgramController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Program/ActionData")
@@ -276,7 +276,7 @@ public class ProgramController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Program/ActionApproval")
@@ -294,7 +294,7 @@ public class ProgramController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/Program/EditData/{id}", method = RequestMethod.GET)
@@ -335,12 +335,12 @@ public class ProgramController {
 
 			model.addAttribute("program",respon.getBody().getProgram());
 			
-			return "/pages/MasterParameter/Program/EditData";
+			return "pages/MasterParameter/Program/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/Program/Data" })
@@ -352,12 +352,12 @@ public class ProgramController {
 
 			model.addAttribute("listProgram", respon.getBody().getDataProgram());
 
-			return "/pages/MasterParameter/Program/Data";
+			return "pages/MasterParameter/Program/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/Program/ApprovalData" })
@@ -369,12 +369,12 @@ public class ProgramController {
 
 			model.addAttribute("listProgram", respon.getBody().getDataProgram());
 			
-			return "/pages/MasterParameter/Program/ApprovalData";
+			return "pages/MasterParameter/Program/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/Program/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -414,12 +414,12 @@ public class ProgramController {
 			);
 			model.addAttribute("program",respon.getBody().getProgram());
 
-			return "/pages/MasterParameter/Program/FormApprovalData";
+			return "pages/MasterParameter/Program/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

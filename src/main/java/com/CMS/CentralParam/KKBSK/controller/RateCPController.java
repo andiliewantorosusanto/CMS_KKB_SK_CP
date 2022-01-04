@@ -63,12 +63,12 @@ public class RateCPController {
 
 			model.addAttribute("rateCP", rateCPForm);
 
-			return "/pages/MasterParameter/RateCP/InputData";
+			return "pages/MasterParameter/RateCP/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/RateCP/Export/Excel")
@@ -106,7 +106,7 @@ public class RateCPController {
 				ResponTipeKonsumen.class);
 			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
 			model.addAttribute("rateCP", rateCP);
-            return "/pages/MasterParameter/RateCP/InputData";
+            return "pages/MasterParameter/RateCP/InputData";
         }
 
 
@@ -122,7 +122,7 @@ public class RateCPController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/RateCP/ActionEditData")
@@ -140,7 +140,7 @@ public class RateCPController {
 			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
 
 			model.addAttribute("rateCP", rateCP);
-            return "/pages/MasterParameter/RateCP/EditData";
+            return "pages/MasterParameter/RateCP/EditData";
         }
 
 
@@ -157,7 +157,7 @@ public class RateCPController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/RateCP/ActionApprovalData")
@@ -175,7 +175,7 @@ public class RateCPController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/RateCP/ActionData")
@@ -193,7 +193,7 @@ public class RateCPController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/RateCP/ActionApproval")
@@ -211,7 +211,7 @@ public class RateCPController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/RateCP/EditData/{id}", method = RequestMethod.GET)
@@ -231,12 +231,12 @@ public class RateCPController {
 				ResponTipeKonsumen.class);
 			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
 			
-			return "/pages/MasterParameter/RateCP/EditData";
+			return "pages/MasterParameter/RateCP/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/RateCP/Data" })
@@ -248,12 +248,12 @@ public class RateCPController {
 
 			model.addAttribute("listRateCP", respon.getBody().getDataRateCP());
 
-			return "/pages/MasterParameter/RateCP/Data";
+			return "pages/MasterParameter/RateCP/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/RateCP/ApprovalData" })
@@ -265,12 +265,12 @@ public class RateCPController {
 
 			model.addAttribute("listRateCP", respon.getBody().getDataRateCP());
 			
-			return "/pages/MasterParameter/RateCP/ApprovalData";
+			return "pages/MasterParameter/RateCP/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/RateCP/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -289,12 +289,12 @@ public class RateCPController {
 				ResponTipeKonsumen.class);
 			model.addAttribute("listTipeKonsumen",responTipeKonsumen.getBody().getDataTipeKonsumen());
 
-			return "/pages/MasterParameter/RateCP/FormApprovalData";
+			return "pages/MasterParameter/RateCP/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

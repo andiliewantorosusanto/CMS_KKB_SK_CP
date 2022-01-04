@@ -53,12 +53,12 @@ public class WilayahController {
 			
 			model.addAttribute("wilayah", new Wilayah());
 			
-			return "/pages/MasterParameter/Wilayah/InputData";
+			return "pages/MasterParameter/Wilayah/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/Wilayah/Export/Excel")
@@ -92,7 +92,7 @@ public class WilayahController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("wilayah", wilayah);
-            return "/pages/MasterParameter/Wilayah/InputData";
+            return "pages/MasterParameter/Wilayah/InputData";
         }
 
 
@@ -109,7 +109,7 @@ public class WilayahController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Wilayah/ActionEditData")
@@ -122,7 +122,7 @@ public class WilayahController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("wilayah", wilayah);
-            return "/pages/MasterParameter/Wilayah/EditData";
+            return "pages/MasterParameter/Wilayah/EditData";
         }
 
 
@@ -139,7 +139,7 @@ public class WilayahController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Wilayah/ActionApprovalData")
@@ -157,7 +157,7 @@ public class WilayahController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Wilayah/ActionData")
@@ -175,7 +175,7 @@ public class WilayahController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Wilayah/ActionApproval")
@@ -193,7 +193,7 @@ public class WilayahController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/Wilayah/EditData/{id}", method = RequestMethod.GET)
@@ -208,12 +208,12 @@ public class WilayahController {
 
 			model.addAttribute("wilayah",respon.getBody().getWilayah());
 			
-			return "/pages/MasterParameter/Wilayah/EditData";
+			return "pages/MasterParameter/Wilayah/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/Wilayah/Data" })
@@ -225,12 +225,12 @@ public class WilayahController {
 
 			model.addAttribute("listWilayah", respon.getBody().getDataWilayah());
 
-			return "/pages/MasterParameter/Wilayah/Data";
+			return "pages/MasterParameter/Wilayah/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/Wilayah/ApprovalData" })
@@ -242,12 +242,12 @@ public class WilayahController {
 
 			model.addAttribute("listWilayah", respon.getBody().getDataWilayah());
 			
-			return "/pages/MasterParameter/Wilayah/ApprovalData";
+			return "pages/MasterParameter/Wilayah/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/Wilayah/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -261,12 +261,12 @@ public class WilayahController {
 			);
 			model.addAttribute("wilayah",respon.getBody().getWilayah());
 
-			return "/pages/MasterParameter/Wilayah/FormApprovalData";
+			return "pages/MasterParameter/Wilayah/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	

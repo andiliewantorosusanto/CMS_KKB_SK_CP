@@ -53,12 +53,12 @@ public class ProdukController {
 			
 			model.addAttribute("produk", new Produk());
 			
-			return "/pages/MasterParameter/Produk/InputData";
+			return "pages/MasterParameter/Produk/InputData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping("/Produk/Export/Excel")
@@ -92,7 +92,7 @@ public class ProdukController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("produk", produk);
-            return "/pages/MasterParameter/Produk/InputData";
+            return "pages/MasterParameter/Produk/InputData";
         }
 
 
@@ -109,7 +109,7 @@ public class ProdukController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Produk/ActionEditData")
@@ -122,7 +122,7 @@ public class ProdukController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("produk", produk);
-            return "/pages/MasterParameter/Produk/EditData";
+            return "pages/MasterParameter/Produk/EditData";
         }
 
 
@@ -139,7 +139,7 @@ public class ProdukController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Produk/ActionApprovalData")
@@ -157,7 +157,7 @@ public class ProdukController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Produk/ActionData")
@@ -175,7 +175,7 @@ public class ProdukController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@PostMapping(value = "/Produk/ActionApproval")
@@ -193,7 +193,7 @@ public class ProdukController {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/Produk/EditData/{id}", method = RequestMethod.GET)
@@ -208,12 +208,12 @@ public class ProdukController {
 
 			model.addAttribute("produk",respon.getBody().getProduk());
 			
-			return "/pages/MasterParameter/Produk/EditData";
+			return "pages/MasterParameter/Produk/EditData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/Produk/Data" })
@@ -225,12 +225,12 @@ public class ProdukController {
 
 			model.addAttribute("listProduk", respon.getBody().getDataProduk());
 
-			return "/pages/MasterParameter/Produk/Data";
+			return "pages/MasterParameter/Produk/Data";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@GetMapping(value = { "/Produk/ApprovalData" })
@@ -242,12 +242,12 @@ public class ProdukController {
 
 			model.addAttribute("listProduk", respon.getBody().getDataProduk());
 			
-			return "/pages/MasterParameter/Produk/ApprovalData";
+			return "pages/MasterParameter/Produk/ApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	@RequestMapping(value = "/Produk/FormApprovalData/{id}", method = RequestMethod.GET)
@@ -261,12 +261,12 @@ public class ProdukController {
 			);
 			model.addAttribute("produk",respon.getBody().getProduk());
 
-			return "/pages/MasterParameter/Produk/FormApprovalData";
+			return "pages/MasterParameter/Produk/FormApprovalData";
 		} catch (Exception e) {
 			System.out.println("Error : "+e.toString());
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}
-		return "/pages/expired/token";
+		return "pages/expired/token";
 	}
 
 	
